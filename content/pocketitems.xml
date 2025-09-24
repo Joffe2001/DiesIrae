@@ -1,0 +1,11 @@
+<pocketitems>
+    <rune type="object" pickup="73" name="A little piece of heaven" description="I want to see Heaven" hud="alpoh" greedmode="true"/>
+
+    <pilleffect name="Blessed Pill" description="All the bad things are gone" class="+3" mimiccharge="12"/>
+    <pilleffect name="Cursed Pill" description="I've been cursed!" class="-2" mimiccharge="2"/>
+    <pilleffect name="Heartbreak Pill" description="It hurts inside" class="-2" mimiccharge="2"/>
+    <pilleffect name="Love Pill" description="I feel the love!" class="+3" mimiccharge="12"/>
+    <pilleffect name="Power Drain Pill" description="I need more power" class="-2" mimiccharge="4"/>
+    <pilleffect name="Gulping Pill" description="Tasty!" class="+2" mimiccharge="3"/>
+    <pilleffect name="Equal Pill" description="It can be good or bad" class="+1" mimiccharge="6"/>
+</pocketitems>

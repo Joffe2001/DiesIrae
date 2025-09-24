@@ -1,0 +1,242 @@
+<ItemPools>
+
+ <!-- Regular gameplay-->
+    <Pool Name="boss">
+        <Item Name="U2" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="treasure">
+        <Item Name="Army of Lovers" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hypa Hypa" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Coma White" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Good Vibes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="The Bad Touch" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Here to Stay" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Ring of Fire" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Echo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Monsters Under The Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Thought Contagion" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Last Resort" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Another Medium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="shop">
+        <Item Name="Army of Lovers" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Diary of a Madman" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Coma White" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Ultra Secret Map" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Another Medium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="dungeon">
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Monsters Under The Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+<!-- Special rooms-->
+    <Pool Name="angel">
+        <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Holy Wood" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Engel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="devil">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Helter skelter" Weight="1" DecreaseBy="1" RemoveOn="0.1" /> 
+        <Item Name="Devil's Luck" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Devil's Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="curse">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Helter skelter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" /> 
+        <Item Name="Last Resort" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="secret">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="White room" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="library">
+        <Item Name="Diary of a Madman" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="bossrush">
+        <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Good Vibes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Here to Stay" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="ultraSecret">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Sh-boom!!" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Ultra Secret Map" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="planetarium">
+        <Item Name="Universal" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Solar Flare" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+
+<!-- Chests-->
+    <Pool Name="goldenChest">
+        <Item Name="The Bad Touch" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Ring of Fire" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="redChest">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="momsChest">
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="oldChest">
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+<!--Beggars and stuff-->
+    <Pool Name="craneGame">
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="beggar">
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Good Vibes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="demonBeggar">
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Devil's Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Last Resort" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="KeyMaster">
+    </Pool>
+
+	<Pool Name="bombBum">
+    </Pool>
+
+    <Pool Name="rottenBeggar">
+        <Item Name="The Bad Touch" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="batteryBum">
+    </Pool>
+
+
+<!--Greed mode-->
+    <Pool Name="greedShop">
+        <Item Name="Army of Lovers" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Another Medium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="greedTreasure">
+        <Item Name="Army of Lovers" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Good Vibes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="The Bad Touch" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Here to Stay" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
+        <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Monsters Under The Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Thought Contagion" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Another Medium" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="greedAngel">
+        <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Engel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="greedDevil">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Devil's Luck" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Devil's Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Last Resort" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="greedCurse">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Last Resort" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+    <Pool Name="greedSecret">
+        <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+
+</ItemPools>

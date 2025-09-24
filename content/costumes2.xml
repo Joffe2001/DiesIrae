@@ -1,0 +1,5 @@
+<costumes anm2root="gfx/characters/">
+    <costume anm2path="david_hair.anm2" type="none" priority="800"/>
+    <costume id="1" name="U2" anm2path="u2.anm2" type="passive" priority="20" />
+    <costume id="7" name="Mom's Dress" anm2path="momsdress.anm2" type="passive" priority="50" />
+</costumes>
