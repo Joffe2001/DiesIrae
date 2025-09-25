@@ -3,6 +3,8 @@ WhiteRoom.COLLECTIBLE_ID = Isaac.GetItemIdByName("White Room")
 local game = Game()
 local sfx = game:GetSFX()
 
+--THIS ITEM DOES NOT SEEM TO BE IN USE, THUS I DID NOT REWORK THE CODE
+
 -- Passive: convert champions on spawn
 function WhiteRoom:onNPCInit(npc)
     if not npc:IsChampion() then return end

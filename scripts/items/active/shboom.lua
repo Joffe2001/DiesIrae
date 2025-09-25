@@ -1,27 +1,28 @@
 local ShBoom = {}
-ShBoom.COLLECTIBLE_ID = Isaac.GetItemIdByName("Sh-boom!!")
-local game = Game()
-local sfx = SFXManager()
+ShBoom.COLLECTIBLE_ID = Enums.Items.ShBoom
+
+--THIS ITEM IS NOT IN items.xml SO I DID NOT REWORK THE CODE
 
 local usedThisFloor = false
 
--- Use Item
+---@param player EntityPlayer
 function ShBoom:UseItem(_, _, player)
     if usedThisFloor then
-        return false -- silently block reuse
+        return {
+            Discharge = false,
+            Remove = false,
+            ShowAnim = false
+        }
     end
 
-    -- Full Mama Mega explosion
-    game:GetRoom():MamaMegaExplosion(player.Position, player)
-    game:ShakeScreen(30)
-    sfx:Play(134)
+    GameRef:GetRoom():MamaMegaExplosion(player.Position)
+    GameRef:ShakeScreen(30)
+    SfxManager:Play(134)
 
-    -- Player receives 1 broken heart as cost
     player:AddBrokenHearts(1)
 
-    -- Open secret doors
     for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
-        local door = game:GetRoom():GetDoor(i)
+        local door = GameRef:GetRoom():GetDoor(i)
         if door and (door.TargetRoomType == RoomType.ROOM_SECRET or door.TargetRoomType == RoomType.ROOM_SUPERSECRET) then
             door:Open()
         end
@@ -36,7 +37,7 @@ end
 -- Reset charge on new floor
 function ShBoom:OnNewLevel()
     usedThisFloor = false
-    for i = 0, game:GetNumPlayers() - 1 do
+    for i = 0, GameRef:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         if player:HasCollectible(ShBoom.COLLECTIBLE_ID) then
             player:SetActiveCharge(4, ActiveSlot.SLOT_PRIMARY) -- full recharge manually

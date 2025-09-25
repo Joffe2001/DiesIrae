@@ -1,5 +1,5 @@
 local Diary_madman = {}
-Diary_madman.COLLECTIBLE_ID = Isaac.GetItemIdByName("Diary of a Madman")
+Diary_madman.COLLECTIBLE_ID = Enums.Items.DiaryOfAMadman
 
 local active = false
 local statMods = {}
@@ -22,6 +22,7 @@ local statRanges = {
     RANGE = {min = -1, max = 3},
 }
 
+---@param player EntityPlayer
 function Diary_madman:UseItem(_, _, player)
     if active then return false end
 
@@ -39,12 +40,18 @@ function Diary_madman:UseItem(_, _, player)
         statMods[stat] = val
     end
 
-    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE + CacheFlag.CACHE_SPEED + CacheFlag.CACHE_FIREDELAY + CacheFlag.CACHE_SHOTSPEED + CacheFlag.CACHE_LUCK + CacheFlag.CACHE_RANGE)
+    player:AddCacheFlags(CacheFlag.CACHE_ALL)
     player:EvaluateItems()
 
-    return true
+    return {
+        Discharge = true,
+        Remove = false,
+        ShowAnim = true
+    }
 end
 
+---@param player EntityPlayer
+---@param cacheFlag CacheFlag
 function Diary_madman:OnCache(player, cacheFlag)
     if not active then return end
 
@@ -78,8 +85,7 @@ function Diary_madman:OnNewRoom()
         local player = Isaac.GetPlayer(0)
         active = false
         statMods = {}
-        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE + CacheFlag.CACHE_SPEED + CacheFlag.CACHE_FIREDELAY + CacheFlag.CACHE_SHOTSPEED + CacheFlag.CACHE_LUCK + CacheFlag.CACHE_RANGE)
-        player:EvaluateItems()
+        player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
     end
 end
 

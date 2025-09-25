@@ -1,8 +1,10 @@
 local RedMap = {}
-RedMap.COLLECTIBLE_ID = Isaac.GetItemIdByName("Red Map")
+RedMap.COLLECTIBLE_ID = Enums.Items.RedMap
 
--- Function to teleport Isaac to a random red room (even without keys)
-function RedMap:UseItem(_, _, player, _, _)
+--probably impossible concept
+
+---@param player EntityPlayer
+function RedMap:UseItem(_, _, player)
     local level = Game():GetLevel()
     local roomsCount = level:GetRoomsCount()
 

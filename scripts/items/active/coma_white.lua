@@ -1,19 +1,23 @@
 local ComaWhite = {}
-ComaWhite.COLLECTIBLE_ID = Isaac.GetItemIdByName("Coma White")
-local game = Game()
+ComaWhite.COLLECTIBLE_ID = Enums.Items.ComaWhite
 
 local blockBossReward = false
 
+---@param player EntityPlayer
 function ComaWhite:UseItem(_, _, player)
     player:AddEternalHearts(1)
     blockBossReward = true
-    return true
+    return {
+        Discharge = true,
+        Remove = false,
+        ShowAnim = true
+    }
 end
 
--- After reward spawns, remove the boss item
+---@param pickup EntityPickup
 function ComaWhite:PostPickupInit(pickup)
     if blockBossReward
-    and game:GetRoom():GetType() == RoomType.ROOM_BOSS
+    and GameRef:GetRoom():GetType() == RoomType.ROOM_BOSS
     and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         pickup:Remove()
         blockBossReward = false
