@@ -42,6 +42,11 @@ Enums.Items = {
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     BigShot              = Isaac.GetItemIdByName("Big Shot"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
+    BackInAnger          = Isaac.GetItemIdByName("Back in Anger"),
+    BossCompass          = Isaac.GetItemIdByName("Boss Compass"),
+
+    -- Familiars
+    ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),
@@ -83,6 +88,11 @@ Enums.AchievementGraphics = {
         Isaac     = "achievement.something_else",
         Satan     = "achievement.something_else2"
     }
+}
+
+Enums.EntityVariants = {
+    ParanoidAndroid = Isaac.GetEntityVariantByName("Paranoid Android"),
+    AndroidLazerRing = Isaac.GetEntityVariantByName("Android Lazer Ring")
 }
 
 return Enums

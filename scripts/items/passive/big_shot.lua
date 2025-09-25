@@ -1,9 +1,6 @@
 local BigShot = {}
-BigShot.COLLECTIBLE_ID = Isaac.GetItemIdByName("Big Shot")
-local game = Game()
-local sfx = SFXManager()
+BigShot.COLLECTIBLE_ID = Enums.Items.BigShot
 
--- per-player charge state
 local states = {}
 local function getState(player)
     local id = player.InitSeed
@@ -14,13 +11,12 @@ local function getState(player)
 end
 
 -- CONFIG
-local CHARGE_TIME = 45 -- frames to full charge
+local CHARGE_TIME = 45
 local SPEED = 14
 local DAMAGE_MULT = 2
 local BASE_BONUS = 5
 local SCALE_MULT = 2.5
 
--- convert fireDir to vector
 local function fireDirToVector(dir)
     if dir == Direction.LEFT then return Vector(-1, 0)
     elseif dir == Direction.RIGHT then return Vector(1, 0)

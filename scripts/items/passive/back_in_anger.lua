@@ -1,10 +1,10 @@
 local BackInAnger = {} 
-BackInAnger.COLLECTIBLE_ID = Isaac.GetItemIdByName("Back in Anger")
-local game = Game()
+BackInAnger.COLLECTIBLE_ID = Enums.Items.BackInAnger
 
 -- Custom fire delay tracker
 local fireCooldown = {}
 
+---@param player EntityPlayer
 function BackInAnger:onUpdate(player)
     if not player:HasCollectible(BackInAnger.COLLECTIBLE_ID) then return end
 

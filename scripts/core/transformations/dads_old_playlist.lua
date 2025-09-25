@@ -15,10 +15,8 @@ DadPlaylist.ITEMS = {
     Isaac.GetItemIdByName("Muse")
 }
 
-local game = Game()
-local sfx = SFXManager()
-
--- Count how many transformation items a player has
+---@param player EntityPlayer
+---@return integer
 local function GetItemCount(player)
     local count = 0
     for _, id in ipairs(DadPlaylist.ITEMS) do
@@ -29,41 +27,42 @@ local function GetItemCount(player)
     return count
 end
 
+---@param player EntityPlayer
 function DadPlaylist:onPlayerInit(player)
     player:GetData().hasDadPlaylist = false
 end
 
+---@param player EntityPlayer
 function DadPlaylist:onPlayerUpdate(player)
-    local p = player:ToPlayer()
-    if not p then return end
-    local data = p:GetData()
+    local data = player:GetData()
 
-    -- initialize if missing
     if data.hasDadPlaylist == nil then
         data.hasDadPlaylist = false
     end
 
-    local count = GetItemCount(p)
+    local count = GetItemCount(player)
 
     if not data.hasDadPlaylist and count >= 3 then
         data.hasDadPlaylist = true
-        game:GetHUD():ShowItemText(DadPlaylist.TRANSFORMATION_NAME)
-        sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
-        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, p.Position, Vector.Zero, p)
+        GameRef:GetHUD():ShowItemText(DadPlaylist.TRANSFORMATION_NAME)
+        SfxManager:Play(SoundEffect.SOUND_POWERUP_SPEWER)
+        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, player)
 
         -- optional costume
         -- p:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/5_transformation_DadPlaylist.anm2"))
 
-        p:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
-        p:EvaluateItems()
+        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+        player:EvaluateItems()
     elseif data.hasDadPlaylist and count < 3 then
         data.hasDadPlaylist = false
         -- p:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/5_transformation_DadPlaylist.anm2"))
-        p:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
-        p:EvaluateItems()
+        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+        player:EvaluateItems()
     end
 end
 
+---@param player EntityPlayer
+---@param cacheFlag CacheFlag
 function DadPlaylist:onEvaluateCache(player, cacheFlag)
     local p = player:ToPlayer()
     if not p then return end
@@ -72,6 +71,7 @@ function DadPlaylist:onEvaluateCache(player, cacheFlag)
     end
 end
 
+---@param tear EntityTear
 function DadPlaylist:onFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if player and player:GetData().hasDadPlaylist then

@@ -1,18 +1,16 @@
 local ParanoidAndroid = {}
-ParanoidAndroid.COLLECTIBLE_ID = Isaac.GetItemIdByName("Paranoid Android")
-ParanoidAndroid.FAMILIAR_VARIANT = Isaac.GetEntityVariantByName("Paranoid Android")
-ParanoidAndroid.RING_VARIANT = Isaac.GetEntityVariantByName("Android Lazer Ring")
+ParanoidAndroid.COLLECTIBLE_ID = Enums.Items.ParanoidAndroid
+ParanoidAndroid.FAMILIAR_VARIANT = Enums.EntityVariants.ParanoidAndroid
+ParanoidAndroid.RING_VARIANT = Enums.EntityVariants.AndroidLazerRing
 
--- Balance
 local BASE_RADIUS = 55
 local BFFS_RADIUS = 55
 local BASE_DAMAGE = 3.0
 local BFFS_DAMAGE = 6.0
-local TICK_RATE = 5 -- frames per tick
+local TICK_RATE = 5
 
----------------------------------------------------
--- Familiar Management
----------------------------------------------------
+---@param player EntityPlayer
+---@param cacheFlag CacheFlag
 function ParanoidAndroid:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
         local count = player:GetCollectibleNum(ParanoidAndroid.COLLECTIBLE_ID)
@@ -25,10 +23,12 @@ function ParanoidAndroid:onCache(player, cacheFlag)
     end
 end
 
+---@param familiar EntityFamiliar
 function ParanoidAndroid:onFamiliarInit(familiar)
     familiar:AddToFollowers()
 end
 
+---@param familiar EntityFamiliar
 function ParanoidAndroid:onFamiliarUpdate(familiar)
     local player = familiar.Player
     local sprite = familiar:GetSprite()
@@ -81,9 +81,7 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
     end
 end
 
----------------------------------------------------
--- Ring Behavior
----------------------------------------------------
+---@param effect EntityEffect
 function ParanoidAndroid:onRingUpdate(effect)
     local familiar = effect.SpawnerEntity and effect.SpawnerEntity:ToFamiliar()
     if not familiar then
@@ -123,9 +121,6 @@ function ParanoidAndroid:onRingUpdate(effect)
     end
 end
 
----------------------------------------------------
--- Init
----------------------------------------------------
 function ParanoidAndroid:Init(mod)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, self.onCache)
     mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, self.onFamiliarInit, self.FAMILIAR_VARIANT)
