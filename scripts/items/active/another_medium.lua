@@ -1,12 +1,12 @@
 local AnotherMedium = {}
-AnotherMedium.COLLECTIBLE_ID = Isaac.GetItemIdByName("Another Medium")
+AnotherMedium.COLLECTIBLE_ID = Enums.Items.AnotherMedium
 
-local game = Game()
 local itemConfig = Isaac.GetItemConfig()
 local MAX_ITEM_ID = 10000
 local usedThisFloor = false
 
--- Check if an item is a valid passive/familiar and not quest/self
+---@param id CollectibleType
+---@return boolean
 local function IsValidCandidate(id)
     local cfg = itemConfig:GetCollectible(id)
     return cfg
@@ -21,7 +21,8 @@ function AnotherMedium:OnNewLevel()
     usedThisFloor = false
 end
 
--- Use item: removes one passive/familiar and replaces with random one
+---@param rng RNG
+---@param player EntityPlayer
 function AnotherMedium:OnUse(_, rng, player)
     if usedThisFloor then
         return { Discharge = false, Remove = false, ShowAnim = false }
@@ -53,7 +54,7 @@ function AnotherMedium:OnUse(_, rng, player)
 
         player:EvaluateItems()
         player:AnimateCollectible(AnotherMedium.COLLECTIBLE_ID)
-        game:ShakeScreen(5)
+        GameRef:ShakeScreen(5)
         Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, player)
         SFXManager():Play(SoundEffect.SOUND_EDEN_GLITCH)
 
@@ -61,10 +62,13 @@ function AnotherMedium:OnUse(_, rng, player)
         player:SetActiveCharge(0) -- 🧠 This line disables the active bar visually!
     end
 
-    return true
+    return {
+        Discharge = true,
+        Remove = false,
+        ShowAnim = true
+    }
 end
 
--- Mod init
 function AnotherMedium:Init(mod)
     mod:AddCallback(ModCallbacks.MC_USE_ITEM, AnotherMedium.OnUse, AnotherMedium.COLLECTIBLE_ID)
     mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, AnotherMedium.OnNewLevel)

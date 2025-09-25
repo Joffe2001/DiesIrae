@@ -1,11 +1,11 @@
-local enums = {}
+Enums = {}
 
-enums.Players = {
+Enums.Players = {
     David = Isaac.GetPlayerTypeByName("David"),
     --David_B = Isaac.GetPlayerTypeByName("David", true), -- if you add a tainted
 }
 
-enums.Items = {
+Enums.Items = {
     -- Passives
     U2                   = Isaac.GetItemIdByName("U2"),
     Muse                 = Isaac.GetItemIdByName("Muse"),
@@ -58,10 +58,10 @@ enums.Items = {
     MomsDiary            = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium        = Isaac.GetItemIdByName("Another Medium"),
     LittleLies           = Isaac.GetItemIdByName("Little Lies"),
-    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop"),
+    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop")
 }
 
-enums.Trinkets = {
+Enums.Trinkets = {
     MoneyForNothing      = Isaac.GetTrinketIdByName("Money for nothing"),
     CatchTheRainbow      = Isaac.GetTrinketIdByName("Catch the Rainbow"),
     Gaga                 = Isaac.GetTrinketIdByName("Gaga"),
@@ -69,20 +69,20 @@ enums.Trinkets = {
     BabyBlue             = Isaac.GetTrinketIdByName("Baby Blue"),
     ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
     WonderOfYou          = Isaac.GetTrinketIdByName("Wonder of You"),
-    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food"),
+    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food")
 }
 
-enums.Costumes = {
+Enums.Costumes = {
     David = Isaac.GetCostumeIdByPath("gfx/characters/costume.david.anm2"),
-    David_B = Isaac.GetCostumeIdByPath("gfx/characters/costume.davidb.anm2"),
+    David_B = Isaac.GetCostumeIdByPath("gfx/characters/costume.davidb.anm2")
 }
 
-enums.AchievementGraphics = {
+Enums.AchievementGraphics = {
     PlayerDavid = {
         MomsHeart = "achievement.army_of_lovers",  -- gfx/ui/achievements/achievement.army_of_lovers.png
         Isaac     = "achievement.something_else",
-        Satan     = "achievement.something_else2",
+        Satan     = "achievement.something_else2"
     }
 }
 
-return enums
+return Enums

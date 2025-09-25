@@ -1,8 +1,9 @@
 local LittleLies = {}
-LittleLies.COLLECTIBLE_ID = Isaac.GetItemIdByName("Little Lies")
+LittleLies.COLLECTIBLE_ID = Enums.Items.LittleLies
 
--- Use: apply Pluto-like size down + tears up for the current room
-function LittleLies:UseItem(_, _, player, _, _)
+
+---@param player EntityPlayer
+function LittleLies:UseItem(_, _, player)
     local data = player:GetData()
     if not data.LittleLiesActive then
         data.LittleLiesActive = true
@@ -12,10 +13,15 @@ function LittleLies:UseItem(_, _, player, _, _)
         -- Reset on new room
         LittleLies:AddRoomReset(player)
     end
-    return true
+    return {
+        Discharge = true,
+        Remove = false,
+        ShowAnim = true
+    }
 end
 
--- Apply effects when evaluating cache
+---@param player EntityPlayer
+---@param cacheFlag CacheFlag
 function LittleLies:OnEvaluateCache(player, cacheFlag)
     local data = player:GetData()
     if not data.LittleLiesActive then return end
@@ -30,7 +36,7 @@ function LittleLies:OnEvaluateCache(player, cacheFlag)
     end
 end
 
--- Reset on new room
+---@param player EntityPlayer
 function LittleLies:AddRoomReset(player)
     local mod = LittleLies.Mod
     mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()

@@ -1,10 +1,7 @@
 local GoodVibes = {}
-GoodVibes.COLLECTIBLE_ID = Isaac.GetItemIdByName("Good Vibes")
+GoodVibes.COLLECTIBLE_ID = Enums.Items.GoodVibes
 
-local game = Game()
-local sfx = SFXManager()
-
-function GoodVibes:UseItem(_, _, player, _, _)
+function GoodVibes:UseItem()
     local entities = Isaac.GetRoomEntities()
     local transformed = false
 
@@ -34,12 +31,16 @@ function GoodVibes:UseItem(_, _, player, _, _)
     end
 
     if transformed then
-        sfx:Play(178) 
-        return true
+        SfxManager:Play(178) 
     else
-        sfx:Play(267)
-        return false
+        SfxManager:Play(267)
     end
+
+    return {
+        Discharge = true,
+        Remove = false,
+        ShowAnim = true
+    }
 end
 
 function GoodVibes:Init(mod)

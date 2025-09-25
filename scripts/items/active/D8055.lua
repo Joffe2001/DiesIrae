@@ -1,10 +1,11 @@
 local D8055 = {}
-D8055.COLLECTIBLE_ID = Isaac.GetItemIdByName("D8055")
-local game = Game()
+D8055.COLLECTIBLE_ID = Enums.Items.D8055
+
+--TODO: Remove this script. It does not seem to be in use.
 
 -- Main effect
 function D8055:onUse(_, _, player, _, _)
-    local room = game:GetRoom()
+    local room = GameRef:GetRoom()
 
     -- Only in boss rooms, and only if boss is alive
     if room:GetType() == RoomType.ROOM_BOSS then
@@ -18,7 +19,7 @@ function D8055:onUse(_, _, player, _, _)
 
         if hasBoss then
             -- Restart the room with a new boss
-            local level = game:GetLevel()
+            local level = GameRef:GetLevel()
             local stage = level:GetStage()
             local stageType = level:GetStageType()
 
@@ -30,8 +31,8 @@ function D8055:onUse(_, _, player, _, _)
             room:SetSpawnSeed(seed)
 
             -- Extra effect: screen shake + SFX
-            game:ShakeScreen(20)
-            SFXManager():Play(SoundEffect.SOUND_D6, 1.0, 0, false, 1.0)
+            GameRef:ShakeScreen(20)
+            SFXManager():Play(SoundEffect.SOUND_DICE_SHARD, 1.0, 0, false, 1.0)
 
             return true
         end

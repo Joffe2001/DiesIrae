@@ -52,7 +52,7 @@
     <active name="Mom's Diary" gfx="momsdiary2.png" description="Is that what she thinks of me?" quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active name="Another Medium" gfx="" description="Things will not be the same" quality="1" maxcharges="1" chargetype="normal" />
     <active name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" />
-    <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="normal" />
+    <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
 	<!--Trinkets-->
     <trinket name="Money for nothing" description="You don't need money no more" gfx="" />
     <trinket name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />
@@ -63,4 +63,3 @@
     <trinket name="Wonder of You" gfx="" description="It is the power of calamity" />
     <trinket name="Rotten Food" gfx="" description="Something is wrong..." />
 </items>
-
