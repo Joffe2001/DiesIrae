@@ -1,8 +1,7 @@
 local WonderOfYou = {}
-WonderOfYou.TRINKET_ID = Isaac.GetTrinketIdByName("Wonder of You")
+WonderOfYou.TRINKET_ID = Enums.Trinkets.WonderOfYou
 local game = Game()
 
--- Called when player takes damage
 function WonderOfYou:onPlayerDamage(player, amount, flags, source, countdown)
     local p = player:ToPlayer()
     if not p then return end

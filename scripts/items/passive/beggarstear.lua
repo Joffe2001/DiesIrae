@@ -1,8 +1,7 @@
 local BeggarsTear = {}
-BeggarsTear.COLLECTIBLE_ID = Isaac.GetItemIdByName("Beggar's Tear")
+BeggarsTear.COLLECTIBLE_ID = Enums.Items.BeggarsTear
 local game = Game()
 
--- mark tears when fired
 function BeggarsTear:onFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if player and player:HasCollectible(BeggarsTear.COLLECTIBLE_ID) then
@@ -10,19 +9,16 @@ function BeggarsTear:onFireTear(tear)
     end
 end
 
--- safe player
 local function asPlayer(ent)
     if ent and ent.Type == EntityType.ENTITY_PLAYER then
         return ent:ToPlayer()
     end
 end
 
--- helper: play SFX safely
 local function playSFX(id)
     SFXManager():Play(id, 1.0, 0, false, 1.0)
 end
 
--- handle pickup manually
 local function manualPickup(player, pickup)
     local v, sub = pickup.Variant, pickup.SubType
 
@@ -96,7 +92,6 @@ local function manualPickup(player, pickup)
         pickup:Remove()
 
     else
-        -- not consumable (cards, trinkets, chests, pedestals) → pull in
         local dir = (player.Position - pickup.Position)
         if dir:Length() > 0 then
             pickup.Velocity = dir:Resized(6)
@@ -104,7 +99,6 @@ local function manualPickup(player, pickup)
     end
 end
 
--- tear update
 function BeggarsTear:onTearUpdate(tear)
     if not tear:GetData().BeggarsTear then return end
     local player = asPlayer(tear.SpawnerEntity)

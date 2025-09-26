@@ -1,5 +1,5 @@
 local EverybodysChanging = {}
-EverybodysChanging.COLLECTIBLE_ID = Isaac.GetItemIdByName("Everybody's Changing")
+EverybodysChanging.COLLECTIBLE_ID = Enums.Items.EverybodysChanging
 
 local game = Game()
 local itemConfig = Isaac.GetItemConfig()

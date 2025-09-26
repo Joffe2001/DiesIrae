@@ -1,8 +1,7 @@
 local BadTouch = {}
-BadTouch.COLLECTIBLE_ID = Isaac.GetItemIdByName("The Bad Touch")
+BadTouch.COLLECTIBLE_ID = Enums.Items.TheBadTouch
 local game = Game()
 
--- Callback when Isaac touches another entity
 function BadTouch:onPlayerCollision(player, collider)
     if not player:HasCollectible(BadTouch.COLLECTIBLE_ID) then return end
     if not collider:IsEnemy() then return end
@@ -10,15 +9,12 @@ function BadTouch:onPlayerCollision(player, collider)
     local npc = collider:ToNPC()
     if npc then
         if npc:IsBoss() then
-            -- Apply poison effect to boss
-            npc:AddPoison(EntityRef(player), 120, 3.0)  -- 120 frames (2 sec), 3 DPS
+            npc:AddPoison(EntityRef(player), 120, 3.0) 
         else
             npc:Kill()
         end
     end
 end
-
--- EID description
 function BadTouch:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_PLAYER_COLLISION, BadTouch.onPlayerCollision)
 

@@ -1,13 +1,11 @@
 local Universal = {}
-Universal.COLLECTIBLE_ID = Isaac.GetItemIdByName("Universal")
+Universal.COLLECTIBLE_ID = Enums.Items.Universal
 local game = Game()
 
--- Balance values
 local CHARGE_TIME = 40 
 local ACTIVE_DURATION = 60 
 local players = {}
 
--- State tracker
 local function getState(player)
     local id = player.InitSeed
     if not players[id] then
@@ -16,7 +14,6 @@ local function getState(player)
     return players[id]
 end
 
--- Helper: get random enemy (including bosses)
 local function getRandomEnemy()
     local enemies = {}
     for _, e in ipairs(Isaac.GetRoomEntities()) do
@@ -31,11 +28,9 @@ local function getRandomEnemy()
     end
 end
 
--- Initialize the charge bar sprite (same as costume setup)
 local chargeBarSprite = Sprite()
-chargeBarSprite:Load("gfx/chargebar.anm2", true) -- Load animation
+chargeBarSprite:Load("gfx/chargebar.anm2", true) 
 
--- Update loop (Gameplay mechanics)
 function Universal:onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -45,18 +40,15 @@ function Universal:onUpdate()
 
         local state = getState(player)
 
-        -- CHARGING
         if player:GetFireDirection() ~= Direction.NO_DIRECTION and state.activeTimer <= 0 then
             if state.charge < CHARGE_TIME then
                 state.charge = state.charge + 1
                 if state.charge == CHARGE_TIME then
-                    -- Charge ready
                     SFXManager():Play(SoundEffect.SOUND_BATTERYCHARGE, 1.0, 0, false, 1.0)
                     state.charged = true
                 end
             end
         elseif state.charge >= CHARGE_TIME and state.activeTimer <= 0 then
-            -- Activate when fire is released
             if player:GetFireDirection() == Direction.NO_DIRECTION then
                 state.activeTimer = ACTIVE_DURATION
                 state.absorbed = 0
@@ -65,12 +57,11 @@ function Universal:onUpdate()
             end
         else
             if state.charge > 0 and state.charge < CHARGE_TIME and player:GetFireDirection() == Direction.NO_DIRECTION then
-                state.charge = 0 -- reset if released early
+                state.charge = 0
                 state.charged = false
             end
         end
 
-        -- ACTIVE ABSORPTION
         if state.activeTimer > 0 then
             state.activeTimer = state.activeTimer - 1
         
@@ -80,12 +71,10 @@ function Universal:onUpdate()
                     if proj then
                         local dist = proj.Position:Distance(player.Position)
         
-                        -- Pull projectiles toward Isaac
-                        local pullStrength = 2.5 -- tweak for stronger/weaker pull
+                        local pullStrength = 2.5 
                         local dir = (player.Position - proj.Position):Resized(pullStrength)
-                        proj.Velocity = proj.Velocity * 0.8 + dir * 0.2 -- smooth pull
-        
-                        -- Absorb when very close
+                        proj.Velocity = proj.Velocity * 0.8 + dir * 0.2 
+
                         if dist < player.Size + 10 then
                             proj:Die()
                             state.absorbed = state.absorbed + 1
@@ -95,10 +84,9 @@ function Universal:onUpdate()
                 end
             end
 
-            -- Release beams when timer ends
             if state.activeTimer == 0 and state.absorbed > 0 then
                 for i = 1, state.absorbed do
-                    local target = getRandomEnemy()  -- This now includes bosses as well
+                    local target = getRandomEnemy() 
                     local pos = target and target.Position or player.Position
                     Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, 0, pos, Vector.Zero, player)
                 end
@@ -108,22 +96,20 @@ function Universal:onUpdate()
             end
         end
 
-        ::continue::  -- Continue loop if no collectible
+        ::continue:: 
     end
 end
 
--- Prevent damage from projectiles while absorbing
 function Universal:onPlayerDamage(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
     if player and player:HasCollectible(Universal.COLLECTIBLE_ID) then
         local state = getState(player)
         if state.activeTimer > 0 and source.Type == EntityType.ENTITY_PROJECTILE then
-            return false -- cancel projectile damage
+            return false 
         end
     end
 end
 
--- Render Callback (Separate charge bar rendering)
 function Universal:onRender()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -132,8 +118,6 @@ function Universal:onRender()
         end
 
         local state = getState(player)
-
-        -- Charge Bar Animation Display
         if state.charge > 0 then
             local chargeProgress = math.floor((state.charge / CHARGE_TIME) * 100)
             chargeBarSprite:SetFrame("Charging", chargeProgress)
@@ -149,7 +133,6 @@ function Universal:onRender()
     end
 end
 
--- Init
 function Universal:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_UPDATE, Universal.onUpdate)
     mod:AddCallback(ModCallbacks.MC_POST_RENDER, Universal.onRender)

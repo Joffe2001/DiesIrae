@@ -1,13 +1,11 @@
 local UltraSecretMap = {}
-UltraSecretMap.COLLECTIBLE_ID = Isaac.GetItemIdByName("Ultra Secret Map")
+UltraSecretMap.COLLECTIBLE_ID = Enums.Items.UltraSecretMap
 
 local game = Game()
 local rng = RNG()
 
--- Track if Cracked Key has already been spawned this floor
 local crackedKeySpawned = false
 
--- Utility to find the current Secret Room (not Super/Ultra)
 local function FindSecretRoom()
     local level = game:GetLevel()
     for i = 0, level:GetRooms().Size - 1 do
@@ -20,14 +18,12 @@ local function FindSecretRoom()
     return nil
 end
 
--- Show the ultra secret room on map if player has Secret Map
 function UltraSecretMap:OnRender()
     local level = game:GetLevel()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         if player:HasCollectible(UltraSecretMap.COLLECTIBLE_ID) then
-            -- Reveal Ultra Secret Room on map
             for j = 0, level:GetRooms().Size - 1 do
                 local roomDesc = level:GetRooms():Get(j)
                 if roomDesc.Data.Type == RoomType.ROOM_ULTRASECRET then
@@ -38,7 +34,6 @@ function UltraSecretMap:OnRender()
     end
 end
 
--- Drop a cracked key when entering the secret room (only once per floor)
 function UltraSecretMap:OnNewRoom()
     local room = game:GetRoom()
     local level = game:GetLevel()
@@ -46,10 +41,8 @@ function UltraSecretMap:OnNewRoom()
 
     if crackedKeySpawned then return end
 
-    -- Optional: Use the FindSecretRoom function for some condition
     local secretRoomDesc = FindSecretRoom()
     if room:GetType() == RoomType.ROOM_SECRET and secretRoomDesc ~= nil then
-        -- Spawn the Cracked Key only if the player has the item
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
             if player:HasCollectible(UltraSecretMap.COLLECTIBLE_ID) then
@@ -60,8 +53,6 @@ function UltraSecretMap:OnNewRoom()
         end
     end
 end
-
--- Reset spawn flag on new floor
 function UltraSecretMap:OnNewLevel()
     crackedKeySpawned = false
 end

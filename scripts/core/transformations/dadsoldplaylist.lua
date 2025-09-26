@@ -18,7 +18,6 @@ DadPlaylist.ITEMS = {
 local game = Game()
 local sfx = SFXManager()
 
--- Count how many transformation items a player has
 local function GetItemCount(player)
     local count = 0
     for _, id in ipairs(DadPlaylist.ITEMS) do

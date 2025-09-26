@@ -1,8 +1,7 @@
 local BackInAnger = {} 
-BackInAnger.COLLECTIBLE_ID = Isaac.GetItemIdByName("Back in Anger")
+BackInAnger.COLLECTIBLE_ID = Enums.Items.BackInAnger
 local game = Game()
 
--- Custom fire delay tracker
 local fireCooldown = {}
 
 function BackInAnger:onUpdate(player)
@@ -16,30 +15,27 @@ function BackInAnger:onUpdate(player)
         return
     end
 
-    local backDir = -player:GetAimDirection() -- opposite of aim
+    local backDir = -player:GetAimDirection()
     if backDir:Length() == 0 then
-        backDir = Vector(0,1) -- default back direction (down) if idle
+        backDir = Vector(0,1)
     end
 
     for _, e in ipairs(Isaac.GetRoomEntities()) do
         if e:IsVulnerableEnemy() and not e:IsDead() then
             local toEnemy = (e.Position - player.Position):Normalized()
-            -- Check if enemy is in ~20° cone behind Isaac
             if backDir:Dot(toEnemy) > 0.95 then
-                -- Fire a slower but stronger homing tear at them
                 local tear = player:FireTear(
                     player.Position,
-                    toEnemy * 7, -- slower velocity
+                    toEnemy * 7, 
                     false, true, false, player, 0
                 )
                 if tear then
                     tear.CollisionDamage = player.Damage * 1.5
                     tear.Scale = tear.Scale * 1.3
                     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HOMING
-                    tear.Color = Color(1.5, 0.2, 0.2, 1, 0, 0, 0) -- red
+                    tear.Color = Color(1.5, 0.2, 0.2, 1, 0, 0, 0) 
                 end
 
-                -- Set cooldown: 75% of normal fire delay
                 fireCooldown[id] = math.floor(player.MaxFireDelay * 1.25)
                 break
             end

@@ -1,5 +1,5 @@
 local GoldenDay = {}
-GoldenDay.ID = Isaac.GetItemIdByName("Golden Day")
+GoldenDay.ID = Enums.Items.GoldenDay
 local game = Game()
 local rng = RNG()
 

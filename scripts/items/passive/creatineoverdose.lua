@@ -1,5 +1,5 @@
 local CreatineOverdose = {}
-CreatineOverdose.COLLECTIBLE_ID = Isaac.GetItemIdByName("Creatine Overdose")
+CreatineOverdose.COLLECTIBLE_ID = Enums.Items.CreatineOverdose
 
 local BASE_BONUS = 0.2
 local BONUS_MULT = 1.2
@@ -8,11 +8,9 @@ function CreatineOverdose:onEvaluateCache(player, cacheFlag)
     if not player:HasCollectible(CreatineOverdose.COLLECTIBLE_ID) then return end
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
-        -- Step 1: Add the flat +0.2 like U2
         player.Damage = player.Damage + BASE_BONUS
 
-        -- Step 2: Scale ONLY the "extra" damage (anything above the base +0.2)
-        local effectiveBase = player:GetData().CreatineBase or 3.5 -- assume Isaac’s base if nothing set
+        local effectiveBase = player:GetData().CreatineBase or 3.5 
         local current = player.Damage
 
         local bonus = current - effectiveBase - BASE_BONUS
@@ -22,7 +20,6 @@ function CreatineOverdose:onEvaluateCache(player, cacheFlag)
     end
 end
 
--- Track each character’s true base damage so scaling is correct
 function CreatineOverdose:onPlayerInit(player)
     player:GetData().CreatineBase = player.Damage
 end

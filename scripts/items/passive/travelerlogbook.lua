@@ -1,10 +1,10 @@
 local TravelerLogbook = {}
-TravelerLogbook.COLLECTIBLE_ID = Isaac.GetItemIdByName("Traveler Logbook")
+TravelerLogbook.COLLECTIBLE_ID = Enums.Items.TravelerLogbook
 
 local game = Game()
 local visitedRooms = {}
-local tempStatBonuses = {} -- Per-player temporary stats
-local permStatBonuses = {} -- Per-player permanent stats
+local tempStatBonuses = {}
+local permStatBonuses = {}
 
 local StatList = { "damage", "speed", "tears", "range" }
 
@@ -32,7 +32,6 @@ local function InitPlayerStats(player)
     end
 end
 
--- Handle stat boost application
 function TravelerLogbook:ApplyStatBoost(player, isPermanent)
     local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
     InitPlayerStats(player)
@@ -56,7 +55,6 @@ function TravelerLogbook:ApplyStatBoost(player, isPermanent)
     player:EvaluateItems()
 end
 
--- When entering a new room
 function TravelerLogbook:OnNewRoom()
     local room = game:GetRoom()
     local level = game:GetLevel()
@@ -84,7 +82,6 @@ function TravelerLogbook:OnNewRoom()
     end
 end
 
--- On new floor, clear temp boosts and visited rooms
 function TravelerLogbook:OnNewLevel()
     visitedRooms = {}
     for _, _ in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
@@ -101,7 +98,6 @@ function TravelerLogbook:OnNewLevel()
     end
 end
 
--- Apply total bonuses (permanent + temp)
 function TravelerLogbook:OnEvaluateCache(player, cacheFlag)
     if not player:HasCollectible(TravelerLogbook.COLLECTIBLE_ID) then return end
 

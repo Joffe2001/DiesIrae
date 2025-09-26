@@ -1,7 +1,6 @@
 local U2 = {}
-U2.COLLECTIBLE_ID = Isaac.GetItemIdByName("U2")
+U2.COLLECTIBLE_ID = Enums.Items.U2
 
--- Cache stat application
 function U2:onCache(player, cacheFlag)
     if not player:HasCollectible(U2.COLLECTIBLE_ID) then return end
 
@@ -24,7 +23,6 @@ function U2:onCache(player, cacheFlag)
     end
 end
 
--- Apply cache flags when item is picked up
 function U2:onUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -43,7 +41,6 @@ function U2:onUpdate()
     end
 end
 
--- Initialization
 function U2:Init(mod)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, U2.onCache)
     mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, U2.onUpdate)

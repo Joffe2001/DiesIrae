@@ -1,5 +1,5 @@
 local Echo = {}
-Echo.COLLECTIBLE_ID = Isaac.GetItemIdByName("Echo")
+Echo.COLLECTIBLE_ID = Enums.Items.Echo
 local rng = RNG()
 
 function Echo:Init(mod)

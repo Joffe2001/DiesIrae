@@ -1,8 +1,7 @@
 local MonstersUnderTheBed = {}
-MonstersUnderTheBed.COLLECTIBLE_ID = Isaac.GetItemIdByName("Monsters Under The Bed")
+MonstersUnderTheBed.COLLECTIBLE_ID = Enums.Items.MonstersUnderTheBed
 local game = Game()
 
--- Store the current enemy count so we know when to reapply bonuses
 local lastEnemyCount = 0
 
 function MonstersUnderTheBed:onCache(player, cacheFlag)
@@ -10,9 +9,6 @@ function MonstersUnderTheBed:onCache(player, cacheFlag)
     
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local enemyCount = Isaac.CountEnemies()
-
-        -- Tears in Isaac are based on FireDelay; lower = faster
-        -- Example: Each enemy reduces FireDelay by 0.5
         if enemyCount > 0 then
             player.MaxFireDelay = math.max(player.MaxFireDelay - (enemyCount * 0.5), 1)
         end

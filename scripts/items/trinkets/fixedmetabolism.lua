@@ -1,5 +1,5 @@
 local FixedMetabolism = {}
-FixedMetabolism.TRINKET_ID = Isaac.GetTrinketIdByName("Fixed Metabolism")
+FixedMetabolism.TRINKET_ID = Enums.Trinkets.FixedMetabolism
 local game = Game()
 
 -- Replace red poops when a room loads

@@ -1,24 +1,22 @@
 local SkullCrasher = {}
-SkullCrasher.COLLECTIBLE_ID = Isaac.GetItemIdByName("Skull Crasher")
+SkullCrasher.COLLECTIBLE_ID = Enums.Items.SkullCrasher
 
 local game = Game()
 
--- Skull-type enemies to be affected when invulnerable
 local SKULL_ENEMIES = {
-    [EntityType.ENTITY_HOST] = true,         -- 27
-    [EntityType.ENTITY_HARD_HOST] = true,    -- 27.3
-    [EntityType.ENTITY_MOBILE_HOST] = true,  -- 204
-    [EntityType.ENTITY_FLOAST] = true        -- 859
+    [EntityType.ENTITY_HOST] = true,      
+    [EntityType.ENTITY_HARD_HOST] = true,   
+    [EntityType.ENTITY_MOBILE_HOST] = true,  
+    [EntityType.ENTITY_FLOAST] = true       
 }
 
--- Returns true if the enemy is currently in its invulnerable state
 local function IsClosedSkullEnemy(npc)
     if npc.Type == EntityType.ENTITY_HOST or npc.Type == EntityType.ENTITY_MOBILE_HOST then
-        return npc.State == 8 -- Head-down closed state
+        return npc.State == 8 
     elseif npc.Type == EntityType.ENTITY_HARD_HOST then
-        return npc.State == 10 -- Invulnerable state
+        return npc.State == 10 
     elseif npc.Type == EntityType.ENTITY_FLOAST then
-        return npc.State == 8 -- Floast hides similarly
+        return npc.State == 8 
     end
     return false
 end
@@ -26,14 +24,12 @@ end
 function SkullCrasher:OnNPCUpdate(npc)
     if not npc or not npc:Exists() then return end
 
-    -- Only check skull enemies
     if not SKULL_ENEMIES[npc.Type] then return end
 
     if IsClosedSkullEnemy(npc) then
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
             if player:HasCollectible(SkullCrasher.COLLECTIBLE_ID) then
-                -- Only apply damage every 15 frames
                 if npc.FrameCount % 15 == 0 then
                     npc:TakeDamage(1, DamageFlag.DAMAGE_IGNORE_ARMOR | DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0)
                     local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, npc.Position, Vector.Zero, npc)
@@ -44,7 +40,6 @@ function SkullCrasher:OnNPCUpdate(npc)
     end
 end
 
--- Initialization
 function SkullCrasher:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_NPC_UPDATE, SkullCrasher.OnNPCUpdate)
 

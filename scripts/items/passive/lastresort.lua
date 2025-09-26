@@ -1,5 +1,5 @@
 local LastResort = {}
-LastResort.COLLECTIBLE_ID = Isaac.GetItemIdByName("Last Resort")
+LastResort.COLLECTIBLE_ID = Enums.Items.LastResort
 local game = Game()
 local sfx = SFXManager()
 
@@ -7,14 +7,12 @@ local statGains = {}
 local bonusGivenThisRoom = {}
 local wasHostileRoom = {}
 
--- Stat options
 local STAT_OPTIONS = {
     { flag = CacheFlag.CACHE_DAMAGE, key = "damage", value = 0.3 },
     { flag = CacheFlag.CACHE_SPEED, key = "speed", value = 0.1 },
     { flag = CacheFlag.CACHE_FIREDELAY, key = "tears", value = -0.3 },
 }
 
--- Give stat boost
 function LastResort:GiveStatBoost(player)
     local index = player:GetPlayerIndex()
     statGains[index] = statGains[index] or { damage = 0, speed = 0, tears = 0 }
@@ -30,7 +28,6 @@ function LastResort:GiveStatBoost(player)
     sfx:Play(SoundEffect.SOUND_POWERUP1, 1.0, 0, false, 1.0)
 end
 
--- Apply cache
 function LastResort:OnEvaluateCache(player, cacheFlag)
     local index = player:GetPlayerIndex()
     local gain = statGains[index]
@@ -45,7 +42,6 @@ function LastResort:OnEvaluateCache(player, cacheFlag)
     end
 end
 
--- Check and apply per update
 function LastResort:OnUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -63,7 +59,6 @@ function LastResort:OnUpdate()
     end
 end
 
--- On new room, detect if it had enemies
 function LastResort:OnNewRoom()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -73,12 +68,10 @@ function LastResort:OnNewRoom()
         local room = game:GetRoom()
         local enemies = room:GetAliveEnemiesCount()
 
-        -- If there are enemies (ambush or standard combat), mark room as hostile
         wasHostileRoom[index] = enemies > 0 or room:IsAmbushActive()
     end
 end
 
--- Init
 function LastResort:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LastResort.OnUpdate)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)

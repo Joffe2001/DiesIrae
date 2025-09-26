@@ -1,11 +1,10 @@
 local MomsDress = {}
-MomsDress.COLLECTIBLE_ID = Isaac.GetItemIdByName("Mom's Dress")
+MomsDress.COLLECTIBLE_ID = Enums.Items.MomsDress
 
 local mantle = CollectibleType.COLLECTIBLE_HOLY_MANTLE
 local mantleGiven = false
 local hasSpawnedHearts = false
 
--- Spawns 2 Rotten Hearts once when the item is picked up
 function MomsDress:CheckPickup(player)
     if player:HasCollectible(MomsDress.COLLECTIBLE_ID) and not hasSpawnedHearts then
         hasSpawnedHearts = true
@@ -24,7 +23,6 @@ function MomsDress:CheckPickup(player)
     end
 end
 
--- 20% chance to grant Holy Mantle in uncleared rooms
 function MomsDress:OnNewRoom()
     local player = Isaac.GetPlayer(0)
     if not player:HasCollectible(MomsDress.COLLECTIBLE_ID) then return end
@@ -48,7 +46,6 @@ function MomsDress:OnNewRoom()
     end
 end
 
--- Block damage if Holy Mantle was granted by this item
 function MomsDress:OnTakeDamage(entity)
     if not entity:ToPlayer() or not mantleGiven then return end
 
@@ -56,16 +53,14 @@ function MomsDress:OnTakeDamage(entity)
     if player and player:HasCollectibleEffect(mantle) then
         print("Mom's Dress: Blocking damage with Holy Mantle")
         mantleGiven = false
-        return false -- prevent the damage
+        return false
     end
 end
 
--- Reset mantle and optionally reuse other state
 function MomsDress:OnRoomReset()
     mantleGiven = false
 end
 
--- Detect pickup via player update
 function MomsDress:OnPlayerUpdate(player)
     MomsDress:CheckPickup(player)
 end
