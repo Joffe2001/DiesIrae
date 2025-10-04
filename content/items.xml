@@ -55,6 +55,7 @@
     <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
     <active name="D8055" gfx="" description="Maybe I'll try a different one" quality="2" maxcharges="4" chargetype="normal" />
     <active name="Big Shot" gfx="" description="Now its time for big big shot!" chargetype="timed" maxcharges="240" quality="2" />
+
 	<!--Trinkets-->
     <trinket name="Money for nothing" description="You don't need money no more" gfx="" />
     <trinket name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />

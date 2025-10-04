@@ -3,7 +3,8 @@ GameRef = Game()
 SfxManager = SFXManager()
 local json = require("json")
 local enums = require("scripts.core.enums")
-
+local json = require("json")
+local enums = require("scripts.core.enums")
 ---------------------------------------------------
 --  Charecters
 ----------------------------------------------------
@@ -103,8 +104,10 @@ local FragileEgo = include("scripts.items.passive.fragileego")
 FragileEgo:Init(DiesIraeMod) --WORKING
 local EverybodysChanging = include("scripts.items.passive.everybodychanging") 
 EverybodysChanging:Init(DiesIraeMod) --WORKING
+local BigShot = include("scripts.items.passive.bigshot") 
+BigShot:Init(DiesIraeMod)
 local BeggarsTear = include("scripts.items.passive.beggarstear") 
-BeggarsTear:Init(DiesIraeMod) --WORKING
+BeggarsTear:Init(DiesIraeMod)
 --local TouristMap = include("scripts.items.passive.touristmap") 
 --TouristMap:Init(mod)
 
@@ -123,18 +126,18 @@ CustomPills:Init(DiesIraeMod)  --WORKING
 ----------------------------------------------------
 local WonderOfYou = include("scripts.items.trinkets.wonderofyou")
 WonderOfYou:Init(DiesIraeMod)
-local SecondBreakfast = include("scripts.items.trinkets.second_breakfast")
-SecondBreakfast:init(DiesIraeMod)
 local Gaga = include("scripts.items.trinkets.gaga")
 Gaga:Init(DiesIraeMod)
-local TrinketCollector = include("scripts.items.trinkets.trinket_collector")
-TrinketCollector:init(DiesIraeMod)
+--local BrokenDream = include("scripts.items.trinkets.inabrokendream")
+--BrokenDream:Init(mod)
 local FixedMetabolism = include("scripts.items.trinkets.fixedmetabolism")
 FixedMetabolism:Init(DiesIraeMod)
 local BabyBlue = include("scripts.items.trinkets.babyblue")
 BabyBlue:Init(DiesIraeMod) --WORKING
-local RottenFood = include("scripts.items.trinkets.rottenfood")
-RottenFood:Init(DiesIraeMod)
+--local clearvase = include("scripts.items.trinkets.clearvase")
+--clearvase:Init(mod)
+--local RottenFood= include("scripts.items.trinkets.rottenfood")
+--RottenFood:Init(mod)
 --local CatchTheRainbow = include("scripts.items.trinkets.catch_the_rainbow")
 --CatchTheRainbow:Init(mod)
 --local BrokenDream = include("scripts.items.trinkets.inabrokendream")

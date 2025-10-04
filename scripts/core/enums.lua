@@ -58,13 +58,7 @@ Enums.Items = {
     MomsDiary            = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium        = Isaac.GetItemIdByName("Another Medium"),
     LittleLies           = Isaac.GetItemIdByName("Little Lies"),
-    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop"),
-    D8055                = Isaac.GetItemIdByName("D8055"),
-    BigShot              = Isaac.GetItemIdByName("Big Shot")
-}
-
-Enums.Familiars = {
-    ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android")
+    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop")
 }
 
 Enums.Trinkets = {
@@ -75,10 +69,7 @@ Enums.Trinkets = {
     BabyBlue             = Isaac.GetTrinketIdByName("Baby Blue"),
     ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
     WonderOfYou          = Isaac.GetTrinketIdByName("Wonder of You"),
-    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food"),
-    TrinketCollector     = Isaac.GetTrinketIdByName("Trinket Collector"),
-    SecondBreakfast      = Isaac.GetTrinketIdByName("Second Breakfast"),
-    BrokenDream          = Isaac.GetTrinketIdByName("In a Broken Dream")
+    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food")
 }
 
 Enums.Costumes = {

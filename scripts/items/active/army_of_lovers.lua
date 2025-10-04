@@ -25,5 +25,7 @@ function ArmyOfLovers:Init(mod)
     end
 end
 
+
+
 return ArmyOfLovers
 --Needs to add: Wisps
