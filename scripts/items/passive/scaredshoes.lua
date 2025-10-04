@@ -1,19 +1,16 @@
 local ScaredShoes = {}
-ScaredShoes.COLLECTIBLE_ID = Isaac.GetItemIdByName("Scared Shoes")
+ScaredShoes.COLLECTIBLE_ID = Enums.Items.ScaredShoes
 local game = Game()
 
 
--- Constants
-local PEECREEP_CHANCE = 0.10      -- 10% chance
-local PEECREEP_INTERVAL = 15      -- Every 15 frames 
-local PEECREEP_TIMEOUT = 45       -- Creep duration 
-local PEECREEP_SCALE = 1.5      -- Smaller puddle
+local PEECREEP_CHANCE = 0.10    
+local PEECREEP_INTERVAL = 15     
+local PEECREEP_TIMEOUT = 45     
+local PEECREEP_SCALE = 1.5     
 
--- Internal tracking
-ScaredShoes.peeTimers = {}        -- Tracks frame counts for pee spawn per player
-local shouldBoostSpeed = {}       -- Flags whether speed boost is active for player
+ScaredShoes.peeTimers = {}       
+local shouldBoostSpeed = {}  
 
--- Called every frame for each player
 function ScaredShoes:OnPlayerUpdate(player)
     if not player:HasCollectible(ScaredShoes.COLLECTIBLE_ID) then return end
 
@@ -21,12 +18,10 @@ function ScaredShoes:OnPlayerUpdate(player)
     local id = rng:GetSeed()
     local room = game:GetRoom()
 
-    -- Speed boost logic (when room is clear)
     shouldBoostSpeed[id] = room:IsClear()
     player:AddCacheFlags(CacheFlag.CACHE_SPEED)
     player:EvaluateItems()
 
-    -- Pee creep logic (when in combat)
     if not room:IsClear() then
         ScaredShoes.peeTimers[id] = (ScaredShoes.peeTimers[id] or 0) + 1
 
@@ -54,7 +49,6 @@ function ScaredShoes:OnPlayerUpdate(player)
     end
 end
 
--- Speed boost logic
 function ScaredShoes:OnEvaluateCache(player, cacheFlag)
     if cacheFlag ~= CacheFlag.CACHE_SPEED then return end
     if not player:HasCollectible(ScaredShoes.COLLECTIBLE_ID) then return end
@@ -68,7 +62,6 @@ function ScaredShoes:OnEvaluateCache(player, cacheFlag)
     end
 end
 
--- Initialization function (call this from main.lua)
 function ScaredShoes:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ScaredShoes.OnPlayerUpdate)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ScaredShoes.OnEvaluateCache)

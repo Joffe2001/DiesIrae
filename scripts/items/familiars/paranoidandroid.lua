@@ -1,5 +1,5 @@
 local ParanoidAndroid = {}
-ParanoidAndroid.COLLECTIBLE_ID = Isaac.GetItemIdByName("Paranoid Android")
+ParanoidAndroid.COLLECTIBLE_ID = Enums.Familiars.ParanoidAndroid
 ParanoidAndroid.FAMILIAR_VARIANT = Isaac.GetEntityVariantByName("Paranoid Android")
 ParanoidAndroid.RING_VARIANT = Isaac.GetEntityVariantByName("Android Lazer Ring")
 

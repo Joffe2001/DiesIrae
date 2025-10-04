@@ -1,14 +1,13 @@
 local HereToStay = {}
-HereToStay.COLLECTIBLE_ID = Isaac.GetItemIdByName("Here to Stay")
+HereToStay.COLLECTIBLE_ID = Enums.Items.HereToStay
 local game = Game()
 
--- Constants
-local MAX_TICKS = 8              -- how many growth steps
-local CREEP_INTERVAL = 30        -- 0.5s between each tick
+local MAX_TICKS = 8 
+local CREEP_INTERVAL = 30
 local BASE_RADIUS = 20
-local RADIUS_STEP = 50           -- how much bigger per tick
-local CREEP_DAMAGE = 2.5         -- flat creep damage
-local CREEP_LIFETIME = 60        -- how long each puddle stays
+local RADIUS_STEP = 50
+local CREEP_DAMAGE = 2.5 
+local CREEP_LIFETIME = 60     
 
 function HereToStay:PostPlayerUpdate(player)
     if not player:HasCollectible(HereToStay.COLLECTIBLE_ID) then return end
@@ -39,18 +38,16 @@ function HereToStay:PostPlayerUpdate(player)
             creep:SetTimeout(CREEP_LIFETIME)
             creep.SpriteScale = Vector(radius / 20, radius / 20)
 
-            -- ✅ Flat damage, no scaling
             creep.CollisionDamage = CREEP_DAMAGE
 
-            creep.Color = Color(0, 1, 0, 1, 0, 0, 0) -- green puddle
+            creep.Color = Color(0, 1, 0, 1, 0, 0, 0) 
         end
     else
-        -- Reset when moving
+
         data.Timer = 0
         data.TickCount = 0
     end
 
-    -- Update last position
     data.LastPos = player.Position
 end
 

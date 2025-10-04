@@ -1,11 +1,9 @@
 local DevilLuck = {}
-DevilLuck.COLLECTIBLE_ID = Isaac.GetItemIdByName("Devil's Luck")
+DevilLuck.COLLECTIBLE_ID = Enums.Items.DevilsLuck
 
--- Constants
 local LUCK_PENALTY = -6
 local DAMAGE_PER_DISAPPEAR = 0.05
 
--- Cache modification
 function DevilLuck:OnCache(player, cacheFlag)
     if not player:HasCollectible(DevilLuck.COLLECTIBLE_ID) then return end
 
@@ -17,7 +15,6 @@ function DevilLuck:OnCache(player, cacheFlag)
     end
 end
 
--- Apply cache flags instantly when item is picked up
 function DevilLuck:OnPlayerUpdate(player)
     if player:HasCollectible(DevilLuck.COLLECTIBLE_ID) and not player:GetData().DevilLuck_Initialized then
         player:AddCacheFlags(CacheFlag.CACHE_LUCK | CacheFlag.CACHE_DAMAGE)
@@ -26,12 +23,10 @@ function DevilLuck:OnPlayerUpdate(player)
     end
 end
 
--- Handle pickup collision
 function DevilLuck:OnPickupCollision(pickup, collider, _)
     local player = collider:ToPlayer()
     if not player or not player:HasCollectible(DevilLuck.COLLECTIBLE_ID) then return end
 
-    -- Filter out pickups that shouldn't be affected
     if pickup:IsShopItem() or pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then return end
 
     local allowed = {
@@ -43,11 +38,10 @@ function DevilLuck:OnPickupCollision(pickup, collider, _)
 
     if not allowed[pickup.Variant] then return end
 
-    -- Use Isaac's RNG for consistent results
     local rng = player:GetCollectibleRNG(DevilLuck.COLLECTIBLE_ID)
 
     if rng:RandomFloat() < 0.5 then
-        -- Block the pickup, add damage
+
         pickup:Remove()
 
         local data = player:GetData()
@@ -58,13 +52,11 @@ function DevilLuck:OnPickupCollision(pickup, collider, _)
         SFXManager():Play(SoundEffect.SOUND_VAMP_GULP, 1.0, 0, false, 1.0)
         Game():SpawnParticles(pickup.Position, EffectVariant.POOF01, 1, 2.0, Color(1, 0, 0, 1))
 
-        return true -- ✅ BLOCK the pickup
+        return true 
     end
 
-    -- ✅ Do not return anything! Pickup will be collected
 end
 
--- Init
 function DevilLuck:Init(mod)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DevilLuck.OnCache)
     mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, DevilLuck.OnPickupCollision)

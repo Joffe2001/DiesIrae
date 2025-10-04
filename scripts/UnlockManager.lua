@@ -1,5 +1,5 @@
 local g = Game()
-local save = require("david_src.savedata") -- your savedata file
+local save = require("savedata")
 
 local Manager = {}
 
@@ -23,7 +23,6 @@ local trinketToUnlock = {
     [Isaac.GetTrinketIdByName("Wonder of You")] = { Unlock = "Greed" },
 }
 
--- Initialize unlock structure in save if missing
 function Manager.postPlayerInit(player)
     if not save.UnlockData.PlayerDavid then
         save.UnlockData.PlayerDavid = {
@@ -45,14 +44,12 @@ function Manager.postPlayerInit(player)
 
     if g:GetFrameCount() > 0 then return end
 
-    -- Remove locked items from pools
     for item, tab in pairs(itemToUnlock) do
         if not save.UnlockData.PlayerDavid[tab.Unlock].Unlock then
             g:GetItemPool():RemoveCollectible(item)
         end
     end
 
-    -- Remove locked trinkets from pools
     for trinket, tab in pairs(trinketToUnlock) do
         if not save.UnlockData.PlayerDavid[tab.Unlock].Unlock then
             g:GetItemPool():RemoveTrinket(trinket)
@@ -60,7 +57,6 @@ function Manager.postPlayerInit(player)
     end
 end
 
--- Block locked items/trinkets from pickups
 function Manager.postPickupInit(pickup)
     if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local tab = itemToUnlock[pickup.SubType]
@@ -79,9 +75,7 @@ function Manager.postPickupInit(pickup)
     end
 end
 
--- Prevent locked items being held
 function Manager.postPlayerUpdate(player)
-    -- Items
     for item, tab in pairs(itemToUnlock) do
         if player:HasCollectible(item) and not save.UnlockData.PlayerDavid[tab.Unlock].Unlock then
             player:RemoveCollectible(item)
@@ -90,7 +84,6 @@ function Manager.postPlayerUpdate(player)
         end
     end
 
-    -- Trinkets
     for trinket, tab in pairs(trinketToUnlock) do
         if player:HasTrinket(trinket) and not save.UnlockData.PlayerDavid[tab.Unlock].Unlock then
             player:TryRemoveTrinket(trinket)

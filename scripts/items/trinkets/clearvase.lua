@@ -1,10 +1,9 @@
 local ClearVase = {}
-ClearVase.TRINKET_ID = Isaac.GetTrinketIdByName("Clear Vase")
+ClearVase.TRINKET_ID = Enums.Trinkets.ClearVase
 
 local game = Game()
 local brokenPots = {}
 
--- Track broken pots each frame
 function ClearVase:TrackPotDestruction()
     local room = game:GetRoom()
 
@@ -22,7 +21,6 @@ function ClearVase:OnNewRoom()
     brokenPots = {}
 end
 
--- Remove spiders, hearts, and coins spawned from pots
 function ClearVase:OnEntitySpawn(type, variant, subtype, position, velocity, spawner, seed)
     local player = Isaac.GetPlayer(0)
     if not player:HasTrinket(ClearVase.TRINKET_ID) then return end
@@ -31,12 +29,10 @@ function ClearVase:OnEntitySpawn(type, variant, subtype, position, velocity, spa
     local rng = RNG()
     rng:SetSeed(seed, 35)
 
-    -- Remove spiders always
     if type == EntityType.ENTITY_SPIDER or type == EntityType.ENTITY_ATTACKFLY then
         return { Remove = true }
     end
 
-    -- Remove heart/coin pickups unless golden trinket gives chance
     if type == EntityType.ENTITY_PICKUP then
         if variant == PickupVariant.PICKUP_HEART or variant == PickupVariant.PICKUP_COIN then
             if not golden or rng:RandomFloat() > 0.5 then

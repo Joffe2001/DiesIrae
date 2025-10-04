@@ -1,5 +1,5 @@
 local BabyBlue = {}
-local TrinketID = Isaac.GetTrinketIdByName("Baby Blue")
+local TrinketID = Enums.Trinkets.BabyBlue
 
 -- Replace red heart pickups with soul/black hearts
 function BabyBlue:OnPickupInit(pickup)

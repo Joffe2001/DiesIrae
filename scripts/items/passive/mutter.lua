@@ -1,10 +1,9 @@
 local Mutter = {}
-Mutter.COLLECTIBLE_ID = Isaac.GetItemIdByName("Mutter")
+Mutter.COLLECTIBLE_ID = Enums.Items.Mutter
 local game = Game()
 local MomsDressID = Isaac.GetItemIdByName("Mom's Dress")
 local MomsDiaryID = Isaac.GetItemIdByName("Mom's Diary")
 
--- List of all Mom-related item IDs
 local MomsItems = {
     CollectibleType.COLLECTIBLE_MOMS_EYESHADOW,
     CollectibleType.COLLECTIBLE_MOMS_KNIFE,
@@ -22,7 +21,6 @@ local MomsItems = {
     MomsDiaryID
 }
 
--- Utility to count how many mom-related items the player has
 local function CountMomsItems(player)
     local count = 0
     for _, itemID in ipairs(MomsItems) do

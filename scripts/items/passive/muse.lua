@@ -1,16 +1,12 @@
 local Muse = {}
-Muse.COLLECTIBLE_ID = Isaac.GetItemIdByName("Muse")
+Muse.COLLECTIBLE_ID = Enums.Items.Muse
 local game = Game()
 
----------------------------------------------------------
--- CARD / RUNE POOLS
----------------------------------------------------------
 local tarotCards = {
     Card.CARD_FOOL, Card.CARD_MAGICIAN, Card.CARD_HIGH_PRIESTESS, Card.CARD_EMPRESS,
     Card.CARD_HIEROPHANT, Card.CARD_CHARIOT, Card.CARD_JUSTICE, Card.CARD_HANGED_MAN,
     Card.CARD_DEATH, Card.CARD_TEMPERANCE, Card.CARD_DEVIL, Card.CARD_TOWER,
     Card.CARD_STAR, Card.CARD_MOON, Card.CARD_SUN, Card.CARD_JUDGEMENT, Card.CARD_WORLD,
-    -- include reverse cards as “tarot cards”
     Card.CARD_REVERSE_FOOL, Card.CARD_REVERSE_MAGICIAN, Card.CARD_REVERSE_HIGH_PRIESTESS,
     Card.CARD_REVERSE_EMPRESS, Card.CARD_REVERSE_HIEROPHANT, Card.CARD_REVERSE_CHARIOT,
     Card.CARD_REVERSE_JUSTICE, Card.CARD_REVERSE_HANGED_MAN, Card.CARD_REVERSE_DEATH,
@@ -24,7 +20,6 @@ local runes = {
     Card.RUNE_PERTHRO, Card.RUNE_DAGAZ, Card.RUNE_BERKANO, Card.RUNE_ALGIZ
 }
 
--- Helper: filter by Repentogon availability
 local function GetUnlockedCards(list)
     local unlocked = {}
     for _, c in ipairs(list) do
@@ -36,9 +31,7 @@ local function GetUnlockedCards(list)
     return unlocked
 end
 
--- Helper: spawn a non-heart pickup (weighted, safe variants)
 local nonHeartChoices = {
-    -- {variant, subtype, weight}
     {PickupVariant.PICKUP_COIN,        0, 50}, -- penny
     {PickupVariant.PICKUP_BOMB,        0, 30}, -- bomb
     {PickupVariant.PICKUP_KEY,         0, 30}, -- key
@@ -65,19 +58,13 @@ local function SpawnNonHeartPickup(rng, pos, spawner)
     )
 end
 
----------------------------------------------------------
--- DAMAGE CALLBACK
----------------------------------------------------------
 function Muse:OnPlayerDamaged(entity, amount, damageFlags, source, countdown)
     local player = entity:ToPlayer()
     if not player or not player:HasCollectible(Muse.COLLECTIBLE_ID) then return end
-    if amount <= 0 then return end -- ignore “no damage” events
+    if amount <= 0 then return end 
 
-    -- Stable RNG for this collectible
     local rng = player:GetCollectibleRNG(Muse.COLLECTIBLE_ID)
     local roll = rng:RandomFloat()
-
-    -- 20% Tarot -> 10% Rune -> 20% Non-Heart pickup -> 1% Item
     if roll < 0.20 then
         local eligible = GetUnlockedCards(tarotCards)
         if #eligible > 0 then

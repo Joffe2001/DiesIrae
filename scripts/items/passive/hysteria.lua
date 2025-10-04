@@ -1,21 +1,17 @@
 local Hysteria = {}
-Hysteria.ID = Isaac.GetItemIdByName("Hysteria")
+Hysteria.ID = Enums.Items.Hysteria
 local game = Game()
 local SFX = SFXManager()
 
--- Called when player takes damage
 function Hysteria:OnTakeDamage(entity, amount, flags, source, countdown)
     if entity.Type ~= EntityType.ENTITY_PLAYER then return end
     local player = entity:ToPlayer()
     if not player or not player:HasCollectible(Hysteria.ID) then return end
 
     local data = player:GetData()
-
-    -- Increment damage counter when the player takes damage
     data.HHits = (data.HHits or 0) + 1
     print("Hysteria hits:", data.HHits)
 
-    -- If 2 hits are taken in the room, activate double damage for the room
     if data.HHits >= 2 and not data.HActive then
         data.HActive = true
         -- Apply double damage to the room
@@ -28,13 +24,11 @@ function Hysteria:OnTakeDamage(entity, amount, flags, source, countdown)
     end
 end
 
--- Called every frame for each player
 function Hysteria:OnPlayerUpdate(_, player)
     if not player or not player:HasCollectible(Hysteria.ID) then return end
     local data = player:GetData()
     local room = game:GetRoom()
 
-    -- On entering a new room, reset hit counter and effects
     if room:GetFrameCount() == 1 then
         data.HHits = 0
         if data.HActive then
@@ -46,21 +40,18 @@ function Hysteria:OnPlayerUpdate(_, player)
     end
 end
 
--- Modify stats when effect is active (double damage for the room)
 function Hysteria:OnCache(player, cacheFlag)
     local data = player:GetData()
     if not data.HActive then return end
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
-        player.Damage = player.Damage * 2  -- Double the damage
+        player.Damage = player.Damage * 2 
     end
 end
 
--- Reset the effect at the start of a new room
 function Hysteria:OnNewRoom()
-    local player = Isaac.GetPlayer(0)  -- Get first player
+    local player = Isaac.GetPlayer(0)
     local data = player:GetData()
-    -- Reset the hit counter for each player on entering a new room
     data.HHits = 0
     if data.HActive then
         data.HActive = nil
@@ -70,7 +61,6 @@ function Hysteria:OnNewRoom()
     end
 end
 
--- Register callbacks
 function Hysteria:Init(mod)
     mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Hysteria.OnTakeDamage)
     mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Hysteria.OnPlayerUpdate)

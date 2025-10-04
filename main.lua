@@ -1,9 +1,9 @@
 DiesIraeMod = RegisterMod("Dies Irae", 1)
 GameRef = Game()
 SfxManager = SFXManager()
-
 local json = require("json")
-
+local enums = require("scripts.core.enums")
+local json = require("json")
 local enums = require("scripts.core.enums")
 ---------------------------------------------------
 --  Charecters
@@ -41,6 +41,10 @@ local LittleLies = include("scripts.items.active.little_lies")
 LittleLies:Init(DiesIraeMod) --WORKING
 local SatansRemoteShop = include("scripts.items.active.satans_remote_shop")
 SatansRemoteShop:Init(DiesIraeMod)
+local D8055 = include("scripts.items.active.D8055")
+D8055:Init(DiesIraeMod)
+local BigShot = include("scripts.items.active.big_shot")
+BigShot:Init(DiesIraeMod)
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
@@ -136,6 +140,10 @@ BabyBlue:Init(DiesIraeMod) --WORKING
 --RottenFood:Init(mod)
 --local CatchTheRainbow = include("scripts.items.trinkets.catch_the_rainbow")
 --CatchTheRainbow:Init(mod)
+--local BrokenDream = include("scripts.items.trinkets.inabrokendream")
+--BrokenDream:Init(mod)
+--local clearvase = include("scripts.items.trinkets.clearvase")
+--clearvase:Init(mod)
 
 
 ---------------------------------------------------

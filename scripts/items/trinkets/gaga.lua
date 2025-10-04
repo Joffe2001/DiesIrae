@@ -1,5 +1,5 @@
 local Gaga = {}
-Gaga.ID = Isaac.GetTrinketIdByName("Gaga")
+Gaga.ID = Enums.Trinkets.Gaga
 local game = Game()
 
 -- Constants for drop chances

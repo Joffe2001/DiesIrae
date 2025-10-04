@@ -1,5 +1,5 @@
 local EnjoymentUnlucky = {}
-EnjoymentUnlucky.COLLECTIBLE_ID = Isaac.GetItemIdByName("Enjoyment of the Unlucky")
+EnjoymentUnlucky.COLLECTIBLE_ID = Enums.Items.EnjoymentOfTheUnlucky
 
 local baseStat = {}
 

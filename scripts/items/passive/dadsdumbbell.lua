@@ -1,5 +1,5 @@
 local DadsDumbbell = {}
-DadsDumbbell.COLLECTIBLE_ID = Isaac.GetItemIdByName("Dad's Dumbbell")
+DadsDumbbell.COLLECTIBLE_ID = Enums.Items.DadsDumbbell
 local game = Game()
 
 local TEAR_EFFECT_TAG = "DadsDumbbellEffect"
@@ -10,15 +10,11 @@ function DadsDumbbell:OnTearInit(tear)
         return
     end
 
-    -- 10% chance to give this tear the effect
     if math.random() < 0.10 then
         local data = tear:GetData()
         data[TEAR_EFFECT_TAG] = true
-        -- Change tear color to red
         tear:SetColor(Color(1, 0, 0, 1, 0, 0, 0), 1, 1, true, false)
-        -- Save original damage for reference if needed
         data["OriginalDamage"] = tear.CollisionDamage
-        -- Debug: print when effect is assigned
         Isaac.ConsoleOutput("DadsDumbbell effect applied to a tear!\n")
     end
 end
@@ -26,21 +22,16 @@ end
 function DadsDumbbell:OnTearUpdate(tear)
     local data = tear:GetData()
     if data[TEAR_EFFECT_TAG] then
-        -- Increase damage by 2 once
         if not data["DamageApplied"] then
-            -- Increase damage
             tear.CollisionDamage = tear.CollisionDamage + 2
             data["DamageApplied"] = true
-            -- Debug: print when damage is increased
             Isaac.ConsoleOutput("DadsDumbbell damage increased!\n")
         end
     end
 end
 
 function DadsDumbbell:Init(mod)
-    -- Hook into tear creation
     mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, DadsDumbbell.OnTearInit)
-    -- Hook into tear update
     mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, DadsDumbbell.OnTearUpdate)
 
     if EID then

@@ -1,5 +1,5 @@
 local Engel = {}
-Engel.COLLECTIBLE_ID = Isaac.GetItemIdByName("Engel")
+Engel.COLLECTIBLE_ID = Enums.Items.Engel
 local game = Game()
 
 local function IsAlwaysFlying(player)

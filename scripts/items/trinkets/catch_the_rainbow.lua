@@ -1,5 +1,5 @@
 local CatchTheRainbow = {}
-CatchTheRainbow.TRINKET_ID = Isaac.GetTrinketIdByName("Catch the Rainbow")
+CatchTheRainbow.TRINKET_ID = Enums.Trinkets.CatchTheRainbow
 local game = Game()
 
 -- Chances (set to 1.0 = 100% for testing)

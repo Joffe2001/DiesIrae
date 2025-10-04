@@ -40,8 +40,8 @@ Enums.Items = {
     CreatineOverdose     = Isaac.GetItemIdByName("Creatine Overdose"),
     FragileEgo           = Isaac.GetItemIdByName("Fragile Ego"),
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
-    BigShot              = Isaac.GetItemIdByName("Big Shot"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
+    BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),

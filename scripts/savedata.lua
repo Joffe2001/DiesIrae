@@ -21,12 +21,10 @@ SaveData.Data = {
     }
 }
 
--- Save helper
 function SaveData.Save(mod)
     mod:SaveData(json.encode(SaveData.Data))
 end
 
--- Load helper
 function SaveData.Load(mod)
     if mod:HasData() then
         local loaded = json.decode(mod:LoadData())
@@ -36,7 +34,6 @@ function SaveData.Load(mod)
     end
 end
 
--- Save on exit
 function SaveData:OnGameExit()
     SaveData.Save(SaveData.mod)
 end

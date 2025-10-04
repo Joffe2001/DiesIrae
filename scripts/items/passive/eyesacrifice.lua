@@ -1,5 +1,5 @@
 local EyeSacrifice = {}
-EyeSacrifice.COLLECTIBLE_ID = Isaac.GetItemIdByName("Eye Sacrifice")
+EyeSacrifice.COLLECTIBLE_ID = Enums.Items.EyeSacrifice
 local game = Game()
 
 -- Helper function to modify the tear position to the right eye

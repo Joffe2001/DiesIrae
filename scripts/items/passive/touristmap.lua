@@ -1,24 +1,20 @@
 local TouristMap = {}
-TouristMap.COLLECTIBLE_ID = Isaac.GetItemIdByName("Tourist Map")
+TouristMap.COLLECTIBLE_ID = Enums.Items.TouristMap
 
 local game = Game()
 
--- Helper: force shop on current floor
 local function ForceShop(level)
     local stage = level:GetStage()
     if stage >= LevelStage.STAGE4_1 then
         local roomDesc = level:GetRoomByIdx(GridRooms.ROOM_SHOP_IDX, 0)
         if not roomDesc or roomDesc.Data.Type ~= RoomType.ROOM_SHOP then
-            level:InitializeDevilAngelRoom(false) -- make sure special rooms are seeded
-            level:MakeRedRoomDoor(level:GetStartingRoomIndex(), 0) -- open a door for accessibility
-
-            -- Force shop
+            level:InitializeDevilAngelRoom(false)
+            level:MakeRedRoomDoor(level:GetStartingRoomIndex(), 0)
             level:SetRoomType(GridRooms.ROOM_SHOP_IDX, RoomType.ROOM_SHOP)
         end
     end
 end
 
--- On new level, check if player has item, then inject shop
 function TouristMap:onNewLevel()
     local level = game:GetLevel()
     for i = 0, game:GetNumPlayers() - 1 do
@@ -30,7 +26,6 @@ function TouristMap:onNewLevel()
     end
 end
 
--- Init
 function TouristMap:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TouristMap.onNewLevel)
 

@@ -1,5 +1,5 @@
 local FragileEgo = {}
-FragileEgo.COLLECTIBLE_ID = Isaac.GetItemIdByName("Fragile Ego")
+FragileEgo.COLLECTIBLE_ID = Enums.Items.FragileEgo
 
 -- Per-player state
 local players = {}

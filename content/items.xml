@@ -33,8 +33,8 @@
     <passive name="Creatine Overdose" gfx="" description="UNLIMITED POWER!!!" quality="3" tags= "offensive" />
     <passive name="Fragile Ego" gfx="" description="I find bliss in ignorance" quality="2" />
     <passive name="Tourist Map" gfx="" description="I wanna buy it!" quality="3" />
-    <passive name="Big Shot" gfx="" description="Now its time for big big shot!" quality="2" />
     <passive name="Beggar's Tear" gfx="" description="I want it all, and I want it now" quality="1" />
+    <passive name="Back In Anger" gfx="" description="Somebody's behind" quality="1" />
 	<!--Familiars-->
     <familiar name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" />
     <!--Active items-->
@@ -53,6 +53,9 @@
     <active name="Another Medium" gfx="" description="Things will not be the same" quality="1" maxcharges="1" chargetype="normal" />
     <active name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" />
     <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
+    <active name="D8055" gfx="" description="Maybe I'll try a different one" quality="2" maxcharges="4" chargetype="normal" />
+    <active name="Big Shot" gfx="" description="Now its time for big big shot!" chargetype="timed" maxcharges="240" quality="2" />
+
 	<!--Trinkets-->
     <trinket name="Money for nothing" description="You don't need money no more" gfx="" />
     <trinket name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />
@@ -62,4 +65,7 @@
     <trinket name="Clear Vase" gfx="" description="I don't see anything here" />
     <trinket name="Wonder of You" gfx="" description="It is the power of calamity" />
     <trinket name="Rotten Food" gfx="" description="Something is wrong..." />
+    <trinket name="Trinket Collector" gfx="" description="I will catch them all" />
+    <trinket name="Second Breakfast" description= "What about elevenses?" gfx="" />
+    <trinket name="In a Broken dream" description="Its the way to the void" gfx="" />
 </items>
