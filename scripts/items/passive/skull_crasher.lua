@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local SkullCrasher = {}
-SkullCrasher.COLLECTIBLE_ID = Enums.Items.SkullCrasher
 
 local game = Game()
 
@@ -29,7 +30,7 @@ function SkullCrasher:OnNPCUpdate(npc)
     if IsClosedSkullEnemy(npc) then
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
-            if player:HasCollectible(SkullCrasher.COLLECTIBLE_ID) then
+            if player:HasCollectible(mod.Items.SkullCrasher) then
                 if npc.FrameCount % 15 == 0 then
                     npc:TakeDamage(1, DamageFlag.DAMAGE_IGNORE_ARMOR | DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0)
                     local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, npc.Position, Vector.Zero, npc)
@@ -40,17 +41,13 @@ function SkullCrasher:OnNPCUpdate(npc)
     end
 end
 
-function SkullCrasher:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NPC_UPDATE, SkullCrasher.OnNPCUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_UPDATE, SkullCrasher.OnNPCUpdate)
 
-    if EID then
-        EID:addCollectible(
-            SkullCrasher.COLLECTIBLE_ID,
-            "Allows you to damage skull-based enemies (Hosts, Hard Hosts, Mobile Hosts, and Floasts) even when invulnerable.",
-            "Skull Crasher",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.SkullCrasher,
+        "Allows you to damage skull-based enemies (Hosts, Hard Hosts, Mobile Hosts, and Floasts) even when invulnerable.",
+        "Skull Crasher",
+        "en_us"
+    )
 end
-
-return SkullCrasher

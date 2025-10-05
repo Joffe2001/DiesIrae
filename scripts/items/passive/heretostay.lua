@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local HereToStay = {}
-HereToStay.COLLECTIBLE_ID = Enums.Items.HereToStay
 local game = Game()
 
 local MAX_TICKS = 8 
@@ -10,7 +11,7 @@ local CREEP_DAMAGE = 2.5
 local CREEP_LIFETIME = 60     
 
 function HereToStay:PostPlayerUpdate(player)
-    if not player:HasCollectible(HereToStay.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.HereToStay) then return end
 
     local data = player:GetData()
     data.TickCount = data.TickCount or 0
@@ -51,17 +52,13 @@ function HereToStay:PostPlayerUpdate(player)
     data.LastPos = player.Position
 end
 
-function HereToStay:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, HereToStay.PostPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, HereToStay.PostPlayerUpdate)
 
-    if EID then
-        EID:addCollectible(
-            HereToStay.COLLECTIBLE_ID,
-            "Standing still spawns creep in growing steps.#Each tick the puddle gets bigger.",
-            "Here to Stay",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.HereToStay,
+        "Standing still spawns creep in growing steps.#Each tick the puddle gets bigger.",
+        "Here to Stay",
+        "en_us"
+    )
 end
-
-return HereToStay

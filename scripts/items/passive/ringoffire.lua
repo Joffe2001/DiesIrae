@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local RingOfFire = {}
-RingOfFire.COLLECTIBLE_ID = Enums.Items.RingOfFire
 local game = Game()
 
 local fireDamage = 3
@@ -11,7 +12,7 @@ local lastBurstFrame = -9999
 function RingOfFire:onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(RingOfFire.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.RingOfFire) then
             local room = game:GetRoom()
             local roomCenter = room:GetCenterPos()
             local frame = game:GetFrameCount()
@@ -45,20 +46,14 @@ function RingOfFire:spawnFireBurst(player)
     SFXManager():Play(SoundEffect.SOUND_FLAME_BURST, 1.0, 0, false, 1.0)
 end
 
-function RingOfFire:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-        RingOfFire:onUpdate()
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, RingOfFire.onUpdate)
 
-    if EID then
-        EID:addCollectible(
-            RingOfFire.COLLECTIBLE_ID,
-            "Standing at the center of a room releases a burst of fire outward.",
-            "Ring of Fire",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", RingOfFire.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.RingOfFire,
+        "Standing at the center of a room releases a burst of fire outward.",
+        "Ring of Fire",
+        "en_us"
+    )
+    EID:assignTransformation("collectible", mod.Items.RingOfFire, "Dad's Playlist")
 end
-
-return RingOfFire

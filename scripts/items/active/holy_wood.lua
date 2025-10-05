@@ -1,11 +1,10 @@
-local HolyWood = {}
-HolyWood.COLLECTIBLE_ID = Enums.Items.HolyWood
+local mod = DiesIraeMod
 
-local HOLY_MANTLE = CollectibleType.COLLECTIBLE_HOLY_MANTLE
+local HolyWood = {}
 
 ---@param player EntityPlayer
 function HolyWood:UseItem(_, _, player)
-    player:AddCollectibleEffect(HOLY_MANTLE, true)
+    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, true)
 
     return {
         Discharge = true,
@@ -14,18 +13,12 @@ function HolyWood:UseItem(_, _, player)
     }
 end
 
-function HolyWood:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return HolyWood:UseItem(...)
-    end, HolyWood.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, HolyWood.UseItem, mod.Items.HolyWood)
 
-    if EID then
-        EID:addCollectible(HolyWood.COLLECTIBLE_ID,
-            "Grants Holy Mantle for the current room",
-            "Holy Wood",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(mod.Items.HolyWood,
+        "Grants Holy Mantle for the current room",
+        "Holy Wood",
+        "en_us"
+    )
 end
-
-return HolyWood

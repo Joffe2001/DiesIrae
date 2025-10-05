@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local RedCompass = {}
-RedCompass.COLLECTIBLE_ID = Enums.Items.RedCompass
 
 local game = Game()
 local RED_ROOM_OPEN_CHANCE = 0.25
@@ -12,11 +13,11 @@ function RedCompass:OnRoomClear()
     local roomIndex = roomDesc.SafeGridIndex
     local roomShape = roomDesc.Data.Shape
     local rng = RNG()
-    rng:SetSeed(roomIndex + RedCompass.COLLECTIBLE_ID, 35)
+    rng:SetSeed(roomIndex + mod.Items.RedCompass, 35)
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(RedCompass.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.RedCompass) then
 
             if rng:RandomFloat() < RED_ROOM_OPEN_CHANCE then
                 local triedDirs = {}
@@ -41,31 +42,25 @@ function RedCompass:OnRoomClear()
     end
 end
 
-function RedCompass:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_PRE_SFX_PLAY, function(_, sfx)
-        if sfx == SoundEffect.SOUND_REDLIGHTNING_ZAP then
-            return true
-        end
-    end)
-
-    mod:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, function(_, type, variant, subtype, pos, vel, spawner, seed)
-        if type == EntityType.ENTITY_PICKUP and variant == PickupVariant.PICKUP_TAROTCARD and subtype == Card.CARD_CRACKED_KEY then
-            return { type, variant, 0, pos, vel, spawner, seed }
-        end
-    end)
-
-    mod:AddCallback(ModCallbacks.MC_PRE_ROOM_CLEAR, function()
-        RedCompass:OnRoomClear()
-    end)
-
-    if EID then
-        EID:addCollectible(
-            RedCompass.COLLECTIBLE_ID,
-            "Upon clearing a room, has a chance to open a nearby red room.",
-            "Red Compass",
-            "en_us"
-        )
+mod:AddCallback(ModCallbacks.MC_PRE_SFX_PLAY, function(_, sfx)
+    if sfx == SoundEffect.SOUND_REDLIGHTNING_ZAP then
+        return true
     end
-end
+end)
 
-return RedCompass
+mod:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, function(_, type, variant, subtype, pos, vel, spawner, seed)
+    if type == EntityType.ENTITY_PICKUP and variant == PickupVariant.PICKUP_TAROTCARD and subtype == Card.CARD_CRACKED_KEY then
+        return { type, variant, 0, pos, vel, spawner, seed }
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_PRE_ROOM_CLEAR, RedCompass.OnRoomClear)
+
+if EID then
+    EID:addCollectible(
+        mod.Items.RedCompass,
+        "Upon clearing a room, has a chance to open a nearby red room.",
+        "Red Compass",
+        "en_us"
+    )
+end

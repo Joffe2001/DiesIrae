@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local Muse = {}
-Muse.COLLECTIBLE_ID = Enums.Items.Muse
 local game = Game()
 
 local tarotCards = {
@@ -60,10 +61,10 @@ end
 
 function Muse:OnPlayerDamaged(entity, amount, damageFlags, source, countdown)
     local player = entity:ToPlayer()
-    if not player or not player:HasCollectible(Muse.COLLECTIBLE_ID) then return end
+    if not player or not player:HasCollectible(mod.Items.Muse) then return end
     if amount <= 0 then return end 
 
-    local rng = player:GetCollectibleRNG(Muse.COLLECTIBLE_ID)
+    local rng = player:GetCollectibleRNG(mod.Items.Muse)
     local roll = rng:RandomFloat()
     if roll < 0.20 then
         local eligible = GetUnlockedCards(tarotCards)
@@ -97,18 +98,14 @@ function Muse:OnPlayerDamaged(entity, amount, damageFlags, source, countdown)
     end
 end
 
-function Muse:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Muse.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Muse.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
 
-    if EID then
-        EID:addCollectible(
-            Muse.COLLECTIBLE_ID,
-            "On damage: 20% Tarot card, 10% Rune, 20% non-heart pickup, 1% random item from current pool.",
-            "Muse",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", Muse.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.Muse,
+        "On damage: 20% Tarot card, 10% Rune, 20% non-heart pickup, 1% random item from current pool.",
+        "Muse",
+        "en_us"
+    )
+    EID:assignTransformation("collectible", mod.Items.Muse, "Dad's Playlist")
 end
-
-return Muse

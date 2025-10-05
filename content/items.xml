@@ -1,14 +1,14 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/anm2/death_items.anm2" version="1">
 	<!--Passive items-->
-    <passive id="1" name="U2" gfx="u2.png" description="Maybe I should've calld it Song 2" quality="2" tags="offensive" /> 
+    <passive id="1" name="U2" gfx="u2.png" description="Maybe I should've calld it Song 2" quality="2" tags="offensive" achievement="Army of Lovers" achievement="U2" /> 
     <passive id="2" name="Muse" gfx="" description="Let's sing for absolution" quality="4" tags="nolostbr"/>
-    <passive id="3" name="The Bad Touch" gfx="the_bad_touch.png" description="Sweat baby sweat" quality="1" tags="nolostbr"/>
-    <passive id="4" name="Universal" gfx="" description="Woo hoo!!" quality="3" />
-    <passive id="5" name="Ring of Fire" gfx="" description="Burn it down" quality="1" tags="nolostbr" />
-    <passive id="6" name="Killer Queen" gfx="" description="Killer queen already touched the doornob" quality="3" tags="offensive"/>
+    <passive id="3" name="The Bad Touch" gfx="the_bad_touch.png" description="Sweat baby sweat" quality="1" tags="nolostbr" achievement="The Bad Touch" />
+    <passive id="4" name="Universal" gfx="" description="Woo hoo!!" quality="3" achievement="Universal" />
+    <passive id="5" name="Ring of Fire" gfx="" description="Burn it down" quality="1" tags="nolostbr" achievement="Ring of Fire" />
+    <passive id="6" name="Killer Queen" gfx="" description="Killer queen already touched the doornob" quality="3" tags="offensive" achievement="Killer Queen" />
     <passive id="7" name="Mom's Dress" gfx="momsdress.png"  description="It's like her hug!" quality="2" tags="nolostbr mom" />
     <passive name="Enjoyment of the Unlucky" gfx="" description="Bad luck is a good luck!" quality="2" tags="offensive" />
-    <passive name="Everybody's Changing" gfx="everybodychanging.png" description="I don't feel the same" quality="2" />
+    <passive name="Everybody's Changing" gfx="everybodychanging.png" description="I don't feel the same" quality="2" achievement="Everybody's Changing" />
     <passive name="Echo" gfx="" description="I see a sky full of stars" quality="2" tags="nogreed" />
     <passive name="Engel" gfx="" description="It sounds like angel" quality="3" tags="nolostbr" />
     <passive name="Scared Shoes" gfx="" description="Why are you running?" quality="0" />
@@ -36,13 +36,13 @@
     <passive name="Beggar's Tear" gfx="" description="I want it all, and I want it now" quality="1" />
     <passive name="Back In Anger" gfx="" description="Somebody's behind" quality="1" />
 	<!--Familiars-->
-    <familiar name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" />
+    <familiar name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" achievement="Paranoid Android" />
     <!--Active items-->
     <active name="Guppy's soul" gfx="guppyssoul.png" description="Sinful cat soul" quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active name="Army of Lovers" gfx="armyoflovers.png" description="Saint-like behavior" quality="2" maxcharges="4" chargetype="normal" tags="offensive"/>
-    <active name="Sh-boom!!" gfx="shboom.png" description="Life could be a dream!" quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
+    <active name="Sh-boom!!" gfx="shboom.png" description="Life could be a dream!" quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" achievement="Sh-boom!!" />
     <active name="Hypa Hypa" gfx="" description="Maybe it will be good" quality="2" tags="nogreed" maxcharges="1" chargetype="special" />
-    <active name="Helter skelter" gfx="helterskelter.png" description="Friends from the dead" quality="3" maxcharges="6" chargetype="normal" />
+    <active name="Helter skelter" gfx="helterskelter.png" description="Friends from the dead" quality="3" maxcharges="6" chargetype="normal" achievement="Helter Skelter" />
     <active name="Holy Wood" gfx="" description="Safe, maybe, for now" quality="3" maxcharges="6" chargetype="normal" tags="nolostbr nogreed" />
     <active name="Diary of a Madman" gfx="" description="Anything can happend!" quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
     <active name="Coma White" gfx="" description="A special heart, but with a price" quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
@@ -51,7 +51,7 @@
     <active name="Devil's Heart" gfx="" description="See the Devil in I!" quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
     <active name="Mom's Diary" gfx="momsdiary2.png" description="Is that what she thinks of me?" quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active name="Another Medium" gfx="" description="Things will not be the same" quality="1" maxcharges="1" chargetype="normal" />
-    <active name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" />
+    <active name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" achievement="Little Lies" />
     <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
     <active name="D8055" gfx="" description="Maybe I'll try a different one" quality="2" maxcharges="4" chargetype="normal" />
     <active name="Big Shot" gfx="" description="Now its time for big big shot!" chargetype="timed" maxcharges="240" quality="2" />
@@ -61,9 +61,9 @@
     <trinket name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />
     <trinket name="Gaga" description="Just dance, it’ll be okay" gfx="" />
     <trinket name="Fixed Metabolism" gfx="" description="I feel good now" />
-    <trinket name="Baby Blue" gfx="babyblue.png" description="Guess I got what I deserved" />
+    <trinket name="Baby Blue" gfx="babyblue.png" description="Guess I got what I deserved" achievement="Baby Blue" />
     <trinket name="Clear Vase" gfx="" description="I don't see anything here" />
-    <trinket name="Wonder of You" gfx="" description="It is the power of calamity" />
+    <trinket name="Wonder of You" gfx="" description="It is the power of calamity" achievement="Wonder of You" />
     <trinket name="Rotten Food" gfx="" description="Something is wrong..." />
     <trinket name="Trinket Collector" gfx="" description="I will catch them all" />
     <trinket name="Second Breakfast" description= "What about elevenses?" gfx="" />

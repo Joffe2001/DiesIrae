@@ -1,17 +1,17 @@
+local mod = DiesIraeMod
+
 local KillerQueen = {}
-KillerQueen.COLLECTIBLE_ID = Enums.Items.KillerQueen
-KillerQueen.FAMILIAR_VARIANT = Isaac.GetEntityVariantByName("Killer Queen")
 
 function KillerQueen:onCache(player, cacheFlag)
-    if player:HasCollectible(KillerQueen.COLLECTIBLE_ID) and cacheFlag == CacheFlag.CACHE_FAMILIARS then
-        player:CheckFamiliar(KillerQueen.FAMILIAR_VARIANT, 1, player:GetCollectibleRNG(KillerQueen.COLLECTIBLE_ID))
+    if player:HasCollectible(mod.Items.KillerQueen) and cacheFlag == CacheFlag.CACHE_FAMILIARS then
+        player:CheckFamiliar(KillerQueen.FAMILIAR_VARIANT, 1, player:GetCollectibleRNG(mod.Items.KillerQueen))
     end
 end
 
 function KillerQueen:onFamiliarUpdate(fam)
     local data = fam:GetData()
     local player = fam.Player
-    local rng = player:GetCollectibleRNG(KillerQueen.COLLECTIBLE_ID)
+    local rng = player:GetCollectibleRNG(mod.Items.KillerQueen)
 
     data.attackCooldown = (data.attackCooldown or 0) - 1
     if data.attackCooldown <= 0 then
@@ -35,19 +35,15 @@ function KillerQueen:onFamiliarUpdate(fam)
     end
 end
 
-function KillerQueen:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KillerQueen.onCache)
-    mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, KillerQueen.FAMILIAR_VARIANT)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KillerQueen.onCache)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, KillerQueen.FAMILIAR_VARIANT)
 
-    if EID then
-        EID:addCollectible(
-            KillerQueen.COLLECTIBLE_ID,
-            "Killer Queen familiar that drops Epic Fetus bombs on enemies.",
-            "Killer Queen",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", KillerQueen.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.KillerQueen,
+        "Killer Queen familiar that drops Epic Fetus bombs on enemies.",
+        "Killer Queen",
+        "en_us"
+    )
+    EID:assignTransformation("collectible", mod.Items.KillerQueen, "Dad's Playlist")
 end
-
-return KillerQueen

@@ -1,4 +1,4 @@
-local ModRef = RegisterMod("Burning Heart", 1)
+local mod = DiesIraeMod
 local BurningHeart = {}
 local CUSTOM_HEART_BASE = 100
 local rng = RNG()
@@ -76,8 +76,8 @@ function BurningHeart:OnDamage(entity, amount, flags, source, countdown)
     end
 end
 
-ModRef:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, BurningHeart.PostEntityKill)
-ModRef:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, BurningHeart.PickupUpdate)
-ModRef:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, BurningHeart.OnCollide, PickupVariant.PICKUP_HEART)
-ModRef:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, BurningHeart.OnCache)
-ModRef:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, BurningHeart.OnDamage)
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, BurningHeart.PostEntityKill)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, BurningHeart.PickupUpdate)
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, BurningHeart.OnCollide, PickupVariant.PICKUP_HEART)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, BurningHeart.OnCache)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, BurningHeart.OnDamage)

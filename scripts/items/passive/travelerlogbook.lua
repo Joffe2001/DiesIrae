@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local TravelerLogbook = {}
-TravelerLogbook.COLLECTIBLE_ID = Enums.Items.TravelerLogbook
 
 local game = Game()
 local visitedRooms = {}
@@ -18,7 +19,7 @@ local function ResetTempStats(index)
 end
 
 local function InitPlayerStats(player)
-    local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
+    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
     if not permStatBonuses[index] then
         permStatBonuses[index] = {
             damage = 0,
@@ -33,7 +34,7 @@ local function InitPlayerStats(player)
 end
 
 function TravelerLogbook:ApplyStatBoost(player, isPermanent)
-    local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
+    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
     InitPlayerStats(player)
 
     local stat = StatList[math.random(#StatList)]
@@ -68,8 +69,8 @@ function TravelerLogbook:OnNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
 
-        if player:HasCollectible(TravelerLogbook.COLLECTIBLE_ID) then
-            local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
+        if player:HasCollectible(mod.Items.TravelerLogbook) then
+            local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
             InitPlayerStats(player)
 
             if isErrorRoom then
@@ -86,7 +87,7 @@ function TravelerLogbook:OnNewLevel()
     visitedRooms = {}
     for _, _ in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
         local player = Isaac.GetPlayer(0)
-        local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
+        local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
         ResetTempStats(index)
         player:AddCacheFlags(
             CacheFlag.CACHE_DAMAGE |
@@ -99,9 +100,9 @@ function TravelerLogbook:OnNewLevel()
 end
 
 function TravelerLogbook:OnEvaluateCache(player, cacheFlag)
-    if not player:HasCollectible(TravelerLogbook.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.TravelerLogbook) then return end
 
-    local index = player:GetCollectibleRNG(TravelerLogbook.COLLECTIBLE_ID):GetSeed()
+    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
     InitPlayerStats(player)
 
     local total = {
@@ -126,19 +127,15 @@ function TravelerLogbook:OnEvaluateCache(player, cacheFlag)
     end
 end
 
-function TravelerLogbook:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, TravelerLogbook.OnNewRoom)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TravelerLogbook.OnNewLevel)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, TravelerLogbook.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, TravelerLogbook.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TravelerLogbook.OnNewLevel)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, TravelerLogbook.OnEvaluateCache)
 
-    if EID then
-        EID:addCollectible(
-            TravelerLogbook.COLLECTIBLE_ID,
-            "Exploring a new room grants +0.1 to a random stat (Damage, Speed, Tears, or Range) for the floor.#Entering an I AM ERROR room resets floor boosts and gives +0.2 to a random stat permanently.",
-            "Traveler Logbook",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.TravelerLogbook,
+        "Exploring a new room grants +0.1 to a random stat (Damage, Speed, Tears, or Range) for the floor.#Entering an I AM ERROR room resets floor boosts and gives +0.2 to a random stat permanently.",
+        "Traveler Logbook",
+        "en_us"
+    )
 end
-
-return TravelerLogbook

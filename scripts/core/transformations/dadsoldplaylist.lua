@@ -1,18 +1,20 @@
+local mod = DiesIraeMod
+
 local DadPlaylist = {}
 DadPlaylist.TRANSFORMATION_NAME = "Dad's Old Playlist"
 
 DadPlaylist.ITEMS = {
-    Isaac.GetItemIdByName("The Bad Touch"),
-    Isaac.GetItemIdByName("Army of Lovers"),
-    Isaac.GetItemIdByName("Little Lies"),
-    Isaac.GetItemIdByName("Sh-boom!!"),
-    Isaac.GetItemIdByName("Universal"),
-    Isaac.GetItemIdByName("Everybody's Changing"),
-    Isaac.GetItemIdByName("U2"),
-    Isaac.GetItemIdByName("Killer Queen"),
-    Isaac.GetItemIdByName("Ring of Fire"),
-    Isaac.GetItemIdByName("Helter Skelter"),
-    Isaac.GetItemIdByName("Muse")
+    mod.Items.TheBadTouch,
+    mod.Items.ArmyOfLovers,
+    mod.Items.LittleLies,
+    mod.Items.ShBoom,
+    mod.Items.Universal,
+    mod.Items.EverybodysChanging,
+    mod.Items.U2,
+    mod.Items.KillerQueen,
+    mod.Items.RingOfFire,
+    mod.Items.HelterSkelter,
+    mod.Items.Muse
 }
 
 local game = Game()
@@ -79,15 +81,11 @@ function DadPlaylist:onFireTear(tear)
     end
 end
 
-function DadPlaylist:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, DadPlaylist.onPlayerInit)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, DadPlaylist.onPlayerUpdate)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DadPlaylist.onEvaluateCache)
-    mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, DadPlaylist.onFireTear)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, DadPlaylist.onPlayerInit)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, DadPlaylist.onPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DadPlaylist.onEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, DadPlaylist.onFireTear)
 
-    if EID then
-        EID:createTransformation("DadPlaylist","Dad's Old Playlist")
-    end
+if EID then
+    EID:createTransformation("DadPlaylist","Dad's Old Playlist")
 end
-
-return DadPlaylist

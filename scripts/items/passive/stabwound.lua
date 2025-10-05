@@ -1,9 +1,10 @@
+local mod = DiesIraeMod
+
 local StabWound = {}
-StabWound.COLLECTIBLE_ID = Enums.Items.StabWound
 local game = Game()
 
 function StabWound:onCache(player, cacheFlag)
-    if not player:HasCollectible(StabWound.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.StabWound) then return end
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + 1.0
@@ -20,7 +21,7 @@ function StabWound:onUpdate()
         local player = Isaac.GetPlayer(i)
         local data = player:GetData()
 
-        if player:HasCollectible(StabWound.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.StabWound) then
             if not data.StabWoundCacheApplied then
                 player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_FIREDELAY)
                 player:EvaluateItems()
@@ -37,18 +38,14 @@ function StabWound:onUpdate()
 end
 
 -- INIT
-function StabWound:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, StabWound.onCache)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, StabWound.onUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, StabWound.onCache)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, StabWound.onUpdate)
 
-    if EID then
-        EID:addCollectible(
-            StabWound.COLLECTIBLE_ID,
-            "↑ +1 Damage#↑ +0.5 Tears",
-            "Stab Wound",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.StabWound,
+        "↑ +1 Damage#↑ +0.5 Tears",
+        "Stab Wound",
+        "en_us"
+    )
 end
-
-return StabWound

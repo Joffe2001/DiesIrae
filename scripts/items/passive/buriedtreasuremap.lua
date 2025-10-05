@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local BuriedTreasureMap = {}
-BuriedTreasureMap.COLLECTIBLE_ID = Isaac.GetItemIdByName("Buried Treasure Map")
 local game = Game()
 
 local hasBeatenBoss = false
@@ -10,7 +11,7 @@ function BuriedTreasureMap:OnNewRoom()
     local room = game:GetRoom()
 
     -- Check if player has the item
-    if not player:HasCollectible(BuriedTreasureMap.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BuriedTreasureMap) then return end
 
     -- If in boss room and it's clear, mark that the boss is defeated
     if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() and not hasBeatenBoss then
@@ -32,17 +33,13 @@ function BuriedTreasureMap:OnNewRoom()
     end
 end
 
-function BuriedTreasureMap:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, BuriedTreasureMap.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, BuriedTreasureMap.OnNewRoom)
 
-    if EID then
-        EID:addCollectible(
-            BuriedTreasureMap.COLLECTIBLE_ID,
-            "After defeating a boss, a crawl space appears in the next room you enter.",
-            "Buried Treasure Map",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.BuriedTreasureMap,
+        "After defeating a boss, a crawl space appears in the next room you enter.",
+        "Buried Treasure Map",
+        "en_us"
+    )
 end
-
-return BuriedTreasureMap

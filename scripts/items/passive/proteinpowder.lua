@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local ProteinPowder = {}
-ProteinPowder.ID = Enums.Items.ProteinPowder
 local game = Game()
 
 local function ComputeBonus(count)
@@ -16,7 +17,7 @@ end
 
 function ProteinPowder:OnEvaluateCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
-        local count = player:GetCollectibleNum(ProteinPowder.ID)
+        local count = player:GetCollectibleNum(mod.Items.ProteinPowder)
         local bonus = ComputeBonus(count)
         player.Damage = player.Damage + bonus
     end
@@ -25,26 +26,22 @@ end
 function ProteinPowder:OnUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        local count = player:GetCollectibleNum(ProteinPowder.ID)
+        local count = player:GetCollectibleNum(mod.Items.ProteinPowder)
         if count >= 4 and not player:GetData().ProteinPowderRemoved then
-            game:GetItemPool():RemoveCollectible(ProteinPowder.ID)
+            game:GetItemPool():RemoveCollectible(mod.Items.ProteinPowder)
             player:GetData().ProteinPowderRemoved = true
         end
     end
 end
 
-function ProteinPowder:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ProteinPowder.OnEvaluateCache)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ProteinPowder.OnUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ProteinPowder.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ProteinPowder.OnUpdate)
 
-    if EID then
-        EID:addCollectible(
-            ProteinPowder.ID,
-            "↑ Gain +1 Damage on first pickup, +2 on second, up to +4.#Further pickups always grant +1 damage.",
-            "Protein Powder",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.ProteinPowder,
+        "↑ Gain +1 Damage on first pickup, +2 on second, up to +4.#Further pickups always grant +1 damage.",
+        "Protein Powder",
+        "en_us"
+    )
 end
-
-return ProteinPowder

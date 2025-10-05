@@ -1,15 +1,16 @@
+local mod = DiesIraeMod
+
 local WonderOfYou = {}
-WonderOfYou.TRINKET_ID = Enums.Trinkets.WonderOfYou
 local game = Game()
 
 function WonderOfYou:onPlayerDamage(player, amount, flags, source, countdown)
     local p = player:ToPlayer()
     if not p then return end
-    if not p:HasTrinket(WonderOfYou.TRINKET_ID) then return end
+    if not p:HasTrinket(mod.Trinkets.WonderOfYou) then return end
 
     -- Base chance 5%, doubled to 10% if golden trinket
     local chance = 0.05
-    if p:HasGoldenTrinket(WonderOfYou.TRINKET_ID) then
+    if p:HasGoldenTrinket(mod.Trinkets.WonderOfYou) then
         chance = 0.10
     end
 
@@ -34,17 +35,13 @@ function WonderOfYou:smiteRoom(player)
 end
 
 -- Init callbacks
-function WonderOfYou:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, WonderOfYou.onPlayerDamage, EntityType.ENTITY_PLAYER)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, WonderOfYou.onPlayerDamage, EntityType.ENTITY_PLAYER)
 
-    if EID then
-        EID:addTrinket(
-            WonderOfYou.TRINKET_ID,
-            "Taking damage has a 5% chance to instantly kill all non-boss enemies in the room.#Golden: 10%",
-            "Wonder of You",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addTrinket(
+        mod.Trinkets.WonderOfYou,
+        "Taking damage has a 5% chance to instantly kill all non-boss enemies in the room.#Golden: 10%",
+        "Wonder of You",
+        "en_us"
+    )
 end
-
-return WonderOfYou

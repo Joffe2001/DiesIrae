@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local EyeSacrifice = {}
-EyeSacrifice.COLLECTIBLE_ID = Enums.Items.EyeSacrifice
 local game = Game()
 
 -- Helper function to modify the tear position to the right eye
@@ -21,7 +22,7 @@ function EyeSacrifice:onFireTear(tear, player)
     if not player then return end
 
     -- Check if the player has the Eye Sacrifice item
-    if player:HasCollectible(EyeSacrifice.COLLECTIBLE_ID) then
+    if player:HasCollectible(mod.Items.EyeSacrifice) then
         -- Adjust the tear position to the player's right eye
         adjustTearPosition(tear, player)
     end
@@ -32,7 +33,7 @@ function EyeSacrifice:onUpdate()
     local player = Isaac.GetPlayer(0) -- Get the first player (use 0 for single-player)
     if not player then return end  -- Ensure player is valid
 
-    if not player:HasCollectible(EyeSacrifice.COLLECTIBLE_ID) then
+    if not player:HasCollectible(mod.Items.EyeSacrifice) then
         return
     end
 
@@ -55,18 +56,14 @@ function EyeSacrifice:onUpdate()
 end
 
 -- Initialize the item
-function EyeSacrifice:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_UPDATE, EyeSacrifice.onUpdate)
-    mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, EyeSacrifice.onFireTear)
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, EyeSacrifice.onUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, EyeSacrifice.onFireTear)
 
-    if EID then
-        EID:addCollectible(
-            EyeSacrifice.COLLECTIBLE_ID,
-            "Shoot only from Isaac's right eye.#Upon entering the Devil Deal room, receive a free Devil Deal.",
-            "Eye Sacrifice",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.EyeSacrifice,
+        "Shoot only from Isaac's right eye.#Upon entering the Devil Deal room, receive a free Devil Deal.",
+        "Eye Sacrifice",
+        "en_us"
+    )
 end
-
-return EyeSacrifice

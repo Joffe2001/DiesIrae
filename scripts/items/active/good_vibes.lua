@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local GoodVibes = {}
-GoodVibes.COLLECTIBLE_ID = Enums.Items.GoodVibes
 
 function GoodVibes:UseItem()
     local entities = Isaac.GetRoomEntities()
@@ -43,17 +44,13 @@ function GoodVibes:UseItem()
     }
 end
 
-function GoodVibes:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, GoodVibes.UseItem, GoodVibes.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, GoodVibes.UseItem, mod.Items.GoodVibes)
 
-    if EID then
-        EID:addCollectible(
-            GoodVibes.COLLECTIBLE_ID,
-            "Transforms all red heart pickups in the room into soul hearts. Half red → half soul, double red → two soul hearts.",
-            "Good Vibes",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.GoodVibes,
+        "Transforms all red heart pickups in the room into soul hearts. Half red → half soul, double red → two soul hearts.",
+        "Good Vibes",
+        "en_us"
+    )
 end
-
-return GoodVibes

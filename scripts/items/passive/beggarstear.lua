@@ -1,10 +1,11 @@
+local mod = DiesIraeMod
+
 local BeggarsTear = {}
-BeggarsTear.COLLECTIBLE_ID = Enums.Items.BeggarsTear
 local game = Game()
 
 function BeggarsTear:onFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:HasCollectible(BeggarsTear.COLLECTIBLE_ID) then
+    if player and player:HasCollectible(mod.Items.BeggarsTear) then
         tear:GetData().BeggarsTear = true
     end
 end
@@ -117,18 +118,14 @@ function BeggarsTear:onTearUpdate(tear)
     end
 end
 
-function BeggarsTear:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, BeggarsTear.onFireTear)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, BeggarsTear.onTearUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, BeggarsTear.onFireTear)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, BeggarsTear.onTearUpdate)
 
-    if EID then
-        EID:addCollectible(
-            BeggarsTear.COLLECTIBLE_ID,
-            "Tears can collect pickups.#Consumables (coins, keys, bombs, hearts, batteries, golden variants, rotten hearts, etc.) are auto-collected when touched.#Other pickups (cards, trinkets, chests) are pulled toward Isaac.",
-            "Beggar's Tear",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.BeggarsTear,
+        "Tears can collect pickups.#Consumables (coins, keys, bombs, hearts, batteries, golden variants, rotten hearts, etc.) are auto-collected when touched.#Other pickups (cards, trinkets, chests) are pulled toward Isaac.",
+        "Beggar's Tear",
+        "en_us"
+    )
 end
-
-return BeggarsTear

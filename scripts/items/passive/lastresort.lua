@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local LastResort = {}
-LastResort.COLLECTIBLE_ID = Enums.Items.LastResort
 local game = Game()
 local sfx = SFXManager()
 
@@ -17,7 +18,7 @@ function LastResort:GiveStatBoost(player)
     local index = player:GetPlayerIndex()
     statGains[index] = statGains[index] or { damage = 0, speed = 0, tears = 0 }
 
-    local rng = player:GetCollectibleRNG(LastResort.COLLECTIBLE_ID)
+    local rng = player:GetCollectibleRNG(mod.Items.LastResort)
     local chosen = STAT_OPTIONS[rng:RandomInt(#STAT_OPTIONS) + 1]
 
     statGains[index][chosen.key] = statGains[index][chosen.key] + chosen.value
@@ -45,7 +46,7 @@ end
 function LastResort:OnUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(LastResort.COLLECTIBLE_ID) then return end
+        if not player:HasCollectible(mod.Items.LastResort) then return end
         if player:GetPlayerType() == PlayerType.PLAYER_THELOST or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B then return end
 
         local index = player:GetPlayerIndex()
@@ -72,19 +73,15 @@ function LastResort:OnNewRoom()
     end
 end
 
-function LastResort:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LastResort.OnUpdate)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LastResort.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LastResort.OnUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LastResort.OnNewRoom)
 
-    if EID then
-        EID:addCollectible(
-            LastResort.COLLECTIBLE_ID,
-            "When at half a heart, clearing a hostile room grants a permanent stat boost:#↑ +0.3 Damage OR ↑ +0.1 Speed OR ↑ Tears (random)",
-            "Last Resort",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.LastResort,
+        "When at half a heart, clearing a hostile room grants a permanent stat boost:#↑ +0.3 Damage OR ↑ +0.1 Speed OR ↑ Tears (random)",
+        "Last Resort",
+        "en_us"
+    )
 end
-
-return LastResort

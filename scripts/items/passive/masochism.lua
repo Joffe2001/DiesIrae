@@ -1,14 +1,15 @@
+local mod = DiesIraeMod
+
 local Masochism = {}
-Masochism.COLLECTIBLE_ID = Isaac.GetItemIdByName("Masochism")
 
 -- Table to track how many times player has taken damage
 local playerStatTracker = {}
 
 function Masochism:OnTakeDamage(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
-    if not player or not player:HasCollectible(Masochism.COLLECTIBLE_ID) then return end
+    if not player or not player:HasCollectible(mod.Items.Masochism) then return end
 
-    local id = player:GetCollectibleRNG(Masochism.COLLECTIBLE_ID):GetSeed()
+    local id = player:GetCollectibleRNG(mod.Items.Masochism):GetSeed()
     if not playerStatTracker[id] then
         playerStatTracker[id] = {
             damage = 0,
@@ -29,7 +30,7 @@ function Masochism:OnTakeDamage(entity, amount, flags, source, countdown)
 end
 
 function Masochism:onCache(player, cacheFlag)
-    local id = player:GetCollectibleRNG(Masochism.COLLECTIBLE_ID):GetSeed()
+    local id = player:GetCollectibleRNG(mod.Items.Masochism):GetSeed()
     local data = playerStatTracker[id]
     if not data then return end
 
@@ -48,18 +49,14 @@ function Masochism:onCache(player, cacheFlag)
     end
 end
 
-function Masochism:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Masochism.OnTakeDamage)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Masochism.onCache)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Masochism.OnTakeDamage)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Masochism.onCache)
 
-    if EID then
-        EID:addCollectible(
-            Masochism.COLLECTIBLE_ID,
-            "Taking damage grants a random small permanent stat boost",
-            "Masochism",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.Masochism,
+        "Taking damage grants a random small permanent stat boost",
+        "Masochism",
+        "en_us"
+    )
 end
-
-return Masochism

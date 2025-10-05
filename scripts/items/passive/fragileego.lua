@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local FragileEgo = {}
-FragileEgo.COLLECTIBLE_ID = Enums.Items.FragileEgo
 
 -- Per-player state
 local players = {}
@@ -22,7 +23,7 @@ local BOOSTS = {
 
 -- Apply cache
 function FragileEgo:onCache(player, cacheFlag)
-    if not player:HasCollectible(FragileEgo.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.FragileEgo) then return end
     local state = getState(player)
     local boosts = state.boosts
 
@@ -43,7 +44,7 @@ end
 function FragileEgo:onRoomClear()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(FragileEgo.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.FragileEgo) then
             local state = getState(player)
             local keys = {"damage", "speed", "tears", "luck"}
             local choice = keys[math.random(#keys)]
@@ -61,7 +62,7 @@ end
 function FragileEgo:onPlayerDamage(entity, amount, flags, source, countdown)
     if entity.Type ~= EntityType.ENTITY_PLAYER then return end
     local player = entity:ToPlayer()
-    if player and player:HasCollectible(FragileEgo.COLLECTIBLE_ID) then
+    if player and player:HasCollectible(mod.Items.FragileEgo) then
         local state = getState(player)
 
         -- Reset boosts
@@ -81,19 +82,15 @@ end
 
 
 -- Init
-function FragileEgo:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, FragileEgo.onCache)
-    mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, FragileEgo.onRoomClear)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, FragileEgo.onPlayerDamage)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, FragileEgo.onCache)
+mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, FragileEgo.onRoomClear)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, FragileEgo.onPlayerDamage)
 
-    if EID then
-        EID:addCollectible(
-            FragileEgo.COLLECTIBLE_ID,
-            "↑ Clearing a room grants a random minor stat boost (stacks)#↓ Taking damage removes all boosts #↓ Taking damage may cause a broken heart",
-            "Fragile Ego",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.FragileEgo,
+        "↑ Clearing a room grants a random minor stat boost (stacks)#↓ Taking damage removes all boosts #↓ Taking damage may cause a broken heart",
+        "Fragile Ego",
+        "en_us"
+    )
 end
-
-return FragileEgo

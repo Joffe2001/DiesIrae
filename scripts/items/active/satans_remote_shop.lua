@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local SatansRemoteShop = {}
-SatansRemoteShop.COLLECTIBLE_ID = Enums.Items.SatansRemoteShop
 
 local usedThisFloor = false
 
@@ -27,11 +28,11 @@ function SatansRemoteShop:UseItem(_, _, player)
     end
 
     if sacrificeHearts(player) then
-        local itemId = GameRef:GetItemPool():GetCollectible(ItemPoolType.POOL_DEVIL, true, RNG():Next())
+        local itemId = Game():GetItemPool():GetCollectible(ItemPoolType.POOL_DEVIL, true, RNG():Next())
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemId, player.Position, Vector(0, 0), player)
         
         SfxManager:Play(SoundEffect.SOUND_DEVILROOM_DEAL, 1.0, 0, false, 1.0)
-        GameRef:ShakeScreen(10)
+        Game():ShakeScreen(10)
 
         usedThisFloor = true
 
@@ -53,32 +54,24 @@ end
 
 function SatansRemoteShop:OnNewLevel()
     usedThisFloor = false
-    for i = 0, GameRef:GetNumPlayers() - 1 do
+    for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        local slot = player:GetActiveItemSlot(SatansRemoteShop.COLLECTIBLE_ID)
+        local slot = player:GetActiveItemSlot(mod.Items.SatansRemoteShop)
         if slot then
             player:FullCharge(slot)
         end
     end
 end
 
-function SatansRemoteShop:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return SatansRemoteShop:UseItem(...)
-    end, SatansRemoteShop.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, SatansRemoteShop.UseItem, mod.Items.SatansRemoteShop)
 
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-        SatansRemoteShop:OnNewLevel()
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, SatansRemoteShop.OnNewLevel)
 
-    -- EID support
-    if EID then
-        EID:addCollectible(SatansRemoteShop.COLLECTIBLE_ID,
-            "Sacrifice one heart container or three soul hearts#Receive a random devil item pedestal#Can be used once per floor",
-            "Satan's Remote Shop",
-            "en_us"
-        )
-    end
+-- EID support
+if EID then
+    EID:addCollectible(mod.Items.SatansRemoteShop,
+        "Sacrifice one heart container or three soul hearts#Receive a random devil item pedestal#Can be used once per floor",
+        "Satan's Remote Shop",
+        "en_us"
+    )
 end
-
-return SatansRemoteShop

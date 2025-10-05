@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local GooglyEyes = {}
-GooglyEyes.COLLECTIBLE_ID = Isaac.GetItemIdByName("Googly Eyes")
 
 -- List of tear variants to randomly pick from (excluding charge/recharge types)
 local tearVariants = {
@@ -53,7 +54,7 @@ end
 -- MC_POST_FIRE_TEAR callback: modify tears when fired
 function GooglyEyes:PostFireTear(_, tear)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(GooglyEyes.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.GooglyEyes) then return end
 
     local variants = getRandomVariants()
 
@@ -72,17 +73,13 @@ function GooglyEyes:PostFireTear(_, tear)
     print("Googly Eyes: Tear changed to variant(s): " .. table.concat(variants, ", "))
 end
 
-function GooglyEyes:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, GooglyEyes.PostFireTear)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, GooglyEyes.PostFireTear)
 
-    if EID then
-        EID:addCollectible(
-            GooglyEyes.COLLECTIBLE_ID,
-            "Isaac's tears randomly gain 1-3 chaotic tear variants simultaneously, mixing elemental and special effects.",
-            "Googly Eyes",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.GooglyEyes,
+        "Isaac's tears randomly gain 1-3 chaotic tear variants simultaneously, mixing elemental and special effects.",
+        "Googly Eyes",
+        "en_us"
+    )
 end
-
-return GooglyEyes

@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local HelterSkelter = {}
-HelterSkelter.COLLECTIBLE_ID = Enums.Items.HelterSkelter
 
 ---@param rng RNG
 ---@param player EntityPlayer
@@ -23,17 +24,13 @@ function HelterSkelter:UseItem(_, rng, player)
     return true
 end
 
-function HelterSkelter:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, HelterSkelter.UseItem, HelterSkelter.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, HelterSkelter.UseItem, mod.Items.HelterSkelter)
 
-    if EID then
-        EID:addCollectible(HelterSkelter.COLLECTIBLE_ID,
-            "25% chance to turn each enemy into a friendly Bony",
-            "Helter Skelter",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", HelterSkelter.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:addCollectible(mod.Items.HelterSkelter,
+        "25% chance to turn each enemy into a friendly Bony",
+        "Helter Skelter",
+        "en_us"
+    )
+    EID:assignTransformation("collectible", mod.Items.HelterSkelter, "Dad's Playlist")
 end
-
-return HelterSkelter

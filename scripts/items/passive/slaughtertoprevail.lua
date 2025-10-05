@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local SlaughterToPrevail = {}
-SlaughterToPrevail.COLLECTIBLE_ID = Enums.Items.SlaughterToPrevail
 local game = Game()
 
 local DAMAGE_INCREASE = 0.01
@@ -22,7 +23,7 @@ function SlaughterToPrevail:onKillEntity(entity)
     if entity:IsVulnerableEnemy() and not entity:IsBoss() and not entity.SpawnsEnemy then
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
-            if player:HasCollectible(SlaughterToPrevail.COLLECTIBLE_ID) then
+            if player:HasCollectible(mod.Items.SlaughterToPrevail) then
                 if killsThisRoom < MAX_KILLS_PER_ROOM then
                     increaseDamage(player)
                     killsThisRoom = killsThisRoom + 1
@@ -36,18 +37,14 @@ function SlaughterToPrevail:OnNewRoom()
     killsThisRoom = 0
 end
 
-function SlaughterToPrevail:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, SlaughterToPrevail.onKillEntity)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, SlaughterToPrevail.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, SlaughterToPrevail.onKillEntity)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, SlaughterToPrevail.OnNewRoom)
 
-    if EID then
-        EID:addCollectible(
-            SlaughterToPrevail.COLLECTIBLE_ID,
-            "On enemy kill, 50% chance to increase Isaac's damage by +0.01. (Max 10 kills per room)",
-            "Slaughter to Prevail",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.SlaughterToPrevail,
+        "On enemy kill, 50% chance to increase Isaac's damage by +0.01. (Max 10 kills per room)",
+        "Slaughter to Prevail",
+        "en_us"
+    )
 end
-
-return SlaughterToPrevail

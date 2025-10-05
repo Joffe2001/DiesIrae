@@ -1,12 +1,13 @@
+local mod = DiesIraeMod
+
 local EnjoymentUnlucky = {}
-EnjoymentUnlucky.COLLECTIBLE_ID = Enums.Items.EnjoymentOfTheUnlucky
 
 local baseStat = {}
 
 
 -- Recalculate buffs based on current negative luck
 function EnjoymentUnlucky:RecalculateStats(player)
-    if not player:HasCollectible(EnjoymentUnlucky.COLLECTIBLE_ID) then
+    if not player:HasCollectible(mod.Items.EnjoymentOfTheUnlucky) then
         baseStat[player.ControllerIndex] = nil
         return
     end
@@ -42,17 +43,13 @@ function EnjoymentUnlucky:EvaluateCache(player, cacheFlag)
     end
 end
 
-function EnjoymentUnlucky:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EnjoymentUnlucky.EvaluateCache)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EnjoymentUnlucky.EvaluateCache)
 
-    if EID then
-        EID:addCollectible(
-            EnjoymentUnlucky.COLLECTIBLE_ID,
-            "For each point of negative Luck, gain:#↑ +0.4 Damage#↑ -0.7 Fire Delay#↑ +0.1 Speed#↑ +0.2 Range#↑ +0.05 Shot Speed",
-            "Enjoyment of the Unlucky",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.EnjoymentOfTheUnlucky,
+        "For each point of negative Luck, gain:#↑ +0.4 Damage#↑ -0.7 Fire Delay#↑ +0.1 Speed#↑ +0.2 Range#↑ +0.05 Shot Speed",
+        "Enjoyment of the Unlucky",
+        "en_us"
+    )
 end
-
-return EnjoymentUnlucky

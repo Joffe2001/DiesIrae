@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local AnotherMedium = {}
-AnotherMedium.COLLECTIBLE_ID = Enums.Items.AnotherMedium
 
 local itemConfig = Isaac.GetItemConfig()
 local MAX_ITEM_ID = 10000
@@ -54,7 +55,7 @@ function AnotherMedium:OnUse(_, rng, player)
 
         player:EvaluateItems()
         player:AnimateCollectible(AnotherMedium.COLLECTIBLE_ID)
-        GameRef:ShakeScreen(5)
+        Game():ShakeScreen(5)
         Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, player)
         SFXManager():Play(SoundEffect.SOUND_EDEN_GLITCH)
 
@@ -69,18 +70,5 @@ function AnotherMedium:OnUse(_, rng, player)
     }
 end
 
-function AnotherMedium:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, AnotherMedium.OnUse, AnotherMedium.COLLECTIBLE_ID)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, AnotherMedium.OnNewLevel)
-
-    if EID then
-        EID:addCollectible(
-            AnotherMedium.COLLECTIBLE_ID,
-            "Once per floor, swaps one random passive or familiar with a completely random one from any item pool.",
-            "Another Medium",
-            "en_us"
-        )
-    end
-end
-
-return AnotherMedium
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, AnotherMedium.OnUse, mod.Items.AnotherMedium)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, AnotherMedium.OnNewLevel)

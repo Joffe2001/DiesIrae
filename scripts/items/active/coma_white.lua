@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local ComaWhite = {}
-ComaWhite.COLLECTIBLE_ID = Enums.Items.ComaWhite
 
 local blockBossReward = false
 
@@ -17,7 +18,7 @@ end
 ---@param pickup EntityPickup
 function ComaWhite:PostPickupInit(pickup)
     if blockBossReward
-    and GameRef:GetRoom():GetType() == RoomType.ROOM_BOSS
+    and Game():GetRoom():GetType() == RoomType.ROOM_BOSS
     and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         pickup:Remove()
         blockBossReward = false
@@ -28,26 +29,16 @@ function ComaWhite:OnNewLevel()
     blockBossReward = false
 end
 
-function ComaWhite:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return ComaWhite:UseItem(...)
-    end, ComaWhite.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, ComaWhite.UseItem, mod.Items.ComaWhite)
 
-    mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
-        ComaWhite:PostPickupInit(pickup)
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, ComaWhite.PostPickupInit)
 
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-        ComaWhite:OnNewLevel()
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ComaWhite.OnNewLevel)
 
-    if EID then
-        EID:addCollectible(ComaWhite.COLLECTIBLE_ID,
-            "Grants 1 Eternal Heart#Removes boss item reward this floor",
-            "Coma White",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(mod.Items.ComaWhite,
+        "Grants 1 Eternal Heart#Removes boss item reward this floor",
+        "Coma White",
+        "en_us"
+    )
 end
-
-return ComaWhite

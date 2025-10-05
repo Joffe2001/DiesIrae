@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local BigShot = {}
-BigShot.COLLECTIBLE_ID = Isaac.GetItemIdByName("Big Shot")
 local game = Game()
 local sfx = SFXManager()
 
@@ -32,7 +33,7 @@ end
 
 -- stat modifiers (like brimstone items do)
 function BigShot:onEvaluateCache(player, cacheFlag)
-    if not player:HasCollectible(BigShot.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BigShot) then return end
 
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then
         -- make normal tears basically impossible
@@ -46,7 +47,7 @@ end
 
 -- charging + releasing
 function BigShot:onUpdate(player)
-    if not player:HasCollectible(BigShot.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BigShot) then return end
     local s = getState(player)
 
     local aimDir = player:GetAimDirection()
@@ -96,26 +97,21 @@ end
 -- remove normal tears so only BigShot comes out
 function BigShot:onPostFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:HasCollectible(BigShot.COLLECTIBLE_ID) and not tear:GetData().IsBigShot then
+    if player and player:HasCollectible(mod.Items.BigShot) and not tear:GetData().IsBigShot then
         tear.Visible = false
         tear:Remove() -- kill instantly before it's drawn
     end
 end
 
--- init
-function BigShot:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BigShot.onUpdate)
-    mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, BigShot.onPostFireTear)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, BigShot.onEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BigShot.onUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, BigShot.onPostFireTear)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, BigShot.onEvaluateCache)
 
-    if EID then
-        EID:addCollectible(
-            BigShot.COLLECTIBLE_ID,
-            "Replaces tears with a Brimstone-style charge shot.#Hold fire to charge, release to fire a giant piercing spectral red tear.#Damage x2 +5 bonus.#Tears down, +Damage, +Shot Speed.",
-            "Big Shot",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.BigShot,
+        "Replaces tears with a Brimstone-style charge shot.#Hold fire to charge, release to fire a giant piercing spectral red tear.#Damage x2 +5 bonus.#Tears down, +Damage, +Shot Speed.",
+        "Big Shot",
+        "en_us"
+    )
 end
-
-return BigShot

@@ -1,11 +1,12 @@
+local mod = DiesIraeMod
+
 local D8055 = {}
-D8055.COLLECTIBLE_ID = Enums.Items.D8055
 
 --TODO: Remove this script. It does not seem to be in use.
 
 -- Main effect
 function D8055:onUse(_, _, player, _, _)
-    local room = GameRef:GetRoom()
+    local room = Game():GetRoom()
 
     -- Only in boss rooms, and only if boss is alive
     if room:GetType() == RoomType.ROOM_BOSS then
@@ -24,7 +25,7 @@ function D8055:onUse(_, _, player, _, _)
         -- Only proceed if there is a live boss
         if hasBoss then
             -- Restart the room with a new boss
-            local level = GameRef:GetLevel()
+            local level = Game():GetLevel()
             local stage = level:GetStage()
             local stageType = level:GetStageType()
 
@@ -32,7 +33,7 @@ function D8055:onUse(_, _, player, _, _)
             room:RespawnEnemies()
 
             -- Force a different boss by resetting the spawn seed for the room
-            local level = GameRef:GetLevel()
+            local level = Game():GetLevel()
             local stage = level:GetStage()
 
             -- Reseed the room for the different boss generation
@@ -40,7 +41,7 @@ function D8055:onUse(_, _, player, _, _)
             room:SetSpawnSeed(seed)
 
             -- Reload the room layout with new enemy spawn conditions
-            GameRef:GetLevel():Reset()
+            Game():GetLevel():Reset()
 
             -- Force a boss spawn with the new seed
             local newBoss = nil
@@ -57,7 +58,7 @@ function D8055:onUse(_, _, player, _, _)
             end
 
             -- Extra effect: screen shake + SFX
-            GameRef:ShakeScreen(20)
+            Game():ShakeScreen(20)
             SFXManager():Play(SoundEffect.SOUND_DICE_SHARD, 1.0, 0, false, 1.0)
 
             return true
@@ -67,18 +68,13 @@ function D8055:onUse(_, _, player, _, _)
     return false
 end
 
--- Init
-function D8055:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, D8055.onUse, D8055.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, D8055.onUse, mod.Items.D8055)
 
-    if EID then
-        EID:addCollectible(
-            D8055.COLLECTIBLE_ID,
-            "Use in a boss room: Restarts the fight with a different boss.",
-            "D8055",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.D8055,
+        "Use in a boss room: Restarts the fight with a different boss.",
+        "D8055",
+        "en_us"
+    )
 end
-
-return D8055

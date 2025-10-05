@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local BuriedTreasure = {}
-BuriedTreasure.COLLECTIBLE_ID = Isaac.GetItemIdByName("Buried Treasure")
 
 -- Used to prevent multiple trapdoors from spawning per floor
 local crawlspaceSpawned = false
@@ -13,7 +14,7 @@ function BuriedTreasure:OnNPCDeath(npc)
     if not room:IsClear() then return end
 
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(BuriedTreasure.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BuriedTreasure) then return end
 
     -- Delay a bit before spawning crawlspace to avoid overlapping with other rewards
     crawlspaceSpawned = true
@@ -38,18 +39,14 @@ function BuriedTreasure:OnNewLevel()
     crawlspaceSpawned = false
 end
 
-function BuriedTreasure:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, BuriedTreasure.OnNPCDeath)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, BuriedTreasure.OnNewLevel)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, BuriedTreasure.OnNPCDeath)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, BuriedTreasure.OnNewLevel)
 
-    if EID then
-        EID:addCollectible(
-            BuriedTreasure.COLLECTIBLE_ID,
-            "After defeating a boss, a crawl space appears near the exit to the next floor.",
-            "Buried Treasure",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.BuriedTreasure,
+        "After defeating a boss, a crawl space appears near the exit to the next floor.",
+        "Buried Treasure",
+        "en_us"
+    )
 end
-
-return BuriedTreasure

@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local BossCompass = {}
-BossCompass.COLLECTIBLE_ID = Isaac.GetItemIdByName("Boss Compass")
 local game = Game()
 local rng = RNG()
 
@@ -8,7 +9,7 @@ local rng = RNG()
 ---------------------------------------------------------
 function BossCompass:OnLevelLoaded()
     local player = Isaac.GetPlayer(0)  -- Get the first player
-    if not player:HasCollectible(BossCompass.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BossCompass) then return end
     
     -- Set the boss room spawn position near the starting room for next floor
     local currentLevel = game:GetLevel()
@@ -37,20 +38,16 @@ end
 ---------------------------------------------------------
 -- CALLBACK REGISTER
 ---------------------------------------------------------
-function BossCompass:Init(mod)
-    -- Register for when the level is loaded (when you move to a new floor)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-        BossCompass:OnLevelLoaded()
-    end)
+-- Register for when the level is loaded (when you move to a new floor)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    BossCompass:OnLevelLoaded()
+end)
 
-    -- EID description for the Boss Compass
-    if EID then
-        EID:addCollectible(BossCompass.COLLECTIBLE_ID,
-            "Spawn the boss room near the starting room on the next floor.",
-            "Boss Compass",
-            "en_us"
-        )
-    end
+-- EID description for the Boss Compass
+if EID then
+    EID:addCollectible(mod.Items.BossCompass,
+        "Spawn the boss room near the starting room on the next floor.",
+        "Boss Compass",
+        "en_us"
+    )
 end
-
-return BossCompass

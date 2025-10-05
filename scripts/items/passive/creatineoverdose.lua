@@ -1,11 +1,12 @@
+local mod = DiesIraeMod
+
 local CreatineOverdose = {}
-CreatineOverdose.COLLECTIBLE_ID = Enums.Items.CreatineOverdose
 
 local BASE_BONUS = 0.2
 local BONUS_MULT = 1.2
 
 function CreatineOverdose:onEvaluateCache(player, cacheFlag)
-    if not player:HasCollectible(CreatineOverdose.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.CreatineOverdose) then return end
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + BASE_BONUS
@@ -24,18 +25,14 @@ function CreatineOverdose:onPlayerInit(player)
     player:GetData().CreatineBase = player.Damage
 end
 
-function CreatineOverdose:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CreatineOverdose.onEvaluateCache)
-    mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, CreatineOverdose.onPlayerInit)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CreatineOverdose.onEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, CreatineOverdose.onPlayerInit)
 
-    if EID then
-        EID:addCollectible(
-            CreatineOverdose.COLLECTIBLE_ID,
-            "↑ +0.2 Damage#↑ All bonus damage is amplified by 20%.",
-            "Creatine Overdose",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.CreatineOverdose,
+        "↑ +0.2 Damage#↑ All bonus damage is amplified by 20%.",
+        "Creatine Overdose",
+        "en_us"
+    )
 end
-
-return CreatineOverdose

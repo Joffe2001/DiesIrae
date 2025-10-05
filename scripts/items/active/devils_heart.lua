@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local DevilsHeart = {}
-DevilsHeart.COLLECTIBLE_ID = Enums.Items.DevilsHeart
 local devilEffectActive = false
 
 ---@param rng RNG
@@ -10,11 +11,11 @@ function DevilsHeart:OnUseItem(_, rng, player, _, slot, _)
         player:AddMaxHearts(2, true)
         player:AddHearts(2)
         SFXManager():Play(SoundEffect.SOUND_VAMP_GULP, 1.0, 0, false, 1.0)
-        GameRef:GetHUD():ShowItemText("A new heart beats within you...")
+        Game():GetHUD():ShowItemText("A new heart beats within you...")
     else
         player:AddBrokenHearts(1)
         SFXManager():Play(SoundEffect.SOUND_SATAN_APPEAR, 1.0, 0, false, 1.0)
-        GameRef:GetHUD():ShowItemText("A piece of your soul shatters...")
+        Game():GetHUD():ShowItemText("A piece of your soul shatters...")
     end
 
     devilEffectActive = true
@@ -61,21 +62,17 @@ function DevilsHeart:OnNewLevel()
     devilEffectActive = false
 end
 
-function DevilsHeart:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, DevilsHeart.OnUseItem, DevilsHeart.COLLECTIBLE_ID)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, DevilsHeart.OnNewRoom)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, DevilsHeart.OnNewLevel)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, DevilsHeart.OnUseItem, mod.Items.DevilsHeart)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, DevilsHeart.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, DevilsHeart.OnNewLevel)
 
-    if EID then
-        EID:addCollectible(
-            DevilsHeart.COLLECTIBLE_ID,
-            "50%: Gain +1 Red Heart Container#50%: Gain +1 Broken Heart" ..
-            "#On use: All item pedestals on this floor cost Hearts" ..
-            "#6 charges",
-            "Devil's Heart",
-            "en_us"
-        )
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.DevilsHeart,
+        "50%: Gain +1 Red Heart Container#50%: Gain +1 Broken Heart" ..
+        "#On use: All item pedestals on this floor cost Hearts" ..
+        "#6 charges",
+        "Devil's Heart",
+        "en_us"
+    )
 end
-
-return DevilsHeart

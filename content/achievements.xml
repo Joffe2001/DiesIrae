@@ -1,3 +1,15 @@
 <achievements gfxroot="gfx/ui/achievement/">
-
+	<achievement name="Army of Lovers" text='' gfx="achievement_armyoflovers.png" />
+	<achievement name="The Bad Touch" text='' gfx="achievement_thebadtouch.png" />
+	<achievement name="Little Lies" text='' gfx="achievement_littlelies.png" />
+	<achievement name="Paranoid Android" text='' gfx="achievement_paranoidandroid.png" />
+	<achievement name="Sh-boom!!" text='' gfx="achievement_shboom.png" />
+	<achievement name="Universal" text='' gfx="achievement_universal.png" />
+	<achievement name="Everybody's Changing" text='' gfx="achievement_everybodychanging.png" />
+	<achievement name="U2" text='' gfx="achievement_u2.png" />
+	<achievement name="Killer Queen" text='' gfx="achievement_killerqueen.png" />
+	<achievement name="Ring of Fire" text='' gfx="achievement_ringoffire.png" />
+	<achievement name="Helter Skelter" text='' gfx="achievement_helterskelter.png" />
+	<achievement name="Baby Blue" text='' gfx="achievement_babyblue.png" />
+	<achievement name="Wonder of You" text='' gfx="achievement_wonderofyou.png" />
 </achievements>

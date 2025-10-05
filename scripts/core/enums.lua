@@ -1,11 +1,11 @@
-Enums = {}
+local mod = DiesIraeMod
 
-Enums.Players = {
+mod.Players = {
     David = Isaac.GetPlayerTypeByName("David"),
     --David_B = Isaac.GetPlayerTypeByName("David", true), -- if you add a tainted
 }
 
-Enums.Items = {
+mod.Items = {
     -- Passives
     U2                   = Isaac.GetItemIdByName("U2"),
     Muse                 = Isaac.GetItemIdByName("Muse"),
@@ -42,6 +42,15 @@ Enums.Items = {
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
     BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
+    BigShot              = Isaac.GetItemIdByName("Big Shot"),
+    BossCompass          = Isaac.GetItemIdByName("Boss Compass"),
+    BuriedTreasure       = Isaac.GetItemIdByName("Buried Treasure"),
+    BuriedTreasureMap    = Isaac.GetItemIdByName("Buried Treasure Map"),
+    GooglyEyes           = Isaac.GetItemIdByName("Googly Eyes"),
+    Masochism            = Isaac.GetItemIdByName("Masochism"),
+    Unsainted            = Isaac.GetItemIdByName("Unsainted"),
+    ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
+    D8055                = Isaac.GetItemIdByName("D8055"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),
@@ -61,7 +70,7 @@ Enums.Items = {
     SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop")
 }
 
-Enums.Trinkets = {
+mod.Trinkets = {
     MoneyForNothing      = Isaac.GetTrinketIdByName("Money for nothing"),
     CatchTheRainbow      = Isaac.GetTrinketIdByName("Catch the Rainbow"),
     Gaga                 = Isaac.GetTrinketIdByName("Gaga"),
@@ -69,20 +78,42 @@ Enums.Trinkets = {
     BabyBlue             = Isaac.GetTrinketIdByName("Baby Blue"),
     ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
     WonderOfYou          = Isaac.GetTrinketIdByName("Wonder of You"),
-    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food")
+    RottenFood           = Isaac.GetTrinketIdByName("Rotten Food"),
 }
 
-Enums.Costumes = {
-    David = Isaac.GetCostumeIdByPath("gfx/characters/costume.david.anm2"),
-    David_B = Isaac.GetCostumeIdByPath("gfx/characters/costume.davidb.anm2")
+mod.Pills = {
+    CURSED        = Isaac.GetPillEffectByName("Cursed Pill"),
+    BLESSED       = Isaac.GetPillEffectByName("Blessed Pill"),
+    HEARTBREAK    = Isaac.GetPillEffectByName("Heartbreak Pill"),
+    LOVE          = Isaac.GetPillEffectByName("Love Pill"),
+    POWER_DRAIN   = Isaac.GetPillEffectByName("Power Drain Pill"),
+    ANGELIC       = Isaac.GetPillEffectByName("Angelic Pill"),
+    GULPING       = Isaac.GetPillEffectByName("Gulping Pill"),
+    EQUAL         = Isaac.GetPillEffectByName("Equal Pill"),
+    USER          = Isaac.GetPillEffectByName("User Pill"),
 }
 
-Enums.AchievementGraphics = {
-    PlayerDavid = {
-        MomsHeart = "achievement.army_of_lovers",  -- gfx/ui/achievements/achievement.army_of_lovers.png
-        Isaac     = "achievement.something_else",
-        Satan     = "achievement.something_else2"
-    }
+mod.Costumes = {
+    David_Hair = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2"),
 }
 
-return Enums
+mod.EntityVariant = {
+    ParanoidAndroid = Isaac.GetEntityVariantByName("Paranoid Android"),
+    AndroidLazerRing = Isaac.GetEntityVariantByName("Android Lazer Ring"),
+}
+
+mod.Achievements = {
+    ArmyOfLovers = Isaac.GetAchievementIdByName("Army of Lovers"),
+    TheBadTouch = Isaac.GetAchievementIdByName("The Bad Touch"),
+    LittleLies = Isaac.GetAchievementIdByName("Little Lies"),
+    ParanoidAndroid = Isaac.GetAchievementIdByName("Paranoid Android"),
+    ShBoom = Isaac.GetAchievementIdByName("Sh-boom!!"),
+    Universal = Isaac.GetAchievementIdByName("Universal"),
+    EverybodysChanging = Isaac.GetAchievementIdByName("Everybody's Changing"),
+    U2 = Isaac.GetAchievementIdByName("U2"),
+    KillerQueen = Isaac.GetAchievementIdByName("Killer Queen"),
+    RingOfFire = Isaac.GetAchievementIdByName("Ring of Fire"),
+    HelterSkelter = Isaac.GetAchievementIdByName("Helter Skelter"),
+    BabyBlue = Isaac.GetAchievementIdByName("Baby Blue"),
+    WonderOfYou = Isaac.GetAchievementIdByName("Wonder of You"),
+}

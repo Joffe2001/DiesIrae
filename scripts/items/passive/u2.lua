@@ -1,8 +1,9 @@
+local mod = DiesIraeMod
+
 local U2 = {}
-U2.COLLECTIBLE_ID = Enums.Items.U2
 
 function U2:onCache(player, cacheFlag)
-    if not player:HasCollectible(U2.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.U2) then return end
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + 0.2
@@ -26,7 +27,7 @@ end
 function U2:onUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(U2.COLLECTIBLE_ID) and not player:GetData().U2CacheApplied then
+        if player:HasCollectible(mod.Items.U2) and not player:GetData().U2CacheApplied then
             player:AddCacheFlags(
                 CacheFlag.CACHE_DAMAGE
                 | CacheFlag.CACHE_FIREDELAY
@@ -41,19 +42,15 @@ function U2:onUpdate()
     end
 end
 
-function U2:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, U2.onCache)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, U2.onUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, U2.onCache)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, U2.onUpdate)
 
-    if EID then
-        EID:addCollectible(
-            U2.COLLECTIBLE_ID,
-            "↑ +0.2 Damage#↑ +0.2 Tears#↑ +0.2 Speed#↑ +0.2 Range#↑ +0.2 Shot Speed",
-            "U2",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", U2.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:addCollectible(
+        mod.Items.U2,
+        "↑ +0.2 Damage#↑ +0.2 Tears#↑ +0.2 Speed#↑ +0.2 Range#↑ +0.2 Shot Speed",
+        "U2",
+        "en_us"
+    )
+    EID:assignTransformation("collectible", mod.Items.U2, "Dad's Playlist")
 end
-
-return U2
