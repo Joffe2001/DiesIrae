@@ -18,7 +18,7 @@ function ShBoom:UseItem(_, _, player)
 
     Game():GetRoom():MamaMegaExplosion(player.Position)
     Game():ShakeScreen(30)
-    SfxManager:Play(134)
+    SFXManager():Play(134)
 
     player:AddBrokenHearts(1)
 

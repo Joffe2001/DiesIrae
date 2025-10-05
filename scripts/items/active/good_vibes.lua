@@ -32,9 +32,9 @@ function GoodVibes:UseItem()
     end
 
     if transformed then
-        SfxManager:Play(178) 
+        SFXManager():Play(178) 
     else
-        SfxManager:Play(267)
+        SFXManager():Play(267)
     end
 
     return {

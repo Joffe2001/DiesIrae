@@ -31,7 +31,7 @@ function SatansRemoteShop:UseItem(_, _, player)
         local itemId = Game():GetItemPool():GetCollectible(ItemPoolType.POOL_DEVIL, true, RNG():Next())
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemId, player.Position, Vector(0, 0), player)
         
-        SfxManager:Play(SoundEffect.SOUND_DEVILROOM_DEAL, 1.0, 0, false, 1.0)
+        SFXManager():Play(SoundEffect.SOUND_DEVILROOM_DEAL, 1.0, 0, false, 1.0)
         Game():ShakeScreen(10)
 
         usedThisFloor = true
@@ -43,7 +43,7 @@ function SatansRemoteShop:UseItem(_, _, player)
         }
 
     else
-        SfxManager:Play(SoundEffect.SOUND_SHELLGAME, 1.0, 0, false, 1.0)
+        SFXManager():Play(SoundEffect.SOUND_SHELLGAME, 1.0, 0, false, 1.0)
         return {
             Discharge = false,
             Remove = false,
