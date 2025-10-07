@@ -67,11 +67,3 @@ mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Hysteria.OnPlayerUpdate)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Hysteria.OnCache)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Hysteria.OnNewRoom)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.Hysteria,
-        "When taking damage twice in a room, Isaac gains double damage for the rest of the room.",
-        "Hysteria",
-        "en_us"
-    )
-end

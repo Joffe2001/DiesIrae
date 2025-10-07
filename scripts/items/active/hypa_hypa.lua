@@ -60,11 +60,3 @@ function HypaHypa:OnGetItem(collectible)
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, HypaHypa.UseItem, mod.Items.HypaHypa)
-
-if EID then
-    EID:addCollectible(mod.Items.HypaHypa,
-        "10% chance to spawn a quality 4 item #90% chance to spawn The Poop #Single-use item",
-        "Hypa Hypa",
-        "en_us"
-    )
-end

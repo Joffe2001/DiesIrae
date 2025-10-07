@@ -45,12 +45,3 @@ function GoodVibes:UseItem()
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, GoodVibes.UseItem, mod.Items.GoodVibes)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.GoodVibes,
-        "Transforms all red heart pickups in the room into soul hearts. Half red → half soul, double red → two soul hearts.",
-        "Good Vibes",
-        "en_us"
-    )
-end

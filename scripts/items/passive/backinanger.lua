@@ -47,11 +47,5 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.Items.BackInAnger)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.BackInAnger,
-        "Automatically fires slower, stronger red homing tears at enemies directly behind Isaac",
-        "Back in Anger",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.BackInAnger, "Dad's Playlist")
 end

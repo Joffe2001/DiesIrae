@@ -2,7 +2,7 @@ local mod = DiesIraeMod
 
 mod.Players = {
     David = Isaac.GetPlayerTypeByName("David"),
-    --David_B = Isaac.GetPlayerTypeByName("David", true), -- if you add a tainted
+    --David_B = Isaac.GetPlayerTypeByName("David", true), -- Waiting of Tainted
 }
 
 mod.Items = {
@@ -42,15 +42,17 @@ mod.Items = {
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
     BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
-    BigShot              = Isaac.GetItemIdByName("Big Shot"),
     BossCompass          = Isaac.GetItemIdByName("Boss Compass"),
-    BuriedTreasure       = Isaac.GetItemIdByName("Buried Treasure"),
+    FriendlessChild      = Isaac.GetItemIdByName("Friendless Child"),
     BuriedTreasureMap    = Isaac.GetItemIdByName("Buried Treasure Map"),
     GooglyEyes           = Isaac.GetItemIdByName("Googly Eyes"),
     Masochism            = Isaac.GetItemIdByName("Masochism"),
     Unsainted            = Isaac.GetItemIdByName("Unsainted"),
+    BigKahunaBurger      = Isaac.GetItemIdByName("Big Kahuna Burger"),
+    DadsEmptyWallet      = Isaac.GetItemIdByName("Dad's Empty Wallet"),
+
+    -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
-    D8055                = Isaac.GetItemIdByName("D8055"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),
@@ -62,12 +64,12 @@ mod.Items = {
     DiaryOfAMadman       = Isaac.GetItemIdByName("Diary of a Madman"),
     ComaWhite            = Isaac.GetItemIdByName("Coma White"),
     GoodVibes            = Isaac.GetItemIdByName("Good Vibes"),
-    RedMap               = Isaac.GetItemIdByName("Red Map"),
     DevilsHeart          = Isaac.GetItemIdByName("Devil's Heart"),
     MomsDiary            = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium        = Isaac.GetItemIdByName("Another Medium"),
     LittleLies           = Isaac.GetItemIdByName("Little Lies"),
-    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop")
+    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop"),
+    BigShot              = Isaac.GetItemIdByName("Big Shot")
 }
 
 mod.Trinkets = {
@@ -79,6 +81,9 @@ mod.Trinkets = {
     ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
     WonderOfYou          = Isaac.GetTrinketIdByName("Wonder of You"),
     RottenFood           = Isaac.GetTrinketIdByName("Rotten Food"),
+    TrinketCollector     = Isaac.GetTrinketIdByName("Trinket Collector"),
+    SecondBreakfast      = Isaac.GetTrinketIdByName("Second Breakfast"),
+    BrokenDream          = Isaac.GetTrinketIdByName("In a Broken Dream")
 }
 
 mod.Pills = {
@@ -98,22 +103,31 @@ mod.Costumes = {
 }
 
 mod.EntityVariant = {
-    ParanoidAndroid = Isaac.GetEntityVariantByName("Paranoid Android"),
+    ParanoidAndroid  = Isaac.GetEntityVariantByName("Paranoid Android"),
     AndroidLazerRing = Isaac.GetEntityVariantByName("Android Lazer Ring"),
 }
 
+mod.Curses = {
+    Unloved   = Isaac.GetCurseIdByName("Curse of the Unloved!")
+}
+
 mod.Achievements = {
-    ArmyOfLovers = Isaac.GetAchievementIdByName("Army of Lovers"),
-    TheBadTouch = Isaac.GetAchievementIdByName("The Bad Touch"),
-    LittleLies = Isaac.GetAchievementIdByName("Little Lies"),
-    ParanoidAndroid = Isaac.GetAchievementIdByName("Paranoid Android"),
-    ShBoom = Isaac.GetAchievementIdByName("Sh-boom!!"),
-    Universal = Isaac.GetAchievementIdByName("Universal"),
+    David              = Isaac.GetAchievementIdByName("David"),
+    ArmyOfLovers       = Isaac.GetAchievementIdByName("Army of Lovers"),
+    TheBadTouch        = Isaac.GetAchievementIdByName("The Bad Touch"),
+    LittleLies         = Isaac.GetAchievementIdByName("Little Lies"),
+    ParanoidAndroid    = Isaac.GetAchievementIdByName("Paranoid Android"),
+    ShBoom             = Isaac.GetAchievementIdByName("Sh-boom!!"),
+    Universal          = Isaac.GetAchievementIdByName("Universal"),
     EverybodysChanging = Isaac.GetAchievementIdByName("Everybody's Changing"),
-    U2 = Isaac.GetAchievementIdByName("U2"),
-    KillerQueen = Isaac.GetAchievementIdByName("Killer Queen"),
-    RingOfFire = Isaac.GetAchievementIdByName("Ring of Fire"),
-    HelterSkelter = Isaac.GetAchievementIdByName("Helter Skelter"),
-    BabyBlue = Isaac.GetAchievementIdByName("Baby Blue"),
-    WonderOfYou = Isaac.GetAchievementIdByName("Wonder of You"),
+    U2                 = Isaac.GetAchievementIdByName("U2"),
+    KillerQueen        = Isaac.GetAchievementIdByName("Killer Queen"),
+    RingOfFire         = Isaac.GetAchievementIdByName("Ring of Fire"),
+    HelterSkelter      = Isaac.GetAchievementIdByName("Helter Skelter"),
+    BabyBlue           = Isaac.GetAchievementIdByName("Baby Blue"),
+    WonderOfYou        = Isaac.GetAchievementIdByName("Wonder of You"),
+}
+
+mod.Challenges = {
+    SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
 }

@@ -39,12 +39,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, SlaughterToPrevail.onKillEntity)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, SlaughterToPrevail.OnNewRoom)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.SlaughterToPrevail,
-        "On enemy kill, 50% chance to increase Isaac's damage by +0.01. (Max 10 kills per room)",
-        "Slaughter to Prevail",
-        "en_us"
-    )
-end

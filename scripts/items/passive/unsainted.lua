@@ -51,11 +51,3 @@ mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Unsainted.onGetCollectible)
 
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Unsainted.onPickupInit, PickupVariant.PICKUP_COLLECTIBLE)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.Unsainted,
-        "All item pools are {{DevilRoom}} Devil Pool.#All collectibles cost {{Heart}} {{Heart}} 2 Red Heart Containers.",
-        "Unsainted",
-        "en_us"
-    )
-end

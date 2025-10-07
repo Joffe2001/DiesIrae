@@ -62,11 +62,3 @@ mod:AddCallback(ModCallbacks.MC_POST_RENDER, UltraSecretMap.OnRender)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UltraSecretMap.OnNewRoom)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UltraSecretMap.OnNewLevel)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.UltraSecretMap,
-        "Reveals the Ultra Secret Room on the map.#Drops a Cracked Key in the Secret Room.",
-        "Ultra Secret Map",
-        "en_us"
-    )
-end

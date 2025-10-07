@@ -45,11 +45,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EnjoymentUnlucky.EvaluateCache)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.EnjoymentOfTheUnlucky,
-        "For each point of negative Luck, gain:#↑ +0.4 Damage#↑ -0.7 Fire Delay#↑ +0.1 Speed#↑ +0.2 Range#↑ +0.05 Shot Speed",
-        "Enjoyment of the Unlucky",
-        "en_us"
-    )
-end

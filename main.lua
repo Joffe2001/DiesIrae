@@ -9,9 +9,10 @@ include("scripts.core.unlocks")
 if EID then
 	include("scripts.modcompat.eidescs")
 	include("scripts.eid")
+
 end
 ---------------------------------------------------
---  Charecters
+--  Characters
 ----------------------------------------------------
 include("scripts.characters.david")
 ---------------------------------------------------
@@ -20,6 +21,7 @@ include("scripts.characters.david")
 
 include("scripts.items.active.D8055")
 include("scripts.items.active.big_shot")
+include("scripts.items.active.big_shot") --WORKING (Need to add: wisps, sprites)
 include("scripts.items.active.army_of_lovers") --WORKING (Need to add: wisps, maybe custome for the minisaacs)
 include("scripts.items.active.guppys_soul")--WORKING (Need to add: wisps)
 include("scripts.items.active.shboom")--WORKING (Need to add: wisps)
@@ -33,7 +35,6 @@ include("scripts.items.active.moms_diary")--WORKING
 include("scripts.items.active.devils_heart")--WORKING
 include("scripts.items.active.another_medium")--WORKING
 include("scripts.items.active.little_lies")--WORKING
-include("scripts.items.active.satans_remote_shop")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
@@ -66,7 +67,8 @@ include("scripts.items.passive.solarflare")--WORKING
 include("scripts.items.passive.fragileego")--WORKING
 include("scripts.items.passive.everybodychanging")--WORKING
 include("scripts.items.passive.bigshot") 
-include("scripts.items.passive.beggarstear") 
+include("scripts.items.passive.beggarstear") --WORKING
+include("scripts.items.passive.buriedtreasuremap") 
 --include("scripts.items.passive.touristmap") 
 
 ---------------------------------------------------
@@ -108,16 +110,19 @@ include("scripts.items.trinkets.babyblue")--WORKING
 ---------------------------------------------------
 --  Curses
 ----------------------------------------------------
---local CurseSacrifice = include("scripts.curses.sacrifice")
---mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function()
---    CurseSacrifice:Init(mod)
---end)
+include("scripts.curses.unloved")
 
 ---------------------------------------------------
 --  Transformations
 ----------------------------------------------------
 include("scripts.core.transformations.dadsoldplaylist")
-
+--  Challenges
+----------------------------------------------------
+include('scripts.Challenges.sound_of_silence')
+---------------------------------------------------
+--  Transformations
+----------------------------------------------------
+include("scripts.transformations.dadsoldplaylist")
 ---------------------------------------------------
 --  Somethings that comes with the mod
 ----------------------------------------------------

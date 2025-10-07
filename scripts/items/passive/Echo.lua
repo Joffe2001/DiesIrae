@@ -20,11 +20,3 @@ mod:AddCallback(ModCallbacks.MC_PRE_PLANETARIUM_APPLY_ITEMS, function(_, chance)
     return chance
 end)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.Echo,
-        "{{Planetarium}} Adds +25% Planetarium chance, +10% on Womb and onward.",
-        "Echo",
-        "en_us"
-    )
-end

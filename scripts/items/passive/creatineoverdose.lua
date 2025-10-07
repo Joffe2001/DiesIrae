@@ -28,11 +28,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CreatineOverdose.onEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, CreatineOverdose.onPlayerInit)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.CreatineOverdose,
-        "↑ +0.2 Damage#↑ All bonus damage is amplified by 20%.",
-        "Creatine Overdose",
-        "en_us"
-    )
-end

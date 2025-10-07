@@ -33,13 +33,3 @@ function Engel:onCache(player, cacheFlag)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Engel.onCache)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.Engel,
-        "↑ +5 Luck#Grants spectral + homing tears#Disables flight",
-        "Engel",
-        "en_us"
-    )
-end
-

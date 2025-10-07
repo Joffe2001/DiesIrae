@@ -37,11 +37,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ProteinPowder.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ProteinPowder.OnUpdate)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.ProteinPowder,
-        "↑ Gain +1 Damage on first pickup, +2 on second, up to +4.#Further pickups always grant +1 damage.",
-        "Protein Powder",
-        "en_us"
-    )
-end

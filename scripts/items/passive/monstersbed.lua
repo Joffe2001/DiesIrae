@@ -31,11 +31,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, MonstersUnderTheBed.onCache)
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, MonstersUnderTheBed.onUpdate)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.MonstersUnderTheBed,
-        "↑ Fire rate increases for each enemy in the room#Bonus decreases as enemies are defeated#Resets when room is cleared",
-        "Monsters Under The Bed",
-        "en_us"
-    )
-end

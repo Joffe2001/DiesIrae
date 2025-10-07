@@ -62,11 +62,3 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DevilLuck.OnCache)
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, DevilLuck.OnPickupCollision)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, DevilLuck.OnPlayerUpdate)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.DevilsLuck,
-        "↓ -6 Luck instantly#50% chance for pickups (coins, keys, bombs, hearts) to vanish#↑ Permanent damage up per vanished pickup",
-        "Devil's Luck",
-        "en_us"
-    )
-end

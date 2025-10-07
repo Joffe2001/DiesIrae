@@ -20,11 +20,5 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_COLLISION, BadTouch.onPlayerCollision)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.TheBadTouch,
-        "Touching an enemy instantly kills normal enemies.#Bosses are poisoned on contact.",
-        "The Bad Touch",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.TheBadTouch, "Dad's Playlist")
 end

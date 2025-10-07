@@ -95,11 +95,3 @@ mod:AddCallback(ModCallbacks.MC_USE_ITEM, Diary_madman.UseItem, mod.Items.DiaryO
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Diary_madman.OnCache)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Diary_madman.OnNewRoom)
-
-if EID then
-    EID:addCollectible(mod.Items.DiaryOfAMadman,
-        "Randomly changes all stats for the current room",
-        "Diary of a Madman",
-        "en_us"
-    )
-end

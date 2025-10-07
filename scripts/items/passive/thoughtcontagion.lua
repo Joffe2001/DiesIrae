@@ -51,11 +51,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, ThoughtContagion.OnEntityDamage)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.ThoughtContagion,
-        "Enemies mirror damage they take to other nearby enemies.#Only pure damage is shared.",
-        "Thought Contagion",
-        "en_us"
-    )
-end

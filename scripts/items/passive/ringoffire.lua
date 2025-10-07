@@ -1,30 +1,50 @@
 local mod = DiesIraeMod
-
 local RingOfFire = {}
 local game = Game()
 
 local fireDamage = 3
-local fireInterval = 60  
+local fireInterval = 60
 local fireProjectiles = 12
 local fireSpeed = 8
+
 local lastBurstFrame = -9999
+local spawnedRing = false
+local markActive = true 
 
 function RingOfFire:onUpdate()
+    local room = game:GetRoom()
+    local frame = game:GetFrameCount()
+    local roomCenter = room:GetCenterPos()
+
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
+
         if player:HasCollectible(mod.Items.RingOfFire) then
-            local room = game:GetRoom()
-            local roomCenter = room:GetCenterPos()
-            local frame = game:GetFrameCount()
+            if markActive and not spawnedRing then
+                Isaac.Spawn(EntityType.ENTITY_EFFECT, 1234, 0, roomCenter, Vector.Zero, nil)
+                spawnedRing = true
+            end
 
             if player.Position:Distance(roomCenter) < 30 then
                 if frame - lastBurstFrame >= fireInterval then
                     RingOfFire:spawnFireBurst(player)
                     lastBurstFrame = frame
+
+                    if markActive then
+                        markActive = false
+                        for _, e in ipairs(Isaac.FindByType(EntityType.ENTITY_EFFECT, 1234, -1, false, false)) do
+                            e:Remove()
+                        end
+                    end
                 end
             end
         end
     end
+end
+
+function RingOfFire:onNewRoom()
+    spawnedRing = false
+    markActive = true
 end
 
 function RingOfFire:spawnFireBurst(player)
@@ -34,12 +54,8 @@ function RingOfFire:spawnFireBurst(player)
 
         local flame = player:FireTear(player.Position, velocity, false, true, false):ToTear()
         flame.CollisionDamage = fireDamage
-
         flame:ChangeVariant(TearVariant.FIRE)
         flame:AddTearFlags(TearFlags.TEAR_BURN | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING)
-
-        flame.TearFlags = flame.TearFlags & ~TearFlags.TEAR_EXPLOSIVE
-        flame.TearFlags = flame.TearFlags & ~TearFlags.TEAR_BRIMSTONE_BOMB
     end
 
     game:ShakeScreen(5)
@@ -47,13 +63,8 @@ function RingOfFire:spawnFireBurst(player)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, RingOfFire.onUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, RingOfFire.onNewRoom)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.RingOfFire,
-        "Standing at the center of a room releases a burst of fire outward.",
-        "Ring of Fire",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.RingOfFire, "Dad's Playlist")
 end

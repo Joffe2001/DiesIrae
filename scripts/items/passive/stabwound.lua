@@ -40,12 +40,3 @@ end
 -- INIT
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, StabWound.onCache)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, StabWound.onUpdate)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.StabWound,
-        "↑ +1 Damage#↑ +0.5 Tears",
-        "Stab Wound",
-        "en_us"
-    )
-end

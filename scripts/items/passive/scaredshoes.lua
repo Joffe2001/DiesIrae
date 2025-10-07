@@ -65,12 +65,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ScaredShoes.OnPlayerUpdate)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ScaredShoes.OnEvaluateCache)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.ScaredShoes,
-        "↑ Sets speed to 2.0 when no enemies are alive#Spawns random small pee creep during combat",
-        "Scared Shoes",
-        "en_us"
-    )
-end

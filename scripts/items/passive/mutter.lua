@@ -102,11 +102,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Mutter.onCache)
 mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Mutter.IncreaseMomsItemChance)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.Mutter,
-        "↑ +0.3 Speed up#↑ Stats up for each Mom item:# +0.5 Damage, -0.3 Tears Delay, +1 Luck, +0.05 Speed#↑ Increased chance to find Mom's items, Dr. Fetus and C-Section",
-        "Mutter",
-        "en_us"
-    )
-end

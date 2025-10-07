@@ -77,11 +77,3 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LastResort.OnUpdate)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LastResort.OnNewRoom)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.LastResort,
-        "When at half a heart, clearing a hostile room grants a permanent stat boost:#↑ +0.3 Damage OR ↑ +0.1 Speed OR ↑ Tears (random)",
-        "Last Resort",
-        "en_us"
-    )
-end

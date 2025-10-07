@@ -40,10 +40,3 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, GuppysSoul.OnNewRoom)
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, GuppysSoul.onEntityTakeDmg)
 
-if EID then
-    EID:addCollectible(mod.Items.GuppysSoul,
-        "Grants flight for the room. Dealing damage has a 2/3 chance to spawn blue flies.",
-        "Guppy's soul",
-        "en_us"
-    )
-end

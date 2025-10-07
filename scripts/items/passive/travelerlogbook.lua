@@ -130,12 +130,3 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, TravelerLogbook.OnNewRoom)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TravelerLogbook.OnNewLevel)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, TravelerLogbook.OnEvaluateCache)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.TravelerLogbook,
-        "Exploring a new room grants +0.1 to a random stat (Damage, Speed, Tears, or Range) for the floor.#Entering an I AM ERROR room resets floor boosts and gives +0.2 to a random stat permanently.",
-        "Traveler Logbook",
-        "en_us"
-    )
-end

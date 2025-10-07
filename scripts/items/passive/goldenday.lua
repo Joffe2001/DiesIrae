@@ -57,12 +57,3 @@ mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, GoldenDay.OnNewLevel)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.GoldenDay,
-        "Spawns a random golden pickup.#{{SecretRoom}} Each floor, has a 50% chance to spawn one of them in the Secret Room.",
-        "Golden Day",
-        "en_us"
-    )
-end

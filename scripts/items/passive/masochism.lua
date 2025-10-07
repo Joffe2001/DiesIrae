@@ -51,12 +51,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Masochism.OnTakeDamage)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Masochism.onCache)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.Masochism,
-        "Taking damage grants a random small permanent stat boost",
-        "Masochism",
-        "en_us"
-    )
-end

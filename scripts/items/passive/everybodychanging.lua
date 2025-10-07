@@ -76,11 +76,5 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.EverybodysChanging,
-        "After clearing a room, all passive/familiar items are replaced with random ones.",
-        "Everybody's Changing",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.EverybodysChanging, "Dad's Playlist")
 end

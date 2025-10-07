@@ -29,11 +29,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TouristMap.onNewLevel)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.TouristMap,
-        "Adds a shop to every floor starting from Womb/Corpse (Stage 4 and above)",
-        "Tourist Map",
-        "en_us"
-    )
-end

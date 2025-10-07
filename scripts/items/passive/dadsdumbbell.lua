@@ -33,11 +33,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, DadsDumbbell.OnTearInit)
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, DadsDumbbell.OnTearUpdate)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.DadsDumbbell,
-        "Each tear has a 10% chance to deal +2 damage and turn red.",
-        "Dad's Dumbbell"
-    )
-end

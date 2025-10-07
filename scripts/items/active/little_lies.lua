@@ -56,11 +56,5 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LittleLies.OnEvaluateCache)
 
 -- EID description
 if EID then
-    EID:addCollectible(
-        mod.Items.LittleLies,
-        "Shrinks Isaac and grants +2 Tears for the current room",
-        "Little Lies",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.LittleLies, "Dad's Playlist")
 end

@@ -71,11 +71,3 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDress.OnTakeDamage)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MomsDress.OnRoomReset)
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, MomsDress.OnPlayerUpdate)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.MomsDress,
-        "Spawns 2 Rotten Hearts on pickup#↑ 20% chance to gain Holy Mantle effect in uncleared rooms",
-        "Mom's Dress",
-        "en_us"
-    )
-end

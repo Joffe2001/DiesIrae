@@ -34,12 +34,3 @@ function BuriedTreasureMap:OnNewRoom()
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, BuriedTreasureMap.OnNewRoom)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.BuriedTreasureMap,
-        "After defeating a boss, a crawl space appears in the next room you enter.",
-        "Buried Treasure Map",
-        "en_us"
-    )
-end

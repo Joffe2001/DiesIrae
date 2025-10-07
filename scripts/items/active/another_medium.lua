@@ -60,7 +60,7 @@ function AnotherMedium:OnUse(_, rng, player)
         SFXManager():Play(SoundEffect.SOUND_EDEN_GLITCH)
 
         usedThisFloor = true
-        player:SetActiveCharge(0) -- 🧠 This line disables the active bar visually!
+        player:SetActiveCharge(0) 
     end
 
     return {

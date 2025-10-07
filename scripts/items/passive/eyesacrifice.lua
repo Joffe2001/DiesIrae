@@ -58,12 +58,3 @@ end
 -- Initialize the item
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, EyeSacrifice.onUpdate)
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, EyeSacrifice.onFireTear)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.EyeSacrifice,
-        "Shoot only from Isaac's right eye.#Upon entering the Devil Deal room, receive a free Devil Deal.",
-        "Eye Sacrifice",
-        "en_us"
-    )
-end

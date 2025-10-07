@@ -101,11 +101,5 @@ end
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Muse.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.Muse,
-        "On damage: 20% Tarot card, 10% Rune, 20% non-heart pickup, 1% random item from current pool.",
-        "Muse",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.Muse, "Dad's Playlist")
 end

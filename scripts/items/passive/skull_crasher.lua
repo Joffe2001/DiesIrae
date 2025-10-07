@@ -42,12 +42,3 @@ function SkullCrasher:OnNPCUpdate(npc)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_UPDATE, SkullCrasher.OnNPCUpdate)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.SkullCrasher,
-        "Allows you to damage skull-based enemies (Hosts, Hard Hosts, Mobile Hosts, and Floasts) even when invulnerable.",
-        "Skull Crasher",
-        "en_us"
-    )
-end

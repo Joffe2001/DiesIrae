@@ -74,11 +74,3 @@ mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, SolarFlare.onTearInit)
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, SolarFlare.onTearUpdate)
 mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, SolarFlare.onTearHit)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.SolarFlare,
-        "Tears start slow#After ~0.2s they dash toward the nearest enemy#Leave a short fire trail while dashing#Burn enemies on hit",
-        "Solar Flare",
-        "en_us"
-    )
-end

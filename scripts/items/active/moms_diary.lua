@@ -49,11 +49,3 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDiary.OnPlayerDamaged, Enti
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, MomsDiary.OnUseItem, mod.Items.MomsDiary)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.MomsDiary,
-        "Spawns a random pedestal item.#Charges only when Isaac takes damage.",
-        "Mom's Diary",
-        "en_us"
-    )
-end

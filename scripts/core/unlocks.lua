@@ -32,3 +32,42 @@ function mod:GiveUnlocks(mark, ptype)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_COMPLETION_MARK_GET, mod.GiveUnlocks)
+
+------------------------------------------------------
+---                David Unlock                    ---
+------------------------------------------------------
+local function ResetUnlocks(player)
+    player:GetData().goldenKeyPickedUp = false
+    player:GetData().goldenBombPickedUp = false
+    player:GetData().goldenCoinPickedUp = false
+end
+
+local function CheckForDavidUnlock(player)
+    if player:GetData().goldenKeyPickedUp and player:GetData().goldenBombPickedUp and player:GetData().goldenCoinPickedUp then
+        TryUnlock(mod.Achievements.David)
+    end
+end
+
+local function OnPickupCollision(pickup, player)
+    if not player:ToPlayer() then return end
+
+    if pickup.Variant == PickupVariant.PICKUP_KEY and pickup.SubType == KeySubType.KEY_GOLDEN then
+        player:GetData().goldenKeyPickedUp = true
+    elseif pickup.Variant == PickupVariant.PICKUP_BOMB and pickup.SubType == BombSubType.BOMB_GOLDEN then
+        player:GetData().goldenBombPickedUp = true
+    elseif pickup.Variant == PickupVariant.PICKUP_COIN and pickup.SubType == CoinSubType.COIN_GOLDEN then
+        player:GetData().goldenCoinPickedUp = true
+    end
+    CheckForDavidUnlock(player)
+end
+
+local function OnNewRun(reenter)
+    if reenter then return end 
+
+    for _, player in ipairs(PlayerManager.GetPlayers()) do
+        ResetUnlocks(player)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLISION, OnPickupCollision)

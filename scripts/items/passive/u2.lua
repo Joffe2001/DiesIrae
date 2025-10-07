@@ -46,11 +46,5 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, U2.onCache)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, U2.onUpdate)
 
 if EID then
-    EID:addCollectible(
-        mod.Items.U2,
-        "↑ +0.2 Damage#↑ +0.2 Tears#↑ +0.2 Speed#↑ +0.2 Range#↑ +0.2 Shot Speed",
-        "U2",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.U2, "Dad's Playlist")
 end

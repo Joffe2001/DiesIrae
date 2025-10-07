@@ -65,14 +65,3 @@ end
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, DevilsHeart.OnUseItem, mod.Items.DevilsHeart)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, DevilsHeart.OnNewRoom)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, DevilsHeart.OnNewLevel)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.DevilsHeart,
-        "50%: Gain +1 Red Heart Container#50%: Gain +1 Broken Heart" ..
-        "#On use: All item pedestals on this floor cost Hearts" ..
-        "#6 charges",
-        "Devil's Heart",
-        "en_us"
-    )
-end

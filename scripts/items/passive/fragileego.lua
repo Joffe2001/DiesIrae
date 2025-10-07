@@ -85,12 +85,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, FragileEgo.onCache)
 mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, FragileEgo.onRoomClear)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, FragileEgo.onPlayerDamage)
-
-if EID then
-    EID:addCollectible(
-        mod.Items.FragileEgo,
-        "↑ Clearing a room grants a random minor stat boost (stacks)#↓ Taking damage removes all boosts #↓ Taking damage may cause a broken heart",
-        "Fragile Ego",
-        "en_us"
-    )
-end

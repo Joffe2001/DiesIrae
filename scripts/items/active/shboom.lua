@@ -61,10 +61,5 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, ShBoom.PreventAutoRecharge)
 
 -- EID support
 if EID then
-    EID:addCollectible(mod.Items.ShBoom,
-        "Triggers a full-room Mama Mega explosion#Only once per floor#Isaac gains 1 broken heart as a cost",
-        "Sh-boom!!",
-        "en_us"
-    )
     EID:assignTransformation("collectible", mod.Items.ShBoom, "Dad's Playlist")
 end

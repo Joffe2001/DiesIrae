@@ -54,11 +54,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, HereToStay.PostPlayerUpdate)
 
-if EID then
-    EID:addCollectible(
-        mod.Items.HereToStay,
-        "Standing still spawns creep in growing steps.#Each tick the puddle gets bigger.",
-        "Here to Stay",
-        "en_us"
-    )
-end

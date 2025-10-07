@@ -35,10 +35,3 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, ComaWhite.PostPickupInit)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ComaWhite.OnNewLevel)
 
-if EID then
-    EID:addCollectible(mod.Items.ComaWhite,
-        "Grants 1 Eternal Heart#Removes boss item reward this floor",
-        "Coma White",
-        "en_us"
-    )
-end
