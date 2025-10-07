@@ -3,7 +3,8 @@ GameRef = Game()
 SfxManager = SFXManager()
 local json = require("json")
 local enums = require("scripts.core.enums")
-
+local json = require("json")
+local enums = require("scripts.core.enums")
 ---------------------------------------------------
 --  Charecters
 ----------------------------------------------------
@@ -105,7 +106,10 @@ local FragileEgo = include("scripts.items.passive.fragileego")
 FragileEgo:Init(DiesIraeMod) --WORKING
 local EverybodysChanging = include("scripts.items.passive.everybodychanging") 
 EverybodysChanging:Init(DiesIraeMod) --WORKING
+local BigShot = include("scripts.items.passive.bigshot") 
+BigShot:Init(DiesIraeMod)
 local BeggarsTear = include("scripts.items.passive.beggarstear") 
+<<<<<<< HEAD
 BeggarsTear:Init(DiesIraeMod) --WORKING
 local BigKahunaBurger = include("scripts.items.passive.big_kahuna_burger") 
 BigKahunaBurger:Init(DiesIraeMod)
@@ -113,6 +117,9 @@ local DadsEmptyWallet = include("scripts.items.passive.dads_empty_wallet")
 DadsEmptyWallet:Init(DiesIraeMod)
 local BuriedTreasure = include("scripts.items.passive.buried_treasure") 
 BuriedTreasure:Init(DiesIraeMod)
+=======
+BeggarsTear:Init(DiesIraeMod)
+>>>>>>> b52b31bd5e8d81b08e81295f2ce2c3a4b54fe626
 --local TouristMap = include("scripts.items.passive.touristmap") 
 --TouristMap:Init(mod)
 
@@ -129,6 +136,7 @@ CustomPills:Init(DiesIraeMod)  --WORKING
 ---------------------------------------------------
 --  Trinkets
 ----------------------------------------------------
+<<<<<<< HEAD
 local SecondBreakfast = include("scripts.items.trinkets.second_breakfast")
 SecondBreakfast:Init(DiesIraeMod)
 local Gaga = include("scripts.items.trinkets.gaga")
@@ -137,12 +145,22 @@ local WonderOfYou = include("scripts.items.trinkets.wonderofyou")
 WonderOfYou:Init(DiesIraeMod)
 local TrinketCollector = include("scripts.items.trinkets.trinket_collector")
 TrinketCollector:Init(DiesIraeMod)
+=======
+local WonderOfYou = include("scripts.items.trinkets.wonderofyou")
+WonderOfYou:Init(DiesIraeMod)
+local Gaga = include("scripts.items.trinkets.gaga")
+Gaga:Init(DiesIraeMod)
+--local BrokenDream = include("scripts.items.trinkets.inabrokendream")
+--BrokenDream:Init(mod)
+>>>>>>> b52b31bd5e8d81b08e81295f2ce2c3a4b54fe626
 local FixedMetabolism = include("scripts.items.trinkets.fixedmetabolism")
 FixedMetabolism:Init(DiesIraeMod)
 local BabyBlue = include("scripts.items.trinkets.babyblue")
 BabyBlue:Init(DiesIraeMod) --WORKING
-local RottenFood = include("scripts.items.trinkets.rottenfood")
-RottenFood:Init(DiesIraeMod)
+--local clearvase = include("scripts.items.trinkets.clearvase")
+--clearvase:Init(mod)
+--local RottenFood= include("scripts.items.trinkets.rottenfood")
+--RottenFood:Init(mod)
 --local CatchTheRainbow = include("scripts.items.trinkets.catch_the_rainbow")
 --CatchTheRainbow:Init(mod)
 --local BrokenDream = include("scripts.items.trinkets.inabrokendream")

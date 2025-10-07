@@ -1,6 +1,8 @@
 local D8055 = {}
 D8055.COLLECTIBLE_ID = Enums.Items.D8055
 
+--TODO: Remove this script. It does not seem to be in use.
+
 -- Main effect
 function D8055:onUse(_, _, player, _, _)
     local room = GameRef:GetRoom()
@@ -21,8 +23,10 @@ function D8055:onUse(_, _, player, _, _)
 
         -- Only proceed if there is a live boss
         if hasBoss then
-            -- Store the current boss's position
-            local bossPos = bossEntity.Position
+            -- Restart the room with a new boss
+            local level = GameRef:GetLevel()
+            local stage = level:GetStage()
+            local stageType = level:GetStageType()
 
             -- Restart the room layout, this will force all entities to respawn
             room:RespawnEnemies()
