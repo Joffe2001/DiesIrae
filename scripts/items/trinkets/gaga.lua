@@ -2,11 +2,9 @@ local Gaga = {}
 Gaga.ID = Enums.Trinkets.Gaga
 local game = Game()
 
--- Constants for drop chances
-local GAGA_BONUS = 0.05  -- 5% bonus
-local GAGA_GOLDEN_BONUS = 0.10  -- 10% bonus
+local GAGA_BONUS = 0.05 
+local GAGA_GOLDEN_BONUS = 0.10 
 
--- Function to morph regular pickups into golden ones
 function Gaga:OnPickupSpawned(pickup)
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -15,10 +13,8 @@ function Gaga:OnPickupSpawned(pickup)
         if trinketMultiplier > 0 then
             local rng = player:GetTrinketRNG(Gaga.ID)
 
-            -- Calculate bonus
             local chanceBonus = (trinketMultiplier > 1) and GAGA_GOLDEN_BONUS or GAGA_BONUS
 
-            -- Try morph
             if rng:RandomFloat() < chanceBonus then
                 if pickup.Variant == PickupVariant.PICKUP_BOMB and pickup.SubType ~= BombSubType.BOMB_GOLDEN then
                     pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GOLDEN, true)
@@ -35,7 +31,6 @@ function Gaga:OnPickupSpawned(pickup)
     end
 end
 
--- EID description
 function Gaga:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
         Gaga:OnPickupSpawned(pickup)

@@ -3,7 +3,6 @@ local save = require("savedata")
 
 local Manager = {}
 
--- Map unlocks to items/trinkets
 local itemToUnlock = {
     [Isaac.GetItemIdByName("Army of Lovers")]        = { Unlock = "MomsHeart" },
     [Isaac.GetItemIdByName("The Bad Touch")]         = { Unlock = "Isaac" },

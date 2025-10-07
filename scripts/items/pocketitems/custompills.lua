@@ -68,14 +68,10 @@ function CustomPills:OnUsePill(pillEffect, player, flags)
         player:AnimateHappy()
         sfx:Play(614)
     
-        -- Check if the player has a trinket
         local trinketID = player:GetTrinket(0)
         if trinketID > 0 then
-            -- If player has a trinket, use the active item (COLLECTIBLE_SMELTER) to gulp it
             player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false, false, false, player)
         else
-            -- If no trinket, you could either show an error message or do nothing
-            -- For now, let's just play a sad animation to indicate no trinket was found
             player:AnimateSad()
         end
 

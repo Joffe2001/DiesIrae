@@ -8,6 +8,7 @@
         <Item Name="Mom's Dress" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Kahuna Burger" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="treasure">
@@ -30,6 +31,8 @@
         <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="shop">
@@ -43,6 +46,9 @@
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Beggar's Tear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="dungeon">
@@ -99,6 +105,7 @@
         <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="ultraSecret">
@@ -122,6 +129,7 @@
         <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="redChest">
@@ -138,6 +146,7 @@
 
     <Pool Name="oldChest">
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
 <!--Beggars and stuff-->
@@ -146,6 +155,8 @@
         <Item Name="Protein Powder" Weight="1" DecreaseBy="1" />
         <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="beggar">
@@ -154,6 +165,8 @@
         <Item Name="Golden Day" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Beggar's Tear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="demonBeggar">
@@ -192,6 +205,11 @@
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Kahuna Burger" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Beggar's Tear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedTreasure">
@@ -211,6 +229,8 @@
         <Item Name="Everybody's Changing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Little Lies" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedAngel">

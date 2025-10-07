@@ -30,21 +30,17 @@ function EverybodysChanging:OnUpdate()
 
                 if player:HasCollectible(EverybodysChanging.COLLECTIBLE_ID) then
                     local toRemove = {}
-
-                    -- collect all eligible items
                     for id = 1, MAX_ITEM_ID do
                         if player:HasCollectible(id) and IsValidCandidate(id) then
                             table.insert(toRemove, id)
                         end
                     end
 
-                    -- remove them
                     for _, id in ipairs(toRemove) do
                         player:RemoveCollectible(id)
                     end
                     player:EvaluateItems()
 
-                    -- replace 1-for-1
                     for _, oldID in ipairs(toRemove) do
                         local newID
                         local tries = 0
@@ -54,7 +50,7 @@ function EverybodysChanging:OnUpdate()
                         until (newID and IsValidCandidate(newID)) or tries > 100
 
                         if newID and IsValidCandidate(newID) then
-                            player:AddCollectible(newID, 0, true)  -- silent add
+                            player:AddCollectible(newID, 0, false) 
                         end
                     end
 

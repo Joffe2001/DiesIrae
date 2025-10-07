@@ -9,6 +9,8 @@ local enums = require("scripts.core.enums")
 ----------------------------------------------------
 local David = include("scripts.characters.david")
 David:Init(DiesIraeMod)
+local SoundOfSilence = include("scripts.challenges.sound_of_silence")
+SoundOfSilence:Init(DiesIraeMod)
 ---------------------------------------------------
 --  Active items
 ----------------------------------------------------
@@ -105,6 +107,12 @@ local EverybodysChanging = include("scripts.items.passive.everybodychanging")
 EverybodysChanging:Init(DiesIraeMod) --WORKING
 local BeggarsTear = include("scripts.items.passive.beggarstear") 
 BeggarsTear:Init(DiesIraeMod) --WORKING
+local BigKahunaBurger = include("scripts.items.passive.big_kahuna_burger") 
+BigKahunaBurger:Init(DiesIraeMod)
+local DadsEmptyWallet = include("scripts.items.passive.dads_empty_wallet") 
+DadsEmptyWallet:Init(DiesIraeMod)
+local BuriedTreasure = include("scripts.items.passive.buried_treasure") 
+BuriedTreasure:Init(DiesIraeMod)
 --local TouristMap = include("scripts.items.passive.touristmap") 
 --TouristMap:Init(mod)
 
@@ -121,14 +129,14 @@ CustomPills:Init(DiesIraeMod)  --WORKING
 ---------------------------------------------------
 --  Trinkets
 ----------------------------------------------------
-local WonderOfYou = include("scripts.items.trinkets.wonderofyou")
-WonderOfYou:Init(DiesIraeMod)
 local SecondBreakfast = include("scripts.items.trinkets.second_breakfast")
-SecondBreakfast:init(DiesIraeMod)
+SecondBreakfast:Init(DiesIraeMod)
 local Gaga = include("scripts.items.trinkets.gaga")
 Gaga:Init(DiesIraeMod)
+local WonderOfYou = include("scripts.items.trinkets.wonderofyou")
+WonderOfYou:Init(DiesIraeMod)
 local TrinketCollector = include("scripts.items.trinkets.trinket_collector")
-TrinketCollector:init(DiesIraeMod)
+TrinketCollector:Init(DiesIraeMod)
 local FixedMetabolism = include("scripts.items.trinkets.fixedmetabolism")
 FixedMetabolism:Init(DiesIraeMod)
 local BabyBlue = include("scripts.items.trinkets.babyblue")
@@ -169,6 +177,10 @@ MusicTears:Init(DiesIraeMod)
 ----------------------------------------------------
 local DadPlaylist = include("scripts.core.transformations.dadsoldplaylist")
 DadPlaylist:Init(DiesIraeMod)
+
+---------------------------------------------------
+--  Challenges
+----------------------------------------------------
 
 ---------------------------------------------------
 --  Somethings that comes with the mod

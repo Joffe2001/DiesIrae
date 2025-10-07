@@ -88,9 +88,8 @@ function Mutter:IncreaseMomsItemChance(poolType, decrease, seed)
         CollectibleType.COLLECTIBLE_MOMS_BOX,
         CollectibleType.COLLECTIBLE_C_SECTION,
         CollectibleType.COLLECTIBLE_DR_FETUS,
-        MomsDiaryID,
-        MomsDressID
-
+        Enums.Items.MomsDiary,
+        Enums.Items.MomsDress
     }
 
     if rng:RandomFloat() < 0.15 then

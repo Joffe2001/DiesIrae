@@ -1,74 +1,54 @@
 local SecondBreakfast = {}
 SecondBreakfast.TRINKET_ID = Enums.Trinkets.SecondBreakfast
-local game = Game()
 
-local foodItemStats = {
-    [CollectibleType.COLLECTIBLE_MEAT] = { damage = 1.0, health = 1 },
-    [CollectibleType.COLLECTIBLE_LUNCH] = { health = 1 },
-    [CollectibleType.COLLECTIBLE_SUPPER] = { health = 1 },
-    [CollectibleType.COLLECTIBLE_DESSERT] = { health = 1 },
-    [CollectibleType.COLLECTIBLE_ROTTEN_MEAT] = { health = 1 },
-    [CollectibleType.COLLECTIBLE_SAUSAGE] = {
-        damage = 1.0,
-        tears = 0.5,
-        speed = 0.2,
-        range = 0.5,
-        luck = 1
-    }
+local foodItems = {
+    CollectibleType.COLLECTIBLE_MEAT,
+    CollectibleType.COLLECTIBLE_LUNCH,
+    CollectibleType.COLLECTIBLE_SUPPER,
+    CollectibleType.COLLECTIBLE_DESSERT,
+    CollectibleType.COLLECTIBLE_ROTTEN_MEAT,
+    CollectibleType.COLLECTIBLE_SAUSAGE,
+    Enums.Items.BigKahunaBurger
 }
 
-local playerBonuses = {}
+SecondBreakfast.usedThisFloor = {}
 
-function SecondBreakfast:onUpdate(player)
-    local id = player.InitSeed
-    playerBonuses[id] = playerBonuses[id] or {}
+function SecondBreakfast:onCollectibleAdded(_, Type, Charge, FirstTime, Slot, VarData, player)
+    if not player:HasTrinket(SecondBreakfast.TRINKET_ID) then return end
+    local id = player:GetPlayerIndex()
 
-    local trinketMult = player:GetTrinketMultiplier(SecondBreakfast.TRINKET_ID)
-    if trinketMult <= 0 then return end
+    if SecondBreakfast.usedThisFloor[id] then return end
 
-    for itemID, stats in pairs(foodItemStats) do
-        local count = player:GetCollectibleNum(itemID)
+    for _, foodID in ipairs(foodItems) do
+        if Type == foodID then
+            SecondBreakfast.usedThisFloor[id] = true
 
-        if count > 0 then
-            playerBonuses[id][itemID] = stats
+            local randomFood = foodItems[math.random(#foodItems)]
+            local room = Game():GetRoom()
+            local spawnPos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, randomFood, spawnPos, Vector.Zero, nil)
+            break
         end
     end
-
-    player:AddCacheFlags(CacheFlag.CACHE_ALL)
-    player:EvaluateItems()
 end
 
-function SecondBreakfast:onEvaluateCache(player, cacheFlag)
-    local id = player.InitSeed
-    if not playerBonuses[id] then return end
-
-    for _, stats in pairs(playerBonuses[id]) do
-        if cacheFlag == CacheFlag.CACHE_DAMAGE and stats.damage then
-            player.Damage = player.Damage + stats.damage
-        end
-        if cacheFlag == CacheFlag.CACHE_FIREDELAY and stats.tears then
-            player.MaxFireDelay = player.MaxFireDelay - stats.tears
-        end
-        if cacheFlag == CacheFlag.CACHE_SPEED and stats.speed then
-            player.MoveSpeed = player.MoveSpeed + stats.speed
-        end
-        if cacheFlag == CacheFlag.CACHE_RANGE and stats.range then
-            player.TearRange = player.TearRange + stats.range * 40 
-        end
-        if cacheFlag == CacheFlag.CACHE_LUCK and stats.luck then
-            player.Luck = player.Luck + stats.luck
-        end
-    end
+function SecondBreakfast:onNewLevel()
+    SecondBreakfast.usedThisFloor = {}
 end
 
 function SecondBreakfast:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, SecondBreakfast.onUpdate)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, SecondBreakfast.onEvaluateCache)
+    mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, function(mod, Type, Charge, FirstTime, Slot, VarData, player)
+        SecondBreakfast:onCollectibleAdded(mod, Type, Charge, FirstTime, Slot, VarData, player)
+    end)
+
+    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+        SecondBreakfast:onNewLevel()
+    end)
 
     if EID then
         EID:addTrinket(
             SecondBreakfast.TRINKET_ID,
-            "Doubles the effect of all food-related items #+2x health or stat boosts from food items.",
+            "Once per floor: picking up a food item spawns a random extra food item.",
             "Second Breakfast",
             "en_us"
         )

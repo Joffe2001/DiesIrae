@@ -6,8 +6,6 @@ function WonderOfYou:onPlayerDamage(player, amount, flags, source, countdown)
     local p = player:ToPlayer()
     if not p then return end
     if not p:HasTrinket(WonderOfYou.TRINKET_ID) then return end
-
-    -- Base chance 5%, doubled to 10% if golden trinket
     local chance = 0.05
     if p:HasGoldenTrinket(WonderOfYou.TRINKET_ID) then
         chance = 0.10

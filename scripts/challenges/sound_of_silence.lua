@@ -17,15 +17,15 @@ function SoundOfSilence:OnGameStart(isContinued)
     if not isContinued then
         if Isaac.GetChallenge() == SoundOfSilence.ID then
             isSoundOfSilence = true
-            player:ClearPills()
-            player:AddPill(CustomPills.PILL_GULPING)
+            local player = Isaac.GetPlayer(0)  -- Get the player instance
+            player:ClearPills()  -- Clear all pills
+            player:AddPill(CustomPills.PILL_GULPING)  -- Add only the Gulping Pill
         else
             isSoundOfSilence = false
         end
     end
 end
 
--- When Tears Are Fired (No changes here, assuming MusicTears is used as before)
 function SoundOfSilence:OnTearFire(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if player and player:GetPlayerType() == PlayerType.PLAYER_ISAAC and isSoundOfSilence then
@@ -43,11 +43,6 @@ function SoundOfSilence:Init(mod)
 
     mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         SoundOfSilence:OnGameStart(isContinued)
-    end)
-    
-    -- Handle pill usage (only Gulping Pill)
-    mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, player, pillEffect)
-        SoundOfSilence:OnPillUse(player, pillEffect)
     end)
 end
 

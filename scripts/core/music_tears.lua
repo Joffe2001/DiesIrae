@@ -8,7 +8,6 @@ function MusicTears:Apply(tear)
     tear:GetData().isMusicTear = true
 end
 
--- ✂ Remove automatic application
 function MusicTears:Init(mod)
 end
 

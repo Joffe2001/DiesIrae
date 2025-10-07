@@ -1,7 +1,7 @@
 Enums = {}
 
 Enums.Players = {
-    David = Isaac.GetPlayerTypeByName("David"),
+    David                = Isaac.GetPlayerTypeByName("David"),
     --David_B = Isaac.GetPlayerTypeByName("David", true), -- if you add a tainted
 }
 
@@ -42,6 +42,9 @@ Enums.Items = {
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
     BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
+    BigKahunaBurger      = Isaac.GetItemIdByName("Big Kahuna Burger"),
+    DadsEmptyWallet      = Isaac.GetItemIdByName("Dad's Empty Wallet"),
+    BuriedTreasure       = Isaac.GetItemIdByName("Buried Treasure"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),
@@ -82,15 +85,31 @@ Enums.Trinkets = {
 }
 
 Enums.Costumes = {
-    David = Isaac.GetCostumeIdByPath("gfx/characters/costume.david.anm2"),
-    David_B = Isaac.GetCostumeIdByPath("gfx/characters/costume.davidb.anm2")
+    David                = Isaac.GetCostumeIdByPath("gfx/characters/costume.david.anm2"),
+    David_B              = Isaac.GetCostumeIdByPath("gfx/characters/costume.davidb.anm2")
 }
+
+Enums.Challenges = {
+    SOUND_OF_SILENCE     = Isaac.GetChallengeIdByName("Sound of Silence")
+}
+
+Enums.Curses = {}
 
 Enums.AchievementGraphics = {
     PlayerDavid = {
-        MomsHeart = "achievement.army_of_lovers",  -- gfx/ui/achievements/achievement.army_of_lovers.png
-        Isaac     = "achievement.something_else",
-        Satan     = "achievement.something_else2"
+        MomsHeart = "achievement.",  -- gfx/ui/achievements/achievement.army_of_lovers.png
+        Isaac = "achievement.",      
+        BlueBaby = "achievement.baby_blue_unlock",   
+        Satan = "achievement.",      
+        Lamb = "achievement.paranoid_android_unlock",       
+        MegaSatan = "achievement.sh_boom_unlock",  
+        BossRush = "achievement.",   
+        Hush = "achievement.everybodys_changing_unlock",      
+        Beast = "achievement.u2_unlock",     
+        Corpse = "achievement.",    
+        UltraGreed = "achievement.wonder_of_you_unlock", 
+        UltraGreedier = "achievement.", 
+        Delirium = "achievement.helter_skelter_unlock",  
     }
 }
 
