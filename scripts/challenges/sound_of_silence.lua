@@ -1,49 +1,61 @@
+local mod = DiesIraeMod
 local SoundOfSilence = {}
-local Enums = include("scripts.core.enums")
-local CustomPills = include("scripts.items.pocketitems.custompills")
-SoundOfSilence.ID = Enums.Challenges.SOUND_OF_SILENCE
-local isSoundOfSilence = false
+local blockPedestalReward = false
 
-local MusicTears = nil
-local success, mt = pcall(require, "scripts.core.music_tears") 
-if success then
-    MusicTears = mt
-else
-    print("[SoundOfSilence] MusicTears module not found.")
-end
-
--- On Game Start
-function SoundOfSilence:OnGameStart(isContinued)
-    if not isContinued then
-        if Isaac.GetChallenge() == SoundOfSilence.ID then
-            isSoundOfSilence = true
-            local player = Isaac.GetPlayer(0)  -- Get the player instance
-            player:ClearPills()  -- Clear all pills
-            player:AddPill(CustomPills.PILL_GULPING)  -- Add only the Gulping Pill
-        else
-            isSoundOfSilence = false
-        end
-    end
-end
-
-function SoundOfSilence:OnTearFire(tear)
+function SoundOfSilence:TearGFXApply(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:GetPlayerType() == PlayerType.PLAYER_ISAAC and isSoundOfSilence then
-        if MusicTears then
-            MusicTears:Apply(tear) 
-        end
+    if not player then return end
+    if game.Challenge ~= mod.Challenges.SoundOfSilence then return end
+    tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
+end
+
+function SoundOfSilence:PostPickupInit(pickup)
+    if game.Challenge ~= SoundOfSilence.ID then return end
+
+    local roomType = Game():GetRoom():GetType()
+    if blockPedestalReward
+    and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
+    and (roomType == RoomType.ROOM_BOSS or roomType == RoomType.ROOM_TREASURE) then
+        pickup:Remove()
+        blockPedestalReward = false
     end
 end
 
--- Initialize the mod and set callbacks
-function SoundOfSilence:Init(mod)
-    if MusicTears then
-        mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, SoundOfSilence.OnTearFire)
-    end
-
-    mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-        SoundOfSilence:OnGameStart(isContinued)
-    end)
+local function spawnRandomTrinket()
+    local room = Game():GetRoom()
+    local pos = room:FindFreePickupSpawnPosition(Vector(room:GetCenterPos().X, room:GetCenterPos().Y), 0, true)
+    local trinketID = math.random(1, TrinketType.NUM_TRINKETS - 1)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID, pos, Vector.Zero, nil)
 end
 
-return SoundOfSilence
+function SoundOfSilence:OnNewRoom()
+    if game.Challenge ~= SoundOfSilence.ID then return end
+
+    local room = Game():GetRoom()
+    local roomType = room:GetType()
+    if roomType == RoomType.ROOM_TREASURE then
+        blockPedestalReward = true
+        spawnRandomTrinket()
+    end
+end
+
+function SoundOfSilence:PostBossKill()
+    if game.Challenge ~= SoundOfSilence.ID then return end
+
+    local room = Game():GetRoom()
+    if room:GetType() ~= RoomType.ROOM_BOSS then return end
+
+    blockPedestalReward = true
+    spawnRandomTrinket()
+end
+
+
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, SoundOfSilence.PostPickupInit)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, SoundOfSilence.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_, entity)
+if entity:IsBoss() then
+        SoundOfSilence:PostBossKill()
+    end
+end)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, SoundOfSilence.TearGFXApply)
+

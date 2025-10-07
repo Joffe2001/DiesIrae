@@ -69,15 +69,6 @@ function FriendlessChild:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player) FriendlessChild:onPickup(player) end)
     mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, FriendlessChild.onPreGetCollectible)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, FriendlessChild.onCache)
-
-    if EID then
-        EID:addCollectible(
-            FriendlessChild.COLLECTIBLE_ID,
-            "Removes all familiars#Familiar items give stat boosts instead, based on quality:#Q0: +0.25 Speed#Q1: +0.5 Damage#Q2: +1 Damage, +0.5 Tears#Q3: +1.5 Damage, +1 Range#Q4: +2 Damage, +0.7 Tears",
-            "Friendless Child",
-            "en_us"
-        )
-    end
 end
 
 return FriendlessChild

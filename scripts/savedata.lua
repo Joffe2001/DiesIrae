@@ -2,6 +2,9 @@ local SaveData = {}
 local json = require("json")
 
 SaveData.Data = {
+    Characters = {
+        David = false, -- Unlock by getting all 3 golden pickups in a single game
+    },
     Unlocks = {
         David = {
             MomsHeart = false,  -- Unlocks Army of Lovers

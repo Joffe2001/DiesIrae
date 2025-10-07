@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local ScaredShoes = {}
-ScaredShoes.COLLECTIBLE_ID = Enums.Items.ScaredShoes
 local game = Game()
 
 
@@ -12,9 +13,9 @@ ScaredShoes.peeTimers = {}
 local shouldBoostSpeed = {}  
 
 function ScaredShoes:OnPlayerUpdate(player)
-    if not player:HasCollectible(ScaredShoes.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.ScaredShoes) then return end
 
-    local rng = player:GetCollectibleRNG(ScaredShoes.COLLECTIBLE_ID)
+    local rng = player:GetCollectibleRNG(mod.Items.ScaredShoes)
     local id = rng:GetSeed()
     local room = game:GetRoom()
 
@@ -51,9 +52,9 @@ end
 
 function ScaredShoes:OnEvaluateCache(player, cacheFlag)
     if cacheFlag ~= CacheFlag.CACHE_SPEED then return end
-    if not player:HasCollectible(ScaredShoes.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.ScaredShoes) then return end
 
-    local rng = player:GetCollectibleRNG(ScaredShoes.COLLECTIBLE_ID)
+    local rng = player:GetCollectibleRNG(mod.Items.ScaredShoes)
     local id = rng:GetSeed()
 
     if shouldBoostSpeed[id] then
@@ -62,18 +63,5 @@ function ScaredShoes:OnEvaluateCache(player, cacheFlag)
     end
 end
 
-function ScaredShoes:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ScaredShoes.OnPlayerUpdate)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ScaredShoes.OnEvaluateCache)
-
-    if EID then
-        EID:addCollectible(
-            ScaredShoes.COLLECTIBLE_ID,
-            "↑ Sets speed to 2.0 when no enemies are alive#Spawns random small pee creep during combat",
-            "Scared Shoes",
-            "en_us"
-        )
-    end
-end
-
-return ScaredShoes
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ScaredShoes.OnPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ScaredShoes.OnEvaluateCache)

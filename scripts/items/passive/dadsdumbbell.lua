@@ -1,12 +1,13 @@
+local mod = DiesIraeMod
+
 local DadsDumbbell = {}
-DadsDumbbell.COLLECTIBLE_ID = Enums.Items.DadsDumbbell
 local game = Game()
 
 local TEAR_EFFECT_TAG = "DadsDumbbellEffect"
 
 function DadsDumbbell:OnTearInit(tear)
     local player = tear.Parent
-    if not player or not player:HasCollectible(DadsDumbbell.COLLECTIBLE_ID) then
+    if not player or not player:HasCollectible(mod.Items.DadsDumbbell) then
         return
     end
 
@@ -30,17 +31,5 @@ function DadsDumbbell:OnTearUpdate(tear)
     end
 end
 
-function DadsDumbbell:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, DadsDumbbell.OnTearInit)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, DadsDumbbell.OnTearUpdate)
-
-    if EID then
-        EID:addCollectible(
-            DadsDumbbell.COLLECTIBLE_ID,
-            "Each tear has a 10% chance to deal +2 damage and turn red.",
-            "Dad's Dumbbell"
-        )
-    end
-end
-
-return DadsDumbbell
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, DadsDumbbell.OnTearInit)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, DadsDumbbell.OnTearUpdate)

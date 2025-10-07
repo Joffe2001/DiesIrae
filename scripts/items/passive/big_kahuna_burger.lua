@@ -16,14 +16,6 @@ function BigKahunaBurger:Init(mod)
         BigKahunaBurger:onCollectibleAdded(mod, Type, Charge, FirstTime, Slot, VarData, player)
     end)
 
-    if EID then
-        EID:addCollectible(
-            BigKahunaBurger.COLLECTIBLE_ID,
-            "Gives either 1,2,3 full Red Heart Containers when picked up.",
-            "Big Kahuna Burger",
-            "en_us"
-        )
-    end
 end
 
 return BigKahunaBurger

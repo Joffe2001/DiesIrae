@@ -3,11 +3,11 @@
         skin="david_spritesheet2.png"
         nameimage="david_vs_name.png"
         hp="2"
-        armor="0"
-        keys="0"
+        goldenhearts="1"
         coins="10"
         portrait="david_portrait2_fix.png"
         skinColor="-1"
         birthright="Goliath killer"
+        achievement="David"
     />
 </players>

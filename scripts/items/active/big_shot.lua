@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local BigShot = {}
-BigShot.COLLECTIBLE_ID = Enums.Items.BigShot
 
 local SPEED = 5.5
 local DAMAGE_MULT = 2.0
@@ -72,18 +73,5 @@ function BigShot:onTearUpdate(tear)
     end
 end
 
-function BigShot:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, BigShot.onUse, BigShot.COLLECTIBLE_ID)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, BigShot.onTearUpdate)
-
-    if EID then
-        EID:addCollectible(
-            BigShot.COLLECTIBLE_ID,
-            "Fires a massive, slow, piercing tear that destroys rocks and opens secret room doors. Explodes on wall impact.#4s cooldown.",
-            "Big Shot",
-            "en_us"
-        )
-    end
-end
-
-return BigShot
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, BigShot.onUse, mod.Items.BigShot)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, BigShot.onTearUpdate)

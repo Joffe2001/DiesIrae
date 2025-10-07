@@ -1,54 +1,124 @@
-local SoundOfSilence = {}
-local Enums = include("scripts.core.enums")
-local CustomPills = include("scripts.items.pocketitems.custompills")
-SoundOfSilence.ID = Enums.Challenges.SOUND_OF_SILENCE
-local isSoundOfSilence = false
+local David = {}
+David.ID = Isaac.GetPlayerTypeByName("David", false) -- must match players.xml name
 
-local MusicTears = nil
-local success, mt = pcall(require, "scripts.core.music_tears") 
-if success then
-    MusicTears = mt
-else
-    print("[SoundOfSilence] MusicTears module not found.")
+-- Costume
+local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2")
+
+-- =========================
+-- CONFIG: Starting stats
+-- =========================
+local STARTING_RED = 1
+local STARTING_GOLD = 1
+
+local DAMAGE_MODIFIER = 1
+local SPEED_MODIFIER = 0.2
+local TEAR_DELAY_MODIFIER = 1
+local LUCK_MODIFIER = 1
+
+local STARTING_COLLECTIBLES = {
+    Isaac.GetItemIdByName("Muse")
+}
+
+local STARTING_TRINKETS = {
+    Isaac.GetTrinketIdByName("Gaga")
+}
+
+-- =========================
+-- On player init
+-- =========================
+function David:OnPlayerInit(player)
+    if player:GetPlayerType() ~= self.ID then return end
+
+    -- Add hair costume
+    player:AddNullCostume(hairCostume)
+
+    -- Reset hearts
+    player:AddMaxHearts(-player:GetMaxHearts(), false)
+    player:AddHearts(-player:GetHearts())
+    player:AddGoldenHearts(-player:GetGoldenHearts())
+
+    -- Apply David’s custom hearts
+    player:AddMaxHearts(STARTING_RED * 2, false)
+    player:AddHearts(STARTING_RED * 2)
+    player:AddGoldenHearts(STARTING_GOLD)
+
+    -- Give items / trinkets
+    for _, item in ipairs(STARTING_COLLECTIBLES) do
+        player:AddCollectible(item, 0, false)
+    end
+
+    for _, trinket in ipairs(STARTING_TRINKETS) do
+        player:AddTrinket(trinket)
+    end
+
+    -- Trigger cache updates
+    player:AddCacheFlags(
+        CacheFlag.CACHE_DAMAGE
+        | CacheFlag.CACHE_SPEED
+        | CacheFlag.CACHE_FIREDELAY
+        | CacheFlag.CACHE_LUCK
+    )
+    player:EvaluateItems()
 end
 
--- On Game Start
-function SoundOfSilence:OnGameStart(isContinued)
-    if not isContinued then
-        if Isaac.GetChallenge() == SoundOfSilence.ID then
-            isSoundOfSilence = true
-            player:ClearPills()
-            player:AddPill(CustomPills.PILL_GULPING)
-        else
-            isSoundOfSilence = false
+-- =========================
+-- On cache evaluation
+-- =========================
+function David:OnEvaluateCache(player, flag)
+    if player:GetPlayerType() ~= self.ID then return end
+
+    if flag == CacheFlag.CACHE_DAMAGE then
+        player.Damage = player.Damage + DAMAGE_MODIFIER
+    elseif flag == CacheFlag.CACHE_SPEED then
+        player.MoveSpeed = player.MoveSpeed + SPEED_MODIFIER
+    elseif flag == CacheFlag.CACHE_FIREDELAY then
+        player.MaxFireDelay = math.max(1, player.MaxFireDelay + TEAR_DELAY_MODIFIER)
+    elseif flag == CacheFlag.CACHE_LUCK then
+        player.Luck = player.Luck + LUCK_MODIFIER
+    end
+end
+
+-- =========================
+-- Birthright effect
+-- =========================
+function David:OnEntityTakeDamage(entity, amount, flags, source, countdown)
+    local player = source.Entity and source.Entity:ToPlayer()
+    if not player then return end
+
+    if player:GetPlayerType() == self.ID and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+        local npc = entity:ToNPC()
+        if npc and npc:IsBoss() then
+            return amount * 2
         end
     end
 end
 
--- When Tears Are Fired (No changes here, assuming MusicTears is used as before)
-function SoundOfSilence:OnTearFire(tear)
-    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:GetPlayerType() == PlayerType.PLAYER_ISAAC and isSoundOfSilence then
-        if MusicTears then
-            MusicTears:Apply(tear) 
-        end
+-- =========================
+-- Init callbacks
+-- =========================
+function David:Init(mod)
+    -- Player init
+    mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
+        self:OnPlayerInit(player)
+    end)
+
+    -- Cache updates
+    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
+        self:OnEvaluateCache(player, flag)
+    end)
+
+    -- Birthright
+    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source, countdown)
+        return self:OnEntityTakeDamage(entity, amount, flags, source, countdown)
+    end)
+
+    -- EID description for Birthright
+    if EID then
+        local icons = Sprite()
+        icons:Load("gfx/david_eid.anm2", true)
+        EID:addIcon("Player"..David.ID, "David", 0, 16, 16, 0, 0, icons)
+        EID:addBirthright(self.ID,"David deals double damage to bosses.","David")
     end
 end
 
--- Initialize the mod and set callbacks
-function SoundOfSilence:Init(mod)
-    if MusicTears then
-        mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, SoundOfSilence.OnTearFire)
-    end
-
-    mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-        SoundOfSilence:OnGameStart(isContinued)
-    end)
-    
-    -- Handle pill usage (only Gulping Pill)
-    mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, player, pillEffect)
-        SoundOfSilence:OnPillUse(player, pillEffect)
-    end)
-end
-
-return SoundOfSilence
+return David

@@ -1,12 +1,13 @@
+local mod = DiesIraeMod
+
 local Hysteria = {}
-Hysteria.ID = Enums.Items.Hysteria
 local game = Game()
 local SFX = SFXManager()
 
 function Hysteria:OnTakeDamage(entity, amount, flags, source, countdown)
     if entity.Type ~= EntityType.ENTITY_PLAYER then return end
     local player = entity:ToPlayer()
-    if not player or not player:HasCollectible(Hysteria.ID) then return end
+    if not player or not player:HasCollectible(mod.Items.Hysteria) then return end
 
     local data = player:GetData()
     data.HHits = (data.HHits or 0) + 1
@@ -25,7 +26,7 @@ function Hysteria:OnTakeDamage(entity, amount, flags, source, countdown)
 end
 
 function Hysteria:OnPlayerUpdate(_, player)
-    if not player or not player:HasCollectible(Hysteria.ID) then return end
+    if not player or not player:HasCollectible(mod.Items.Hysteria) then return end
     local data = player:GetData()
     local room = game:GetRoom()
 
@@ -61,20 +62,8 @@ function Hysteria:OnNewRoom()
     end
 end
 
-function Hysteria:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Hysteria.OnTakeDamage)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Hysteria.OnPlayerUpdate)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Hysteria.OnCache)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Hysteria.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Hysteria.OnTakeDamage)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Hysteria.OnPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Hysteria.OnCache)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Hysteria.OnNewRoom)
 
-    if EID then
-        EID:addCollectible(
-            Hysteria.ID,
-            "When taking damage twice in a room, Isaac gains double damage for the rest of the room.",
-            "Hysteria",
-            "en_us"
-        )
-    end
-end
-
-return Hysteria

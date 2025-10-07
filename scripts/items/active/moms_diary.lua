@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local MomsDiary = {}
-MomsDiary.COLLECTIBLE_ID = Enums.Items.MomsDiary
 
 local chargePerHit = 1
 local maxCharge = 6
@@ -9,9 +10,9 @@ function MomsDiary:OnPlayerDamaged(entity)
     local player = entity:ToPlayer()
     if not player then return end
 
-    if player:HasCollectible(MomsDiary.COLLECTIBLE_ID) then
+    if player:HasCollectible(mod.Items.MomsDiary) then
         for slot = 0, 2 do
-            if player:GetActiveItem(slot) == MomsDiary.COLLECTIBLE_ID then
+            if player:GetActiveItem(slot) == mod.Items.MomsDiary then
                 local charge = player:GetActiveCharge(slot)
                 local newCharge = math.min(charge + chargePerHit, maxCharge)
                 player:SetActiveCharge(newCharge, slot)
@@ -23,8 +24,8 @@ end
 ---@param rng RNG
 ---@param player EntityPlayer
 function MomsDiary:OnUseItem(_, rng, player)
-    local pool = GameRef:GetItemPool()
-    local level = GameRef:GetLevel()
+    local pool = Game():GetItemPool()
+    local level = Game():GetLevel()
     local roomDesc = level:GetCurrentRoomDesc()
     local currentPool = ItemPoolType.POOL_TREASURE
 
@@ -44,19 +45,7 @@ function MomsDiary:OnUseItem(_, rng, player)
     }
 end
 
-function MomsDiary:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDiary.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
-    
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, MomsDiary.OnUseItem, MomsDiary.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDiary.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
 
-    if EID then
-        EID:addCollectible(
-            MomsDiary.COLLECTIBLE_ID,
-            "Spawns a random pedestal item.#Charges only when Isaac takes damage.",
-            "Mom's Diary",
-            "en_us"
-        )
-    end
-end
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, MomsDiary.OnUseItem, mod.Items.MomsDiary)
 
-return MomsDiary

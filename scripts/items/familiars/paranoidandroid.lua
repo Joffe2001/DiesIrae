@@ -1,7 +1,6 @@
+local mod = DiesIraeMod
+
 local ParanoidAndroid = {}
-ParanoidAndroid.COLLECTIBLE_ID = Enums.Familiars.ParanoidAndroid
-ParanoidAndroid.FAMILIAR_VARIANT = Isaac.GetEntityVariantByName("Paranoid Android")
-ParanoidAndroid.RING_VARIANT = Isaac.GetEntityVariantByName("Android Lazer Ring")
 
 -- Balance
 local BASE_RADIUS = 55
@@ -15,12 +14,12 @@ local TICK_RATE = 5 -- frames per tick
 ---------------------------------------------------
 function ParanoidAndroid:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
-        local count = player:GetCollectibleNum(ParanoidAndroid.COLLECTIBLE_ID)
+        local count = player:GetCollectibleNum(mod.Items.ParanoidAndroid)
         player:CheckFamiliar(
-            ParanoidAndroid.FAMILIAR_VARIANT,
+            mod.EntityVariant.ParanoidAndroid,
             count,
             RNG(),
-            Isaac.GetItemConfig():GetCollectible(ParanoidAndroid.COLLECTIBLE_ID)
+            Isaac.GetItemConfig():GetCollectible(mod.Items.ParanoidAndroid)
         )
     end
 end
@@ -58,7 +57,7 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
         if not familiar:GetData().Ring or not familiar:GetData().Ring:Exists() then
             local ring = Isaac.Spawn(
                 EntityType.ENTITY_EFFECT,
-                ParanoidAndroid.RING_VARIANT,
+                mod.EntityVariant.AndroidLazerRing,
                 0,
                 familiar.Position,
                 Vector.Zero,
@@ -126,20 +125,7 @@ end
 ---------------------------------------------------
 -- Init
 ---------------------------------------------------
-function ParanoidAndroid:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, self.onCache)
-    mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, self.onFamiliarInit, self.FAMILIAR_VARIANT)
-    mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, self.onFamiliarUpdate, self.FAMILIAR_VARIANT)
-    mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, self.onRingUpdate, self.RING_VARIANT)
-
-    if EID then
-        EID:addCollectible(
-            self.COLLECTIBLE_ID,
-            "#Enemies touching the ring take damage every few frames",
-            "Paranoid Android",
-            "en_us"
-        )
-    end
-end
-
-return ParanoidAndroid
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ParanoidAndroid.onCache)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, ParanoidAndroid.onFamiliarInit, mod.EntityVariant.ParanoidAndroid)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdate, mod.EntityVariant.ParanoidAndroid)
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate, mod.EntityVariant.AndroidLazerRing)

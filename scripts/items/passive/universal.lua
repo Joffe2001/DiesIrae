@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local Universal = {}
-Universal.COLLECTIBLE_ID = Enums.Items.Universal
 local game = Game()
 
 local CHARGE_TIME = 40 
@@ -34,7 +35,7 @@ chargeBarSprite:Load("gfx/chargebar.anm2", true)
 function Universal:onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(Universal.COLLECTIBLE_ID) then
+        if not player:HasCollectible(mod.Items.Universal) then
             goto continue
         end
 
@@ -102,7 +103,7 @@ end
 
 function Universal:onPlayerDamage(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
-    if player and player:HasCollectible(Universal.COLLECTIBLE_ID) then
+    if player and player:HasCollectible(mod.Items.Universal) then
         local state = getState(player)
         if state.activeTimer > 0 and source.Type == EntityType.ENTITY_PROJECTILE then
             return false 
@@ -113,7 +114,7 @@ end
 function Universal:onRender()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(Universal.COLLECTIBLE_ID) then
+        if not player:HasCollectible(mod.Items.Universal) then
             goto continue
         end
 
@@ -133,20 +134,10 @@ function Universal:onRender()
     end
 end
 
-function Universal:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_UPDATE, Universal.onUpdate)
-    mod:AddCallback(ModCallbacks.MC_POST_RENDER, Universal.onRender)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Universal.onPlayerDamage, EntityType.ENTITY_PLAYER)
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, Universal.onUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, Universal.onRender)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Universal.onPlayerDamage, EntityType.ENTITY_PLAYER)
 
-    if EID then
-        EID:addCollectible(
-            Universal.COLLECTIBLE_ID,
-            "Hold fire to charge.#On release, absorb projectiles near Isaac.#At the end, spawn Crack the Sky beams for each projectile absorbed.",
-            "Universal",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", Universal.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:assignTransformation("collectible", mod.Items.Universal, "Dad's Playlist")
 end
-
-return Universal

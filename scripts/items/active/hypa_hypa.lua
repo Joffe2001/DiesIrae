@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local HypaHypa = {}
-HypaHypa.COLLECTIBLE_ID = Enums.Items.HypaHypa
 
 ---@param player EntityPlayer
 function HypaHypa:UseItem(_, _, player)
@@ -31,7 +32,7 @@ end
 
 ---@param collectible CollectibleType
 function HypaHypa:OnGetItem(collectible)
-    if collectible == HypaHypa.COLLECTIBLE_ID then
+    if collectible == mod.Items.HypaHypa then
         local pickupIndex = 0
         local entities = Isaac.GetRoomEntities()
         for _, entity in pairs(entities) do
@@ -39,14 +40,14 @@ function HypaHypa:OnGetItem(collectible)
             if pickup then
                 local collectibleCycle = pickup:GetCollectibleCycle()
                 for _, item in pairs(collectibleCycle) do
-                    if item == HypaHypa.COLLECTIBLE_ID then
+                    if item == mod.Items.HypaHypa then
                         pickupIndex = pickup:SetNewOptionsPickupIndex()
                     end
                 end
             end
         end
-        local itemPool = GameRef:GetItemPool()
-        local room = GameRef:GetRoom()
+        local itemPool = Game():GetItemPool()
+        local room = Game():GetRoom()
         local altOptionEntity = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
             itemPool:GetCollectible(itemPool:GetLastPool(), true), 
             room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, nil)
@@ -58,18 +59,4 @@ function HypaHypa:OnGetItem(collectible)
     end
 end
 
-function HypaHypa:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return HypaHypa:UseItem(...)
-    end, HypaHypa.COLLECTIBLE_ID)
-
-    if EID then
-        EID:addCollectible(HypaHypa.COLLECTIBLE_ID,
-            "10% chance to spawn a quality 4 item #90% chance to spawn The Poop #Single-use item",
-            "Hypa Hypa",
-            "en_us"
-        )
-    end
-end
-
-return HypaHypa
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, HypaHypa.UseItem, mod.Items.HypaHypa)

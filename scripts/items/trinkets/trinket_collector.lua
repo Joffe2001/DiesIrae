@@ -1,7 +1,8 @@
 local TrinketCollector = {}
 TrinketCollector.TRINKET_ID = Enums.Trinkets.TrinketCollector
 local game = Game()
-local SFXManager = SFXManager()
+
+local swallowedTrinkets = {}
 
 function TrinketCollector:onPickupUpdate(pickup)
     if pickup.Variant ~= PickupVariant.PICKUP_TRINKET then return end
@@ -11,15 +12,19 @@ function TrinketCollector:onPickupUpdate(pickup)
         local player = Isaac.GetPlayer(i)
         if player:HasTrinket(TrinketCollector.TRINKET_ID) then
             local newTrinket = pickup.SubType
-            if newTrinket == TrinketCollector.TRINKET_ID then return end 
+            if newTrinket == TrinketCollector.TRINKET_ID then return end
 
             local data = player:GetData()
             data.SwallowedTrinkets = data.SwallowedTrinkets or {}
 
             if not data.SwallowedTrinkets[newTrinket] then
-                data.SwallowedTrinkets[newTrinket] = true
+                player:AddTrinket(newTrinket)
+                player:TryRemoveTrinket(newTrinket)
+
                 Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
-                SFXManager:Play(SoundEffect.SOUND_VAMP_GULP, 1.0)
+                SFXManager():Play(SoundEffect.SOUND_VAMP_GULP, 1.0)
+
+                data.SwallowedTrinkets[newTrinket] = true
 
                 pickup:Remove()
                 break
@@ -31,8 +36,9 @@ end
 function TrinketCollector:onPlayerUpdate(player)
     local data = player:GetData()
     if not data.SwallowedTrinkets then return end
+
     for trinketId, _ in pairs(data.SwallowedTrinkets) do
-        if trinketId ~= TrinketCollector.TRINKET_ID and not player:HasTrinket(trinketId) then
+        if not player:HasTrinket(trinketId) then
             player:AddTrinket(trinketId)
             player:TryRemoveTrinket(trinketId)
         end

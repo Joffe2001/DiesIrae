@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local LittleLies = {}
-LittleLies.COLLECTIBLE_ID = Enums.Items.LittleLies
 
 
 ---@param player EntityPlayer
@@ -48,26 +49,12 @@ function LittleLies:AddRoomReset(player)
     end)
 end
 
-function LittleLies:Init(mod)
-    LittleLies.Mod = mod
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return LittleLies:UseItem(...)
-    end, LittleLies.COLLECTIBLE_ID)
+LittleLies.Mod = mod
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, LittleLies.UseItem, mod.Items.LittleLies)
 
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheFlag)
-        LittleLies:OnEvaluateCache(player, cacheFlag)
-    end)
-end
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LittleLies.OnEvaluateCache)
 
 -- EID description
 if EID then
-    EID:addCollectible(
-        LittleLies.COLLECTIBLE_ID,
-        "Shrinks Isaac and grants +2 Tears for the current room",
-        "Little Lies",
-        "en_us"
-    )
-    EID:assignTransformation("collectible", LittleLies.COLLECTIBLE_ID, "Dad's Playlist")
+    EID:assignTransformation("collectible", mod.Items.LittleLies, "Dad's Playlist")
 end
-
-return LittleLies

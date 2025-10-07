@@ -4,8 +4,8 @@
     <passive id="2" name="Muse" gfx="" description="Let's sing for absolution" quality="4" tags="nolostbr"/>
     <passive id="3" name="The Bad Touch" gfx="the_bad_touch.png" description="Sweat baby sweat" quality="1" tags="nolostbr"/>
     <passive id="4" name="Universal" gfx="" description="Woo hoo!!" quality="3" />
-    <passive id="5" name="Ring of Fire" gfx="" description="Burn it down" quality="1" tags="nolostbr" />
-    <passive id="6" name="Killer Queen" gfx="" description="Killer queen already touched the doornob" quality="3" tags="offensive"/>
+    <passive id="5" name="Ring of Fire" gfx="ring_of_fire.png" description="Burn it down" quality="1" tags="nolostbr" />
+    <passive id="6" name="Killer Queen" gfx="" description="Killer queen already touched the doornob" quality="3" tags="offensive" devilprice="1"/>
     <passive id="7" name="Mom's Dress" gfx="momsdress.png" description="It's like her hug!" quality="2" tags="nolostbr mom" />
     <passive id="8" name="Enjoyment of the Unlucky" gfx="" description="Bad luck is a good luck!" quality="2" />
     <passive id="9" name="Everybody's Changing" gfx="everybodychanging.png" description="I don't feel the same" quality="2" />
@@ -37,11 +37,10 @@
     <passive id="35" name="Back In Anger" gfx="" description="Somebody's behind" quality="1" />
     <passive id="36" name="Big Kahuna Burger" gfx="" description="It is a tasty burger!" quality="3" tags="nolostbr food" />
     <passive id="37" name="Dad's Empty Wallet" gfx="" description="Money?" quality="2" />
-    <passive id="38" name="Buried Treasure" gfx="" description="Where is the X??" quality="2" />
+    <passive id="38" name="Buried Treasure Map" gfx="" description="Where is the X??" quality="2" />
     <!--Familiars-->
     <familiar id="39" name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" />
     <!--Active items-->
-<<<<<<< HEAD
     <active id="100" name="Guppy's soul" gfx="guppyssoul.png" description="Sinful cat soul" quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers" gfx="armyoflovers.png" description="Saint-like behavior" quality="2" maxcharges="4" chargetype="normal" tags="offensive"/>
     <active id="102" name="Sh-boom!!" gfx="shboom.png" description="Life could be a dream!" quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
@@ -51,14 +50,11 @@
     <active id="106" name="Diary of a Madman" gfx="" description="Anything can happen!" quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
     <active id="107" name="Coma White" gfx="" description="A special heart, but with a price" quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
     <active id="108" name="Good Vibes" gfx="" description="It's good man" quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
-    <active id="109" name="Red Map" gfx="" description="I don't know the way" quality="2" maxcharges="4" chargetype="normal" />
+    <active id="109" name="Big Shot" gfx="" description="[BIG SHOT]" chargetype="timed" maxcharges="240" quality="2" />
     <active id="110" name="Devil's Heart" gfx="" description="See the Devil in I!" quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
     <active id="111" name="Mom's Diary" gfx="momsdiary2.png" description="Is that what she thinks of me?" quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active id="112" name="Another Medium" gfx="" description="Things will not be the same" quality="1" maxcharges="1" chargetype="normal" />
     <active id="113" name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" />
-    <active id="114" name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
-    <active id="115" name="D8055" gfx="" description="Maybe I'll try a different one" quality="2" maxcharges="4" chargetype="normal" />
-    <active id="116" name="Big Shot" gfx="" description="[BIG SHOT]" chargetype="timed" maxcharges="240" quality="2" />
     <!--Trinkets-->
     <trinket id="200" name="Money for nothing" description="You don't need money no more" gfx="" />
     <trinket id="201" name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />
@@ -71,36 +67,4 @@
     <trinket id="208" name="Trinket Collector" gfx="" description="I will catch them all" />
     <trinket id="209" name="Second Breakfast" description="What about elevenses?" gfx="" />
     <trinket id="210" name="In a Broken dream" description="It's the way to the void" gfx="" />
-=======
-    <active name="Guppy's soul" gfx="guppyssoul.png" description="Sinful cat soul" quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
-    <active name="Army of Lovers" gfx="armyoflovers.png" description="Saint-like behavior" quality="2" maxcharges="4" chargetype="normal" tags="offensive"/>
-    <active name="Sh-boom!!" gfx="shboom.png" description="Life could be a dream!" quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
-    <active name="Hypa Hypa" gfx="" description="Maybe it will be good" quality="2" tags="nogreed" maxcharges="1" chargetype="special" />
-    <active name="Helter skelter" gfx="helterskelter.png" description="Friends from the dead" quality="3" maxcharges="6" chargetype="normal" />
-    <active name="Holy Wood" gfx="" description="Safe, maybe, for now" quality="3" maxcharges="6" chargetype="normal" tags="nolostbr nogreed" />
-    <active name="Diary of a Madman" gfx="" description="Anything can happend!" quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
-    <active name="Coma White" gfx="" description="A special heart, but with a price" quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
-    <active name="Good Vibes" gfx="" description="It's good man" quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
-    <active name="Red Map" gfx="" description="I don't know the way" quality="2" maxcharges="4" chargetype="normal" />
-    <active name="Devil's Heart" gfx="" description="See the Devil in I!" quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
-    <active name="Mom's Diary" gfx="momsdiary2.png" description="Is that what she thinks of me?" quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
-    <active name="Another Medium" gfx="" description="Things will not be the same" quality="1" maxcharges="1" chargetype="normal" />
-    <active name="Little Lies" gfx="littlelies.png" description="Tell me sweet little lies" quality="1" maxcharges="4" chargetype="normal" />
-    <active name="Satan's Remote Shop" gfx="" description="You don't have to wait!" quality="2" maxcharges="1" chargetype="special" />
-    <active name="D8055" gfx="" description="Maybe I'll try a different one" quality="2" maxcharges="4" chargetype="normal" />
-    <active name="Big Shot" gfx="" description="Now its time for big big shot!" chargetype="timed" maxcharges="240" quality="2" />
-
-	<!--Trinkets-->
-    <trinket name="Money for nothing" description="You don't need money no more" gfx="" />
-    <trinket name="Catch the Rainbow" description="Tasted the rainbow" gfx="" />
-    <trinket name="Gaga" description="Just dance, it’ll be okay" gfx="" />
-    <trinket name="Fixed Metabolism" gfx="" description="I feel good now" />
-    <trinket name="Baby Blue" gfx="babyblue.png" description="Guess I got what I deserved" />
-    <trinket name="Clear Vase" gfx="" description="I don't see anything here" />
-    <trinket name="Wonder of You" gfx="" description="It is the power of calamity" />
-    <trinket name="Rotten Food" gfx="" description="Something is wrong..." />
-    <trinket name="Trinket Collector" gfx="" description="I will catch them all" />
-    <trinket name="Second Breakfast" description= "What about elevenses?" gfx="" />
-    <trinket name="In a Broken dream" description="Its the way to the void" gfx="" />
->>>>>>> b52b31bd5e8d81b08e81295f2ce2c3a4b54fe626
 </items>

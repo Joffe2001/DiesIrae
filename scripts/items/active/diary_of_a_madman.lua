@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local Diary_madman = {}
-Diary_madman.COLLECTIBLE_ID = Enums.Items.DiaryOfAMadman
 
 local active = false
 local statMods = {}
@@ -89,26 +90,9 @@ function Diary_madman:OnNewRoom()
     end
 end
 
-function Diary_madman:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, ...)
-        return Diary_madman:UseItem(...)
-    end, Diary_madman.COLLECTIBLE_ID)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, Diary_madman.UseItem, mod.Items.DiaryOfAMadman)
 
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheFlag)
-        Diary_madman:OnCache(player, cacheFlag)
-    end)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Diary_madman.OnCache)
 
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-        Diary_madman:OnNewRoom()
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Diary_madman.OnNewRoom)
 
-    if EID then
-        EID:addCollectible(Diary_madman.COLLECTIBLE_ID,
-            "Randomly changes all stats for the current room",
-            "Diary of a Madman",
-            "en_us"
-        )
-    end
-end
-
-return Diary_madman

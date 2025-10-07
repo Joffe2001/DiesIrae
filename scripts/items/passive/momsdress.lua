@@ -1,12 +1,13 @@
+local mod = DiesIraeMod
+
 local MomsDress = {}
-MomsDress.COLLECTIBLE_ID = Enums.Items.MomsDress
 
 local mantle = CollectibleType.COLLECTIBLE_HOLY_MANTLE
 local mantleGiven = false
 local hasSpawnedHearts = false
 
 function MomsDress:CheckPickup(player)
-    if player:HasCollectible(MomsDress.COLLECTIBLE_ID) and not hasSpawnedHearts then
+    if player:HasCollectible(mod.Items.MomsDress) and not hasSpawnedHearts then
         hasSpawnedHearts = true
         print("Mom's Dress: Spawning 2 Rotten Hearts")
 
@@ -25,7 +26,7 @@ end
 
 function MomsDress:OnNewRoom()
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(MomsDress.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.MomsDress) then return end
 
     local room = Game():GetRoom()
     if room:IsClear() or (room:GetType() == RoomType.ROOM_BOSS and room:IsAmbushDone()) then
@@ -65,20 +66,9 @@ function MomsDress:OnPlayerUpdate(player)
     MomsDress:CheckPickup(player)
 end
 
-function MomsDress:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MomsDress.OnNewRoom)
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDress.OnTakeDamage)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MomsDress.OnRoomReset)
-    mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, MomsDress.OnPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MomsDress.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDress.OnTakeDamage)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MomsDress.OnRoomReset)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, MomsDress.OnPlayerUpdate)
 
-    if EID then
-        EID:addCollectible(
-            MomsDress.COLLECTIBLE_ID,
-            "Spawns 2 Rotten Hearts on pickup#↑ 20% chance to gain Holy Mantle effect in uncleared rooms",
-            "Mom's Dress",
-            "en_us"
-        )
-    end
-end
 
-return MomsDress

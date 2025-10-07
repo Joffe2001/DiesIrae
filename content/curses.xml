@@ -1,5 +1,3 @@
 <curses>
-    <curse 
-        id="7" name="Curse of the Sacrifice" gfx="gfx/ui/curse_of_the_sacrifice.png" description="The Treasure Room has Sacrifice Room spikes." darkenedname="Curse of the#Sacrifice" />
-
+    <curse id="259" name="Curse of the Unloved!"/>
 </curses>

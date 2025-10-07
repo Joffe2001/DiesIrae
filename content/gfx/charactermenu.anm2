@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="Joffe" CreatedOn="21/09/2025 19:07:13" Version="57" Fps="30"/>
+	<Info CreatedBy="Joffe" CreatedOn="07/10/2025 12:10:47" Version="58" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="david_menu_fix.png" Id="0"/>
@@ -85,7 +85,7 @@
 					<Frame XPosition="22" YPosition="4" XPivot="16" YPivot="16" XCrop="81" YCrop="325" Width="9" Height="7" XScale="100" YScale="100" Delay="1" Visible="false" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 				</LayerAnimation>
 				<LayerAnimation LayerId="16" Visible="true">
-					<Frame XPosition="217" YPosition="234" XPivot="16" YPivot="16" XCrop="37" YCrop="19" Width="15" Height="10" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+					<Frame XPosition="145" YPosition="180" XPivot="16" YPivot="16" XCrop="197" YCrop="350" Width="248" Height="67" XScale="85" YScale="85" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 				</LayerAnimation>
 				<LayerAnimation LayerId="17" Visible="true"/>
 				<LayerAnimation LayerId="18" Visible="true"/>

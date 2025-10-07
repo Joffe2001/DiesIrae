@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local Engel = {}
-Engel.COLLECTIBLE_ID = Enums.Items.Engel
 local game = Game()
 
 local function IsAlwaysFlying(player)
@@ -15,7 +16,7 @@ local function IsInBeastFight()
 end
 
 function Engel:onCache(player, cacheFlag)
-    if not player:HasCollectible(Engel.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.Engel) then return end
 
     if cacheFlag == CacheFlag.CACHE_LUCK then
         player.Luck = player.Luck + 5
@@ -31,18 +32,4 @@ function Engel:onCache(player, cacheFlag)
     end
 end
 
-function Engel:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Engel.onCache)
-
-    if EID then
-        EID:addCollectible(
-            Engel.COLLECTIBLE_ID,
-            "↑ +5 Luck#Grants spectral + homing tears#Disables flight",
-            "Engel",
-            "en_us"
-        )
-    end
-end
-
-return Engel
-
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Engel.onCache)

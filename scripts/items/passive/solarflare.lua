@@ -1,9 +1,10 @@
+local mod = DiesIraeMod
+
 local SolarFlare = {}
-SolarFlare.COLLECTIBLE_ID = Enums.Items.SolarFlare
 
 function SolarFlare:onTearInit(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:HasCollectible(SolarFlare.COLLECTIBLE_ID) then
+    if player and player:HasCollectible(mod.Items.SolarFlare) then
         local data = tear:GetData()
         data.SolarFlare = {
             timer = 15,    
@@ -69,19 +70,7 @@ function SolarFlare:getNearestEnemy(pos)
     return nearest
 end
 
-function SolarFlare:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, SolarFlare.onTearInit)
-    mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, SolarFlare.onTearUpdate)
-    mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, SolarFlare.onTearHit)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, SolarFlare.onTearInit)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, SolarFlare.onTearUpdate)
+mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, SolarFlare.onTearHit)
 
-    if EID then
-        EID:addCollectible(
-            SolarFlare.COLLECTIBLE_ID,
-            "Tears start slow#After ~0.2s they dash toward the nearest enemy#Leave a short fire trail while dashing#Burn enemies on hit",
-            "Solar Flare",
-            "en_us"
-        )
-    end
-end
-
-return SolarFlare

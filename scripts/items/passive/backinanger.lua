@@ -1,11 +1,12 @@
+local mod = DiesIraeMod
+
 local BackInAnger = {} 
-BackInAnger.COLLECTIBLE_ID = Enums.Items.BackInAnger
 local game = Game()
 
 local fireCooldown = {}
 
 function BackInAnger:onUpdate(player)
-    if not player:HasCollectible(BackInAnger.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.BackInAnger) then return end
 
     local id = player.InitSeed
     if fireCooldown[id] == nil then fireCooldown[id] = 0 end
@@ -43,18 +44,8 @@ function BackInAnger:onUpdate(player)
     end
 end
 
-function BackInAnger:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BackInAnger.onUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.Items.BackInAnger)
 
-    if EID then
-        EID:addCollectible(
-            BackInAnger.COLLECTIBLE_ID,
-            "Automatically fires slower, stronger red homing tears at enemies directly behind Isaac",
-            "Back in Anger",
-            "en_us"
-        )
-        EID:assignTransformation("collectible", BackInAnger.COLLECTIBLE_ID, "Dad's Playlist")
-    end
+if EID then
+    EID:assignTransformation("collectible", mod.Items.BackInAnger, "Dad's Playlist")
 end
-
-return BackInAnger

@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local GoodVibes = {}
-GoodVibes.COLLECTIBLE_ID = Enums.Items.GoodVibes
 
 function GoodVibes:UseItem()
     local entities = Isaac.GetRoomEntities()
@@ -31,9 +32,9 @@ function GoodVibes:UseItem()
     end
 
     if transformed then
-        SfxManager:Play(178) 
+        SFXManager():Play(178) 
     else
-        SfxManager:Play(267)
+        SFXManager():Play(267)
     end
 
     return {
@@ -43,17 +44,4 @@ function GoodVibes:UseItem()
     }
 end
 
-function GoodVibes:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_USE_ITEM, GoodVibes.UseItem, GoodVibes.COLLECTIBLE_ID)
-
-    if EID then
-        EID:addCollectible(
-            GoodVibes.COLLECTIBLE_ID,
-            "Transforms all red heart pickups in the room into soul hearts. Half red → half soul, double red → two soul hearts.",
-            "Good Vibes",
-            "en_us"
-        )
-    end
-end
-
-return GoodVibes
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, GoodVibes.UseItem, mod.Items.GoodVibes)

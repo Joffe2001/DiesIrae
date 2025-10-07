@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local Unsainted = {}
-Unsainted.COLLECTIBLE_ID = Isaac.GetItemIdByName("Unsainted")
 local game = Game()
 
 ---------------------------------------------------
@@ -7,7 +8,7 @@ local game = Game()
 ---------------------------------------------------
 function Unsainted:onGetCollectible(pool, decrease, seed)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(Unsainted.COLLECTIBLE_ID) then
+    if not player:HasCollectible(mod.Items.Unsainted) then
         return nil -- let vanilla handle
     end
 
@@ -34,7 +35,7 @@ end
 ---------------------------------------------------
 function Unsainted:onPickupInit(pickup)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(Unsainted.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.Unsainted) then return end
 
     if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local item = pickup:ToPickup()
@@ -46,23 +47,6 @@ end
 ---------------------------------------------------
 -- Init callbacks
 ---------------------------------------------------
-function Unsainted:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, function(_, pool, decrease, seed)
-        return Unsainted:onGetCollectible(pool, decrease, seed)
-    end)
+mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Unsainted.onGetCollectible)
 
-    mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
-        Unsainted:onPickupInit(pickup)
-    end, PickupVariant.PICKUP_COLLECTIBLE)
-
-    if EID then
-        EID:addCollectible(
-            Unsainted.COLLECTIBLE_ID,
-            "All item pools are {{DevilRoom}} Devil Pool.#All collectibles cost {{Heart}} {{Heart}} 2 Red Heart Containers.",
-            "Unsainted",
-            "en_us"
-        )
-    end
-end
-
-return Unsainted
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Unsainted.onPickupInit, PickupVariant.PICKUP_COLLECTIBLE)

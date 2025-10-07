@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local TouristMap = {}
-TouristMap.COLLECTIBLE_ID = Enums.Items.TouristMap
 
 local game = Game()
 
@@ -19,24 +20,12 @@ function TouristMap:onNewLevel()
     local level = game:GetLevel()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(TouristMap.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.TouristMap) then
             ForceShop(level)
             break
         end
     end
 end
 
-function TouristMap:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TouristMap.onNewLevel)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TouristMap.onNewLevel)
 
-    if EID then
-        EID:addCollectible(
-            TouristMap.COLLECTIBLE_ID,
-            "Adds a shop to every floor starting from Womb/Corpse (Stage 4 and above)",
-            "Tourist Map",
-            "en_us"
-        )
-    end
-end
-
-return TouristMap

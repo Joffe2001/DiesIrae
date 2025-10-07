@@ -1,12 +1,7 @@
+local mod = DiesIraeMod
 local David = {}
-David.ID = Isaac.GetPlayerTypeByName("David", false) 
 
-local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2")
-
-local STARTING_RED = 1
-local STARTING_GOLD = 1
-
-local DAMAGE_MODIFIER = 0.5
+local DAMAGE_MODIFIER = 1
 local SPEED_MODIFIER = 0.2
 local TEAR_DELAY_MODIFIER = 1
 local LUCK_MODIFIER = 1
@@ -19,47 +14,21 @@ local STARTING_TRINKETS = {
     Isaac.GetTrinketIdByName("Gaga")
 }
 
-local MusicTears = nil
-local success, mt = pcall(require, "scripts.core.music_tears") 
-if success then
-    MusicTears = mt
-else
-    print("[David.lua] MusicTears module not found. Tears will be normal.")
+function David:TearGFXApply(tear)
+    if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer() 
+        and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.Players.David) then return end
+    tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
 end
 
-
 function David:OnPlayerInit(player)
-    if player:GetPlayerType() ~= self.ID then return end
-
-    player:AddNullCostume(hairCostume)
-
-
-    player:AddMaxHearts(-player:GetMaxHearts(), false)
-    player:AddHearts(-player:GetHearts())
-    player:AddGoldenHearts(-player:GetGoldenHearts())
-
-    player:AddMaxHearts(STARTING_RED * 2, false)
-    player:AddHearts(STARTING_RED * 2)
-    player:AddGoldenHearts(STARTING_GOLD)
-
-    for _, item in ipairs(STARTING_COLLECTIBLES) do
-        player:AddCollectible(item, 0, false)
-    end
-    for _, trinket in ipairs(STARTING_TRINKETS) do
-        player:AddTrinket(trinket)
-    end
-
-    player:AddCacheFlags(
-        CacheFlag.CACHE_DAMAGE
-        | CacheFlag.CACHE_SPEED
-        | CacheFlag.CACHE_FIREDELAY
-        | CacheFlag.CACHE_LUCK
-    )
-    player:EvaluateItems()
+    if player:GetPlayerType() ~= mod.Players.David then return end
+    player:AddNullCostume(mod.Costumes.David_Hair)
+    player:AddCollectible(mod.Items.Muse)
+    player:AddSmeltedTrinket(mod.Trinkets.Gaga, true)
 end
 
 function David:OnEvaluateCache(player, flag)
-    if player:GetPlayerType() ~= self.ID then return end
+    if player:GetPlayerType() ~= mod.Players.David then return end
 
     if flag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + DAMAGE_MODIFIER
@@ -76,7 +45,7 @@ function David:OnEntityTakeDamage(entity, amount, flags, source, countdown)
     local player = source.Entity and source.Entity:ToPlayer()
     if not player then return end
 
-    if player:GetPlayerType() == self.ID 
+    if player:GetPlayerType() == mod.Players.David
        and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
         local npc = entity:ToNPC()
         if npc and npc:IsBoss() then
@@ -85,35 +54,15 @@ function David:OnEntityTakeDamage(entity, amount, flags, source, countdown)
     end
 end
 
-function David:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
-        David:OnPlayerInit(player)
-    end)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, David.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, David.OnEntityTakeDamage)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, David.TearGFXApply)
 
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
-        David:OnEvaluateCache(player, flag)
-    end)
-
-    mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source, countdown)
-        return David:OnEntityTakeDamage(entity, amount, flags, source, countdown)
-    end)
-
-    if MusicTears then
-        mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
-            local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-            if player and player:GetPlayerType() == David.ID then
-                MusicTears:Apply(tear)
-            end
-        end)
-        print("[David.lua] Music tears enabled for David")
-    end
-
-    if EID then
-        local icons = Sprite()
-        icons:Load("gfx/ui/eid/david_eid.anm2", true)
-        EID:addIcon("Player"..David.ID, "David", 0, 16, 16, 0, 0, icons)
-        EID:addBirthright(David.ID, "David deals double damage to bosses.", "David")
-    end
+if EID then
+    local icons = Sprite("gfx/ui/eid/david_eid.anm2", true)
+    EID:addIcon("Player"..mod.Players.David, "David", 0, 16, 16, 0, 0, icons)
+    EID:addBirthright(mod.Players.David, "David deals double damage to bosses.", "David")
 end
 
 return David

@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
+
 local UltraSecretMap = {}
-UltraSecretMap.COLLECTIBLE_ID = Enums.Items.UltraSecretMap
 
 local game = Game()
 local rng = RNG()
@@ -23,7 +24,7 @@ function UltraSecretMap:OnRender()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(UltraSecretMap.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.UltraSecretMap) then
             for j = 0, level:GetRooms().Size - 1 do
                 local roomDesc = level:GetRooms():Get(j)
                 if roomDesc.Data.Type == RoomType.ROOM_ULTRASECRET then
@@ -45,7 +46,7 @@ function UltraSecretMap:OnNewRoom()
     if room:GetType() == RoomType.ROOM_SECRET and secretRoomDesc ~= nil then
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
-            if player:HasCollectible(UltraSecretMap.COLLECTIBLE_ID) then
+            if player:HasCollectible(mod.Items.UltraSecretMap) then
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, room:FindFreePickupSpawnPosition(player.Position), Vector.Zero, nil)
                 crackedKeySpawned = true
                 break
@@ -57,19 +58,7 @@ function UltraSecretMap:OnNewLevel()
     crackedKeySpawned = false
 end
 
-function UltraSecretMap:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_RENDER, UltraSecretMap.OnRender)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UltraSecretMap.OnNewRoom)
-    mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UltraSecretMap.OnNewLevel)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, UltraSecretMap.OnRender)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UltraSecretMap.OnNewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UltraSecretMap.OnNewLevel)
 
-    if EID then
-        EID:addCollectible(
-            UltraSecretMap.COLLECTIBLE_ID,
-            "Reveals the Ultra Secret Room on the map.#Drops a Cracked Key in the Secret Room.",
-            "Ultra Secret Map",
-            "en_us"
-        )
-    end
-end
-
-return UltraSecretMap
