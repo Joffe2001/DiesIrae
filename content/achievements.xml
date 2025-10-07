@@ -1,19 +1,13 @@
 <achievements gfxroot="gfx/ui/achievement/">
-<<<<<<< HEAD
-=======
 	<achievement name="David" text='' gfx="achievement_david.png" />
->>>>>>> updates
 	<achievement name="Army of Lovers" text='' gfx="achievement_armyoflovers.png" />
 	<achievement name="The Bad Touch" text='' gfx="achievement_thebadtouch.png" />
 	<achievement name="Little Lies" text='' gfx="achievement_littlelies.png" />
 	<achievement name="Paranoid Android" text='' gfx="achievement_paranoidandroid.png" />
 	<achievement name="Sh-boom!!" text='' gfx="achievement_shboom.png" />
 	<achievement name="Universal" text='' gfx="achievement_universal.png" />
-<<<<<<< HEAD
 	<achievement name="Everybody's Changing" text='' gfx="achievement_everybodychanging.png" />
-=======
 	<achievement name="Everybody's Changing" text='' gfx="achievement_everybodyschanging.png" />
->>>>>>> updates
 	<achievement name="U2" text='' gfx="achievement_u2.png" />
 	<achievement name="Killer Queen" text='' gfx="achievement_killerqueen.png" />
 	<achievement name="Ring of Fire" text='' gfx="achievement_ringoffire.png" />

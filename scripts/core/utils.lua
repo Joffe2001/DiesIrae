@@ -1,3 +1,5 @@
+local mod = DiesIraeMod
+
 mod.Data = {}
 
 function mod:GetData(obj)

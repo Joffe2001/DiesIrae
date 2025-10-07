@@ -20,7 +20,6 @@ include("scripts.characters.david")
 ----------------------------------------------------
 
 include("scripts.items.active.D8055")
-include("scripts.items.active.big_shot")
 include("scripts.items.active.big_shot") --WORKING (Need to add: wisps, sprites)
 include("scripts.items.active.army_of_lovers") --WORKING (Need to add: wisps, maybe custome for the minisaacs)
 include("scripts.items.active.guppys_soul")--WORKING (Need to add: wisps)
