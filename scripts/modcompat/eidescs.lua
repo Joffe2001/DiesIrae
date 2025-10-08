@@ -5,196 +5,387 @@ mod.EIDescs = {
 		EIDadd = function(...) EID:addCollectible(...) end,
 		--Passive
 		[mod.Items.U2] = {
-			en_us = { "↑ +0.2 Damage#↑ +0.2 Tears#↑ +0.2 Speed#↑ +0.2 Range#↑ +0.2 Shot Speed"}
+			en_us = { 
+                "↑ +0.2 {{Damage}}Damage",
+                "↑ +0.2 {{Tears}}Tears",
+                "↑ +0.2 {{Speed}}Speed",
+                "↑ +0.2 {{Range}}Range",
+                "↑ +0.2 {{Shotspeed}}Shot Speed"
+            }
 		},
 		[mod.Items.Muse] = {
-			en_us = { "On damage: 20% Tarot card, 10% Rune, 20% non-heart pickup, 1% random item from current pool."}
+			en_us = { 
+                "On hit has a chance to spawn a pickup from below:",
+                "20% {{Card}}Tarot card",
+                "10% {{Rune}}Rune",
+                "20% non-heart pickup",
+                "1% random item from current pool"
+            }
 		},
 		[mod.Items.TheBadTouch] = {
-			en_us = { "Touching an enemy instantly kills normal enemies.#Bosses are poisoned on contact."}
+			en_us = { 
+                "Instantly kills non-boss enemies on contact",
+                "Bosses are poisoned on contact"
+            }
 		},
 		[mod.Items.Universal] = {
-			en_us = { "Hold fire to charge.#On release, absorb projectiles near Isaac.#At the end, spawn Crack the Sky beams for each projectile absorbed."}
+			en_us = { 
+                "{{Chargeable}}Hold and release fire button to absorb projectiles near Isaac",
+                "After absorbing {{Collectible160}}Crack the Sky beams will spawn for each projectile"
+            }
 		},
 		[mod.Items.RingOfFire] = {
-			en_us = { "Standing at the center of a room releases a burst of fire outward."}
+			en_us = { 
+                "Standing in the room center releases a burst of fire outward"
+            }
 		},
 		[mod.Items.KillerQueen] = {
-			en_us = { "Will be added"}
+			en_us = { 
+                "Shoots rockets at enemies similar to {{Collectible168}}Epic Fetus"
+            }
 		},
 		[mod.Items.MomsDress ] = {
-			en_us = { "Spawns 2 Rotten Hearts on pickup#↑ 20% chance to gain Holy Mantle effect in uncleared rooms"}
+			en_us = { 
+                "Spawns 2 {{RottenHeart}}Rotten Hearts on pickup",
+                "20% chance to gain {{Collectible313}}Holy Mantle effect in uncleared rooms"
+            }
 		},
 		[mod.Items.EnjoymentOfTheUnlucky] = {
-			en_us = { "For each point of negative Luck, gain:#↑ +0.4 Damage#↑ -0.7 Fire Delay#↑ +0.1 Speed#↑ +0.2 Range#↑ +0.05 Shot Speed"}
+			en_us = { 
+                "For each point of negative {{Luck}}Luck, gain:",
+                "↑ +0.4 {{Damage}}Damage",
+                "↑ -0.7 {{Tears}}Fire Delay",
+                "↑ +0.1 {{Speed}}Speed",
+                "↑ +0.2 {{Range}}Range",
+                "↑ +0.05 {{Shotspeed}}Shot Speed"
+            }
 		},
 		[mod.Items.EverybodysChanging] = {
-			en_us = { "After clearing a room, all passive/familiar items are replaced with random ones."}
+			en_us = { 
+                "All passive/familiar items are randomized on room clear"
+            }
 		},
 		[mod.Items.Echo] = {
-            en_us = { "{{Planetarium}} Adds +25% Planetarium chance, +10% on Womb and onward."}
+            en_us = { 
+                "↑ +25% {{Planetarium}}Planetarium chance, +10% on Womb and onward"
+            }
         },
         [mod.Items.Engel] = {
-            en_us = { "↑ +5 Luck#Grants spectral + homing tears#Disables flight"}
+            en_us = { 
+                "↑ +5 {{Luck}}Luck",
+                "Grants spectral and homing tears",
+                "Disables {{Seraphim}}Flight"
+            }
         },
         [mod.Items.ScaredShoes] = {
-            en_us = { "↑ Sets speed to 2.0 when no enemies are alive#Spawns random small pee creep during combat"}
+            en_us = { 
+                "↑ Sets speed to 2 when no enemies are alive",
+                "Spawns random small pee creep during combat"
+            }
         },
         [mod.Items.DevilsLuck] = {
-            en_us = { "↓ -6 Luck instantly#50% chance for pickups (coins, keys, bombs, hearts) to vanish#↑ Permanent damage up per vanished pickup"}
+            en_us = { 
+                "↓ -6 {{Luck}}Luck",
+                "50% chance for pickups to vanish",
+                "↑ +0.05 {{Damage}}Damage per vanished pickup"
+            }
         },
         [mod.Items.HereToStay] = {
-            en_us = { "Standing still spawns creep in growing steps.#Each tick the puddle gets bigger."}
+            en_us = {  
+                "Standing still spawns creep in growing steps",
+                "The puddle gets bigger each frame"
+            }
         },
         [mod.Items.SkullCrasher] = {
-            en_us = { "Allows you to damage skull-based enemies (Hosts, Hard Hosts, Mobile Hosts, and Floasts) even when invulnerable."}
+            en_us = { 
+                "Allows you to damage skull-based enemies (Hosts, Hard Hosts, etc.) when invulnerable"
+            }
         },
         [mod.Items.ProteinPowder] = {
-            en_us = { "↑ Gain +1 Damage on first pickup, +2 on second, up to +4.#Further pickups always grant +1 damage."}
+            en_us = { 
+                "↑ +1 {{Damage}}Damage on first pickup, +2 on second, up to +4",
+                "Further pickups always grant +1 {{Damage}}Damage"
+            }
         },
         [mod.Items.Hysteria] = {
-            en_us = { "When taking damage twice in a room, Isaac gains double damage for the rest of the room."}
+            en_us = { 
+                "Taking damage twice in a room doubles the damage for the room"
+            }
         },
         [mod.Items.StabWound] = {
-            en_us = { "↑ +1 Damage#↑ +0.5 Tears"}
+            en_us = { 
+                "↑ +1 {{Damage}}Damage",
+                "↑ +0.5 {{Tears}}Tears"
+            }
         },
         [mod.Items.ThoughtContagion] = {
-            en_us = { "Enemies mirror damage they take to other nearby enemies.#Only pure damage is shared."}
+            en_us = { 
+                "Enemies mirror damage they take to other nearby enemies",
+                "Only pure damage is shared"
+            }
         },
         [mod.Items.DadsDumbbell] = {
-            en_us = { "Each tear has a 10% chance to deal +2 damage"}
+            en_us = { 
+                "Each tear has a 10% chance to deal +2 Damage"
+            }
         },
         [mod.Items.GoldenDay] = {
-            en_us = { "Spawns a random golden pickup.#{{SecretRoom}} Each floor, has a 50% chance to spawn one of them in the Secret Room."}
+            en_us = { 
+                "Spawns a random golden pickup",
+                "{{SecretRoom}} On each floor has a 50% chance to spawn golden pickup in the Secret Room"
+            }
         },
         [mod.Items.Mutter] = {
-            en_us = { "↑ +0.3 Speed up#↑ Stats up for each Mom item:# +0.5 Damage, -0.3 Tears Delay, +1 Luck, +0.05 Speed#↑ Increased chance to find Mom's items, Dr. Fetus and C-Section"}
+            en_us = { 
+                "↑ +0.3 {{Speed}}Speed",
+                "↑ Increased chance to find {{Mom}}Mom's items, Dr. Fetus and C-Section",
+                "Stats up for each Mom item:",
+                "↑ +0.5 {{Damage}}Damage",
+                "↑ -0.3 {{Tears}}Tear Delay",
+                "↑ +1 {{Luck}}Luck",
+                "↑ +0.05 {{Speed}}Speed",
+            }
         },
         [mod.Items.SolarFlare] = {
-            en_us = { "Tears start slow#After ~0.2s they dash toward the nearest enemy#Leave a short fire trail while dashing#Burn enemies on hit"}
+            en_us = { 
+                "Tears start slow",
+                "After 0.2 seconds they dash towards the nearest enemy, leaving a short fire trail",
+                "{{Burning}}Tears burn enemies on hit"
+            }
         },
         [mod.Items.EyeSacrifice] = {
-            en_us = { "Shoot only from Isaac's right eye.#Upon entering the Devil Deal room, receive a free Devil Deal."}
+            en_us = { 
+                "Shoot only from Isaac's right eye",
+                "Upon entering the Devil Deal room, receive a free Devil Deal"
+            }
         },
         [mod.Items.MonstersUnderTheBed] = {
-            en_us = { "↑ Fire rate increases for each enemy in the room#Bonus decreases as enemies are defeated#Resets when room is cleared"}
+            en_us = { 
+                "↑ -0.5 {{Tears}}Tear Delay for each enemy in the room"
+            }
         },
         [mod.Items.TravelerLogbook] = {
-            en_us = { "Exploring a new room grants +0.1 to a random stat (Damage, Speed, Tears, or Range) for the floor.#Entering an I AM ERROR room resets floor boosts and gives +0.2 to a random stat permanently."}
+            en_us = { 
+                "Entering a new room grants +0.1 to a random stat for the floor",
+                "Entering an I AM ERROR room resets stat boosts and gives +0.2 to a random stat permanently"
+            }
         },
         [mod.Items.UltraSecretMap] = {
-            en_us = { "Reveals the Ultra Secret Room on the map.#Drops a Cracked Key in the Secret Room."}
+            en_us = { 
+                "Reveals the {{UltraSecretRoom}}Ultra Secret Room on the map",
+                "Drops a {{Card78}}Cracked Key in the {{SecretRoom}}Secret Room."
+            }
         },
         [mod.Items.RedCompass] = {
-            en_us = { "Upon clearing a room, has a chance to open a nearby red room."}
+            en_us = { 
+                "Has a chance to open a nearby red room on room clear"
+            }
         },
         [mod.Items.LastResort] = {
-            en_us = { "When at half a heart, clearing a hostile room grants a permanent stat boost:#↑ +0.3 Damage OR ↑ +0.1 Speed OR ↑ Tears (random)"}
+            en_us = { 
+                "Clearing a hostile room while at half a heart grants a random permanent stat boost from below:",
+                "↑ +0.3 {{Damage}}Damage",
+                "↑ +0.1 {{Speed}}Speed",
+                "↑ -0.3 {{Tears}}Tear Delay"
+            }
         },
         [mod.Items.SlaughterToPrevail] = {
-            en_us = { "On enemy kill, 50% chance to increase Isaac's damage by +0.01. (Max 10 kills per room)"}
+            en_us = { 
+                "↑ 50% chance for +0.01 {{Damage}}Damage on enemy kill",
+                "Max 10 kills per room"
+            }
         },
         [mod.Items.CreatineOverdose] = {
-            en_us = { "↑ +0.2 Damage#↑ All bonus damage is amplified by 20%."}
+            en_us = { 
+                "↑ +0.2 {{Damage}}Damage",
+                "↑ All bonus damage is amplified by 20%."
+            }
         },
         [mod.Items.FragileEgo] = {
-            en_us = { "↑ Clearing a room grants a random minor stat boost (stacks)#↓ Taking damage removes all boosts #↓ Taking damage may cause a broken heart"}
+            en_us = { 
+                "↑ Clearing a room grants a random minor stat up",
+                "↓ Taking damage removes all boosts and may add a {{BrokenHeart}}Broken Heart"
+            }
         },
         [mod.Items.TouristMap] = {
-            en_us = { "Adds a shop to every floor starting from Womb/Corpse (Stage 4 and above)"}
+            en_us = { 
+                "Adds a {{Shop}}Shop to every floor starting from Chapter 4"
+            }
         },
         [mod.Items.BeggarsTear] = {
-            en_us = { "Tears can collect pickups.#Consumables (coins, keys, bombs, hearts, batteries, golden variants, rotten hearts, etc.) are auto-collected when touched.#Other pickups (cards, trinkets, chests) are pulled toward Isaac."}
+            en_us = { 
+                "Tears can collect pickups",
+                "Consumables are pulled towards Isaac, while other pickups are collected instantly"
+            }
         },
         [mod.Items.BackInAnger] = {
-            en_us = { "Isaac shoots from behind # +4 damage up"}
+            en_us = { 
+                "Isaac shoots from behind",
+                "↑ +4 {{Damage}}Damage"
+            }
         },
         [mod.Items.BossCompass] = {
-            en_us = { "Spawn the boss room near the starting room on the next floor."}
+            en_us = { 
+                "Spawn the {{Boss}}Boss Room near the starting room on the next floor"
+            }
         },
         [mod.Items.BuriedTreasureMap] = {
-            en_us = { "After defeating a boss, a crawl space appears in the next room you enter."}
+            en_us = { 
+                "Crawl space will appear in the next room after defeating a boss"
+            }
         },
         [mod.Items.GooglyEyes] = {
-            en_us = { "Isaac's tears randomly gain 1-3 chaotic tear variants simultaneously, mixing elemental and special effects."}
+            en_us = { 
+                "Isaac's tears randomly gain 1-3 chaotic tear variants simultaneously, mixing elemental and special effects"
+            }
         },
         [mod.Items.Masochism] = {
-            en_us = { "Taking damage grants a random small permanent stat boost"}
+            en_us = { 
+                "Taking damage grants a random small permanent stat up"
+            }
         },
         [mod.Items.Unsainted] = {
-            en_us = { "All item pools are {{DevilRoom}} Devil Pool.#All collectibles cost {{Heart}} {{Heart}} 2 Red Heart Containers."}
+            en_us = { 
+                "All items are from {{ItemPoolDevil}}Devil Pool",
+                "All collectibles cost 2 {{EmptyHeart}}Red Heart Containers"
+            }
         },
         [mod.Items.BigKahunaBurger] = {
-            en_us = { "Gives either 1,2,3 full Red Heart Containers when picked up."}
+            en_us = { 
+                "↑ +1-3 full {{Heart}}Red Heart Containers"
+            }
         },
         [mod.Items.DadsEmptyWallet] = {
-            en_us = { "↑ +1 Tears if you have no coins#↓-0.02 Tears bonus per coin"}
+            en_us = { 
+                "↑ +1 {{Tears}}Tears if you have no coins",
+                "↓ -0.02 {{Tears}}Tears per coin"
+            }
         },
 		[mod.Items.FriendlessChild] = {
-            en_us = { "Removes all familiars#Familiar items give stat boosts instead, based on quality:#Q0: +0.25 Speed#Q1: +0.5 Damage#Q2: +1 Damage, +0.5 Tears#Q3: +1.5 Damage, +1 Range#Q4: +2 Damage, +0.7 Tears"}
+            en_us = { 
+                "Removes all familiars",
+                "Familiar items give stat boosts instead, based on quality:",
+                "{{Quality0}} +0.25 {{Speed}}Speed",
+                "{{Quality1}} +0.5 {{Damage}}Damage",
+                "{{Quality2}} +1 {{Damage}}Damage, +0.5 {{Tears}}Tears",
+                "{{Quality3}} +1.5 {{Damage}}Damage, +1 {{Range}}Range",
+                "{{Quality4}} +2 {{Damage}}Damage, +0.7 {{Tears}}Tears"
+            }
         },
 
 		--Familiars
 		[mod.Items.ParanoidAndroid] = {
-            en_us = { "#Enemies touching the ring take damage every few frames"}
+            en_us = { 
+                "Creates laser ring around itself",
+                function(_, player)
+                    local dmg = player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) and "{{ColorGold}}6{{ColorText}}" or 3
+                    return "The ring deals " .. dmg .. " damage 6 times per second"
+                end
+            }
         },
 
 		--Active
 		[mod.Items.AnotherMedium] = { 
-			en_us = { "Once per floor, swaps one random passive or familiar with a completely random one from any item pool"}
+			en_us = { 
+                "Once per floor randomizes one random passive or familiar item"
+            }
 		},
 		[mod.Items.ArmyOfLovers] = {
-			en_us = {"Spawns 2 Mini Isaacs"}
+			en_us = {   
+                "Spawns 2 Mini Isaacs"
+            }
 		},
 		[mod.Items.BigShot] = {
-			en_us = {"Fires a massive, slow, piercing tear that destroys rocks and opens secret room doors. Explodes on wall impact","4s cooldown"}
+			en_us = {
+                "Fires a massive slow piercing tear that destroys rocks and opens secret room doors",
+                "Tear explodes on wall impact",
+                "4 second cooldown"
+            }
 		},
         [mod.Items.GuppysSoul] = {
-            en_us = {"Grant Guppy transformation for the room"}
+            en_us = {
+                "Grants {{Guppy}}Guppy transformation for the room"
+            }
         },
     
         [mod.Items.ShBoom] = {
-            en_us = {"Triggers a full-room Mama Mega explosion#Only once per floor#Isaac gains 1 broken heart as a cost"}
+            en_us = {
+                "On use:",
+                "Triggers {{Collectible483}}Mama Mega effect",
+                "↓ +1 {{BrokenHeart}}Broken Heart",
+                "Only once per floor",
+            }
         },
     
         [mod.Items.HypaHypa] = {
-            en_us = {"10% chance to spawn a quality 4 item #90% chance to spawn The Poop #Single-use item"}
+            en_us = {
+                "10% chance to spawn a quality {{Quality4}} item",
+                "90% chance to spawn {{Collectible36}}The Poop",
+                "Single-use"
+            }
         },
     
         [mod.Items.HelterSkelter] = {
-            en_us = {"25% chance to turn each enemy into a friendly Bony"}
+            en_us = {
+                "25% chance to turn each enemy into a friendly Bony"
+            }
         },
     
         [mod.Items.HolyWood] = {
-            en_us = {"Grants Holy Mantle for the current room"}
+            en_us = {
+                "Grants {{Collectible313}}Holy Mantle for the current room"
+            }
         },
     
         [mod.Items.DiaryOfAMadman] = {
-            en_us = {"Randomly changes all stats for the current room"}
+            en_us = {
+                "Randomizes stats for the current room"
+            }
         },
     
         [mod.Items.ComaWhite] = {
-            en_us = {"Grants 1 Eternal Heart#Removes boss item reward this floor"}
+            en_us = {
+                "↑ +1 {{EternalHeart}}Eternal Heart",
+                "Removes boss item reward on this floor"
+            }
         },
     
         [mod.Items.GoodVibes] = {
-            en_us = {"Transforms all red heart pickups in the room into soul hearts. Half red → half soul, double red → two soul hearts."}
+            en_us = {
+                "Transforms all {{Heart}}Red Hearts on the floor into {{SoulHeart}}Soul Hearts"
+            }
         },
 
         [mod.Items.DevilsHeart] = {
-            en_us = {"50%: Gain +1 Red Heart Container#50%: Gain +1 Broken Heart #On use: All item pedestals on this floor cost Hearts"}
+            en_us = {
+                "On use:",
+                "50% chance for a {{Heart}}Red Heart Container",
+                "50% chance for a {{BrokenHeart}}Broken Heart ",
+                "All items on the floor costs hearts"
+            }
         },
     
         [mod.Items.MomsDiary] = {
-            en_us = {"Spawns a random pedestal item.#Charges only when Isaac takes damage."}
+            en_us = {
+                "Spawns a random item",
+                "Charges when taking damage"
+            }
         },
     
         [mod.Items.LittleLies] = {
-            en_us = {"Shrinks Isaac and grants +2 Tears for the current room"}
+            en_us = {
+                "On use:",
+                "Shrinks Isaac for the room",
+                "↑ +2 {{Tears}}Tears for the room"
+            }
         },
     
         [mod.Items.SatansRemoteShop] = {
-            en_us = {"Sacrifice one heart container or three soul hearts#Receive a random devil item pedestal#Can be used once per floor"}
+            en_us = {
+                "Sacrifice 1 {{EmptyHeart}}Heart Container or 3 {{SoulHeart}}Soul Hearts",
+                "Receive a random devil item pedestal",
+                "Only once per floor"
+            }
         },
     
 	},
@@ -202,7 +393,17 @@ mod.EIDescs = {
 		EIDadd = function(...) EID:addTrinket(...) end,
 
 		[mod.Trinkets.BabyBlue] = {
-			en_us = {"All red heart drops become Soul Hearts", "Golden: 5% of them become Black Hearts"}
+			en_us = {
+                "All {{Heart}}Red Heart pickups become {{SoulHeart}}Soul Hearts",
+                {
+                    function(descObj)
+                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                    end,
+                    function()
+                        return "{{ColorGold}}5% chance for {{Heart}}Red Hearts to become {{BlackHeart}}Black Hearts"
+                    end
+                }
+            }
 		},
 	},
 	Card = {
@@ -213,7 +414,9 @@ mod.EIDescs = {
 		EIDadd = function(...) EID:addPill(...) end,
 
 		[mod.Pills.CURSED] = {
-			en_us = {"Applies a random curse"}
+			en_us = {
+                "Applies a random curse"
+            }
 		},
 	}
 }

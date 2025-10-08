@@ -8,8 +8,7 @@ include("scripts.core.unlocks")
 
 if EID then
 	include("scripts.modcompat.eidescs")
-	include("scripts.eid")
-
+	include("scripts.modcompat.eid")
 end
 ---------------------------------------------------
 --  Characters
