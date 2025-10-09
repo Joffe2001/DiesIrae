@@ -6,7 +6,7 @@ local game = Game()
 local MAX_TICKS = 8 
 local CREEP_INTERVAL = 30
 local BASE_RADIUS = 20
-local RADIUS_STEP = 50
+local RADIUS_STEP = 60
 local CREEP_DAMAGE = 2.5 
 local CREEP_LIFETIME = 60     
 

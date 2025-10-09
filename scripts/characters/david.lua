@@ -64,5 +64,3 @@ if EID then
     EID:addIcon("Player"..mod.Players.David, "David", 0, 16, 16, 0, 0, icons)
     EID:addBirthright(mod.Players.David, "David deals double damage to bosses.", "David")
 end
-
-return David

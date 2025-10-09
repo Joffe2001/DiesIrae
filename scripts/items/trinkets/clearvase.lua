@@ -46,15 +46,6 @@ function ClearVase:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function() ClearVase:TrackPotDestruction() end)
     mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() ClearVase:OnNewRoom() end)
     mod:AddCallback(ModCallbacks.MC_POST_ENTITY_SPAWN, ClearVase.OnEntitySpawn)
-    
-    if EID then
-        EID:addTrinket(
-            ClearVase.TRINKET_ID,
-            "Pots no longer spawn spiders or drop hearts/coins.#{{GoldenTrinket}} Golden: 50% chance to drop hearts/coins as usual.",
-            "Clear Vase",
-            "en_us"
-        )
-    end
 end
 
 return ClearVase

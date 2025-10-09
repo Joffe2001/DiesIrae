@@ -32,20 +32,17 @@ function EverybodysChanging:OnUpdate()
                 if player:HasCollectible(mod.Items.EverybodysChanging) then
                     local toRemove = {}
 
-                    -- collect all eligible items
                     for id = 1, MAX_ITEM_ID do
                         if player:HasCollectible(id) and IsValidCandidate(id) then
                             table.insert(toRemove, id)
                         end
                     end
 
-                    -- remove them
                     for _, id in ipairs(toRemove) do
                         player:RemoveCollectible(id)
                     end
                     player:EvaluateItems()
 
-                    -- replace 1-for-1
                     for _, oldID in ipairs(toRemove) do
                         local newID
                         local tries = 0
@@ -73,6 +70,16 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     EverybodysChanging:OnUpdate()
+
+    for i = 0, game:GetNumPlayers() - 1 do
+        local player = Isaac.GetPlayer(i)
+        local queued = player.QueuedItem
+
+        if queued and queued.Item and queued.Item.ID == mod.Items.EverybodysChanging then
+            SFXManager():Play(mod.Sounds.JEVIL_CHAOS, 1.0, 0, false, 1.0)
+            player:FlushQueueItem() 
+        end
+    end
 end)
 
 if EID then

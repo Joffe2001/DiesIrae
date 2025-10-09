@@ -70,4 +70,3 @@ for var, t1 in pairs(mod.EIDescs) do
 		end
 	end
 end
-

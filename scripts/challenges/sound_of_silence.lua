@@ -5,12 +5,12 @@ local blockPedestalReward = false
 function SoundOfSilence:TearGFXApply(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
-    if game.Challenge ~= mod.Challenges.SoundOfSilence then return end
+    if Game().Challenge ~= mod.Challenges.SoundOfSilence then return end
     tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
 end
 
 function SoundOfSilence:PostPickupInit(pickup)
-    if game.Challenge ~= SoundOfSilence.ID then return end
+    if Game().Challenge ~= SoundOfSilence.ID then return end
 
     local roomType = Game():GetRoom():GetType()
     if blockPedestalReward
@@ -29,7 +29,7 @@ local function spawnRandomTrinket()
 end
 
 function SoundOfSilence:OnNewRoom()
-    if game.Challenge ~= SoundOfSilence.ID then return end
+    if Game().Challenge ~= SoundOfSilence.ID then return end
 
     local room = Game():GetRoom()
     local roomType = room:GetType()
@@ -40,7 +40,7 @@ function SoundOfSilence:OnNewRoom()
 end
 
 function SoundOfSilence:PostBossKill()
-    if game.Challenge ~= SoundOfSilence.ID then return end
+    if Game().Challenge ~= SoundOfSilence.ID then return end
 
     local room = Game():GetRoom()
     if room:GetType() ~= RoomType.ROOM_BOSS then return end
