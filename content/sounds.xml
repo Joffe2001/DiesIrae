@@ -1,0 +1,5 @@
+<sounds root="sfx/">
+    <sound name="Chaos chaos">
+        <sample weight="1" path="JEVIL_CHAOS.wav" />
+    </sound>
+</sounds>

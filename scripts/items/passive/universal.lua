@@ -65,6 +65,11 @@ function Universal:onUpdate()
 
         if state.activeTimer > 0 then
             state.activeTimer = state.activeTimer - 1
+
+            if not state.hasActiveCostume then
+                player:AddNullCostume(mod.Costumes.Universal_active)
+                state.hasActiveCostume = true
+            end
         
             for _, e in ipairs(Isaac.GetRoomEntities()) do
                 if e.Type == EntityType.ENTITY_PROJECTILE then
@@ -75,7 +80,7 @@ function Universal:onUpdate()
                         local pullStrength = 2.5 
                         local dir = (player.Position - proj.Position):Resized(pullStrength)
                         proj.Velocity = proj.Velocity * 0.8 + dir * 0.2 
-
+        
                         if dist < player.Size + 10 then
                             proj:Die()
                             state.absorbed = state.absorbed + 1
@@ -84,7 +89,7 @@ function Universal:onUpdate()
                     end
                 end
             end
-
+        
             if state.activeTimer == 0 and state.absorbed > 0 then
                 for i = 1, state.absorbed do
                     local target = getRandomEnemy() 
@@ -94,6 +99,11 @@ function Universal:onUpdate()
                 SFXManager():Play(SoundEffect.SOUND_LIGHTBOLT, 1.0, 0, false, 1.0)
                 game:ShakeScreen(10)
                 state.absorbed = 0
+            end
+        else
+            if state.hasActiveCostume then
+                player:TryRemoveNullCostume(mod.Costumes.Universal_active)
+                state.hasActiveCostume = false
             end
         end
 

@@ -12,7 +12,6 @@ mod.Items = {
     TheBadTouch          = Isaac.GetItemIdByName("The Bad Touch"),
     Universal            = Isaac.GetItemIdByName("Universal"),
     RingOfFire           = Isaac.GetItemIdByName("Ring of Fire"),
-    KillerQueen          = Isaac.GetItemIdByName("Killer Queen"),
     MomsDress            = Isaac.GetItemIdByName("Mom's Dress"),
     EnjoymentOfTheUnlucky= Isaac.GetItemIdByName("Enjoyment of the Unlucky"),
     EverybodysChanging   = Isaac.GetItemIdByName("Everybody's Changing"),
@@ -53,6 +52,7 @@ mod.Items = {
 
     -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
+    KillerQueen          = Isaac.GetItemIdByName("Killer Queen"),
 
     -- Actives
     GuppysSoul           = Isaac.GetItemIdByName("Guppy's soul"),
@@ -68,7 +68,6 @@ mod.Items = {
     MomsDiary            = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium        = Isaac.GetItemIdByName("Another Medium"),
     LittleLies           = Isaac.GetItemIdByName("Little Lies"),
-    SatansRemoteShop     = Isaac.GetItemIdByName("Satan's Remote Shop"),
     BigShot              = Isaac.GetItemIdByName("Big Shot")
 }
 
@@ -98,36 +97,45 @@ mod.Pills = {
     USER          = Isaac.GetPillEffectByName("User Pill"),
 }
 
+mod.Sounds ={
+    JEVIL_CHAOS  = Isaac.GetSoundIdByName("Chaos chaos"),
+}
+
 mod.Costumes = {
-    David_Hair = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2"),
+    David_Hair       = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2"),
+    Universal_active = Isaac.GetCostumeIdByPath("gfx/characters/universal_head.anm2"),
 }
 
 mod.EntityVariant = {
     ParanoidAndroid  = Isaac.GetEntityVariantByName("Paranoid Android"),
     AndroidLazerRing = Isaac.GetEntityVariantByName("Android Lazer Ring"),
+    KillerQueen      = Isaac.GetEntityVariantByName("Killer Queen"),
 }
 
 mod.Curses = {
     Unloved   = Isaac.GetCurseIdByName("Curse of the Unloved!")
 }
 
-mod.Achievements = {
-    David              = Isaac.GetAchievementIdByName("David"),
-    ArmyOfLovers       = Isaac.GetAchievementIdByName("Army of Lovers"),
-    TheBadTouch        = Isaac.GetAchievementIdByName("The Bad Touch"),
-    LittleLies         = Isaac.GetAchievementIdByName("Little Lies"),
-    ParanoidAndroid    = Isaac.GetAchievementIdByName("Paranoid Android"),
-    ShBoom             = Isaac.GetAchievementIdByName("Sh-boom!!"),
-    Universal          = Isaac.GetAchievementIdByName("Universal"),
-    EverybodysChanging = Isaac.GetAchievementIdByName("Everybody's Changing"),
-    U2                 = Isaac.GetAchievementIdByName("U2"),
-    KillerQueen        = Isaac.GetAchievementIdByName("Killer Queen"),
-    RingOfFire         = Isaac.GetAchievementIdByName("Ring of Fire"),
-    HelterSkelter      = Isaac.GetAchievementIdByName("Helter Skelter"),
-    BabyBlue           = Isaac.GetAchievementIdByName("Baby Blue"),
-    WonderOfYou        = Isaac.GetAchievementIdByName("Wonder of You"),
-}
-
 mod.Challenges = {
     SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
+}
+
+mod.Achievements = {
+    --- Characters -----
+    David                 = Isaac.GetAchievementIdByName("David"),
+    --- David's unlocks -----
+    ArmyOfLovers          = Isaac.GetAchievementIdByName("Army of Lovers"),
+    TheBadTouch           = Isaac.GetAchievementIdByName("The Bad Touch"),
+    LittleLies            = Isaac.GetAchievementIdByName("Little Lies"),
+    ParanoidAndroid       = Isaac.GetAchievementIdByName("Paranoid Android"),
+    ShBoom                = Isaac.GetAchievementIdByName("Sh-boom!!"),
+    Universal             = Isaac.GetAchievementIdByName("Universal"),
+    EverybodysChanging    = Isaac.GetAchievementIdByName("Everybody's Changing"),
+    U2                    = Isaac.GetAchievementIdByName("U2"),
+    KillerQueen           = Isaac.GetAchievementIdByName("Killer Queen"),
+    RingOfFire            = Isaac.GetAchievementIdByName("Ring of Fire"),
+    HelterSkelter         = Isaac.GetAchievementIdByName("Helter Skelter"),
+    BabyBlue              = Isaac.GetAchievementIdByName("Baby Blue"),
+    WonderOfYou           = Isaac.GetAchievementIdByName("Wonder of You"),
+    Muse                  = Isaac.GetAchievementIdByName("Muse"),
 }

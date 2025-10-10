@@ -1,11 +1,11 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/anm2/death_items.anm2" version="1">
     <!--Passive items-->
     <passive id="1" name="U2" gfx="u2.png" description="Maybe I should've called it Song 2" quality="2" tags="offensive" /> 
-    <passive id="2" name="Muse" gfx="" description="Let's sing for absolution" quality="4" tags="nolostbr"/>
+    <passive id="2" name="Muse" gfx="muse.png" description="Let's sing for absolution" quality="4" tags="nolostbr"/>
     <passive id="3" name="The Bad Touch" gfx="the_bad_touch.png" description="Sweat baby sweat" quality="1" tags="nolostbr"/>
-    <passive id="4" name="Universal" gfx="" description="Woo hoo!!" quality="3" />
+    <passive id="4" name="Universal" gfx="universal.png" description="Woo hoo!!" quality="3" />
     <passive id="5" name="Ring of Fire" gfx="ring_of_fire.png" description="Burn it down" quality="1" tags="nolostbr" />
-    <passive id="6" name="Killer Queen" gfx="" description="Killer queen already touched the doornob" quality="3" tags="offensive" devilprice="1"/>
+    <passive id="6" name="Buried Treasure Map" gfx="" description="Where is the X??" quality="2" />
     <passive id="7" name="Mom's Dress" gfx="momsdress.png" description="It's like her hug!" quality="2" tags="nolostbr mom" />
     <passive id="8" name="Enjoyment of the Unlucky" gfx="" description="Bad luck is a good luck!" quality="2" />
     <passive id="9" name="Everybody's Changing" gfx="everybodychanging.png" description="I don't feel the same" quality="2" />
@@ -37,9 +37,9 @@
     <passive id="35" name="Back In Anger" gfx="" description="Somebody's behind" quality="1" />
     <passive id="36" name="Big Kahuna Burger" gfx="" description="It is a tasty burger!" quality="3" tags="nolostbr food" />
     <passive id="37" name="Dad's Empty Wallet" gfx="" description="Money?" quality="2" />
-    <passive id="38" name="Buried Treasure Map" gfx="" description="Where is the X??" quality="2" />
     <!--Familiars-->
-    <familiar id="39" name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" />
+    <familiar id="38" name="Paranoid Android" gfx="paranoidandroid.png" description="He's trying to help himself" quality="1" cache="familiars" tags="baby summonable monstermanual" />
+    <familiar id="39" name="Killer Queen" gfx="killerqueen.png" description="Killer Queen already touched the doornob" quality="3" cache="familiars" tags="offensive fly summonable monstermanual" />
     <!--Active items-->
     <active id="100" name="Guppy's soul" gfx="guppyssoul.png" description="Sinful cat soul" quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers" gfx="armyoflovers.png" description="Saint-like behavior" quality="2" maxcharges="4" chargetype="normal" tags="offensive"/>

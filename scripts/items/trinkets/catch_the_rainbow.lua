@@ -2,14 +2,11 @@ local CatchTheRainbow = {}
 CatchTheRainbow.TRINKET_ID = Enums.Trinkets.CatchTheRainbow
 local game = Game()
 
--- Chances (set to 1.0 = 100% for testing)
 local BASE_CHANCE   = 1 -- 2%
 local GOLDEN_CHANCE = 1 -- 5%
 
--- Track which grid indices we’ve checked in the current room
 local processed = {}
 
--- Get best chance & RNG based on players
 local function getChanceAndRNG()
     local bestChance = 0
     local bestRNG = nil
@@ -27,13 +24,12 @@ local function getChanceAndRNG()
     return bestChance, bestRNG
 end
 
--- Attempt to convert a poop at this grid index
 local function tryConvertPoopAtIndex(room, idx, chance, rng)
     if processed[idx] then return end
     local grid = room:GetGridEntity(idx)
     if grid and grid:GetType() == GridEntityType.GRID_POOP then
         local poop = grid:ToPoop()
-        if poop and poop:GetVariant() == 0 then -- normal poop only
+        if poop and poop:GetVariant() == 0 then 
             processed[idx] = true
             if rng and rng:RandomFloat() < chance then
                 local pos = room:GetGridPosition(idx)
@@ -42,12 +38,11 @@ local function tryConvertPoopAtIndex(room, idx, chance, rng)
                 SFXManager():Play(SoundEffect.SOUND_PLOP, 1.0, 0, false, 1.0)
             end
         else
-            processed[idx] = true -- non-normal poop, don’t retry
+            processed[idx] = true 
         end
     end
 end
 
--- Reset state and process all poops on room entry
 function CatchTheRainbow:onNewRoom()
     processed = {}
     local room = game:GetRoom()
@@ -59,7 +54,6 @@ function CatchTheRainbow:onNewRoom()
     end
 end
 
--- Handle poops spawned during room (The Poop item, enemies, etc.)
 function CatchTheRainbow:onUpdate()
     local room = game:GetRoom()
     local chance, rng = getChanceAndRNG()
@@ -72,19 +66,9 @@ function CatchTheRainbow:onUpdate()
     end
 end
 
--- Init
 function CatchTheRainbow:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() CatchTheRainbow:onNewRoom() end)
     mod:AddCallback(ModCallbacks.MC_POST_UPDATE,   function() CatchTheRainbow:onUpdate() end)
-
-    if EID then
-        EID:addTrinket(
-            CatchTheRainbow.TRINKET_ID,
-            "Each {{Poop}} poop has a 2% chance to be {{RainbowPoop}} Rainbow.#{{GoldenTrinket}} Golden: 5%.",
-            "Catch the Rainbow",
-            "en_us"
-        )
-    end
 end
 
 return CatchTheRainbow

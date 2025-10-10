@@ -2,16 +2,12 @@ local mod = DiesIraeMod
 
 local ParanoidAndroid = {}
 
--- Balance
 local BASE_RADIUS = 55
 local BFFS_RADIUS = 55
 local BASE_DAMAGE = 3.0
 local BFFS_DAMAGE = 6.0
-local TICK_RATE = 5 -- frames per tick
+local TICK_RATE = 5 
 
----------------------------------------------------
--- Familiar Management
----------------------------------------------------
 function ParanoidAndroid:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
         local count = player:GetCollectibleNum(mod.Items.ParanoidAndroid)
@@ -34,7 +30,6 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
 
     familiar:FollowParent()
 
-    -- Handle facing direction
     local fireDir = player:GetFireDirection()
     if fireDir == Direction.LEFT then
         sprite:Play("FloatShootSide", true)
@@ -52,7 +47,6 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
         end
     end
 
-    -- Spawn/remove ring depending on Isaac firing
     if player:GetFireDirection() ~= Direction.NO_DIRECTION then
         if not familiar:GetData().Ring or not familiar:GetData().Ring:Exists() then
             local ring = Isaac.Spawn(
@@ -80,9 +74,6 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
     end
 end
 
----------------------------------------------------
--- Ring Behavior
----------------------------------------------------
 function ParanoidAndroid:onRingUpdate(effect)
     local familiar = effect.SpawnerEntity and effect.SpawnerEntity:ToFamiliar()
     if not familiar then
@@ -90,14 +81,12 @@ function ParanoidAndroid:onRingUpdate(effect)
         return
     end
 
-    -- Follow familiar
     effect.Position = familiar.Position
     effect.DepthOffset = -50
 
     local player = familiar.Player
     local data = effect:GetData()
 
-    -- Damage scale with BFFS!
     local radius = BASE_RADIUS
     local damage = BASE_DAMAGE
     if player and player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
@@ -105,12 +94,10 @@ function ParanoidAndroid:onRingUpdate(effect)
         damage = BFFS_DAMAGE
     end
 
-    -- Tick timer
     if not data.TickTimer then data.TickTimer = TICK_RATE end
     data.TickTimer = data.TickTimer - 1
 
     if data.TickTimer <= 0 then
-        -- Deal damage to enemies inside the ring
         local enemies = Isaac.FindInRadius(effect.Position, radius, EntityPartition.ENEMY)
         for _, enemy in ipairs(enemies) do
             if enemy:IsActiveEnemy(false) and not enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then
@@ -122,9 +109,6 @@ function ParanoidAndroid:onRingUpdate(effect)
     end
 end
 
----------------------------------------------------
--- Init
----------------------------------------------------
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ParanoidAndroid.onCache)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, ParanoidAndroid.onFamiliarInit, mod.EntityVariant.ParanoidAndroid)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdate, mod.EntityVariant.ParanoidAndroid)
