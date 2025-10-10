@@ -4,6 +4,7 @@ local mod = DiesIraeMod
 mod.JSON = require("json")
 
 include("scripts.core.enums")
+include("scripts.core.utils")
 include("scripts.core.unlocks")
 
 if EID then
@@ -18,7 +19,6 @@ include("scripts.characters.david")
 --  Active items
 ----------------------------------------------------
 
-include("scripts.items.active.D8055")
 include("scripts.items.active.big_shot") --WORKING (Need to add: wisps, sprites)
 include("scripts.items.active.army_of_lovers") --WORKING (Need to add: wisps, maybe custome for the minisaacs)
 include("scripts.items.active.guppys_soul")--WORKING (Need to add: wisps)
@@ -72,7 +72,8 @@ include("scripts.items.passive.buriedtreasuremap")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
-include("scripts.items.familiars.paranoidandroid") 
+include("scripts.items.familiars.paranoidandroid")
+include("scripts.items.familiars.killerqueen")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -82,32 +83,18 @@ include("scripts.items.pocketitems.custompills")--WORKING
 ----------------------------------------------------
 include("scripts.items.trinkets.wonderofyou")
 include("scripts.items.trinkets.gaga")
---local BrokenDream = include("scripts.items.trinkets.inabrokendream")
---BrokenDream:Init(mod)
 include("scripts.items.trinkets.fixedmetabolism")
 include("scripts.items.trinkets.babyblue")--WORKING
---local clearvase = include("scripts.items.trinkets.clearvase")
---clearvase:Init(mod)
---local RottenFood= include("scripts.items.trinkets.rottenfood")
---RottenFood:Init(mod)
---local CatchTheRainbow = include("scripts.items.trinkets.catch_the_rainbow")
---CatchTheRainbow:Init(mod)
---local BrokenDream = include("scripts.items.trinkets.inabrokendream")
---BrokenDream:Init(mod)
---local clearvase = include("scripts.items.trinkets.clearvase")
---clearvase:Init(mod)
 
 
 ---------------------------------------------------
 --  PIck-ups
 ----------------------------------------------------
---include("scripts.items.pickup.burningheart")
---local LittlePieceOfHeaven = include("scripts.items.pickup.alpoh")
---LittlePieceOfHeaven:Init(mod)
 
 ---------------------------------------------------
 --  Curses
 ----------------------------------------------------
+include("scripts.curses.curse_eval")
 include("scripts.curses.unloved")
 
 ---------------------------------------------------

@@ -8,27 +8,26 @@ function KillerQueen:onCache(player, cacheFlag)
         player:CheckFamiliar(
             mod.EntityVariant.KillerQueen,
             count,
-            RNG(),
+            player:GetCollectibleRNG(mod.Items.KillerQueen ),
             Isaac.GetItemConfig():GetCollectible(mod.Items.KillerQueen)
         )
     end
 end
 
 function KillerQueen:onFamiliarInit(familiar)
-    familiar:AddToFollowers()  
-    familiar.Position = familiar.Player.Position + Vector(10, 0)  
-    familiar.Velocity = Vector.Zero
+    familiar.Parent = familiar.SpawnerEntity
 end
 
 function KillerQueen:onFamiliarUpdate(familiar)
     local sprite = familiar:GetSprite()
+    
+    if not familiar.IsFollower then
+        familiar:AddToFollowers()
+    end
+    familiar:FollowParent()
 
     if not sprite:IsPlaying("Float") then
         sprite:Play("Float", true)
-    end
-
-    if familiar.Player then
-        familiar.TargetPosition = familiar.Player.Position
     end
 end
 

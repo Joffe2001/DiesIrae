@@ -4,15 +4,21 @@ local Universal = {}
 local game = Game()
 
 local CHARGE_TIME = 40 
-local ACTIVE_DURATION = 60 
-local players = {}
+local ACTIVE_DURATION = 60
 
 local function getState(player)
-    local id = player.InitSeed
-    if not players[id] then
-        players[id] = {charge = 0, activeTimer = 0, absorbed = 0, charged = false}
+    local data = mod:GetData(player)
+
+    if not data.universal_state then
+        data.universal_state = {
+            charge = 0, 
+            activeTimer = 0, 
+            absorbed = 0, 
+            charged = false
+        }
     end
-    return players[id]
+
+    return data.universal_state
 end
 
 local function getRandomEnemy()
@@ -28,9 +34,6 @@ local function getRandomEnemy()
         return nil
     end
 end
-
-local chargeBarSprite = Sprite()
-chargeBarSprite:Load("gfx/chargebar.anm2", true) 
 
 function Universal:onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
@@ -107,6 +110,12 @@ function Universal:onUpdate()
             end
         end
 
+        if not mod:GetData(player).universal_chargebar then
+            mod:GetData(player).universal_chargebar = Sprite("gfx/chargebar.anm2", true)
+        end
+
+        mod:GetData(player).universal_chargebar:Update()
+
         ::continue:: 
     end
 end
@@ -129,17 +138,69 @@ function Universal:onRender()
         end
 
         local state = getState(player)
-        if state.charge > 0 then
-            local chargeProgress = math.floor((state.charge / CHARGE_TIME) * 100)
-            chargeBarSprite:SetFrame("Charging", chargeProgress)
 
-            local screenPosition = Isaac.WorldToScreen(player.Position + Vector(0, -50))
-            local adjustedPosition = screenPosition + Vector(0, -5)
-
-            chargeBarSprite:Render(adjustedPosition)
-            chargeBarSprite.Color = Color(1, 1, 1, 1)
+        if not mod:GetData(player).universal_chargebar then
+            mod:GetData(player).universal_chargebar = Sprite("gfx/chargebar.anm2", true)
         end
 
+        local chargeBarSprite = mod:GetData(player).universal_chargebar
+
+        if player:GetFireDirection() ~= Direction.NO_DIRECTION
+            and state.activeTimer == 0 then
+            if state.charged then
+
+                if chargeBarSprite:GetAnimation() ~= "StartCharged"
+                    and chargeBarSprite:GetAnimation() ~= "Charged" then
+
+                    chargeBarSprite:Play("StartCharged", true)
+                elseif chargeBarSprite:IsFinished() then
+
+                    chargeBarSprite:Play("Charged", true)
+                end
+            else
+                if chargeBarSprite:GetAnimation() ~= "Charging" then
+                    chargeBarSprite:SetAnimation("Charging")
+                end
+
+                chargeBarSprite:SetFrame(math.floor((state.charge / CHARGE_TIME) * 100))
+            end
+
+            local chargebar_cnt = mod:CountActiveChargebars(player)
+            local offset
+
+            if chargebar_cnt < 4 then
+                offset = mod.CHARGEBAR_POSITIONS[chargebar_cnt + 1]
+                local position = player.Position + offset
+
+                if player.CanFly then
+                    position = position - Vector(0, 5.8)
+                end
+
+                chargeBarSprite:Render(Isaac.WorldToScreen(position) - Game().ScreenShakeOffset)
+            end
+        else
+            if chargeBarSprite:GetAnimation() ~= ""
+                and chargeBarSprite:GetAnimation() ~= "Disappear" then
+                chargeBarSprite:Play("Disappear", true)
+            end
+
+            if not chargeBarSprite:IsFinished() then
+                
+                local chargebar_cnt = mod:CountActiveChargebars(player)
+                local offset
+
+                if chargebar_cnt < 4 then
+                    offset = mod.CHARGEBAR_POSITIONS[chargebar_cnt + 1]
+                    local position = player.Position + offset
+
+                    if player.CanFly then
+                        position = position - Vector(0, 5.8)
+                    end
+
+                    chargeBarSprite:Render(Isaac.WorldToScreen(position) - Game().ScreenShakeOffset)
+                end
+            end
+        end
         ::continue::
     end
 end
