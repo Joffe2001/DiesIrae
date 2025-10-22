@@ -11,7 +11,6 @@ function GoodVibes:UseItem()
             local subtype = entity.SubType
             local pos = entity.Position
 
-            -- Check each subtype and spawn soul hearts accordingly
             if subtype == HeartSubType.HEART_HALF then
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF_SOUL, pos, Vector.Zero, nil)
                 entity:Remove()

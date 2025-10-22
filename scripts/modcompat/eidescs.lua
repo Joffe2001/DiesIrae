@@ -3,7 +3,9 @@ local mod = DiesIraeMod
 mod.EIDescs = {
 	Collectible = {
 		EIDadd = function(...) EID:addCollectible(...) end,
-		--Passive
+--------------------------------------------------------
+--Passive items
+--------------------------------------------------------    
 		[mod.Items.U2] = {
 			en_us = { 
                 "↑ +0.2 {{Damage}}Damage",
@@ -266,7 +268,7 @@ mod.EIDescs = {
                 "При заходе в Комнату Сделки с Дьяволом даёт бесплатный предмет из сделки"
             }
         },
-        [mod.Items.MonstersUnderTheBed] = {
+        [mod.Items.Psychosocial] = {
             en_us = { 
                 "↑ -0.5 {{Tears}}Tear Delay for each enemy in the room"
             },
@@ -316,16 +318,6 @@ mod.EIDescs = {
                 "↑ -0.3 {{Tears}}Задержки Выстрела"
             }
         },
-        [mod.Items.SlaughterToPrevail] = {
-            en_us = { 
-                "↑ 50% chance for +0.01 {{Damage}}Damage on enemy kill",
-                "Max 10 kills per room"
-            },
-            ru = { 
-                "↑ 50% шанс на +0.01 {{Damage}}Урон при убийстве врага",
-                "Не больше 10 убийств за комнату"
-            }
-        },
         [mod.Items.CreatineOverdose] = {
             en_us = { 
                 "↑ +0.2 {{Damage}}Damage",
@@ -364,6 +356,17 @@ mod.EIDescs = {
                 "Расходники притягиваются к Исааку, в то время как остальные предметы подбираются мгновенно"
             }
         },
+        [mod.Items.KoRn] = {
+            en_us = { 
+                "10% chance to shoot a random colored tear",
+                "Colored tears create matching clouds on impact that inflict status effects"
+            },
+            ru = { 
+                "Стрельба сзади",
+                "10% шанс выстрелить случайной цветной слезой#Цветные слёзы создают",
+                "облака при попадании, которые накладывают эффекты статусов"
+            }
+        },
         [mod.Items.BackInAnger] = {
             en_us = { 
                 "Isaac shoots from behind",
@@ -373,50 +376,15 @@ mod.EIDescs = {
                 "Стрельба сзади",
                 "↑ +4 {{Damage}}Урона"
             }
-
         },
-        [mod.Items.BossCompass] = {
-            en_us = { 
-                "Spawn the {{Boss}}Boss Room near the starting room on the next floor"
-            },
-            ru = { 
-                "Создаёт {{Boss}}Комнату Босса рядом с начальной комнатой на следующем этаже"
-            }
-        },
-        [mod.Items.BuriedTreasureMap] = {
+        --[[[mod.Items.BuriedTreasureMap] = {
             en_us = { 
                 "Crawl space will appear in the next room after defeating a boss"
             },
             ru = { 
                 "Ретро-Сокровищница появится в следующей комнате после убийства босса"
             }
-        },
-        [mod.Items.GooglyEyes] = {
-            en_us = { 
-                "Isaac's tears randomly gain 1-3 chaotic tear variants simultaneously, mixing elemental and special effects"
-            },
-            ru = { 
-                "Слёзы получают 1-3 хаотичных вариантов слёз одновременно, совмещая элементальные и специальные эффекты"
-            }
-        },
-        --[[[mod.Items.Masochism] = { --NOT DONE
-            en_us = { 
-                "Taking damage grants a random small permanent stat up"
-            },
-            ru = { 
-                "Получение урона даёт случайное маленькое повышение характеристики навсегда"
-            }
-        },]]
-        --[[[mod.Items.Unsainted] = { --NOT DONE
-            en_us = { 
-                "All items are from {{ItemPoolDevil}}Devil Pool",
-                "All collectibles cost 2 {{EmptyHeart}}Red Heart Containers"
-            },
-            ru = { 
-                "Все предметы из {{ItemPoolDevil}}Дьявольского Пула",
-                "Все предметы стоят 2 {{EmptyHeart}}Контейнера Красных Сердец"
-            }
-        },]]
+        }, ]]
         [mod.Items.BigKahunaBurger] = {
             en_us = { 
                 "↑ +1-3 full {{Heart}}Red Heart Containers"
@@ -455,8 +423,9 @@ mod.EIDescs = {
                 "{{Quality4}} +2 {{Damage}}Урона, +0.7 {{Tears}}Слёз"
             }
         },]]
-
-		--Familiars
+--------------------------------------------------------
+--Familiars
+--------------------------------------------------------    
 		[mod.Items.ParanoidAndroid] = {
             en_us = { 
                 "Creates laser ring around itself",
@@ -474,7 +443,9 @@ mod.EIDescs = {
             }
         },
 
-		--Active
+--------------------------------------------------------
+--Active items
+--------------------------------------------------------    
 		[mod.Items.AnotherMedium] = { 
 			en_us = { 
                 "Once per floor randomizes one random passive or familiar item"
@@ -527,8 +498,8 @@ mod.EIDescs = {
     
         [mod.Items.HypaHypa] = {
             en_us = {
-                "10% chance to spawn a quality {{Quality4}} item",
-                "90% chance to spawn {{Collectible36}}The Poop",
+                "30% chance to spawn a quality {{Quality4}} item",
+                "70% chance to spawn {{Collectible36}}The Poop",
                 "Single-use"
             },
             ru = {
@@ -619,7 +590,32 @@ mod.EIDescs = {
                 "↑ +2 {{Tears}}Слёз на комнату"
             }
         },
+        [mod.Items.KingsHeart] = {
+            en_us = {
+                "Give Isaac a random {{UnknownHeart}} heart",
+                "Costs 10 {{Coin}}pennies"
+            },
+            ru = {
+                "Дает Исааку случайное {{UnknownHeart}} сердце",
+                "Стоит 10 {{Coin}} монет"
+            }
+        },
+        [mod.Items.BreakStuff] = {
+            en_us = {
+                "Deals 100 damage to all enemies in the room",
+                "Opens every door",
+                "Destroy all rocks"
+            },
+            ru = {
+                "Наносит 100 урона всем врагам в комнате",
+                "Открывает все двери",
+                "Разрушает все камни в комнате"
+            }
+        },
 	},
+--------------------------------------------------------
+--Trinkets
+--------------------------------------------------------    
 	Trinket = {
 		EIDadd = function(...) EID:addTrinket(...) end,
 
@@ -670,12 +666,12 @@ mod.EIDescs = {
         },
         [mod.Trinkets.Gaga] = {
             en_us = {
-                "Description for Gaga"
+                "Increased chance to transform regular Bombs, Keys, and Coins into their golden variants"
             }
         },
         [mod.Trinkets.FixedMetabolism] = {
             en_us = {
-                "Description for Fixed Metabolism"
+                "Red poops will be replaced with normal poops"
             }
         },
         [mod.Trinkets.ClearVase] = {
@@ -704,7 +700,15 @@ mod.EIDescs = {
         },
         [mod.Trinkets.WonderOfYou] = {
             en_us = {
-                "Description for Wonder of You"
+                "Taking damage has a 5% chance to instantly kill all non-boss enemies in the room.",
+                {
+                    function(descObj)
+                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                    end,
+                    function()
+                        return "{{ColorGold}}Taking damage has a 10% chance to instantly kill all non-boss enemies in the room."
+                    end
+                }
             }
         },
         [mod.Trinkets.RottenFood] = {
@@ -719,7 +723,7 @@ mod.EIDescs = {
         },
         [mod.Trinkets.SecondBreakfast] = {
             en_us = {
-                "Description for Second Breakfast"
+                "Doubles the effect of all food-related items #+2x health or stat boosts from food items."
             }
         },
         --[[[mod.Trinkets.BrokenDream] = { --NOT DONE
@@ -728,10 +732,36 @@ mod.EIDescs = {
             }
         }]]
 	},
+--------------------------------------------------------
+--Cards/Runes
+--------------------------------------------------------    
 	Card = {
 		EIDadd = function(...) EID:addCard(...) end,
 
+        [mod.Cards.Locacaca] = {
+            en_us = {
+                "{{Heart}}Heal Isaac red hearts",
+                "If there's a {{BrokenHeart}} broken heart(s) it will heal them also",
+                "{{Warning}}Healing a heart container cost stats decrease",
+                "{{Warning}}Healing a {{BrokenHeart}} broken heart(s) will costs collectibles"
+            },
+        },
+        [mod.Cards.alpoh] = {
+            en_us = {
+                "Gives a random {{AngelRoom}} angel room item",
+                "Cost 2 {{BrokenHeart}} broken hearts"
+            },
+        },
+        [mod.Cards.StarShard] = {
+            en_us = {
+                "Change a pedestal into a Planetarium item",
+                "If there's no pedestal in the room it will give two soul hearts instead"
+            },
+        }
 	},
+--------------------------------------------------------
+--Pills
+--------------------------------------------------------    
 	Pill = {
 		EIDadd = function(...) EID:addPill(...) end,
 
@@ -743,5 +773,30 @@ mod.EIDescs = {
                 "Даёт случайное проклятие"
             }
 		},
+        [mod.Pills.BLESSED] = {
+			en_us = {
+                "Removes current curses"
+            }
+		},
+        [mod.Pills.HEARTBREAK] = {
+			en_us = {
+                "Adds a broken heart"
+            }
+		},
+        [mod.Pills.POWER_DRAIN] = {
+			en_us = {
+                "Empties active item charge"
+            }
+		},
+        [mod.Pills.GULPING] = {
+			en_us = {
+                "Gulps your current trinket"
+            }
+		},
+        [mod.Pills.EQUAL] = {
+			en_us = {
+                "Equalizes your coins, bombs, and keys"
+            }
+		}
 	}
 }

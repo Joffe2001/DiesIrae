@@ -3,26 +3,19 @@ local mod = DiesIraeMod
 local Unsainted = {}
 local game = Game()
 
----------------------------------------------------
--- Override item pools: replace with Devil results
----------------------------------------------------
 function Unsainted:onGetCollectible(pool, decrease, seed)
     local player = Isaac.GetPlayer(0)
     if not player:HasCollectible(mod.Items.Unsainted) then
-        return nil -- let vanilla handle
+        return nil
     end
 
     local itemPool = game:GetItemPool()
-
-    -- Roll Devil item regardless of the requested pool
     local devilItem = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, decrease, seed, CollectibleType.COLLECTIBLE_NULL)
 
-    -- Fallback to Treasure pool if Devil pool is empty
     if devilItem == CollectibleType.COLLECTIBLE_NULL then
         devilItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, decrease, seed, CollectibleType.COLLECTIBLE_NULL)
     end
 
-    -- Last fallback: just give something random to prevent softlock
     if devilItem == CollectibleType.COLLECTIBLE_NULL then
         devilItem = itemPool:GetCollectible(ItemPoolType.POOL_ALL, decrease, seed, CollectibleType.COLLECTIBLE_NULL)
     end
@@ -30,24 +23,34 @@ function Unsainted:onGetCollectible(pool, decrease, seed)
     return devilItem
 end
 
----------------------------------------------------
--- Make all collectibles cost 2 heart containers
----------------------------------------------------
 function Unsainted:onPickupInit(pickup)
     local player = Isaac.GetPlayer(0)
     if not player:HasCollectible(mod.Items.Unsainted) then return end
 
     if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local item = pickup:ToPickup()
-        item.Price = PickupPrice.PRICE_TWO_HEARTS
+        item.Price = PickupPrice.PRICE_ONE_HEART
         item.AutoUpdatePrice = false
+        local data = item:GetData()
+        data.BrokenHeartPrice = true
     end
 end
 
----------------------------------------------------
--- Init callbacks
----------------------------------------------------
+function Unsainted:onPickup(player, pickup)
+    if not player:HasCollectible(mod.Items.Unsainted) then return end
+
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+        local data = pickup:GetData()
+        if data.BrokenHeartPrice then
+            player:AddBrokenHearts(1)
+        end
+    end
+end
+
 mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Unsainted.onGetCollectible)
-
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Unsainted.onPickupInit, PickupVariant.PICKUP_COLLECTIBLE)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLECT, Unsainted.onPickup)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.Unsainted, "Isaac's sinful Playlist")
+end

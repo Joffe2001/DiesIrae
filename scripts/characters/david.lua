@@ -6,14 +6,6 @@ local SPEED_MODIFIER = 0.2
 local TEAR_DELAY_MODIFIER = 1
 local LUCK_MODIFIER = 1
 
-local STARTING_COLLECTIBLES = {
-    Isaac.GetItemIdByName("Muse")
-}
-
-local STARTING_TRINKETS = {
-    Isaac.GetTrinketIdByName("Gaga")
-}
-
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer() 
         and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.Players.David) then return end
@@ -22,8 +14,8 @@ end
 
 function David:OnPlayerInit(player)
     if player:GetPlayerType() ~= mod.Players.David then return end
-    player:AddNullCostume(mod.Costumes.David_Hair)
     player:AddCollectible(mod.Items.Muse)
+    player:AddCollectible(mod.Items.KingsHeart)
     player:AddSmeltedTrinket(mod.Trinkets.Gaga, true)
 end
 

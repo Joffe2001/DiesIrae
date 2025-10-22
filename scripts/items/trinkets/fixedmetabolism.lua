@@ -27,10 +27,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, FixedMetabolism.PostRoomLoad)
 
-if EID then
-    EID:addTrinket(
-        mod.Trinkets.FixedMetabolism,
-        "Red poops will be replaced with normal poops on room entry.",
-        "Fixed Metabolism"
-    )
-end

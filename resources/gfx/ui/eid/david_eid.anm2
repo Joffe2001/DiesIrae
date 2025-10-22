@@ -6,8 +6,6 @@
 		</Spritesheets>
 		<Layers>
 			<Layer Name="body" Id="0" SpritesheetId="0"/>
-			<Layer Name="ui" Id="1" SpritesheetId="0"/>
-			<Layer Name="Sparkle" Id="2" SpritesheetId="1"/>
 		</Layers>
 		<Nulls/>
 		<Events>

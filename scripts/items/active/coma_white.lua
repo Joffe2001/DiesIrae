@@ -30,8 +30,9 @@ function ComaWhite:OnNewLevel()
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, ComaWhite.UseItem, mod.Items.ComaWhite)
-
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, ComaWhite.PostPickupInit)
-
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ComaWhite.OnNewLevel)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.ComaWhite, "Isaac's sinful Playlist")
+end

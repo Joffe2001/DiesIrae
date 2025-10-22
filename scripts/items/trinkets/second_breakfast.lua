@@ -64,15 +64,6 @@ end
 function SecondBreakfast:Init(mod)
     mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, SecondBreakfast.onUpdate)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, SecondBreakfast.onEvaluateCache)
-
-    if EID then
-        EID:addTrinket(
-            SecondBreakfast.TRINKET_ID,
-            "Doubles the effect of all food-related items #+2x health or stat boosts from food items.",
-            "Second Breakfast",
-            "en_us"
-        )
-    end
 end
 
 return SecondBreakfast

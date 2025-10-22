@@ -26,3 +26,6 @@ end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, HelterSkelter.UseItem, mod.Items.HelterSkelter)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.HelterSkelter, "Dad's Playlist")
+end

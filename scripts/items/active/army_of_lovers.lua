@@ -16,4 +16,6 @@ end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, ArmyOfLovers.UseItem, mod.Items.ArmyOfLovers)
 
---Needs to add: Wisps
+if EID then
+    EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")
+end

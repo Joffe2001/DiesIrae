@@ -113,3 +113,7 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ParanoidAndroid.onCache)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, ParanoidAndroid.onFamiliarInit, mod.EntityVariant.ParanoidAndroid)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdate, mod.EntityVariant.ParanoidAndroid)
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate, mod.EntityVariant.AndroidLazerRing)
+
+if EID then
+    EID:assignTransformation("collectible", mod.Items.ParanoidAndroid, "Dad's Playlist")
+end

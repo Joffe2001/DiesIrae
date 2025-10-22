@@ -33,3 +33,7 @@ function Engel:onCache(player, cacheFlag)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Engel.onCache)
+
+if EID then
+    EID:assignTransformation("collectible", mod.Items.Engel, "Isaac's sinful Playlist")
+end

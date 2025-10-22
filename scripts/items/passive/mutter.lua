@@ -102,3 +102,6 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Mutter.onCache)
 mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Mutter.IncreaseMomsItemChance)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.Mutter, "Isaac's sinful Playlist")
+end

@@ -1,5 +1,14 @@
 <sounds root="sfx/">
     <sound name="Chaos chaos">
-        <sample weight="1" path="JEVIL_CHAOS.wav" />
+        <sample weight="2" path="JEVIL_CHAOS.wav" />
     </sound>
+
+    <sound name="Killer Queen Detonate">
+        <sample weight="1" path="killer_queen_detonate.wav" />
+    </sound>
+
+    <sound name="King's Heart Fart">
+        <sample weight="1" path="clubpenguinfart.wav" />
+    </sound>
+
 </sounds>

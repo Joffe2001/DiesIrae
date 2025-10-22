@@ -67,3 +67,6 @@ mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Hysteria.OnPlayerUpdate)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Hysteria.OnCache)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Hysteria.OnNewRoom)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.Hysteria, "Isaac's sinful Playlist")
+end

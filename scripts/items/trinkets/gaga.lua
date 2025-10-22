@@ -3,11 +3,9 @@ local mod = DiesIraeMod
 local Gaga = {}
 local game = Game()
 
--- Constants for drop chances
-local GAGA_BONUS = 0.05  -- 5% bonus
-local GAGA_GOLDEN_BONUS = 0.10  -- 10% bonus
+local GAGA_BONUS = 0.05  
+local GAGA_GOLDEN_BONUS = 0.10  
 
--- Function to morph regular pickups into golden ones
 function Gaga:OnPickupSpawned(pickup)
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
@@ -16,10 +14,7 @@ function Gaga:OnPickupSpawned(pickup)
         if trinketMultiplier > 0 then
             local rng = player:GetTrinketRNG(mod.Trinkets.Gaga)
 
-            -- Calculate bonus
             local chanceBonus = (trinketMultiplier > 1) and GAGA_GOLDEN_BONUS or GAGA_BONUS
-
-            -- Try morph
             if rng:RandomFloat() < chanceBonus then
                 if pickup.Variant == PickupVariant.PICKUP_BOMB and pickup.SubType ~= BombSubType.BOMB_GOLDEN then
                     pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GOLDEN, true)
@@ -36,14 +31,4 @@ function Gaga:OnPickupSpawned(pickup)
     end
 end
 
--- EID description
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Gaga.OnPickupSpawned)
-
-if EID then
-    EID:addTrinket(
-        mod.Trinkets.Gaga,
-        "Increased chance to transform regular Bombs, Keys, and Coins into their golden variants.#↑ +5% chance#↑ +10% if golden",
-        "Gaga",
-        "en_us"
-    )
-end

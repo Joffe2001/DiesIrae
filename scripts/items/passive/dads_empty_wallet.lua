@@ -1,5 +1,6 @@
+local mod = DiesIraeMod
 local DadsEmptyWallet = {}
-DadsEmptyWallet.COLLECTIBLE_ID = Enums.Items.DadsEmptyWallet
+DadsEmptyWallet.COLLECTIBLE_ID = mod.Items.DadsEmptyWallet
 
 local game = Game()
 
@@ -42,15 +43,6 @@ end
 function DadsEmptyWallet:Init(mod)
     mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DadsEmptyWallet.onCache)
     mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, DadsEmptyWallet.onCoinChange)
-
-    if EID then
-        EID:addCollectible(
-            DadsEmptyWallet.COLLECTIBLE_ID,
-            "↑ +1 Tears if you have no coins#↓-0.02 Tears bonus per coin",
-            "Dad's Empty Wallet",
-            "en_us"
-        )
-    end
 end
 
 return DadsEmptyWallet

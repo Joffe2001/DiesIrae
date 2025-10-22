@@ -77,3 +77,6 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LastResort.OnUpdate)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LastResort.OnNewRoom)
 
+if EID then
+    EID:assignTransformation("collectible", mod.Items.LastResort, "Isaac's sinful Playlist")
+end
