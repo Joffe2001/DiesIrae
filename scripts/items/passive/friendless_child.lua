@@ -2,7 +2,6 @@ local FriendlessChild = {}
 FriendlessChild.COLLECTIBLE_ID = Enums.Items.FriendlessChild
 local game = Game()
 
--- Stat bonuses by familiar quality
 local FamiliarStatBoosts = {
     [0] = {Speed = 0.25},
     [1] = {Damage = 0.5},
@@ -11,7 +10,6 @@ local FamiliarStatBoosts = {
     [4] = {Damage = 2.0, Tears = 0.7},
 }
 
--- Remove all familiars when picking up the item
 function FriendlessChild:onPickup(player)
     if player:HasCollectible(FriendlessChild.COLLECTIBLE_ID) then
         for _, familiar in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
@@ -22,13 +20,12 @@ function FriendlessChild:onPickup(player)
     end
 end
 
--- Replace familiar items with stat boosts
 function FriendlessChild:onPreGetCollectible(pool, decrease, seed, loopCount, currentCollectible)
     local itemConfig = Isaac.GetItemConfig():GetCollectible(currentCollectible)
     if not itemConfig then return end
 
     if itemConfig.Type == ItemType.ITEM_FAMILIAR then
-        local player = Isaac.GetPlayer(0) -- assumes 1 player (expand for coop)
+        local player = Isaac.GetPlayer(0)
         if player:HasCollectible(FriendlessChild.COLLECTIBLE_ID) then
             local quality = itemConfig.Quality
             local boost = FamiliarStatBoosts[quality] or {}
@@ -42,12 +39,11 @@ function FriendlessChild:onPreGetCollectible(pool, decrease, seed, loopCount, cu
             player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_SPEED | CacheFlag.CACHE_RANGE)
             player:EvaluateItems()
 
-            return CollectibleType.COLLECTIBLE_NULL -- block familiar from spawning
+            return CollectibleType.COLLECTIBLE_NULL
         end
     end
 end
 
--- Apply stat boosts from stored data
 function FriendlessChild:onCache(player, cacheFlag)
     if not player:HasCollectible(FriendlessChild.COLLECTIBLE_ID) then return end
 
@@ -61,7 +57,7 @@ function FriendlessChild:onCache(player, cacheFlag)
     elseif cacheFlag == CacheFlag.CACHE_SPEED then
         player.MoveSpeed = player.MoveSpeed + data.FriendlessBoosts.Speed
     elseif cacheFlag == CacheFlag.CACHE_RANGE then
-        player.TearRange = player.TearRange + data.FriendlessBoosts.Range * 40 -- convert to range units
+        player.TearRange = player.TearRange + data.FriendlessBoosts.Range * 40
     end
 end
 

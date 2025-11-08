@@ -14,6 +14,7 @@ local SinfulMusicItemList = {
     mod.Items.ComaWhite,
     mod.Items.KoRn,
     mod.Items.Psychosocial,
+    mod.Items.SymphonyOfDestr,
     CollectibleType.COLLECTIBLE_DUALITY,
     CollectibleType.COLLECTIBLE_SULFUR
 }

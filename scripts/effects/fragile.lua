@@ -14,6 +14,7 @@ function Fragile.OnIsaacDamage(_, entity, amount, flags, source, countdown)
 
     local data = player:GetData()
     if data and data.IsFragile then
+        player:GetEffects():AddNullEffect(NullItemID.ID_LOST_CURSE, true, 0)
         player:Die()
     end
 end

@@ -66,14 +66,6 @@ mod.EIDescs = {
                 "Нахождение в центре комнаты высвобождает круг огня"
             }
 		},
-		[mod.Items.KillerQueen] = {
-			en_us = { 
-                "Shoots rockets at enemies similar to {{Collectible168}}Epic Fetus"
-            },
-            ru = { 
-                "Стреляет ракетами во врагов, похожими на ракеты от {{Collectible168}}Эпичного Зародыша"
-            }
-		},
 		[mod.Items.MomsDress ] = {
 			en_us = { 
                 "Spawns 2 {{RottenHeart}}Rotten Hearts on pickup",
@@ -210,7 +202,7 @@ mod.EIDescs = {
         },
         [mod.Items.DadsDumbbell] = {
             en_us = { 
-                "Each tear has a 10% chance to deal +2 Damage"
+                "Each tear from the lest eye has a 10% chance to deal +2 Damage"
             },
             ru = { 
                 "Каждая слеза имеет 10% шанс нанести +2 Урона"
@@ -218,7 +210,7 @@ mod.EIDescs = {
         },
         [mod.Items.GoldenDay] = {
             en_us = { 
-                "Spawns a random golden pickup",
+                "Spawns a {{GoldenKey}}Random key or {{GoldenBomb}} Golden bomb or {{Coin}}Golden coin",
                 "{{SecretRoom}} On each floor has a 50% chance to spawn golden pickup in the Secret Room"
             },
             ru = { 
@@ -403,6 +395,59 @@ mod.EIDescs = {
                 "↓ -0.02 {{Tears}}Слёз за каждую монету"
             },
         },
+        [mod.Items.FiendDeal] = {
+            en_us = { 
+                "Spawns Fiend Beggar on the first room on every floot",
+                "Leaving the room causes the Beggar to leave",
+                "Making a deal with the Beggar grants two {{DevilRoom}}devil deal items to choose from on the next floor",
+                "{{Warning}} Isaac dies on a single hit on the Beggar deal's floor"
+            },
+        },
+        [mod.Items.Bloodline] = {
+            en_us = { 
+                "Every damage inflicted on an enemy, it hurts every enemy type in the room"
+            },
+        },
+        [mod.Items.BetrayalHeart] = {
+            en_us = { 
+                "+1 {{BrokenHeart}} on pickup",
+                "{{Damage}}+1 damage up for every {{BrokenHeart}} broken heart"
+            },
+        },
+        [mod.Items.StillStanding] = {
+            en_us = { 
+                "{{Damage}}Damage up as long as Isaac stand still",
+            },
+        },
+        [mod.Items.BossCompass] = {
+            en_us = { 
+                "Reavels the {{BossRoom}}Boss and the {{MiniBoss}}Mini-boss rooms on the map",
+                "Grant a {{Damage}}damage up for killed bosses and mini bosses"
+            },
+        },
+        [mod.Items.DevilsMap] = {
+            en_us = { 
+                "Reavels the {{SacrificeRoom}}Sacrifice and the {{CursedRoom}}Curse rooms on the map",
+                "Grant a {{Tears}}Tears up for entering those rooms and {{DevilRoom}}Devil deal room"
+            },
+        },
+        [mod.Items.BorrowedStrength] = {
+            en_us = { 
+                "↑ +2 {{Damage}}Damage",
+                "{{Warning}} Isaac loses half of his hearts when entering a new floor"
+            },
+        },
+        [mod.Items.SymphonyOfDestr] = {
+            en_us = { 
+                "Every {{Card}}card turns to {{Card17}} The Tower when spawned"
+            },
+        },
+        [mod.Items.SweetCaffeine ] = {
+            en_us = { 
+                "Drop Energy Drink",
+                "Higher chance to find Energy Drink"
+            },
+        },
 		--[[[mod.Items.FriendlessChild] = { --NOT DONE
             en_us = { 
                 "Removes all familiars",
@@ -442,7 +487,14 @@ mod.EIDescs = {
                 end
             }
         },
-
+        [mod.Items.KillerQueen] = {
+			en_us = { 
+                "Shoots rockets at enemies similar to {{Collectible168}}Epic Fetus"
+            },
+            ru = { 
+                "Стреляет ракетами во врагов, похожими на ракеты от {{Collectible168}}Эпичного Зародыша"
+            }
+		},
 --------------------------------------------------------
 --Active items
 --------------------------------------------------------    
@@ -713,7 +765,7 @@ mod.EIDescs = {
         },
         [mod.Trinkets.RottenFood] = {
             en_us = {
-                "Description for Rotten Food"
+                "All {{Heart}}heart pickups will be {{RottenHeart}}rotten hearts"
             }
         },
         [mod.Trinkets.TrinketCollector] = {
@@ -757,6 +809,18 @@ mod.EIDescs = {
                 "Change a pedestal into a Planetarium item",
                 "If there's no pedestal in the room it will give two soul hearts instead"
             },
+        },
+        [mod.Cards.EnergyDrink] = {
+            en_us = {
+                "{{ArrowUp}}Gives +0.5 to all the stats for the room",
+                "{{Warning}}After 15 seconds Isaac gets {{ArrowDown}}-0.1 stats penalty for the room"
+            },
+        },
+        [mod.Cards.DadsLottoTicket] = {
+            en_us = {
+                "Has a chance to spawn a Penny, a nickel or a dime",
+                "There's a chance for nothing to spawn"
+            },
         }
 	},
 --------------------------------------------------------
@@ -780,7 +844,7 @@ mod.EIDescs = {
 		},
         [mod.Pills.HEARTBREAK] = {
 			en_us = {
-                "Adds a broken heart"
+                "Adds a {{BrokenHeart}}broken heart"
             }
 		},
         [mod.Pills.POWER_DRAIN] = {

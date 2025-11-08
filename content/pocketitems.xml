@@ -7,7 +7,9 @@
     <pilleffect name="Gulping Pill"     description="Tasty!" class="+2" mimiccharge="3"/>
     <pilleffect name="Equal Pill"       description="It can be good or bad" class="+1" mimiccharge="6"/>
 <!--Runes and such-->
-    <card type="rune" name="Locacaca" pickup="900" description="equivalent exchange" hud="Locacaca" mimiccharge="4"/>
+    <card type="rune" name="Locacaca"                 pickup="900" description="equivalent exchange"                          hud="Locacaca"                 mimiccharge="4"/>
     <card type="rune" name="A Little Piece of Heaven" pickup="901" description="You had my heart, at least for the most part" hud="A Little Piece of Heaven" mimiccharge="10"/>
-    <card type="rune" name="Star Shard" pickup="902" description="I will be chasing a starlight" hud="Star Shard"/>
+    <card type="rune" name="Star Shard"               pickup="902" description="I will be chasing a starlight"                hud="Star Shard"               mimiccharge="12"/>
+    <card type="rune" name="Energy Drink"             pickup="903" description="FEEL THE RUSH!!!!!"                           hud="Energy Drink"             mimiccharge="8"/>
+    <card type="card" name="Dad's Lotto Ticket"       pickup="904" description="Maybe is this the one?"                       hud="Dad's Lotto Ticket"       mimiccharge="8"/>
 </pocketitems>

@@ -24,11 +24,7 @@ function KingsHeart:OnUseItem(_, rng, player)
         }
         local heartType = heartPool[rng:RandomInt(#heartPool) + 1]
 
-        local heart = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartType, player.Position, Vector.Zero, nil)
-
-        if heart then
-            heart:ClearEntityFlags(EntityFlag.FLAG_PICKUP_REWARD)
-        end
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartType, player.Position, Vector.Zero, nil)
 
         return {
             Discharge = true,

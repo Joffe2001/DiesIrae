@@ -1,44 +1,63 @@
 local mod = DiesIraeMod
-
-local BossCompass = {}
 local game = Game()
-local rng = RNG()
 
----------------------------------------------------------
--- BOSS COMPASS EFFECT (SPAWN BOSS ROOM NEXT FLOOR)
----------------------------------------------------------
-function BossCompass:OnLevelLoaded()
-    local player = Isaac.GetPlayer(0)  -- Get the first player
+local damageBoosts = {}
+
+local function GetPlayerIndex(player)
+    return GetPtrHash(player)
+end
+
+local function ApplyDamageBoost(player, amount)
+    local idx = GetPlayerIndex(player)
+    damageBoosts[idx] = (damageBoosts[idx] or 0) + amount
+
+    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+    player:EvaluateItems()
+end
+
+function mod:OnEvaluateCache(player, cacheFlag)
+    if cacheFlag ~= CacheFlag.CACHE_DAMAGE then return end
     if not player:HasCollectible(mod.Items.BossCompass) then return end
-    
-    -- Set the boss room spawn position near the starting room for next floor
-    local currentLevel = game:GetLevel()
-    local roomType = RoomType.ROOM_BOSS
-    local startRoom = currentLevel:GetRoomByIdx(0)  -- The first room of the floor (usually the starting room)
 
-    -- Find a room that can be the boss room
-    local room = nil
-    for i = 1, currentLevel:GetRoomsCount() do
-        local potentialRoom = currentLevel:GetRoom(i)
-        if potentialRoom:GetType() == roomType then
-            room = potentialRoom
-            break
+    local idx = GetPlayerIndex(player)
+    local bonus = damageBoosts[idx] or 0
+    player.Damage = player.Damage + bonus
+end
+
+function mod:OnBossDeath(npc)
+    if not npc:IsBoss() then return end
+
+    for i = 0, game:GetNumPlayers() - 1 do
+        local player = Isaac.GetPlayer(i)
+        if player:HasCollectible(mod.Items.BossCompass) then
+            local roomType = game:GetLevel():GetCurrentRoomDesc().Data.Type
+
+            if roomType == RoomType.ROOM_BOSS then
+                ApplyDamageBoost(player, 0.2)
+            elseif roomType == RoomType.ROOM_MINIBOSS then
+                ApplyDamageBoost(player, 0.1)
+            end
         end
-    end
-
-    if room then
-        -- Move the boss room closer to the starting room of the next floor
-        room:SetPosition(startRoom.Position + Vector(0, 100))  -- Just an example, adjust based on need
-        print("Boss Compass: Boss room will spawn near starting room next floor.")
-    else
-        print("Boss Compass: No boss room found!")
     end
 end
 
----------------------------------------------------------
--- CALLBACK REGISTER
----------------------------------------------------------
--- Register for when the level is loaded (when you move to a new floor)
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    BossCompass:OnLevelLoaded()
-end)
+function mod:BossCompassRender()
+    local level = game:GetLevel()
+
+    for i = 0, game:GetNumPlayers() - 1 do
+        local player = Isaac.GetPlayer(i)
+        if player:HasCollectible(mod.Items.BossCompass) then
+            for j = 0, level:GetRooms().Size - 1 do
+                local roomDesc = level:GetRooms():Get(j)
+                local rType = roomDesc.Data.Type
+                if rType == RoomType.ROOM_BOSS or rType == RoomType.ROOM_MINIBOSS then
+                    roomDesc.DisplayFlags = roomDesc.DisplayFlags | RoomDescriptor.DISPLAY_ICON
+                end
+            end
+        end
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.BossCompassRender)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.OnBossDeath)

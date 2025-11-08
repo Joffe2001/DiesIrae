@@ -31,30 +31,24 @@ end
 -- Check for entering Devil Deal room and handle other effects
 function EyeSacrifice:onUpdate()
     local player = Isaac.GetPlayer(0) -- Get the first player (use 0 for single-player)
-    if not player then return end  -- Ensure player is valid
+    if not player then return end
 
     if not player:HasCollectible(mod.Items.EyeSacrifice) then
         return
     end
 
-    -- Inherit Stapler functionality (except damage)
     if player:HasCollectible(Isaac.GetItemIdByName("Stapler")) then
-        -- Inherit the stapler behavior but remove damage bonus
-        player.Damage = player.Damage - 1 -- Remove the stapler damage bonus (adjust as needed)
+        player.Damage = player.Damage - 1
     end
 
-    -- Check if the player enters a Devil Deal room
     if game:GetRoom():GetType() == RoomType.ROOM_DEVIL and not enteredDevilRoom then
         enteredDevilRoom = true
-        -- Grant a free devil deal (you can implement logic to prevent health cost)
-        player:AddHearts(0)  -- Adding 0 hearts to avoid health cost (you can adjust this for a better solution)
-        -- Optional: Display a message or add a special effect
+        player:AddHearts(0)
         Isaac.DebugString("Eye Sacrifice: Free Devil Deal granted!")
     elseif game:GetRoom():GetType() ~= RoomType.ROOM_DEVIL then
-        enteredDevilRoom = false  -- Reset when leaving the room
+        enteredDevilRoom = false
     end
 end
 
--- Initialize the item
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, EyeSacrifice.onUpdate)
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, EyeSacrifice.onFireTear)

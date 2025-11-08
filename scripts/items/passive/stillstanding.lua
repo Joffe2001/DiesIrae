@@ -1,0 +1,46 @@
+
+local mod = DiesIraeMod
+local game = Game()
+
+local MAX_DAMAGE_BONUS = 4.0
+local DAMAGE_STEP = 0.1
+local STAND_INTERVAL = 30
+local DECAY_RATE = 0.5
+function mod:StillStanding_Update(player)
+    if not player:HasCollectible(mod.Items.StillStanding) then return end
+
+    local data = player:GetData()
+    data.standTimer = data.standTimer or 0
+    data.lastPos = data.lastPos or player.Position
+    data.damageBonus = data.damageBonus or 0
+
+    if player.Position:DistanceSquared(data.lastPos) < 0.01 then
+        data.standTimer = data.standTimer + 1
+
+        if data.standTimer % STAND_INTERVAL == 0 and data.damageBonus < MAX_DAMAGE_BONUS then
+            data.damageBonus = math.min(data.damageBonus + DAMAGE_STEP, MAX_DAMAGE_BONUS)
+            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+            player:EvaluateItems()
+        end
+    else
+        if data.damageBonus > 0 then
+            data.damageBonus = math.max(data.damageBonus - DECAY_RATE, 0)
+            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+            player:EvaluateItems()
+        end
+        data.standTimer = 0
+    end
+
+    data.lastPos = player.Position
+end
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.StillStanding_Update)
+
+function mod:StillStanding_EvaluateCache(player, cacheFlag)
+    if cacheFlag == CacheFlag.CACHE_DAMAGE and player:HasCollectible(mod.Items.StillStanding) then
+        local data = player:GetData()
+        if data.damageBonus then
+            player.Damage = player.Damage + data.damageBonus
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.StillStanding_EvaluateCache)

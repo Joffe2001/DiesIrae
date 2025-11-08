@@ -5,7 +5,7 @@ function KillerQueen:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
         local count = player:GetCollectibleNum(mod.Items.KillerQueen)
         player:CheckFamiliar(
-            mod.EntityVariant.KillerQueen,
+            mod.Familiars.KillerQueen,
             count,
             player:GetCollectibleRNG(mod.Items.KillerQueen),
             Isaac.GetItemConfig():GetCollectible(mod.Items.KillerQueen)
@@ -53,6 +53,7 @@ function KillerQueen:onFamiliarUpdate(familiar)
 
         if not sprite:IsPlaying("Float_attack") then
             sprite:Play("Float_attack", true)
+            SFXManager():Play(mod.Sounds.KILLER_QUEEN_DETONATE, 1.2, 0, false, 1)
         end
 
         local explodeFrame = 30
@@ -81,7 +82,7 @@ function KillerQueen:onFamiliarUpdate(familiar)
                     true,
                     false
                 )
-                SFXManager():Play(mod.Sounds.KILLER_QUEEN_DETONATE or SoundEffect.SOUND_EXPLOSION_WEAK, 1.2, 0, false, 1)
+                SFXManager():Play(SoundEffect.SOUND_EXPLOSION_WEAK, 1.2, 0, false, 1)
 
                 data.HasExploded = true
             end
@@ -96,8 +97,8 @@ function KillerQueen:onFamiliarUpdate(familiar)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KillerQueen.onCache)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, KillerQueen.onFamiliarInit, mod.EntityVariant.KillerQueen)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, mod.EntityVariant.KillerQueen)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, KillerQueen.onFamiliarInit, mod.Familiars.KillerQueen)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, mod.Familiars.KillerQueen)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.KillerQueen, "Dad's Playlist")

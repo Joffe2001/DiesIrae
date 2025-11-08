@@ -3,6 +3,7 @@ local mod = DiesIraeMod
 mod.Players = {
     David   = Isaac.GetPlayerTypeByName("David", false),
     TDavid  = Isaac.GetPlayerTypeByName("David", true),
+    Elijah  = Isaac.GetPlayerTypeByName("Elijah", false),
     BatKol  = Isaac.GetPlayerTypeByName("Bat Kol", false),
 }
 
@@ -21,34 +22,32 @@ mod.Items = {
     ScaredShoes          = Isaac.GetItemIdByName("Scared Shoes"),
     DevilsLuck           = Isaac.GetItemIdByName("Devil's Luck"),
     HereToStay           = Isaac.GetItemIdByName("Here to Stay"),
-    SkullCrasher         = Isaac.GetItemIdByName("Skull Crasher"),
     ProteinPowder        = Isaac.GetItemIdByName("Protein Powder"),
     Hysteria             = Isaac.GetItemIdByName("Hysteria"),
     StabWound            = Isaac.GetItemIdByName("Stab Wound"),
     ThoughtContagion     = Isaac.GetItemIdByName("Thought Contagion"),
-    DadsDumbbell         = Isaac.GetItemIdByName("Dad's Dumbbell"),
     GoldenDay            = Isaac.GetItemIdByName("Golden Day"),
     Mutter               = Isaac.GetItemIdByName("Mutter"),
     SolarFlare           = Isaac.GetItemIdByName("Solar Flare"),
-    EyeSacrifice         = Isaac.GetItemIdByName("Eye Sacrifice"),
     Psychosocial         = Isaac.GetItemIdByName("Psychosocial"),
-    TravelerLogbook      = Isaac.GetItemIdByName("Traveler Logbook"),
     UltraSecretMap       = Isaac.GetItemIdByName("Ultra Secret Map"),
     RedCompass           = Isaac.GetItemIdByName("Red Compass"),
     LastResort           = Isaac.GetItemIdByName("Last Resort"),
     CreatineOverdose     = Isaac.GetItemIdByName("Creatine Overdose"),
     FragileEgo           = Isaac.GetItemIdByName("Fragile Ego"),
-    TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     BeggarsTear          = Isaac.GetItemIdByName("Beggar's Tear"),
-    BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
-    BossCompass          = Isaac.GetItemIdByName("Boss Compass"),
-    FriendlessChild      = Isaac.GetItemIdByName("Friendless Child"),
-    BuriedTreasureMap    = Isaac.GetItemIdByName("Buried Treasure Map"),
-    Masochism            = Isaac.GetItemIdByName("Masochism"),
     BigKahunaBurger      = Isaac.GetItemIdByName("Big Kahuna Burger"),
     DadsEmptyWallet      = Isaac.GetItemIdByName("Dad's Empty Wallet"),
     KoRn                 = Isaac.GetItemIdByName("Rainbow KoRn"),
     FiendDeal            = Isaac.GetItemIdByName("Fiend Deal"),
+    BetrayalHeart        = Isaac.GetItemIdByName("Betrayal Heart"),
+    StillStanding        = Isaac.GetItemIdByName("Still Standing"),
+    Bloodline            = Isaac.GetItemIdByName("Bloodline"),
+    BossCompass          = Isaac.GetItemIdByName("Boss Compass"),
+    DevilsMap            = Isaac.GetItemIdByName("Devil's Map"),
+    BorrowedStrength     = Isaac.GetItemIdByName("Borrowed Strength"),
+    SymphonyOfDestr      = Isaac.GetItemIdByName("Symphony Of Destruction"),
+    SweetCaffeine        = Isaac.GetItemIdByName("Sweet Caffeine"),
 
     -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
@@ -71,20 +70,50 @@ mod.Items = {
     BigShot              = Isaac.GetItemIdByName("Big Shot"),
     KingsHeart           = Isaac.GetItemIdByName("King's Heart"),
     BreakStuff           = Isaac.GetItemIdByName("Break Stuff"),
+    PersonalBeggar       = Isaac.GetItemIdByName("Personal Beggar"),
+
+    --TESTING
+    Conscience           = Isaac.GetItemIdByName("Conscience"),
+    PathOfTheRighteous   = Isaac.GetItemIdByName("Path Of The Righteous"),
+    BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
+    FriendlessChild      = Isaac.GetItemIdByName("Friendless Child"),
+    BuriedTreasureMap    = Isaac.GetItemIdByName("Buried Treasure Map"),
+    Masochism            = Isaac.GetItemIdByName("Masochism"),
+    TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
+    TravelerLogbook      = Isaac.GetItemIdByName("Traveler Logbook"),
+    EyeSacrifice         = Isaac.GetItemIdByName("Eye Sacrifice"),
+    SkullCrasher         = Isaac.GetItemIdByName("Skull Crasher"),
+    DadsDumbbell         = Isaac.GetItemIdByName("Dad's Dumbbell"),
+    MimicMemory          = Isaac.GetItemIdByName("Mimic Memory"),
+    FilthyRich           = Isaac.GetItemIdByName("Filthy Rich"),
+    SilentEcho           = Isaac.GetItemIdByName("Silent Echo"),
+    Grudge               = Isaac.GetItemIdByName("Grudge"),
+    PhotonLink           = Isaac.GetItemIdByName("Photon Link"),
+    CloseCall            = Isaac.GetItemIdByName("Close Call!"),
+    HitList              = Isaac.GetItemIdByName("Hit List"),
+    RewrappingPaper      = Isaac.GetItemIdByName("Rewrapping Paper"),
+    Corona               = Isaac.GetItemIdByName("Corona"),
+
+    D8055                = Isaac.GetItemIdByName("D8055"),
+
 }
 
 mod.Trinkets = {
-    MoneyForNothing      = Isaac.GetTrinketIdByName("Money for nothing"),
-    CatchTheRainbow      = Isaac.GetTrinketIdByName("Catch the Rainbow"),
     Gaga                 = Isaac.GetTrinketIdByName("Gaga"),
-    FixedMetabolism      = Isaac.GetTrinketIdByName("Fixed Metabolism"),
     BabyBlue             = Isaac.GetTrinketIdByName("Baby Blue"),
-    ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
     WonderOfYou          = Isaac.GetTrinketIdByName("Wonder of You"),
     RottenFood           = Isaac.GetTrinketIdByName("Rotten Food"),
-    TrinketCollector     = Isaac.GetTrinketIdByName("Trinket Collector"),
     SecondBreakfast      = Isaac.GetTrinketIdByName("Second Breakfast"),
+    Papercut             = Isaac.GetTrinketIdByName("Papercut"),
+    TarotBattery         = Isaac.GetTrinketIdByName("Tarot Battery"),
+
+    --TESTING
+    MoneyForNothing      = Isaac.GetTrinketIdByName("Money for nothing"),
+    CatchTheRainbow      = Isaac.GetTrinketIdByName("Catch the Rainbow"),
+    ClearVase            = Isaac.GetTrinketIdByName("Clear Vase"),
+    FixedMetabolism      = Isaac.GetTrinketIdByName("Fixed Metabolism"),
     BrokenDream          = Isaac.GetTrinketIdByName("In a Broken Dream"),
+    TrinketCollector     = Isaac.GetTrinketIdByName("Trinket Collector"),
 }
 
 mod.Pills = {
@@ -102,19 +131,26 @@ mod.Sounds ={
     KINGS_FART             = Isaac.GetSoundIdByName("King's Heart Fart")
 }
 
+mod.Music={
+    TechBeggarWaiting      = Isaac.GetMusicIdByName("Tech Beggar Waiting"),
+    Oiiai                  = Isaac.GetMusicIdByName("Oiiai"),
+}
+
 mod.Costumes = {
     David_Hair       = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2"),
     TDavid_Hair      = Isaac.GetCostumeIdByPath("gfx/characters/tdavid_hair.anm2"),
     Universal_active = Isaac.GetCostumeIdByPath("gfx/characters/universal_head.anm2"),
 }
 
-mod.Cards ={
+mod.Cards = {
     Locacaca         = Isaac.GetCardIdByName("Locacaca"),
     alpoh            = Isaac.GetCardIdByName("A Little Piece of Heaven"),
     StarShard        = Isaac.GetCardIdByName("Star Shard"),
+    EnergyDrink      = Isaac.GetCardIdByName("Energy Drink"),
+    DadsLottoTicket  = Isaac.GetCardIdByName("Dad's Lotto Ticket"),
 }
 
-mod.EntityVariant = {
+mod.Familiars = {
     -- Paranoid Android
     ParanoidAndroid     = Isaac.GetEntityVariantByName("Paranoid Android"),
     AndroidLazerRing    = Isaac.GetEntityVariantByName("Android Lazer Ring"),
@@ -122,10 +158,32 @@ mod.EntityVariant = {
     KillerQueen         = Isaac.GetEntityVariantByName("Killer Queen"),
     KillerQueenRocket   = Isaac.GetEntityVariantByName("Killer Queen Rocket"),
     KillerQueenMark     = Isaac.GetEntityVariantByName("Killer Queen Mark"),
-    -- NPCs
+}
+
+mod.NPCS = {
     FiendBeggar         = Isaac.GetEntityVariantByName("Fiend Beggar"),
-    -- Bat Kol's ghosts
+    TechBeggar          = Isaac.GetEntityVariantByName("Tech Beggar"),
+    GuppyBeggar         = Isaac.GetEntityVariantByName("Guppy Beggar"),
+}
+
+mod.ElijahNPCs = {
+    TechBeggarElijah    = Isaac.GetEntityVariantByName("Tech Beggar Elijah"),
+    BeggarElijah        = Isaac.GetEntityVariantByName("Beggar Elijah"),
+    BombBeggarElijah    = Isaac.GetEntityVariantByName("Bomb Beggar Elijah"),
+    KeyBeggarElijah     = Isaac.GetEntityVariantByName("Key Beggar Elijah"),
+    BatteryBeggarElijah = Isaac.GetEntityVariantByName("Battery Beggar Elijah"),
+    RottenBeggarElijah  = Isaac.GetEntityVariantByName("Rotten Beggar Elijah"),
+    MomBoxBeggarElijah  = Isaac.GetEntityVariantByName("Mom's Chest Elijah"),
+}
+
+mod.Ghosts ={
     BatKolGhost         = Isaac.GetEntityVariantByName("Bat Kol's Ghosts"),
+    RighteousGhost      = Isaac.GetEntityVariantByName("Righteous Ghost"),
+}
+
+mod.Pickups = {
+    ElijahsWill         = Isaac.GetEntityVariantByName("Elijah's Will"),
+    BurningHeart        = Isaac.GetEntityVariantByName("Burning Heart"),
 }
 
 mod.Curses = {
@@ -155,6 +213,7 @@ mod.Achievements = {
     BabyBlue              = Isaac.GetAchievementIdByName("Baby Blue"),
     WonderOfYou           = Isaac.GetAchievementIdByName("Wonder of You"),
     Muse                  = Isaac.GetAchievementIdByName("Muse"),
+
     --- Tainted David's unlocks 
     Mutter               = Isaac.GetAchievementIdByName("Mutter"),
     HypaHypa             = Isaac.GetAchievementIdByName("Hypa Hypa"),
@@ -165,6 +224,7 @@ mod.Achievements = {
 
     --- Passive items unlocks
     GoldenDay             = Isaac.GetAchievementIdByName("Golden Day"),
+
     --- Trinkets unlocks 
     Gaga                  = Isaac.GetAchievementIdByName("Gaga"),
 }

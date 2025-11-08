@@ -1,14 +1,18 @@
 <costumes anm2root="gfx/characters/">
-    <costume id="1" anm2path="david_hair.anm2" type="none" priority="800"/>
-    <costume id="2" anm2path="tdavid_hair.anm2" type="none" priority="800"/>
-    <costume id="3" anm2path="dads_playlist.anm2" type="none" priority="700" />
-    <costume id="4" anm2path="isaac_playlist.anm2" type="none" priority="700" />
-    <costume id="5" name="U2" anm2path="u2.anm2" type="passive" priority="20" />
-    <costume id="6" name="The Bad Touch" anm2path="thebadtouch.anm2" type="passive" priority="20" />
-    <costume id="7" name="Universal" anm2path="universal_body.anm2" type="passive" priority="100" />
-    <costume id="8" anm2path="universal_head.anm2" type="none" priority="700" />
-    <custume id="9" name="Ring of Fire" anm2path="ringoffire.anm2" type="passive" priority="20" />
-    <costume id="10" name="Mom's Dress" anm2path="momsdress.anm2" type="passive" priority="50" />
-    <costume id="11" name="Rainbow KoRn" anm2path="KoRn.anm2" type="passive" priority="600" />
-    <costume id="12" name="Helter skelter" anm2path="helterskelter.anm2" type="active" priority="200" />
+    <!--Items-->
+    <costume id="1"   name="U2"             anm2path="u2.anm2"             type="passive" priority="20" />
+    <costume id="3"   name="The Bad Touch"  anm2path="thebadtouch.anm2"    type="passive" priority="20" />
+    <costume id="4"   name="Universal"      anm2path="universal_body.anm2" type="passive" priority="100" />
+    <custume id="5"   name="Ring of Fire"   anm2path="ringoffire.anm2"     type="passive" priority="20" />
+    <costume id="7"   name="Mom's Dress"    anm2path="momsdress.anm2"      type="passive" priority="50" />
+    <costume id="30"  name="Rainbow KoRn"   anm2path="KoRn.anm2"           type="passive" priority="600" />
+    <costume id="104" name="Helter skelter" anm2path="helterskelter.anm2"  type="active"  priority="200" />
+    <!--Characters costumes-->
+    <costume id="1000" anm2path="david_hair.anm2" type="none" priority="800"/>
+    <costume id="1001" anm2path="tdavid_hair.anm2" type="none" priority="800"/>
+    <!--Transformations-->
+    <costume id="2000" anm2path="dads_playlist.anm2" type="none" priority="700" />
+    <costume id="2001" anm2path="isaac_playlist.anm2" type="none" priority="700" />
+    <!--Extra-->
+    <costume id="3004" anm2path="universal_head.anm2" type="none" priority="700" />
 </costumes>

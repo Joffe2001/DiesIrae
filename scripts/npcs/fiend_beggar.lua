@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local sfx = SFXManager()
 local game = Game()
-local myBeggar = mod.EntityVariant.FiendBeggar
+local myBeggar = mod.NPCS.FiendBeggar
 local Fragile = require("scripts.effects.fragile")
 mod.FiendRewardsPending = {}
 
@@ -43,29 +43,21 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.FiendBeggarExploded, myBeggar)
 
 function mod:OnNewFloor()
-    for i = 0, game:GetNumPlayers() - 1 do
-        local player = Isaac.GetPlayer(i)
-        local data = player:GetData()
-        if data.IsFragile then
-            data.IsFragile = false
-            mod.FiendRewardsPending[i] = true
-        end
-    end
-end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.OnNewFloor)
-
-function mod:SpawnFiendReward()
     local level = game:GetLevel()
     local room = game:GetRoom()
-    local roomDesc = level:GetCurrentRoomDesc()
+    local startingRoomIndex = level:GetStartingRoomIndex()
+    local roomDesc = level:GetRoomByIdx(startingRoomIndex)
 
-    if not roomDesc or roomDesc.SafeGridIndex ~= level:GetStartingRoomIndex() then
+    if not roomDesc or roomDesc.SafeGridIndex ~= startingRoomIndex then
         return
     end
 
     for i = 0, game:GetNumPlayers() - 1 do
-        if mod.FiendRewardsPending[i] then
-            mod.FiendRewardsPending[i] = nil
+        local player = Isaac.GetPlayer(i)
+        local data = player:GetData()
+
+        if data.IsFragile then
+            data.IsFragile = false
 
             local itemPool = game:GetItemPool()
             local pos = room:GetCenterPos()
@@ -78,10 +70,12 @@ function mod:SpawnFiendReward()
 
             pedestal1:GetData().FiendPedestal = true
             pedestal2:GetData().FiendPedestal = true
+
+            print("[Dies Irae] Fiend reward spawned on new floor")
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.SpawnFiendReward)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.OnNewFloor)
 
 function mod:OnPickupCollect(pickup, collider)
     local player = collider:ToPlayer()
@@ -96,3 +90,10 @@ function mod:OnPickupCollect(pickup, collider)
     end
 end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.OnPickupCollect, PickupVariant.PICKUP_COLLECTIBLE)
+
+function mod:OnPostNewRoom()
+    for _, beggar in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT, mod.NPCS.FiendBeggar, -1, false, false)) do
+        beggar:Remove()
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.OnPostNewRoom)

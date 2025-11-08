@@ -37,6 +37,5 @@ function StabWound:onUpdate()
     end
 end
 
--- INIT
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, StabWound.onCache)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, StabWound.onUpdate)

@@ -41,9 +41,9 @@ function DevilsHeart:ConvertPedestals()
                 local config = itemConfig:GetCollectible(pickup.SubType)
                 if config then
                     if config.Quality == 4 then
-                        pickup.Price = -2 -- 2 red hearts
+                        pickup.Price = -2
                     else
-                        pickup.Price = -1 -- 1 red heart
+                        pickup.Price = -1
                     end
                     pickup.AutoUpdatePrice = false
                 end

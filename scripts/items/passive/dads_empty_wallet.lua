@@ -1,6 +1,5 @@
 local mod = DiesIraeMod
 local DadsEmptyWallet = {}
-DadsEmptyWallet.COLLECTIBLE_ID = mod.Items.DadsEmptyWallet
 
 local game = Game()
 
@@ -20,7 +19,7 @@ local function AddTearsUp(player, tearsUp)
 end
 
 function DadsEmptyWallet:onCache(player, cacheFlag)
-    if not player:HasCollectible(DadsEmptyWallet.COLLECTIBLE_ID) then return end
+    if not player:HasCollectible(mod.Items.DadsEmptyWallet) then return end
 
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local bonus = GetTearRateBonus(player)
@@ -33,16 +32,12 @@ end
 function DadsEmptyWallet:onCoinChange()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(DadsEmptyWallet.COLLECTIBLE_ID) then
+        if player:HasCollectible(mod.Items.DadsEmptyWallet) then
             player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
             player:EvaluateItems()
         end
     end
 end
 
-function DadsEmptyWallet:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DadsEmptyWallet.onCache)
-    mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, DadsEmptyWallet.onCoinChange)
-end
-
-return DadsEmptyWallet
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DadsEmptyWallet.onCache)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, DadsEmptyWallet.onCoinChange)

@@ -1,54 +1,39 @@
 local mod = DiesIraeMod
-local sfx = SFXManager()
-local game = Game()
-local myBeggar = Isaac.GetEntityVariantByName("Fiend Beggar")
-local Fragile = require("scripts.effects.fragile")
+local Resonance = {}
 
-function mod:FiendBeggarUpdate(beggar)
-    local sprite = beggar:GetSprite()
-    local data = beggar:GetData()
-    local player = Isaac.GetPlayer(0)
 
-    if data.HasTriggered then
-        if sprite:IsFinished("PayPrize") then
-            sprite:Play("Teleport", true)
-        elseif sprite:IsFinished("Teleport") then
-            beggar:Remove()
-        end
-        return
-    end
-
-    if player and player.Position:Distance(beggar.Position) < 35 then
-        Fragile.ApplyFragile(player)
-        sfx:Play(SoundEffect.SOUND_SATAN_GROW)
-        sprite:Play("PayPrize", true)
-        data.HasTriggered = true
-    end
+function Resonance.ApplyResonance(tear)
+    if not tear then return end
+    tear.Color = Color(0.9, 0.5, 0.1, 1, 0, 0, 0)
+    tear:GetData().HasResonance = true
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.FiendBeggarUpdate, myBeggar)
+function Resonance.OnTearCollision(_, tear, collider)
+    if not tear or not tear:GetData().HasResonance then return end
+    if not collider or not collider:ToNPC() then return end
+    local npc = collider:ToNPC()
 
-function mod:FiendBeggarExploded(beggar)
-    local player = Isaac.GetPlayer(0)
-    if player then
-        player:TakeDamage(2, DamageFlag.DAMAGE_EXPLOSION, EntityRef(beggar), 0)
-    end
+    local data = npc:GetData()
+    data.ResonanceActive = true
+    data.ResonanceTimer = 90
+    data.ResonanceEffectTime = Game():GetFrameCount()
+    local tearColor = tear.Color
+    npc:SetColor(tearColor, 90, 1, false, false)
 
-    sfx:Play(SoundEffect.SOUND_MEATY_DEATHS)
-    game:SpawnParticles(beggar.Position, EffectVariant.BLOOD_EXPLOSION, 1, 3, Color.Default)
-    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_SPLAT, 0, beggar.Position, Vector.Zero, beggar)
-    beggar:Remove()
-    return false
+    npc:TakeDamage(tear.CollisionDamage * 0.5, 0, EntityRef(tear), 0)
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.FiendBeggarExploded, myBeggar)
+mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, Resonance.OnTearCollision)
 
-function mod:OnNewFloor()
-    for i = 0, game:GetNumPlayers() - 1 do
-        local player = Isaac.GetPlayer(i)
-        local data = player:GetData()
-        if data.IsFragile then
-            data.IsFragile = false
+function Resonance.OnNPCUpdate(_, npc)
+    local data = npc:GetData()
+    if data.ResonanceActive then
+        data.ResonanceTimer = (data.ResonanceTimer or 0) - 1
+        if data.ResonanceTimer <= 0 then
+            data.ResonanceActive = false
+            npc:SetColor(Color(1,1,1,1,0,0,0), 1, 0, false, false)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.OnNewFloor)
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, Resonance.OnNPCUpdate)
+
+return Resonance

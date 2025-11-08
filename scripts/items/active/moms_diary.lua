@@ -46,6 +46,5 @@ function MomsDiary:OnUseItem(_, rng, player)
 end
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MomsDiary.OnPlayerDamaged, EntityType.ENTITY_PLAYER)
-
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, MomsDiary.OnUseItem, mod.Items.MomsDiary)
 

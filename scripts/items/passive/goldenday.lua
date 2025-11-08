@@ -19,12 +19,11 @@ function GoldenDay:OnItemPickup(player, itemID, includeModifiers)
     end
 end
 
--- Called every new floor
 function GoldenDay:OnNewLevel()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         if player:HasCollectible(mod.Items.GoldenDay) then
-            if rng:RandomFloat() < 0.5 then -- 50% chance
+            if rng:RandomFloat() < 0.5 then
                 local rooms = game:GetLevel():GetRooms()
                 for i = 0, rooms.Size - 1 do
                     local roomDesc = rooms:Get(i)
@@ -40,7 +39,7 @@ function GoldenDay:OnNewLevel()
                             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_GOLDEN, pos, Vector.Zero, nil)
                         end
 
-                        break -- Only one secret room gets the pickup
+                        break
                     end
                 end
             end
@@ -48,7 +47,6 @@ function GoldenDay:OnNewLevel()
     end
 end
 
--- Initialization
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
     if player:HasCollectible(mod.Items.GoldenDay) and not player:GetData().GoldenDayGiven then
         player:GetData().GoldenDayGiven = true

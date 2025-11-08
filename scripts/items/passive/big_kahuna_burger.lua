@@ -10,11 +10,8 @@ function BigKahunaBurger:onCollectibleAdded(_, Type, Charge, FirstTime, Slot, Va
     player:AddHearts(containers * 2)
 end
 
-function BigKahunaBurger:Init(mod)
-    mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, function(mod, Type, Charge, FirstTime, Slot, VarData, player)
-        BigKahunaBurger:onCollectibleAdded(mod, Type, Charge, FirstTime, Slot, VarData, player)
-    end)
-
-end
+mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, function(mod, Type, Charge, FirstTime, Slot, VarData, player)
+    BigKahunaBurger:onCollectibleAdded(mod, Type, Charge, FirstTime, Slot, VarData, player)
+end)
 
 return BigKahunaBurger

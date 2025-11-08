@@ -1,0 +1,4 @@
+<data>
+    <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/tech_beggar.png" Name="Fiend Beggar" Subtype="0" Variant="121" />
+    <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/guppy_beggar.png" Name="Guppy Beggar" Subtype="0" Variant="122" />
+</data> 
