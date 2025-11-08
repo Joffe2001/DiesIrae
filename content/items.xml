@@ -38,7 +38,7 @@
     <passive id="36" name="Big Kahuna Burger"          gfx=""                              description="It is a tasty burger!"                       quality="3" tags="nolostbr food" />
     <passive id="37" name="Dad's Empty Wallet"         gfx=""                              description="Money?"                                      quality="2" />
     <passive id="38" name="Fiend Deal"                 gfx=""                              description="I feel... Weak"                              quality="3" />
-    <passive id="39" name="Betrayal Heart"             gfx=""                              description="Nearly forgot it..."                         quality="2" tags="nolostbr"/>
+    <passive id="39" name="Betrayal Heart"             gfx="betrayal_heart.png"            description="Nearly forgot it..."                         quality="2" tags="nolostbr"/>
     <!-- Familiars -->
     <familiar id="40" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
     <familiar id="41" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
