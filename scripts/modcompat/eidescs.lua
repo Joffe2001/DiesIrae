@@ -442,10 +442,34 @@ mod.EIDescs = {
                 "Every {{Card}}card turns to {{Card17}} The Tower when spawned"
             },
         },
-        [mod.Items.SweetCaffeine ] = {
+        [mod.Items.SweetCaffeine] = {
             en_us = { 
                 "Drop Energy Drink",
                 "Higher chance to find Energy Drink"
+            },
+        },
+        [mod.Items.PTSD] = {
+            en_us = { 
+                "{{BossRoom}} Boss room only: {{Tears}} +0.2 tears for each time this boss killed Isaac before."
+            },
+        },
+        [mod.Items.FloweringSkull] = {
+            en_us = { 
+                "Revives Isaac upon death",
+                "{{Heart}} ­ Revives with 2 red heart containers (or 2 {{SoulHeart}} soul hearts).",
+                "{{ArrowUp}} ­ Upon revival, deal 40 damage to all enemies in the room.",
+                "{{Warning}} ­ Also rerolls up to 3 of your passive items into random new passives."
+            },
+        },
+        [mod.Items.RewrappingPaper] = {
+            en_us = { 
+                "Every {{TreasureRoom}}  Treasure room pedestal will become {{Collectible515}} Mystery Gift.",
+                "If there're two pedestals, at least one of them will be {{Collectible515}} Mystery Gift."
+            },
+        },
+        [mod.Items.FilthyRich] = {
+            en_us = { 
+                "The more {{Coin}} coins Isaac have, the higher the chance for {{Poison}} poison tears and {{Poison}} poison clouds to spawn.",
             },
         },
 		--[[[mod.Items.FriendlessChild] = { --NOT DONE

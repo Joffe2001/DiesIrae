@@ -1,20 +1,41 @@
 local mod = DiesIraeMod
 local game = Game()
 
-function mod:UseRewrappingPaper(_, _, player, _, _)
-    local mysteryGiftID = CollectibleType.COLLECTIBLE_MYSTERY_GIFT
-    local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -1, false, false)
+local openingGift = false
+local hasGiftThisFloor = false
+local lastStageKey = nil
 
-    for _, ent in ipairs(pickups) do
-        local pickup = ent:ToPickup()
-        local data = pickup:GetData()
+local function GetStageKey()
+    local level = game:GetLevel()
+    return tostring(level:GetStage()) .. "-" .. tostring(level:GetStageType())
+end
+function mod:RewrappingPaper_OnUse(_, _, player)
+    if player:HasCollectible(mod.Items.RewrappingPaper) then
+        openingGift = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.RewrappingPaper_OnUse, CollectibleType.COLLECTIBLE_MYSTERY_GIFT)
 
-        if pickup.SubType ~= mysteryGiftID and not data.GiftSpawned and pickup.SubType > 0 then
-            pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, mysteryGiftID, true, true, true)
-            data.GiftSpawned = true
+function mod:RewrappingPaper_PreGetCollectible(pool, decrease, seed)
+    local stageKey = GetStageKey()
+
+    if stageKey ~= lastStageKey then
+        hasGiftThisFloor = false
+        lastStageKey = stageKey
+    end
+    if openingGift then
+        openingGift = false
+        return nil
+    end
+    for p = 0, game:GetNumPlayers() - 1 do
+        local player = Isaac.GetPlayer(p)
+        if player:HasCollectible(mod.Items.RewrappingPaper) then
+
+            if pool == ItemPoolType.POOL_TREASURE and not hasGiftThisFloor then
+                hasGiftThisFloor = true
+                return CollectibleType.COLLECTIBLE_MYSTERY_GIFT
+            end
         end
     end
-
-    return true
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.UseRewrappingPaper, mod.Items.RewrappingPaper)
+mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, mod.RewrappingPaper_PreGetCollectible)

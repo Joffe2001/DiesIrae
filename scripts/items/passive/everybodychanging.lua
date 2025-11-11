@@ -52,7 +52,7 @@ function EverybodysChanging:OnUpdate()
                         until (newID and IsValidCandidate(newID)) or tries > 100
 
                         if newID and IsValidCandidate(newID) then
-                            player:AddCollectible(newID, 0, true)  -- silent add
+                            player:AddCollectible(newID, 0, true) 
                         end
                     end
 

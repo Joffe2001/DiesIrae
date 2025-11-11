@@ -48,6 +48,10 @@ mod.Items = {
     BorrowedStrength     = Isaac.GetItemIdByName("Borrowed Strength"),
     SymphonyOfDestr      = Isaac.GetItemIdByName("Symphony Of Destruction"),
     SweetCaffeine        = Isaac.GetItemIdByName("Sweet Caffeine"),
+    PTSD                 = Isaac.GetItemIdByName("PTSD"),
+    FloweringSkull       = Isaac.GetItemIdByName("Flowering Skull"),
+    RewrappingPaper      = Isaac.GetItemIdByName("Rewrapping Paper"),
+    FilthyRich           = Isaac.GetItemIdByName("Filthy Rich"),
 
     -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
@@ -77,7 +81,6 @@ mod.Items = {
     PathOfTheRighteous   = Isaac.GetItemIdByName("Path Of The Righteous"),
     BackInAnger          = Isaac.GetItemIdByName("Back In Anger"),
     FriendlessChild      = Isaac.GetItemIdByName("Friendless Child"),
-    BuriedTreasureMap    = Isaac.GetItemIdByName("Buried Treasure Map"),
     Masochism            = Isaac.GetItemIdByName("Masochism"),
     TouristMap           = Isaac.GetItemIdByName("Tourist Map"),
     TravelerLogbook      = Isaac.GetItemIdByName("Traveler Logbook"),
@@ -85,14 +88,13 @@ mod.Items = {
     SkullCrasher         = Isaac.GetItemIdByName("Skull Crasher"),
     DadsDumbbell         = Isaac.GetItemIdByName("Dad's Dumbbell"),
     MimicMemory          = Isaac.GetItemIdByName("Mimic Memory"),
-    FilthyRich           = Isaac.GetItemIdByName("Filthy Rich"),
     SilentEcho           = Isaac.GetItemIdByName("Silent Echo"),
     Grudge               = Isaac.GetItemIdByName("Grudge"),
     PhotonLink           = Isaac.GetItemIdByName("Photon Link"),
     CloseCall            = Isaac.GetItemIdByName("Close Call!"),
     HitList              = Isaac.GetItemIdByName("Hit List"),
-    RewrappingPaper      = Isaac.GetItemIdByName("Rewrapping Paper"),
     Corona               = Isaac.GetItemIdByName("Corona"),
+    TGS                  = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
 
     D8055                = Isaac.GetItemIdByName("D8055"),
 
@@ -187,11 +189,11 @@ mod.Pickups = {
 }
 
 mod.Curses = {
-    Unloved   = Isaac.GetCurseIdByName("Curse of the Unloved!")
+    Unloved             = Isaac.GetCurseIdByName("Curse of the Unloved!")
 }
 
 mod.Challenges = {
-    SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
+    SoundOfSilence       = Isaac.GetChallengeIdByName("Sound of Silence")
 }
 
 mod.Achievements = {

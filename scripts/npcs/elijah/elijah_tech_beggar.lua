@@ -13,7 +13,6 @@ local techPool = {
         CollectibleType.COLLECTIBLE_TECHNOLOGY,
         CollectibleType.COLLECTIBLE_TECH_X,
         CollectibleType.COLLECTIBLE_TECHNOLOGY_2,
-        CollectibleType.COLLECTIBLE_LASER_BEAM,
         CollectibleType.COLLECTIBLE_TRACTOR_BEAM,
         CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,
         CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,

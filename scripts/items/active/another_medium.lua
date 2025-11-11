@@ -17,7 +17,6 @@ local function IsValidCandidate(id)
         and id ~= AnotherMedium.COLLECTIBLE_ID
 end
 
--- Reset per-floor usage
 function AnotherMedium:OnNewLevel()
     usedThisFloor = false
 end

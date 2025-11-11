@@ -38,6 +38,8 @@
         rangemodifier="-1.5"
         luckmodifier="-2"
         firedelaymodifier="0"
+        bombs="1"
+        keys="1"
     />
     <player name="Bat Kol"
         skin="batkol_spritesheet.png"
