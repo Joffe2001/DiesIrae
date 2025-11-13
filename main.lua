@@ -12,7 +12,6 @@ if EID then
 	include("scripts.modcompat.eidescs")
 	include("scripts.modcompat.eid")
 end
-
 ---------------------------------------------------
 --  Dependencies
 ---------------------------------------------------
@@ -89,7 +88,10 @@ include("scripts.items.passive.sweetcaffeine")
 include("scripts.items.passive.PTSD") 
 include("scripts.items.passive.floweringskull") 
 include("scripts.items.passive.rewrappingpaper")
-include("scripts.items.passive.filthyrich") 
+include("scripts.items.passive.filthyrich")
+include("scripts.items.passive.grudge")
+include("scripts.items.passive.coolstick")
+include("scripts.items.passive.bloodbattery") 
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
@@ -150,25 +152,27 @@ include("scripts.npcs.elijah.elijah_key_beggar")
 include("scripts.npcs.elijah.elijah_rotten_beggar") 
 include("scripts.npcs.elijah.elijah_battery_beggar")
 ---------------------------------------------------
+--  ENEMIES
+---------------------------------------------------
+include("scripts.enemies.mamahorf")
+---------------------------------------------------
 --  Somethings that comes with the mod
 ---------------------------------------------------
 include("scripts.core.voidlost")
 ---------------------------------------------------
---  TESTING
+--  TESTING ITEMS
 ---------------------------------------------------
 --include("scripts.items.active.D8055")
 --include("scripts.items.passive.hitlist")
 --include("scripts.items.passive.photonlink") 
-include("scripts.items.passive.grudge")
 --include("scripts.items.passive.silentEcho")
 --include("scripts.items.passive.conscience") 
---include("scripts.items.passive.buriedtreasuremap") 
 --include("scripts.items.passive.eyesacrifice")
---include("scripts.items.passive.mimicmemory")
 --include("scripts.items.passive.the_path_of_the_righteous")
---include("scripts.items.passive.touristmap") 
+--include("scripts.items.passive.challengemap") 
 --include("scripts.items.passive.closecall") 
 --include("scripts.items.passive.TGS") 
+--include("scripts.items.passive.deliriousmind") 
 --include("scripts.items.passive.corona")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")

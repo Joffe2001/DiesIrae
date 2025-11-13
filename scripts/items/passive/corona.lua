@@ -1,5 +1,4 @@
 local mod = DiesIraeMod
-local game = Game()
 
 local BURST_CHANCE = 0.2
 local BURNING_CREEP_DAMAGE = 2.0

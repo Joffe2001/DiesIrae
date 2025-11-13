@@ -8,6 +8,7 @@
     <costume id="30"  name="Rainbow KoRn"      anm2path="KoRn.anm2"           type="passive" priority="600" />
     <costume id="40"  name="PTSD"              anm2path="ptsd.anm2"           type="passive" priority="20" hasSkinAlt="true" />
     <costume id="41"  name="Flowering Skull"   anm2path="floweringskull.anm2" type="passive" priority="20" />
+    <costume id="44"  name="Cool Stick"        anm2path="coolstick.anm2"      type="passive" priority="30" />
     <costume id="104" name="Helter skelter"    anm2path="helterskelter.anm2"  type="active"  priority="200" />
 
     <costume id="306" name="Eye Sacrifice"     anm2path="eyesacrifice.anm2"   type="passive"  priority="200" />
