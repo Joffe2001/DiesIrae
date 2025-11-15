@@ -29,7 +29,8 @@ local elijahFuncs = {}
 --- Callbacks
 ---
 
-
+---Add starting item to Elijah.
+---@param player EntityPlayer
 function elijahFuncs:PlayerInit(player)
     if player:GetPlayerType() ~= elijah then return end
 
@@ -41,7 +42,8 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 
 
-
+---Replace pickup by Elijah's Will.
+---@param pickup EntityPickup
 function elijahFuncs:PostPickupInit(pickup)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
@@ -65,7 +67,8 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInit)
 
 
-
+---Delete Elijah's Will if not playing Elijah.
+---@param pickup EntityPickup
 function elijahFuncs:OnPickupInit(pickup)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
     pickup:Remove()
@@ -74,6 +77,10 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.OnPickupInit, elijahWill)
 
 
+---Display a header when picking up a Elijah's Will
+---@param pickup EntityPickup
+---@param collider Entity
+---@return boolean
 function elijahFuncs:OnPickupCollision(pickup, collider)
     local player = collider:ToPlayer()
     if not player or player:GetPlayerType() ~= elijah then return false end
@@ -116,6 +123,9 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollision, elijahWill)
 
 
+---Stats up by comparing with the number of Elijah's Will acquired.
+---@param player EntityPlayer
+---@param cacheFlag CacheFlag
 function elijahFuncs:EvaluateCache(player, cacheFlag)
     if player:GetPlayerType() ~= elijah then return end
 
@@ -143,7 +153,12 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
 
-
+---Replace beggars with the custom beggars whan playing Elijah.
+---@param type EntityType
+---@param variant integer
+---@param subtype integer
+---@param seed integer
+---@return table | nil
 function elijahFuncs:PreEntitySpawn(type, variant, subtype, _, _, _, seed)
     if type ~= EntityType.ENTITY_SLOT then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
