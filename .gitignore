@@ -1,2 +1,6 @@
 ~$funvalues.xlsx
 ~$es Irae.docx
+
+# VSCode LUA config
+.vscode/
+.luarc.json
