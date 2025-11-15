@@ -23,6 +23,12 @@ local customBeggar = {
     [SlotVariant.BATTERY_BUM] = mod.ElijahNPCs.BatteryBeggarElijah,
 }
 
+local spawnElijahWill = {
+    [PickupVariant.PICKUP_KEY] = elijahWill,
+    [PickupVariant.PICKUP_BOMB] = elijahWill,
+    [PickupVariant.PICKUP_COIN] = elijahWill,
+}
+
 local elijahFuncs = {}
 
 
@@ -40,31 +46,6 @@ function elijahFuncs:PlayerInit(player)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
-
-
----Replace pickup by Elijah's Will.
----@param pickup EntityPickup
-function elijahFuncs:PostPickupInit(pickup)
-    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-
-    if pickup.Variant == PickupVariant.PICKUP_COIN
-        or pickup.Variant == PickupVariant.PICKUP_KEY
-        or pickup.Variant == PickupVariant.PICKUP_BOMB then
-        local pos = pickup.Position
-        pickup:Remove()
-
-        Isaac.Spawn(
-            EntityType.ENTITY_PICKUP,
-            elijahWill,
-            0,
-            pos,
-            Vector.Zero,
-            nil
-        )
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInit)
 
 
 ---Delete Elijah's Will if not playing Elijah.
@@ -153,7 +134,26 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
 
----Replace beggars with the custom beggars whan playing Elijah.
+---Replace base pickup with the Elijah's Will.
+---@param type EntityType
+---@param variant integer
+---@param subtype integer
+---@param seed integer
+---@return table | nil
+function elijahFuncs:PreEntitySpawnWill(type, variant, subtype, _, _, _, seed)
+    if type ~= EntityType.ENTITY_PICKUP then return end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
+    local will = spawnElijahWill[variant]
+    if will then
+        return { type, will, subtype, seed }
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawnWill)
+
+
+---Replace beggars with the custom beggars.
 ---@param type EntityType
 ---@param variant integer
 ---@param subtype integer
@@ -162,6 +162,7 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 function elijahFuncs:PreEntitySpawn(type, variant, subtype, _, _, _, seed)
     if type ~= EntityType.ENTITY_SLOT then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
     local npc = customBeggar[variant]
     if npc then
         return { type, npc, subtype, seed }
