@@ -1,9 +1,9 @@
+---@class ModReference
 DiesIraeMod = RegisterMod("Dies Irae", 1)
-local mod = DiesIraeMod
 
 local saveManager = include("path.to.save.manager")
 
-mod.JSON = require("json")
+DiesIraeMod.JSON = require("json")
 
 include("scripts.core.enums")
 include("scripts.core.pools")
