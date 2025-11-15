@@ -1,37 +1,59 @@
 local mod = DiesIraeMod
 local game = Game()
-local ELIJAH = mod.Players.Elijah
 
-function mod:ElijahActive(player)
-    if player:GetPlayerType() ~= ELIJAH then return end
 
-    if (player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= mod.Items.PersonalBeggar) then
-        player:SetPocketActiveItem(mod.Items.PersonalBeggar)
+--- Definitions
+---
+
+---@type PlayerType
+local elijah = mod.Players.Elijah
+
+---@type PickupVariant
+local elijahWill = mod.Pickups.ElijahsWill
+
+---@type CollectibleType
+local elijahStartingItem = mod.Items.PersonalBeggar
+
+local customBeggar = {
+    [SlotVariant.BEGGAR] = mod.ElijahNPCs.BeggarElijah,
+    [mod.NPCS.TechBeggar] = mod.ElijahNPCs.TechBeggarElijah,
+    [SlotVariant.BOMB_BUM] = mod.ElijahNPCs.BombBeggarElijah,
+    [SlotVariant.KEY_MASTER] = mod.ElijahNPCs.KeyBeggarElijah,
+    [SlotVariant.ROTTEN_BEGGAR] = mod.ElijahNPCs.RottenBeggarElijah,
+    [SlotVariant.BATTERY_BUM] = mod.ElijahNPCs.BatteryBeggarElijah,
+}
+
+local elijahFuncs = {}
+
+
+--- Callbacks
+---
+
+
+function elijahFuncs:PlayerInit(player)
+    if player:GetPlayerType() ~= elijah then return end
+
+    if (player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= elijahStartingItem) then
+        player:SetPocketActiveItem(elijahStartingItem)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.ElijahActive)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 
-function mod:Elijah_ReplacePickups(pickup)
-    local anyElijah = false
-    for i = 0, game:GetNumPlayers() - 1 do
-        if Isaac.GetPlayer(i):GetPlayerType() == ELIJAH then
-            anyElijah = true
-            break
-        end
-    end
-    if not anyElijah then return end
+
+
+function elijahFuncs:PostPickupInit(pickup)
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
     if pickup.Variant == PickupVariant.PICKUP_COIN
-    or pickup.Variant == PickupVariant.PICKUP_KEY
-    or pickup.Variant == PickupVariant.PICKUP_BOMB then
-
+        or pickup.Variant == PickupVariant.PICKUP_KEY
+        or pickup.Variant == PickupVariant.PICKUP_BOMB then
         local pos = pickup.Position
         pickup:Remove()
 
         Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
-            mod.Pickups.ElijahsWill,
+            elijahWill,
             0,
             pos,
             Vector.Zero,
@@ -39,27 +61,22 @@ function mod:Elijah_ReplacePickups(pickup)
         )
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, mod.Elijah_ReplacePickups)
 
-function mod:ElijahsWill_OnPickupInit(pickup)
-    local anyElijah = false
-    for i = 0, game:GetNumPlayers() - 1 do
-        if Isaac.GetPlayer(i):GetPlayerType() == ELIJAH then
-            anyElijah = true
-            break
-        end
-    end
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInit)
 
-    if not anyElijah then
-        pickup:Remove()
-    end
+
+
+function elijahFuncs:OnPickupInit(pickup)
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    pickup:Remove()
 end
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, mod.ElijahsWill_OnPickupInit, mod.Pickups.ElijahsWill)
+
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.OnPickupInit, elijahWill)
 
 
-function mod:ElijahsWill_OnPickupCollision(pickup, collider)
+function elijahFuncs:OnPickupCollision(pickup, collider)
     local player = collider:ToPlayer()
-    if not player or player:GetPlayerType() ~= ELIJAH then return false end
+    if not player or player:GetPlayerType() ~= elijah then return false end
 
     local data = player:GetData()
     data.ElijahBoosts = data.ElijahBoosts or {}
@@ -95,11 +112,12 @@ function mod:ElijahsWill_OnPickupCollision(pickup, collider)
     pickup:Remove()
     return true
 end
-mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.ElijahsWill_OnPickupCollision, mod.Pickups.ElijahsWill)
+
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollision, elijahWill)
 
 
-function mod:ElijahsWill_OnCache(player, cacheFlag)
-    if player:GetPlayerType() ~= ELIJAH then return end
+function elijahFuncs:EvaluateCache(player, cacheFlag)
+    if player:GetPlayerType() ~= elijah then return end
 
     local data = player:GetData()
     if not data.ElijahBoosts then return end
@@ -121,39 +139,18 @@ function mod:ElijahsWill_OnCache(player, cacheFlag)
         player.ShotSpeed = player.ShotSpeed + (data.ElijahBoosts.ShotSpeed or 0)
     end
 end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.ElijahsWill_OnCache)
 
-mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, type, variant, subtype, pos, vel, spawner, seed)
-    if type == EntityType.ENTITY_SLOT then
-        local anyElijah = false
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
-        for i = 0, Game():GetNumPlayers() - 1 do
-            local p = Isaac.GetPlayer(i)
-            if p and p:GetPlayerType() == ELIJAH then
-                anyElijah = true
-                break
-            end
-        end
 
-        if anyElijah then
-            if variant == SlotVariant.BEGGAR then
-                return {type, mod.ElijahNPCs.BeggarElijah, subtype, seed}
-            end
-            if variant == mod.NPCS.TechBeggar then
-                return {type, mod.ElijahNPCs.TechBeggarElijah, subtype, seed}
-            end
-            if variant == SlotVariant.BOMB_BUM then
-                return {type, mod.ElijahNPCs.BombBeggarElijah, subtype, seed}
-            end
-            if variant == SlotVariant.KEY_MASTER then
-                return {type, mod.ElijahNPCs.KeyBeggarElijah, subtype, seed}
-            end
-            if variant == SlotVariant.ROTTEN_BEGGAR then
-                return {type, mod.ElijahNPCs.RottenBeggarElijah, subtype, seed}
-            end
-            if variant == SlotVariant.BATTERY_BUM then
-                return {type, mod.ElijahNPCs.BatteryBeggarElijah, subtype, seed}
-            end
-        end
+
+function elijahFuncs:PreEntitySpawn(type, variant, subtype, _, _, _, seed)
+    if type ~= EntityType.ENTITY_SLOT then return end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    local npc = customBeggar[variant]
+    if npc then
+        return { type, npc, subtype, seed }
     end
-end)
+end
+
+mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
