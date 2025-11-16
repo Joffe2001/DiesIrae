@@ -48,7 +48,8 @@ local spawnElijahWill = {
 }
 
 local ItemRoomBeggar = {
-    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah
+    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah,
+    [RoomType.ROOM_SHOP] = mod.ElijahNPCs.ShopBeggarElijah
 }
 
 ---@alias statUpFun fun(data: table): string
