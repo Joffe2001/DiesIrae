@@ -2,7 +2,7 @@
 DiesIraeMod = RegisterMod("Dies Irae", 1)
 
 ---@class SaveManager
-local saveManager = include("path.to.save.manager")
+local saveManager = include("scripts.dependencies.save_manager")
 saveManager.Init(DiesIraeMod)
 
 DiesIraeMod.JSON = require("json")
