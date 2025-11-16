@@ -8,13 +8,13 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.33 -- default is 1/3, if that's the case this insn't even needed
+local BASE_REWARD_CHANCES = 0.33 -- default is 1/3, if that's the case this isn't even needed
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_TREASURE
 
 --- Definitions
 ---
 
-local beggar = mod.ElijahNPCs.BeggarElijah
+local beggar = mod.ElijahNPCs.TreasureBeggarElijah
 
 local beggarFuncs = {}
 
@@ -29,21 +29,24 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
 
-    local _ = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    if ok then
+        player:GetSprite():Play("Sad", true)
+    end
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
 
 ---@param beggarEntity EntityNPC
-function beggarFuncs.PostSlotUpdate(beggarEntity)
+function beggarFuncs:PostSlotUpdate(beggarEntity)
     beggarUtils.StateMachine(beggarEntity, BEGGAR_ITEM_POOL)
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
 
 ---@param beggarEntity EntityNPC
-function beggarFuncs.PreSlotExplosion(beggarEntity)
+function beggarFuncs:PreSlotExplosion(beggarEntity)
     beggarUtils.DoBeggarExplosion(beggarEntity)
 end
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)
