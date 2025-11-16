@@ -98,6 +98,8 @@ mod.Items = {
 
     D8055                = Isaac.GetItemIdByName("D8055"),
 
+    CorruptedMantle      = Isaac.GetItemIdByName("Corrupted Mantle"),
+
 }
 
 mod.Trinkets = {
