@@ -105,4 +105,5 @@
 
     <!-- Testing.. -->
     <passive id="1000" name="Corrupted Mantle"         gfx="item_placeholder.png"          description="Holy shield..at a cost"                    quality="3"/>
+
 </items>

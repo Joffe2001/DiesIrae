@@ -472,6 +472,13 @@ mod.EIDescs = {
                 "The more {{Coin}} coins Isaac have, the higher the chance for {{Poison}} poison tears and {{Poison}} poison clouds to spawn.",
             },
         },
+        [mod.Items.CoolStick] = {
+            en_us = { 
+                "{{Damage}} +0.4 Damage up",
+                "{{Luck}} +1 Luck up",
+                "{{Chest}} 15% chance for spawned chests to turn into {{WoodenChestRoomIcon}} Wooden Chests",
+            },
+        },
 		--[[[mod.Items.FriendlessChild] = { --NOT DONE
             en_us = { 
                 "Removes all familiars",

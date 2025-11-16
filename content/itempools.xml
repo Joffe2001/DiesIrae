@@ -9,6 +9,7 @@
         <Item Name="Stab Wound" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Creatine Overdose" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Big Kahuna Burger" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="treasure">
@@ -42,6 +43,7 @@
         <Item Name="Flowering Skull" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Rewrapping Paper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="shop">
@@ -59,6 +61,7 @@
         <Item Name="Beggar's Tear" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Killer Queen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Filthy Rich" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Blood Battery" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="dungeon">
@@ -101,6 +104,7 @@
         <Item Name="Enjoyment of the Unlucky" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Betrayal Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="PTSD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Blood Battery" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="secret">
@@ -174,6 +178,7 @@
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="PTSD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
 <!--Beggars and stuff-->
@@ -185,6 +190,7 @@
         <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Dad's Empty Wallet" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Rainbow KoRn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="beggar">
@@ -221,6 +227,7 @@
     </Pool>
 
     <Pool Name="batteryBum">
+        <Item Name="Blood Battery" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
 
@@ -245,6 +252,7 @@
         <Item Name="Still Standing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Filthy Rich" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedTreasure">
@@ -272,6 +280,7 @@
         <Item Name="King's Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Flowering Skull" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedAngel">

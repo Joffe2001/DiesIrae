@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 
 mod.Players = {
@@ -52,6 +53,9 @@ mod.Items = {
     FloweringSkull       = Isaac.GetItemIdByName("Flowering Skull"),
     RewrappingPaper      = Isaac.GetItemIdByName("Rewrapping Paper"),
     FilthyRich           = Isaac.GetItemIdByName("Filthy Rich"),
+    CoolStick            = Isaac.GetItemIdByName("Cool Stick"),
+    Grudge               = Isaac.GetItemIdByName("Grudge"),
+    BloodBattery         = Isaac.GetItemIdByName("Blood Battery"),
 
     -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
@@ -87,14 +91,14 @@ mod.Items = {
     EyeSacrifice         = Isaac.GetItemIdByName("Eye Sacrifice"),
     SkullCrasher         = Isaac.GetItemIdByName("Skull Crasher"),
     DadsDumbbell         = Isaac.GetItemIdByName("Dad's Dumbbell"),
-    MimicMemory          = Isaac.GetItemIdByName("Mimic Memory"),
     SilentEcho           = Isaac.GetItemIdByName("Silent Echo"),
-    Grudge               = Isaac.GetItemIdByName("Grudge"),
     PhotonLink           = Isaac.GetItemIdByName("Photon Link"),
     CloseCall            = Isaac.GetItemIdByName("Close Call!"),
     HitList              = Isaac.GetItemIdByName("Hit List"),
     Corona               = Isaac.GetItemIdByName("Corona"),
     TGS                  = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
+    ChallengerMap        = Isaac.GetItemIdByName("Challenger Map"),
+    DeliriousMind        = Isaac.GetItemIdByName("Delirious Mind"),
 
     D8055                = Isaac.GetItemIdByName("D8055"),
 
@@ -196,6 +200,10 @@ mod.Curses = {
 
 mod.Challenges = {
     SoundOfSilence       = Isaac.GetChallengeIdByName("Sound of Silence")
+}
+
+mod.enemies ={
+    MamaHorf              = Isaac.GetEntityVariantByName("Mama Horf"),
 }
 
 mod.Achievements = {

@@ -14,7 +14,7 @@ function SilentEcho:OnNewRoom()
 
                 local activeItem = player:GetActiveItem()
                 if activeItem ~= 0 then
-                    player:UseActiveItem(activeItem, UseFlag.USE_NO consume)
+                    player:UseActiveItem(activeItem, UseFlag.USE_NOCOSTUME)
                 end
             end
         end

@@ -1,55 +1,57 @@
 local mod = DiesIraeMod
+local game = Game()
+
 local HitList = {}
+local EnemyKillBonus = {}
 
 
-local clearedRooms = {}
+function HitList:OnGameStart(isContinued)
+    EnemyKillBonus = {}
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, HitList.OnGameStart)
 
-mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, function()
-    local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.HitList) then return end
+function HitList:OnCollectibleAdded(player, collectibleType, rng, something1, something2, something3)
+    if collectibleType ~= mod.Items.HitList then return end
 
-    local level = Game():GetLevel()
-    local roomDesc = level:GetCurrentRoomDesc()
+    EnemyKillBonus = {}
 
-    if roomDesc and roomDesc.Data and roomDesc.Data.Type == RoomType.ROOM_DEFAULT then
-        clearedRooms[roomDesc.SafeGridIndex] = true
-    end
-end)
+    local room = game:GetRoom()
+    local candidates = {}
 
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local game = Game()
-    local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.HitList) then return end
-
-    local level = game:GetLevel()
-    local currentRoom = game:GetRoom()
-    local rooms = level:GetRooms() 
-
-    local totalNormalRooms, clearedCount = 0, 0
-
-    for i = 0, rooms.Size - 1 do
-        local desc = rooms:Get(i)
-        if desc.Data and desc.Data.Type == RoomType.ROOM_DEFAULT then
-            totalNormalRooms = totalNormalRooms + 1
-            if clearedRooms[desc.SafeGridIndex] then
-                clearedCount = clearedCount + 1
-            end
+    for _, e in ipairs(Isaac.GetRoomEntities()) do
+        if e:IsActiveEnemy(false) and not e:IsBoss() then
+            table.insert(candidates, e)
         end
     end
-
-    for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
-        local door = currentRoom:GetDoor(i)
-        if door and door.TargetRoomType == RoomType.ROOM_BOSS then
-            if clearedCount < totalNormalRooms then
-                door:SetLocked(true)
-            else
-                door:SetLocked(false)
-            end
-        end
+    if #candidates > 0 then
+        local chosen = candidates[math.random(#candidates)]
+        local spawnPos = chosen.Position
+        Isaac.Spawn(chosen.Type, chosen.Variant, chosen.SubType, spawnPos, Vector(0,0), player)
     end
-end)
+end
+mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, HitList.OnCollectibleAdded)
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    clearedRooms = {}
-end)
+function HitList:OnEnemyDeath(entity)
+    local player = Isaac.GetPlayer(0)
+    if not player:HasCollectible(mod.Items.HitList) then return end
+    if not entity:IsActiveEnemy(false) or entity:IsBoss() then return end
 
+    local id = entity.Type .. "_" .. entity.Variant
+    EnemyKillBonus[id] = (EnemyKillBonus[id] or 0) + 0.2
+
+    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+    player:EvaluateItems()
+end
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, HitList.OnEnemyDeath)
+
+function HitList:OnCache(player, flag)
+    if not player:HasCollectible(mod.Items.HitList) then return end
+    if flag == CacheFlag.CACHE_DAMAGE then
+        local totalBonus = 0
+        for _, bonus in pairs(EnemyKillBonus) do
+            totalBonus = totalBonus + bonus
+        end
+        player.Damage = player.Damage + totalBonus
+    end
+end
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, HitList.OnCache)

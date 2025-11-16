@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <rooms>
-	<room variant="1" name="envy_miniboss" type="6" subtype="0" shape="1" width="13" height="7" difficulty="3" weight="2.0">
+	<room variant="1" name="envy_miniboss" type="6" subtype="0" shape="1" width="13" height="7" difficulty="3" weight="2.0" lastTestTime="2025-11-12T01:13+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -381,46 +381,14 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="2" name="SSR2" type="8" subtype="14" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="2" name="SSR2" type="8" subtype="13" shape="2" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-11-12T14:42+00:00">
 		<door exists="True" x="-1" y="3"/>
-		<door exists="True" x="6" y="-1"/>
-		<door exists="True" x="6" y="7"/>
 		<door exists="True" x="13" y="3"/>
-		<spawn x="4" y="1">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="6" y="1">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="8" y="1">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="10" y="1">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="5" y="3">
-			<entity type="42" variant="2" subtype="0" weight="1.0"/>
-		</spawn>
 		<spawn x="6" y="3">
-			<entity type="5" variant="100" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="7" y="3">
-			<entity type="42" variant="2" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="3" y="5">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="5" y="5">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="7" y="5">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="9" y="5">
-			<entity type="5" variant="70" subtype="0" weight="1.0"/>
+			<entity type="6" variant="122" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="3" name="SSR3" type="8" subtype="17" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="3" name="SSR3" type="8" subtype="17" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-11-12T14:46+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -499,13 +467,6 @@
 		</spawn>
 		<spawn x="12" y="6">
 			<entity type="5" variant="20" subtype="0" weight="1.0"/>
-		</spawn>
-	</room>
-	<room variant="4" name="SSR4" type="8" subtype="50" shape="2" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-11-06T13:36+00:00">
-		<door exists="True" x="-1" y="3"/>
-		<door exists="True" x="13" y="3"/>
-		<spawn x="6" y="3">
-			<entity type="6" variant="122" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
 	<room variant="1" name="SHOP1" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
