@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
-local beggar = mod.ElijahNPCs.RottenBeggarElijah
+local beggar = mod.Entities.RottenBeggarElijah.Var
 
 local payouts = {
     {type="BLUE_FLY", chance=0.36},

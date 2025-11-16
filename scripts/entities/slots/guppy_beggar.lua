@@ -2,7 +2,7 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 local music = MusicManager()
-local GuppyBeggar = mod.NPCS.GuppyBeggar
+local GuppyBeggar = mod.Entities.GuppyBeggar.Var
 
 local giveChance = 0.5 
 local GuppyPool = {

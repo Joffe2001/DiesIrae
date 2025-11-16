@@ -1,8 +1,8 @@
 local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
-local sfx = SFXManager()
-local TechBeggar = mod.ElijahNPCs.TechBeggarElijah
+local myBeggar = mod.Entities.TechBeggar.Var
+
 
 local payChance = 0.8
 local prizeChance = 0.2
@@ -26,69 +26,21 @@ local techPool = {
     }
 }
 
-function mod:DrainElijahStat(player)
-    local data = player:GetData()
-    if not data.ElijahBoosts then return false end
-
-    local possibleStats = {}
-    for stat, value in pairs(data.ElijahBoosts) do
-        if value and value > 0 then
-            table.insert(possibleStats, stat)
-        end
-    end
-
-    if #possibleStats == 0 then
-        Game():GetHUD():ShowItemText("Beggar", "No boosts to pay!")
-        return false
-    end
-
-    local chosenStat = possibleStats[math.random(#possibleStats)]
-    local amount = 0.1
-
-    if chosenStat == "Luck" then
-        data.ElijahBoosts.Luck = (data.ElijahBoosts.Luck or 0) - amount
-    else
-        data.ElijahBoosts[chosenStat] = math.max((data.ElijahBoosts[chosenStat] or 0) - amount, 0)
-    end
-
-    local message = ""
-    if chosenStat == "Damage" then
-        message = "Paid with Damage!"
-    elseif chosenStat == "Tears" then
-        message = "Paid with Tears!"
-    elseif chosenStat == "Speed" then
-        message = "Paid with Speed!"
-    elseif chosenStat == "Range" then
-        message = "Paid with Range!"
-    elseif chosenStat == "Luck" then
-        message = "Paid with Luck!"
-    elseif chosenStat == "ShotSpeed" then
-        message = "Paid with Shot Speed!"
-    end
-
-    player:AddCacheFlags(CacheFlag.CACHE_ALL)
-    player:EvaluateItems()
-
-    Game():GetHUD():ShowItemText("Beggar", message)
-    sfx:Play(SoundEffect.SOUND_THUMBS_DOWN)
-
-    return true
-end
-
 function mod:TechBeggarCollision(beggar, collider, low)
     if not collider:ToPlayer() then return end
     local player = collider:ToPlayer()
     local sprite = beggar:GetSprite()
 
-    if player:GetPlayerType() ~= mod.Players.Elijah then
-        return
-    end
-
     if sprite:IsPlaying("Idle") then
         local rng = beggar:GetDropRNG()
-        local paid = mod:DrainElijahStat(player)
+        local pay = false
 
-        if paid then
+        if player:GetNumCoins() > 0 then
+            player:AddCoins(-1)
+            pay = true
+        end
+
+        if pay then
             sfx:Play(SoundEffect.SOUND_SCAMPER)
 
             if rng:RandomFloat() > payChance then
@@ -100,7 +52,7 @@ function mod:TechBeggarCollision(beggar, collider, low)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.TechBeggarCollision, TechBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.TechBeggarCollision, myBeggar)
 
 function mod:TechBeggarUpdate(beggar)
     local sprite = beggar:GetSprite()
@@ -136,6 +88,7 @@ function mod:TechBeggarUpdate(beggar)
         local rng = beggar:GetDropRNG()
         local player = data.LastPayer or Isaac.GetPlayer(0)
         local roll = rng:RandomFloat()
+        
 
         if roll < 0.25 then
             mod:GiveTemporaryTechX(player)
@@ -144,19 +97,23 @@ function mod:TechBeggarUpdate(beggar)
             local collectible = techPool.Collectibles[rng:RandomInt(#techPool.Collectibles) + 1]
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, collectible,
                 Isaac.GetFreeNearPosition(beggar.Position, 40), Vector.Zero, nil)
-            sprite:Play("Teleport")
+                sprite:Play("Teleport")
         end
     elseif sprite:IsFinished("Teleport") then
         beggar:Remove()
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, TechBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, myBeggar)
+
+
 
 function mod:GiveTemporaryTechX(player)
     if not player or not player:ToPlayer() then return end
+
     sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
     player:AddCollectible(CollectibleType.COLLECTIBLE_TECH_X, 0, false)
     player:GetData().TechX_Timer = TECHX_DURATION
+
     print("[Tech Beggar] Gave temporary Tech X for 30 seconds!")
 end
 
@@ -173,6 +130,7 @@ function mod:TechXTimerUpdate(player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.TechXTimerUpdate)
 
+
 function mod:TechBeggarExploded(beggar)
     for i = 1, 2 do
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, 1,
@@ -184,4 +142,4 @@ function mod:TechBeggarExploded(beggar)
     beggar:Remove()
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.TechBeggarExploded, TechBeggar)
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.TechBeggarExploded, myBeggar)

@@ -1,13 +1,13 @@
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
-local beggar = mod.ElijahNPCs.BombBeggarElijah
+local beggar = mod.Entities.KeyBeggarElijah.Var
 
 local chanceNothing = 0.5
-local chanceBomb = 0.45
+local chanceKey = 0.45
 local chanceItem = 0.05
 
-function mod:BombBeggarCollision(beggarEntity, collider, low)
+function mod:KeyBeggarCollision(beggarEntity, collider, low)
     if not collider:ToPlayer() then return end
     local player = collider:ToPlayer()
     local sprite = beggarEntity:GetSprite()
@@ -31,9 +31,9 @@ function mod:BombBeggarCollision(beggarEntity, collider, low)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.BombBeggarCollision, beggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.KeyBeggarCollision, beggar)
 
-function mod:BombBeggarUpdate(beggarEntity)
+function mod:KeyBeggarUpdate(beggarEntity)
     local sprite = beggarEntity:GetSprite()
     local rng = beggarEntity:GetDropRNG()
     local data = beggarEntity:GetData()
@@ -49,16 +49,16 @@ function mod:BombBeggarUpdate(beggarEntity)
 
         if roll < chanceItem then
             sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
-            local item = game:GetItemPool():GetCollectible(ItemPoolType.POOL_BOMB_BUM, true)
+            local item = game:GetItemPool():GetCollectible(ItemPoolType.POOL_KEY_MASTER, true)
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
                 Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, nil)
             sprite:Play("Teleport")
 
-        elseif roll <= chanceItem + chanceBomb then
-            sfx:Play(SoundEffect.SOUND_FETUS_FEET)
-            player:AddBombs(1)
+        elseif roll <= chanceItem + chanceKey then
+            sfx:Play(SoundEffect.SOUND_KEY_DROP0)
+            player:AddKeys(1)
             Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, beggarEntity.Position, Vector.Zero, nil)
-            Game():GetHUD():ShowItemText("Bomb Beggar", "+1 Bomb")
+            Game():GetHUD():ShowItemText("Key Beggar", "+1 Key")
 
             sprite:Play("Idle")
         end
@@ -68,12 +68,12 @@ function mod:BombBeggarUpdate(beggarEntity)
         beggarEntity:Remove()
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.BombBeggarUpdate, beggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.KeyBeggarUpdate, beggar)
 
-function mod:BombBeggarExploded(beggar)
+function mod:KeyBeggarExploded(beggar)
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() == mod.Players.Elijah then
-        player:AddBombs(1)
+        player:AddKeys(1)
     end
     sfx:Play(SoundEffect.SOUND_MEATY_DEATHS)
     game:SpawnParticles(beggar.Position, EffectVariant.BLOOD_EXPLOSION, 1, 3, Color.Default)
@@ -81,4 +81,4 @@ function mod:BombBeggarExploded(beggar)
     beggar:Remove()
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.BombBeggarExploded, beggar)
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.KeyBeggarExploded, beggar)

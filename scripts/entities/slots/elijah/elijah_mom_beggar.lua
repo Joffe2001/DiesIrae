@@ -1,6 +1,6 @@
 local mod = DiesIraeMod
 local game = Game()
-local beggar = mod.ElijahNPCs.MomBoxBeggarElijah
+local beggar = mod.Entities.MomBoxBeggarElijah.Var
 
 local momItemPool = ItemPoolType.POOL_MOMS_CHEST
 

@@ -27,18 +27,18 @@ WILL_LUCK_UP = 0.5
 local elijah = mod.Players.Elijah
 
 ---@type PickupVariant
-local elijahWill = mod.Pickups.ElijahsWill
+local elijahWill = mod.Entities.ElijahsWill.Var
 
 ---@type CollectibleType
 local elijahStartingItem = mod.Items.PersonalBeggar
 
 local customBeggar = {
-    [SlotVariant.BEGGAR] = mod.ElijahNPCs.BeggarElijah,
-    [mod.NPCS.TechBeggar] = mod.ElijahNPCs.TechBeggarElijah,
-    [SlotVariant.BOMB_BUM] = mod.ElijahNPCs.BombBeggarElijah,
-    [SlotVariant.KEY_MASTER] = mod.ElijahNPCs.KeyBeggarElijah,
-    [SlotVariant.ROTTEN_BEGGAR] = mod.ElijahNPCs.RottenBeggarElijah,
-    [SlotVariant.BATTERY_BUM] = mod.ElijahNPCs.BatteryBeggarElijah,
+    [SlotVariant.BEGGAR] = mod.Entities.BeggarElijah.Var,
+    [mod.Entities.TechBeggar.Var] = mod.Entities.TechBeggarElijah.Var,
+    [SlotVariant.BOMB_BUM] = mod.Entities.BombBeggarElijah.Var,
+    [SlotVariant.KEY_MASTER] = mod.Entities.KeyBeggarElijah.Var,
+    [SlotVariant.ROTTEN_BEGGAR] = mod.Entities.RottenBeggarElijah.Var,
+    [SlotVariant.BATTERY_BUM] = mod.Entities.BatteryBeggarElijah.Var,
 }
 
 local spawnElijahWill = {

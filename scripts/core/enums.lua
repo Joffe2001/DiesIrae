@@ -1,6 +1,12 @@
 ---@class ModReference
 local mod = DiesIraeMod
 
+local function MakeEntityTable(name)
+    return {Type = Isaac.GetEntityTypeByName(name),
+            Var = Isaac.GetEntityVariantByName(name),
+            SType = Isaac.GetEntitySubTypeByName(name)}
+end
+
 mod.Players = {
     David   = Isaac.GetPlayerTypeByName("David", false),
     TDavid  = Isaac.GetPlayerTypeByName("David", true),
@@ -158,40 +164,28 @@ mod.Cards = {
     DadsLottoTicket  = Isaac.GetCardIdByName("Dad's Lotto Ticket"),
 }
 
-mod.Familiars = {
-    -- Paranoid Android
-    ParanoidAndroid     = Isaac.GetEntityVariantByName("Paranoid Android"),
-    AndroidLazerRing    = Isaac.GetEntityVariantByName("Android Lazer Ring"),
-    -- Killer Queen
-    KillerQueen         = Isaac.GetEntityVariantByName("Killer Queen"),
-    KillerQueenRocket   = Isaac.GetEntityVariantByName("Killer Queen Rocket"),
-    KillerQueenMark     = Isaac.GetEntityVariantByName("Killer Queen Mark"),
-}
-
-mod.NPCS = {
-    FiendBeggar         = Isaac.GetEntityVariantByName("Fiend Beggar"),
-    TechBeggar          = Isaac.GetEntityVariantByName("Tech Beggar"),
-    GuppyBeggar         = Isaac.GetEntityVariantByName("Guppy Beggar"),
-}
-
-mod.ElijahNPCs = {
-    TechBeggarElijah    = Isaac.GetEntityVariantByName("Tech Beggar Elijah"),
-    BeggarElijah        = Isaac.GetEntityVariantByName("Beggar Elijah"),
-    BombBeggarElijah    = Isaac.GetEntityVariantByName("Bomb Beggar Elijah"),
-    KeyBeggarElijah     = Isaac.GetEntityVariantByName("Key Beggar Elijah"),
-    BatteryBeggarElijah = Isaac.GetEntityVariantByName("Battery Beggar Elijah"),
-    RottenBeggarElijah  = Isaac.GetEntityVariantByName("Rotten Beggar Elijah"),
-    MomBoxBeggarElijah  = Isaac.GetEntityVariantByName("Mom's Chest Elijah"),
-}
-
-mod.Ghosts ={
-    BatKolGhost         = Isaac.GetEntityVariantByName("Bat Kol's Ghosts"),
-    RighteousGhost      = Isaac.GetEntityVariantByName("Righteous Ghost"),
-}
-
-mod.Pickups = {
-    ElijahsWill         = Isaac.GetEntityVariantByName("Elijah's Will"),
-    BurningHeart        = Isaac.GetEntityVariantByName("Burning Heart"),
+mod.Entities = {
+    FiendBeggar         = MakeEntityTable("Fiend Beggar"),
+    TechBeggar          = MakeEntityTable("Tech Beggar"),
+    GuppyBeggar         = MakeEntityTable("Guppy Beggar"),
+    MamaHorf            = MakeEntityTable("Mama Horf"),
+    Horfling            = MakeEntityTable("Horfling"),
+    TechBeggarElijah    = MakeEntityTable("Tech Beggar Elijah"),
+    BeggarElijah        = MakeEntityTable("Beggar Elijah"),
+    BombBeggarElijah    = MakeEntityTable("Bomb Beggar Elijah"),
+    KeyBeggarElijah     = MakeEntityTable("Key Beggar Elijah"),
+    BatteryBeggarElijah = MakeEntityTable("Battery Beggar Elijah"),
+    RottenBeggarElijah  = MakeEntityTable("Rotten Beggar Elijah"),
+    MomBoxBeggarElijah  = MakeEntityTable("Mom's Chest Elijah"),
+    BatKolGhost         = MakeEntityTable("Bat Kol's Ghosts"),
+    RighteousGhost      = MakeEntityTable("Righteous Ghost"),
+    ElijahsWill         = MakeEntityTable("Elijah's Will"),
+    BurningHeart        = MakeEntityTable("Burning Heart"),
+    ParanoidAndroid     = MakeEntityTable("Paranoid Android"),
+    AndroidLazerRing    = MakeEntityTable("Android Lazer Ring"),
+    KillerQueen         = MakeEntityTable("Killer Queen"),
+    KillerQueenRocket   = MakeEntityTable("Killer Queen Rocket"),
+    KillerQueenMark     = MakeEntityTable("Killer Queen Mark"),
 }
 
 mod.Curses = {
@@ -200,10 +194,6 @@ mod.Curses = {
 
 mod.Challenges = {
     SoundOfSilence       = Isaac.GetChallengeIdByName("Sound of Silence")
-}
-
-mod.enemies ={
-    MamaHorf              = Isaac.GetEntityVariantByName("Mama Horf"),
 }
 
 mod.Achievements = {

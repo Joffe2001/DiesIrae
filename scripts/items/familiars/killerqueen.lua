@@ -5,7 +5,7 @@ function KillerQueen:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
         local count = player:GetCollectibleNum(mod.Items.KillerQueen)
         player:CheckFamiliar(
-            mod.Familiars.KillerQueen,
+            mod.Entities.KillerQueen.Var,
             count,
             player:GetCollectibleRNG(mod.Items.KillerQueen),
             Isaac.GetItemConfig():GetCollectible(mod.Items.KillerQueen)
@@ -97,8 +97,8 @@ function KillerQueen:onFamiliarUpdate(familiar)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KillerQueen.onCache)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, KillerQueen.onFamiliarInit, mod.Familiars.KillerQueen)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, mod.Familiars.KillerQueen)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, KillerQueen.onFamiliarInit, mod.Entities.KillerQueen.Var)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, mod.Entities.KillerQueen.Var)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.KillerQueen, "Dad's Playlist")

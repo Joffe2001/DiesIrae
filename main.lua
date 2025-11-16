@@ -9,7 +9,7 @@ DiesIraeMod.JSON = require("json")
 
 include("scripts.core.enums")
 include("scripts.core.pools")
-include("scripts.core.utils")
+DiesIraeMod.Utils = include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 
@@ -146,20 +146,21 @@ include("scripts.transformations.dadsoldplaylist")
 ---------------------------------------------------
 --  NPCs
 ---------------------------------------------------
-include("scripts.npcs.fiend_beggar") 
-include("scripts.npcs.tech_beggar") 
-include("scripts.npcs.guppy_beggar") 
+include("scripts.entities.slots.fiend_beggar") 
+include("scripts.entities.slots.tech_beggar") 
+include("scripts.entities.slots.guppy_beggar") 
 --------Elijah's NPCs------------------------------
-include("scripts.npcs.elijah.elijah_tech_beggar") 
-include("scripts.npcs.elijah.elijah_beggar") 
-include("scripts.npcs.elijah.elijah_bomb_beggar")
-include("scripts.npcs.elijah.elijah_key_beggar") 
-include("scripts.npcs.elijah.elijah_rotten_beggar") 
-include("scripts.npcs.elijah.elijah_battery_beggar")
+include("scripts.entities.slots.elijah.elijah_tech_beggar") 
+include("scripts.entities.slots.elijah.elijah_beggar") 
+include("scripts.entities.slots.elijah.elijah_bomb_beggar")
+include("scripts.entities.slots.elijah.elijah_key_beggar") 
+include("scripts.entities.slots.elijah.elijah_rotten_beggar") 
+include("scripts.entities.slots.elijah.elijah_battery_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
-include("scripts.enemies.mamahorf")
+include("scripts.entities.enemies.mamahorf")
+include("scripts.entities.enemies.horfling")
 ---------------------------------------------------
 --  Somethings that comes with the mod
 ---------------------------------------------------

@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local sfx = SFXManager()
 local game = Game()
-local myBeggar = mod.NPCS.FiendBeggar
+local myBeggar = mod.Entities.FiendBeggar.Var
 local Fragile = require("scripts.effects.fragile")
 mod.FiendRewardsPending = {}
 
@@ -92,7 +92,7 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.OnPickupCollect, PickupVariant.PICKUP_COLLECTIBLE)
 
 function mod:OnPostNewRoom()
-    for _, beggar in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT, mod.NPCS.FiendBeggar, -1, false, false)) do
+    for _, beggar in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT, mod.Entities.FiendBeggar.Var, -1, false, false)) do
         beggar:Remove()
     end
 end
