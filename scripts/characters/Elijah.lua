@@ -111,9 +111,7 @@ local elijahFuncs = {}
 function elijahFuncs:PlayerInit(player)
     if player:GetPlayerType() ~= elijah then return end
 
-    if (player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= elijahStartingItem) then
-        player:SetPocketActiveItem(elijahStartingItem)
-    end
+    player:AddCollectible(elijahStartingItem)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
