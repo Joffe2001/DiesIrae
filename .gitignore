@@ -1,6 +1,7 @@
 ~$funvalues.xlsx
 ~$es Irae.docx
+disable.it
 
-# VSCode LUA config
 .vscode/
+
 .luarc.json

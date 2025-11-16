@@ -102,4 +102,8 @@
     <trinket id="403" name="In a Broken dream"         gfx="trinket_placeholder.png"       description="It's the way to the void"            />
     <trinket id="404" name="Trinket Collector"         gfx="trinket_placeholder.png"       description="I will catch them all"               />
     <trinket id="405" name="Clear Vase"                gfx="trinket_placeholder.png"       description="I don't see anything here"           />
+
+    <!-- Testing.. -->
+    <passive id="1000" name="Corrupted Mantle"         gfx="item_placeholder.png"          description="Holy shield..at a cost"                    quality="3"/>
+
 </items>
