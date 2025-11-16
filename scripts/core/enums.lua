@@ -182,6 +182,8 @@ mod.ElijahNPCs = {
     BatteryBeggarElijah = Isaac.GetEntityVariantByName("Battery Beggar Elijah"),
     RottenBeggarElijah  = Isaac.GetEntityVariantByName("Rotten Beggar Elijah"),
     MomBoxBeggarElijah  = Isaac.GetEntityVariantByName("Mom's Chest Elijah"),
+
+    TreasureBeggarElijah    = Isaac.GetEntityVariantByName("Treasure Beggar Elijah"),
 }
 
 mod.Ghosts ={

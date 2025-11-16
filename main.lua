@@ -156,6 +156,7 @@ include("scripts.npcs.elijah.elijah_bomb_beggar")
 include("scripts.npcs.elijah.elijah_key_beggar") 
 include("scripts.npcs.elijah.elijah_rotten_beggar") 
 include("scripts.npcs.elijah.elijah_battery_beggar")
+include("scripts.npcs.elijah.elijah_treasure_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
