@@ -9,7 +9,7 @@ DiesIraeMod.JSON = require("json")
 
 include("scripts.core.enums")
 include("scripts.core.pools")
--- include("scripts.core.utils")
+include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 
