@@ -59,7 +59,7 @@ local statsDownFuncs = {
     },
 }
 
-
+---@class BeggarUtils
 local beggarFuncs = {}
 
 
@@ -70,16 +70,17 @@ local beggarFuncs = {}
 ---@param beggar EntityNPC
 ---@param player EntityPlayer
 ---@param rewardChance number | nil
+---@return boolean
 function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
     local sprite = beggar:GetSprite()
 
-    if player:GetPlayerType() ~= elijah then return end
-    if not sprite:IsPlaying("Idle") then return end
+    if player:GetPlayerType() ~= elijah then return false end
+    if not sprite:IsPlaying("Idle") then return false end
 
     local rng = beggar:GetDropRNG()
-    local paid = beggarFuncs:DrainElijahStat(player)
+    local paid = beggarFuncs.DrainElijahsWill(player, rng)
 
-    if not paid then return end
+    if not paid then return false end
 
     sfx:Play(SoundEffect.SOUND_SCAMPER)
 
