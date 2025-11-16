@@ -31,7 +31,7 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
 
     local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
     if ok then
-        player:GetSprite():Play("Sad", true)
+        player:PlayExtraAnimation("Sad")
     end
 end
 
