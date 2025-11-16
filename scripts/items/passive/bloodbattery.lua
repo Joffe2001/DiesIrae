@@ -1,22 +1,41 @@
 local mod = DiesIraeMod
-local sfx = SFXManager()
 
-function mod:OnPlayerDamaged_BloodBattery(entity, damageAmount, damageFlags, source, countdownFrames)
+local function DropWeightedBattery(player)
+    local rng = player:GetCollectibleRNG(mod.Items.BloodBattery)
+
+    if rng:RandomFloat() > 0.5 then
+        return
+    end
+    
+    local roll = rng:RandomInt(100)
+    local subtype
+
+    if roll < 55 then
+        subtype = BatterySubType.BATTERY_MICRO
+    elseif roll < 85 then
+        subtype = BatterySubType.BATTERY_NORMAL
+    elseif roll < 97 then
+        subtype = BatterySubType.BATTERY_MEGA
+    else
+        subtype = BatterySubType.BATTERY_GOLDEN
+    end
+
+    Isaac.Spawn(
+        EntityType.ENTITY_PICKUP,
+        PickupVariant.PICKUP_LIL_BATTERY or 0,
+        subtype or 0,
+        player.Position,
+        Vector.Zero,
+        player
+    )
+end
+
+
+function mod:OnPlayerDamaged_BloodBattery(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
     if not player then return end
     if not player:HasCollectible(mod.Items.BloodBattery) then return end
-
-    local totalAdded = 0
-    if player:GetActiveItem(ActiveSlot.SLOT_PRIMARY) > 0 then
-        totalAdded = totalAdded + player:AddActiveCharge(1, ActiveSlot.SLOT_PRIMARY, true, true)
-    end
-    if player:GetActiveItem(ActiveSlot.SLOT_POCKET) > 0 then
-        totalAdded = totalAdded + player:AddActiveCharge(1, ActiveSlot.SLOT_POCKET, true, true)
-    end
-
-    if totalAdded > 0 then
-        sfx:Play(SoundEffect.SOUND_BATTERYCHARGE)
-    else
-    end
+    DropWeightedBattery(player)
 end
+
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.OnPlayerDamaged_BloodBattery, EntityType.ENTITY_PLAYER)

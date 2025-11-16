@@ -1,4 +1,3 @@
----@diagnostic disable: duplicate-doc-field, duplicate-doc-alias, duplicate-set-field
 local Mod = DiesIraeMod
 local emptyShaderName = "HudHelperEmptyShader"
 

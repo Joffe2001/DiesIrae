@@ -313,7 +313,7 @@ mod.EIDescs = {
         [mod.Items.CreatineOverdose] = {
             en_us = { 
                 "↑ +0.2 {{Damage}}Damage",
-                "↑ All bonus damage is amplified by 20%."
+                "↑ 1.2x {{Damage}}Damage multiplier."
             },
             ru = { 
                 "↑ +0.2 {{Damage}}Урона",
@@ -458,7 +458,7 @@ mod.EIDescs = {
                 "Revives Isaac upon death",
                 "{{Heart}} ­ Revives with 2 red heart containers (or 2 {{SoulHeart}} soul hearts).",
                 "{{ArrowUp}} ­ Upon revival, deal 40 damage to all enemies in the room.",
-                "{{Warning}} ­ Also rerolls up to 3 of your passive items into random new passives."
+                "{{Warning}} ­ Also rerolls all of your passive items into random new passives."
             },
         },
         [mod.Items.RewrappingPaper] = {
@@ -477,6 +477,36 @@ mod.EIDescs = {
                 "{{Damage}} +0.4 Damage up",
                 "{{Luck}} +1 Luck up",
                 "{{Chest}} 15% chance for spawned chests to turn into {{WoodenChestRoomIcon}} Wooden Chests",
+            },
+        },
+        [mod.Items.Grudge] = {
+            en_us = { 
+                "When you take damage from an enemy, that enemy type becomes marked",
+                "Enemies of that type take double damage for the rest of the run."
+            },
+        },
+        [mod.Items.BloodBattery] = {
+            en_us = { 
+                "Taking damage has a chance to drop a {{Battery}} battery."
+            },
+        },
+        [mod.Items.DeliriousMind] = {
+            en_us = { 
+                "Isaac gets +0.15 {{Damage}} damage up and {{Tears}} +0.15 tears up for every modded item"
+            },
+        },
+        [mod.Items.CorruptedMantle] = {
+            en_us = { 
+                "{{ArrowUp}}Neglect the first hit in a room",
+                "{{ArrowUp}}+0.1 {{Speed}}speed",
+                "{{ArrowUp}}+3 {{Luck}}luck",
+                "{{ArrowUp}}x1.5 {{Damage}}damage multiplier",
+                "Losing the shield, will lose the x1.5 damage multiplier",
+                "{{Warning}}Taking damage after losing the shield:",
+                "{{ArrowDown}}x0.3 damage multiplier",
+                "{{ArrowDown}}-5 luck",
+                "{{ArrowDown}} Adds 2 {{BrokenHeart}}broken hearts",
+                "The damage multiplier will be reset to x1.5 upon entering a new room"
             },
         },
 		--[[[mod.Items.FriendlessChild] = { --NOT DONE
@@ -632,7 +662,7 @@ mod.EIDescs = {
     
         [mod.Items.GoodVibes] = {
             en_us = {
-                "Transforms all {{Heart}}Red Hearts on the floor into {{SoulHeart}}Soul Hearts"
+                "Transforms all {{Heart}}Red Hearts in the room into {{SoulHeart}}Soul Hearts"
             },
             ru = {
                 "Превращает все {{Heart}}Красные Сердца на полу в {{SoulHeart}}Сердца Душ"
@@ -694,6 +724,11 @@ mod.EIDescs = {
                 "Открывает все двери",
                 "Разрушает все камни в комнате"
             }
+        },
+        [mod.Items.PersonalBeggar] = {
+            en_us = {
+                "Spawns a random Beggar",
+            },
         },
 	},
 --------------------------------------------------------
@@ -806,14 +841,19 @@ mod.EIDescs = {
         },
         [mod.Trinkets.SecondBreakfast] = {
             en_us = {
-                "Doubles the effect of all food-related items #+2x health or stat boosts from food items."
+                "When collecting a food item, spawns a second one"
             }
         },
-        --[[[mod.Trinkets.BrokenDream] = { --NOT DONE
+        [mod.Trinkets.Papercut] = {
             en_us = {
-                "Description for In a Broken Dream"
+                "Using a card causes all enemies to bleed"
             }
-        }]]
+        },
+        [mod.Trinkets.TarotBattery] = {
+            en_us = {
+                "Using a card adds +1 charge to the active item"
+            }
+        },
 	},
 --------------------------------------------------------
 --Cards/Runes

@@ -56,6 +56,8 @@ mod.Items = {
     CoolStick            = Isaac.GetItemIdByName("Cool Stick"),
     Grudge               = Isaac.GetItemIdByName("Grudge"),
     BloodBattery         = Isaac.GetItemIdByName("Blood Battery"),
+    CorruptedMantle      = Isaac.GetItemIdByName("Corrupted Mantle"),
+    DeliriousMind        = Isaac.GetItemIdByName("Delirious Mind"),
 
     -- Familiars
     ParanoidAndroid      = Isaac.GetItemIdByName("Paranoid Android"),
@@ -98,11 +100,9 @@ mod.Items = {
     Corona               = Isaac.GetItemIdByName("Corona"),
     TGS                  = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap        = Isaac.GetItemIdByName("Challenger Map"),
-    DeliriousMind        = Isaac.GetItemIdByName("Delirious Mind"),
 
     D8055                = Isaac.GetItemIdByName("D8055"),
 
-    CorruptedMantle      = Isaac.GetItemIdByName("Corrupted Mantle"),
 
 }
 
@@ -175,15 +175,15 @@ mod.NPCS = {
 }
 
 mod.ElijahNPCs = {
-    TechBeggarElijah    = Isaac.GetEntityVariantByName("Tech Beggar Elijah"),
-    BeggarElijah        = Isaac.GetEntityVariantByName("Beggar Elijah"),
-    BombBeggarElijah    = Isaac.GetEntityVariantByName("Bomb Beggar Elijah"),
-    KeyBeggarElijah     = Isaac.GetEntityVariantByName("Key Beggar Elijah"),
-    BatteryBeggarElijah = Isaac.GetEntityVariantByName("Battery Beggar Elijah"),
-    RottenBeggarElijah  = Isaac.GetEntityVariantByName("Rotten Beggar Elijah"),
-    MomBoxBeggarElijah  = Isaac.GetEntityVariantByName("Mom's Chest Elijah"),
-
-    TreasureBeggarElijah    = Isaac.GetEntityVariantByName("Treasure Beggar Elijah"),
+    TechBeggarElijah     = Isaac.GetEntityVariantByName("Tech Beggar Elijah"),
+    BeggarElijah         = Isaac.GetEntityVariantByName("Beggar Elijah"),
+    BombBeggarElijah     = Isaac.GetEntityVariantByName("Bomb Beggar Elijah"),
+    KeyBeggarElijah      = Isaac.GetEntityVariantByName("Key Beggar Elijah"),
+    BatteryBeggarElijah  = Isaac.GetEntityVariantByName("Battery Beggar Elijah"),
+    RottenBeggarElijah   = Isaac.GetEntityVariantByName("Rotten Beggar Elijah"),
+    MomBoxBeggarElijah   = Isaac.GetEntityVariantByName("Mom's Chest Elijah"),
+    TreasureBeggarElijah = Isaac.GetEntityVariantByName("Treasure Beggar Elijah"),
+    ShopBeggarElijah     = Isaac.GetEntityVariantByName("Shop Beggar Elijah"),
 }
 
 mod.Ghosts ={

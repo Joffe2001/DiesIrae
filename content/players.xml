@@ -40,6 +40,7 @@
         firedelaymodifier="0"
         bombs="1"
         keys="1"
+        birthright="Stronger Will"
     />
     <player name="Bat Kol"
         skin="batkol_spritesheet.png"

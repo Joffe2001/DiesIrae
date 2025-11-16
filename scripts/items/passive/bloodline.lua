@@ -41,5 +41,4 @@ function mod:OnEnemyTakeDamage_bloodline(entity, damageAmount, damageFlags, dama
 
     mod._BloodlineActive = false
 end
-
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.OnEnemyTakeDamage_bloodline)

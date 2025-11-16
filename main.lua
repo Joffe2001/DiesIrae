@@ -97,6 +97,7 @@ include("scripts.items.passive.filthyrich")
 include("scripts.items.passive.grudge")
 include("scripts.items.passive.coolstick")
 include("scripts.items.passive.bloodbattery") 
+include("scripts.items.passive.corruptedmantle")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
@@ -157,6 +158,7 @@ include("scripts.npcs.elijah.elijah_key_beggar")
 include("scripts.npcs.elijah.elijah_rotten_beggar") 
 include("scripts.npcs.elijah.elijah_battery_beggar")
 include("scripts.npcs.elijah.elijah_treasure_beggar")
+include("scripts.npcs.elijah.elijah_shop_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
@@ -184,4 +186,3 @@ include("scripts.core.voidlost")
 --include("scripts.items.pickup.burningheart")
 --include("scripts.Challenges.sound_of_silence")
 --include("scripts.npcs.elijah.elijah_mom_beggar")
-include("scripts.items.passive.corruptedmantle")

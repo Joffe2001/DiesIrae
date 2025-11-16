@@ -46,9 +46,11 @@
     <passive id="44" name="Cool Stick"                 gfx="coolstick.png"                 description="My only and true friend"                     quality="2" />
     <passive id="45" name="Grudge"                     gfx="item_placeholder.png"          description="I shall never forget that"                   quality="2" tags="nolostbr"/>
     <passive id="46" name="Blood Battery"              gfx="item_placeholder.png"          description="Blood is fuel"                               quality="2" tags="nolostbr"/>
+    <passive id="47" name="Corrupted Mantle"           gfx="item_placeholder.png"          description="Holy shield..at a cost"                      quality="3"/>
+    <passive id="48" name="Delirious Mind"             gfx="item_placeholder.png"          description="Why is this exist?"                          quality="2"/>
     <!-- Familiars -->
-    <familiar id="47" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="48" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="49" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="50" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive" achievement="Army of Lovers" />
@@ -91,7 +93,6 @@
     <passive id="315" name="Hit List"                  gfx="item_placeholder.png"          description="Need to grind"                              quality="2"/>
     <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"               quality="2"/>
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
-    <passive id="318" name="Delirious Mind"            gfx="item_placeholder.png"          description="Why is this exist?"                       quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
 
     <active id="500"  name="D8055"                     gfx="active_placeholder"            description="Another one would bother me"                quality="1" maxcharges="6" chargetype="normal" />
@@ -103,7 +104,5 @@
     <trinket id="404" name="Trinket Collector"         gfx="trinket_placeholder.png"       description="I will catch them all"               />
     <trinket id="405" name="Clear Vase"                gfx="trinket_placeholder.png"       description="I don't see anything here"           />
 
-    <!-- Testing.. -->
-    <passive id="1000" name="Corrupted Mantle"         gfx="item_placeholder.png"          description="Holy shield..at a cost"                    quality="3"/>
 
 </items>

@@ -44,6 +44,7 @@
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Rewrapping Paper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Delirious Mind" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="shop">
@@ -281,6 +282,7 @@
         <Item Name="Flowering Skull" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Delirious Mind" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedAngel">

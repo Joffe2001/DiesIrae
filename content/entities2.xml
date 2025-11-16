@@ -75,7 +75,10 @@
     <entity id="6" variant="228" name="Treasure Beggar Elijah" anm2path="npc/Elijahnpc/treasure_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-<!--CONSUMABLES--> 
+    <entity id="6" variant="229" name="Shop Beggar Elijah" anm2path="npc/Elijahnpc/shop_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
+    </entity>
+<!--CONSUMABLES-->
 
 <!--Runes and such-->
     <entity id="5" variant="300" name="Locacaca" anm2path="items/pocketitems/Locacaca.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" subtype="900">
