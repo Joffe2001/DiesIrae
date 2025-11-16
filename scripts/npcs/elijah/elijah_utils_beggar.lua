@@ -82,15 +82,17 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
 
     if not paid then return false end
 
+    player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+
     sfx:Play(SoundEffect.SOUND_SCAMPER)
 
     if rng:RandomFloat() > (rewardChance or BASE_REWARD_CHANCES) then
         sprite:Play("PayPrize")
-        return true
     else
         sprite:Play("PayNothing")
-        return false
     end
+
+    return true
 end
 
 
@@ -114,7 +116,7 @@ function beggarFuncs.DrainElijahsWill(player, rng)
     if #canGoDown == 0 then return false end
 
     local pick = canGoDown[rng:RandomInt(#canGoDown) + 1]
-    pick.fun(data)
+    pick.func(data)
     return true
 end
 
