@@ -47,6 +47,10 @@ local spawnElijahWill = {
     [PickupVariant.PICKUP_COIN] = elijahWill,
 }
 
+local ItemRoomBeggar = {
+    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah
+}
+
 ---@alias statUpFun fun(data: table): string
 ---@type statUpFun[]
 local statsUpFuncs = {
@@ -200,3 +204,21 @@ function elijahFuncs:PreEntitySpawn(type, variant, subtype, _, _, _, seed)
 end
 
 mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
+
+
+---Replace pedestals by the correct beggar
+function elijahFuncs:PostNewRoom()
+    local roomType = game:GetRoom():GetType()
+    local beggar = ItemRoomBeggar[roomType]
+    if beggar == nil then return end
+    for _, entity in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
+        local ped = entity:ToPickup()
+        if not ped then return end
+
+        local pos = ped.Position
+        ped:Remove()
+        Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, Vector.Zero, nil)
+    end
+
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
