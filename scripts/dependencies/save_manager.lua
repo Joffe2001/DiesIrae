@@ -2,6 +2,7 @@
 -- Check out everything here: https://github.com/catinsurance/IsaacSaveManager/
 
 local game = Game()
+---@class SaveManager
 local SaveManager = {}
 SaveManager.VERSION = "2.3.2"
 SaveManager.Utility = {}

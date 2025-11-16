@@ -1,7 +1,9 @@
 ---@class ModReference
 DiesIraeMod = RegisterMod("Dies Irae", 1)
 
+---@class SaveManager
 local saveManager = include("path.to.save.manager")
+saveManager.Init(DiesIraeMod)
 
 DiesIraeMod.JSON = require("json")
 
