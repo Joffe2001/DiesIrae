@@ -51,7 +51,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 ---Delete Elijah's Will if not playing Elijah.
 ---@param pickup EntityPickup
 function elijahFuncs:OnPickupInit(pickup)
-    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    if PlayerManager.AnyoneIsPlayerType(elijah) then return end
     pickup:Remove()
 end
 
