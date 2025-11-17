@@ -214,3 +214,39 @@ local function OnNewRun_KingsHeart(_, reenter)
     hasUnlockedKingsHeart = false
 end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_KingsHeart)
+
+
+------------------------------------------------------
+---                 Unlock function                ---
+------------------------------------------------------
+---
+function mod:DebugUnlock(cmd, params)
+    if cmd ~= "DIunlock" then
+        return 
+    end
+
+    local pdata = Isaac.GetPersistentGameData()
+    local argument = params:lower():gsub("^%s+", ""):gsub("%s+$", "")
+
+    if argument == "unlockall" then
+        for name, id in pairs(mod.Achievements) do
+            if id and id > 0 then
+                pdata:TryUnlock(id)
+                print("[DI] Unlocked: " .. name)
+            end
+        end
+        print("[DI] All achievements unlocked.")
+        return
+    end
+
+    for name, id in pairs(mod.Achievements) do
+        local alias = name:lower():gsub("_", " ")
+        if argument == name:lower() or argument == alias then
+            pdata:TryUnlock(id)
+            print("[DI] Unlocked: " .. name)
+            return
+        end
+    end
+    print("[DI] ERROR: Achievement '" .. params .. "' not found.")
+end
+mod:AddCallback(ModCallbacks.MC_EXECUTE_CMD, mod.DebugUnlock)

@@ -242,3 +242,4 @@ mod.Achievements = {
     --- Trinkets unlocks 
     Gaga                  = Isaac.GetAchievementIdByName("Gaga"),
 }
+

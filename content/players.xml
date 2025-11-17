@@ -42,13 +42,4 @@
         keys="1"
         birthright="Stronger Will"
     />
-    <player name="Bat Kol"
-        skin="batkol_spritesheet.png"
-        nameimage="batkol.png"
-        hp="4"
-        rottenhearts="1"
-        portrait="elijah.png"
-        skinColor="-1"
-        canShoot="false"
-    />
 </players>
