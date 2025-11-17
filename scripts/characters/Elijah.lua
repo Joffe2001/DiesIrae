@@ -231,15 +231,10 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
 ---Replace shop with beggars
 function elijahFuncs:PostNewRoomShop()
-    local player = Isaac.GetPlayer(0)
-    if player:GetPlayerType() ~= mod.Players.Elijah then
-        return
-    end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
     local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_SHOP then
-        return
-    end
+    if room:GetType() ~= RoomType.ROOM_SHOP then return end
 
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent.Type == EntityType.ENTITY_PICKUP
@@ -268,13 +263,13 @@ function elijahFuncs:PostNewRoomShop()
     local index = 0
 
 
-    for i = 1, numShopBeggars do
+    for _ = 1, numShopBeggars do
         local pos = center + Vector.FromAngle(index * angleStep) * radius
         spawnBeggar(mod.ElijahNPCs.ShopBeggarElijah, pos)
         index = index + 1
     end
 
-    for i = 1, extraBeggars do
+    for _ = 1, extraBeggars do
         local variant = randomPool[math.random(#randomPool)]
         local pos = center + Vector.FromAngle(index * angleStep) * radius
         spawnBeggar(variant, pos)
