@@ -49,7 +49,8 @@ local spawnElijahWill = {
 }
 
 local ItemRoomBeggar = {
-    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah
+    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah,
+    [RoomType.ROOM_SHOP]     = mod.ElijahNPCs.ShopBeggarElijah
 }
 
 ---@alias statUpFun fun(data: table): string
@@ -228,3 +229,57 @@ function elijahFuncs:PostNewRoom()
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
+
+---Replace shop with beggars
+function elijahFuncs:PostNewRoomShop()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.Elijah then
+        return
+    end
+
+    local room = game:GetRoom()
+    if room:GetType() ~= RoomType.ROOM_SHOP then
+        return
+    end
+
+    for _, ent in ipairs(Isaac.GetRoomEntities()) do
+        if ent.Type == EntityType.ENTITY_PICKUP
+        or ent.Type == EntityType.ENTITY_SHOPKEEPER
+        or ent.Type == EntityType.ENTITY_SLOT then 
+            ent:Remove()
+        end
+    end
+
+    local numShopBeggars = math.random(2, 3)
+    local extraBeggars   = math.random(3, 4)
+
+    local randomPool = {
+        mod.ElijahNPCs.BatteryBeggarElijah,
+        mod.ElijahNPCs.KeyBeggarElijah,
+        mod.ElijahNPCs.BombBeggarElijah
+    }
+
+    local function spawnBeggar(variant, pos)
+        Isaac.Spawn(EntityType.ENTITY_SLOT, variant, 0, pos, Vector.Zero, nil)
+    end
+
+    local center = room:GetCenterPos()
+    local radius = 90  
+    local angleStep = 360 / (numShopBeggars + extraBeggars)
+    local index = 0
+
+
+    for i = 1, numShopBeggars do
+        local pos = center + Vector.FromAngle(index * angleStep) * radius
+        spawnBeggar(mod.ElijahNPCs.ShopBeggarElijah, pos)
+        index = index + 1
+    end
+
+    for i = 1, extraBeggars do
+        local variant = randomPool[math.random(#randomPool)]
+        local pos = center + Vector.FromAngle(index * angleStep) * radius
+        spawnBeggar(variant, pos)
+        index = index + 1
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoomShop)
