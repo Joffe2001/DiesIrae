@@ -225,7 +225,9 @@ function elijahFuncs:PostNewRoom()
         Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, Vector.Zero, nil)
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
+
 
 ---Replace shop with beggars
 function elijahFuncs:PostNewRoomShop()
@@ -241,8 +243,8 @@ function elijahFuncs:PostNewRoomShop()
 
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent.Type == EntityType.ENTITY_PICKUP
-        or ent.Type == EntityType.ENTITY_SHOPKEEPER
-        or ent.Type == EntityType.ENTITY_SLOT then 
+            or ent.Type == EntityType.ENTITY_SHOPKEEPER
+            or ent.Type == EntityType.ENTITY_SLOT then
             ent:Remove()
         end
     end
@@ -250,7 +252,7 @@ function elijahFuncs:PostNewRoomShop()
     local numShopBeggars = math.random(2, 3)
     local extraBeggars   = math.random(3, 4)
 
-    local randomPool = {
+    local randomPool     = {
         mod.ElijahNPCs.BatteryBeggarElijah,
         mod.ElijahNPCs.KeyBeggarElijah,
         mod.ElijahNPCs.BombBeggarElijah
@@ -261,7 +263,7 @@ function elijahFuncs:PostNewRoomShop()
     end
 
     local center = room:GetCenterPos()
-    local radius = 90  
+    local radius = 90
     local angleStep = 360 / (numShopBeggars + extraBeggars)
     local index = 0
 
@@ -279,4 +281,5 @@ function elijahFuncs:PostNewRoomShop()
         index = index + 1
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoomShop)
