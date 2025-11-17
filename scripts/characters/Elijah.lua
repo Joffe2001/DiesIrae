@@ -210,10 +210,7 @@ mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
 
 ---Replace pedestals by the correct beggar
 function elijahFuncs:PostNewRoom()
-    local player = Isaac.GetPlayer(0)
-    if player:GetPlayerType() ~= mod.Players.Elijah then
-        return
-    end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
     local roomType = game:GetRoom():GetType()
     local beggar = ItemRoomBeggar[roomType]
