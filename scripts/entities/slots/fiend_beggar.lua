@@ -1,11 +1,11 @@
 local mod = DiesIraeMod
 local sfx = SFXManager()
 local game = Game()
-local myBeggar = mod.Entities.FiendBeggar.Var
+local myBeggar = mod.Entities.BEGGAR_Fiend.Var
 local Fragile = require("scripts.effects.fragile")
 mod.FiendRewardsPending = {}
 
-function mod:FiendBeggarUpdate(beggar)
+function mod:BEGGAR_FiendUpdate(beggar)
     local sprite = beggar:GetSprite()
     local data = beggar:GetData()
     local player = Isaac.GetPlayer(0)
@@ -26,9 +26,9 @@ function mod:FiendBeggarUpdate(beggar)
         data.HasTriggered = true
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.FiendBeggarUpdate, myBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.BEGGAR_FiendUpdate, myBeggar)
 
-function mod:FiendBeggarExploded(beggar)
+function mod:BEGGAR_FiendExploded(beggar)
     local player = Isaac.GetPlayer(0)
     if player then
         player:TakeDamage(2, DamageFlag.DAMAGE_EXPLOSION, EntityRef(beggar), 0)
@@ -40,7 +40,7 @@ function mod:FiendBeggarExploded(beggar)
     beggar:Remove()
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.FiendBeggarExploded, myBeggar)
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.BEGGAR_FiendExploded, myBeggar)
 
 function mod:OnNewFloor()
     local level = game:GetLevel()
@@ -92,7 +92,7 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.OnPickupCollect, PickupVariant.PICKUP_COLLECTIBLE)
 
 function mod:OnPostNewRoom()
-    for _, beggar in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT, mod.Entities.FiendBeggar.Var, -1, false, false)) do
+    for _, beggar in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT, mod.Entities.BEGGAR_Fiend.Var, -1, false, false)) do
         beggar:Remove()
     end
 end

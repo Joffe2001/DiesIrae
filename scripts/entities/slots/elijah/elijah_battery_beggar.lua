@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
-local beggar = mod.Entities.BatteryBeggarElijah.Var
+local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
 
 -- Payout chances
 local chanceCharge = 0.8125

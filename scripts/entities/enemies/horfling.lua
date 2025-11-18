@@ -10,7 +10,7 @@ local gfx = {
 }
 
 function mod:HorflingInit(horf)
-	if horf.Variant ~= mod.Entities.Horfling.Var then return end
+	if horf.Variant ~= mod.Entities.NPC_Horfling.Var then return end
 
     horf.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
     horf.State = NpcState.STATE_IDLE
@@ -21,10 +21,10 @@ function mod:HorflingInit(horf)
 	end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.HorflingInit, mod.Entities.Horfling.Type)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.HorflingInit, mod.Entities.NPC_Horfling.Type)
 
 function mod:HorflingUpdate(horf)
-	if horf.Variant ~= mod.Entities.Horfling.Var then return end
+	if horf.Variant ~= mod.Entities.NPC_Horfling.Var then return end
 
     local data = mod.Utils:GetData(horf)
 	local sprite = horf:GetSprite()
@@ -68,20 +68,20 @@ function mod:HorflingUpdate(horf)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.HorflingUpdate, mod.Entities.Horfling.Type)
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.HorflingUpdate, mod.Entities.NPC_Horfling.Type)
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_COLLISION, function(_, horf)
-    if horf.Variant ~= mod.Entities.Horfling.Var then return end
+    if horf.Variant ~= mod.Entities.NPC_Horfling.Var then return end
 
     if mod.Utils:GetData(horf).shoot_vel then
         mod.Utils:GetData(horf).shoot_vel = nil
     end
-end, mod.Entities.Horfling.Type)
+end, mod.Entities.NPC_Horfling.Type)
 
 mod:AddCallback(ModCallbacks.MC_NPC_GRID_COLLISION, function(_, horf, _, grid)
-    if not (horf.Variant == mod.Entities.Horfling.Var and grid) then return end
+    if not (horf.Variant == mod.Entities.NPC_Horfling.Var and grid) then return end
 
     if mod.Utils:GetData(horf).shoot_vel then
         mod.Utils:GetData(horf).shoot_vel = nil
     end
-end, mod.Entities.Horfling.Type)
+end, mod.Entities.NPC_Horfling.Type)

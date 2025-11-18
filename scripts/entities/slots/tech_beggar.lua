@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
-local myBeggar = mod.Entities.TechBeggar.Var
+local myBeggar = mod.Entities.BEGGAR_Tech.Var
 
 
 local payChance = 0.8
@@ -26,7 +26,7 @@ local techPool = {
     }
 }
 
-function mod:TechBeggarCollision(beggar, collider, low)
+function mod:BEGGAR_TechCollision(beggar, collider, low)
     if not collider:ToPlayer() then return end
     local player = collider:ToPlayer()
     local sprite = beggar:GetSprite()
@@ -52,9 +52,9 @@ function mod:TechBeggarCollision(beggar, collider, low)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.TechBeggarCollision, myBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.BEGGAR_TechCollision, myBeggar)
 
-function mod:TechBeggarUpdate(beggar)
+function mod:BEGGAR_TechUpdate(beggar)
     local sprite = beggar:GetSprite()
     local data = beggar:GetData()
     local player = Isaac.GetPlayer(0)
@@ -66,7 +66,7 @@ function mod:TechBeggarUpdate(beggar)
     if sprite:IsPlaying("Idle") and math.random() < 0.0005 then
         sprite:Play("Waiting")
         if not data.HasPlayedWaitingMusic then
-            music:Play(mod.Music.TechBeggarWaiting)
+            music:Play(mod.Music.BEGGAR_TechWaiting)
             data.HasPlayedWaitingMusic = true
         end
     end
@@ -103,7 +103,7 @@ function mod:TechBeggarUpdate(beggar)
         beggar:Remove()
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, myBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.BEGGAR_TechUpdate, myBeggar)
 
 
 
@@ -131,7 +131,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.TechXTimerUpdate)
 
 
-function mod:TechBeggarExploded(beggar)
+function mod:BEGGAR_TechExploded(beggar)
     for i = 1, 2 do
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, 1,
             beggar.Position + RandomVector() * 20, RandomVector() * 3, beggar)
@@ -142,4 +142,4 @@ function mod:TechBeggarExploded(beggar)
     beggar:Remove()
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.TechBeggarExploded, myBeggar)
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.BEGGAR_TechExploded, myBeggar)

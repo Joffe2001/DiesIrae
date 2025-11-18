@@ -1,5 +1,5 @@
 local mod = DiesIraeMod
-local heartVariant = mod.Entities.BurningHeart.Var
+local heartVariant = mod.Entities.PICKUP_BurningHeart.Var
 local HeartColors = {"blue", "dark_blue", "white", "purple", "orange", "yellow"}
 
 function mod:OnBurningHeartInit(pickup)

@@ -10,7 +10,7 @@ function mod:FiendDeal()
     local room = game:GetRoom()
     local spawnPos = Vector(room:GetTopLeftPos().X + 20, room:GetTopLeftPos().Y + 20)
 
-    Isaac.Spawn(6, mod.EntityVariant.FiendBeggar, 0, spawnPos, Vector(0, 0), player):ToNPC()
+    Isaac.Spawn(6, mod.Entities.BEGGAR_Fiend.Var, 0, spawnPos, Vector(0, 0), player):ToNPC()
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.FiendDeal)

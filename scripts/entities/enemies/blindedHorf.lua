@@ -6,7 +6,7 @@ local ATTACK_COOLDOWN = 120
 
 ---@param MamaHorf EntityNPC
 function mod:MamaHorfUpdate(MamaHorf)
-    if MamaHorf.Variant ~= mod.Entities.MamaHorf.Var then return end
+    if MamaHorf.Variant ~= mod.Entities.NPC_MamaHorf.Var then return end
 
     local sprite = MamaHorf:GetSprite()
     local target = MamaHorf:GetPlayerTarget()
@@ -29,7 +29,7 @@ function mod:MamaHorfUpdate(MamaHorf)
             if dirToPlayer:Length() < ATTACK_RANGE then
                 local cnt = 0
 
-                for _, horf in ipairs(Isaac.FindByType(mod.Entities.Horfling.Type, mod.Entities.Horfling.Var)) do
+                for _, horf in ipairs(Isaac.FindByType(mod.Entities.NPC_Horfling.Type, mod.Entities.NPC_Horfling.Var)) do
                     if GetPtrHash(horf.Parent) == GetPtrHash(MamaHorf) then
                         cnt = cnt + 1
                     end
@@ -46,8 +46,8 @@ function mod:MamaHorfUpdate(MamaHorf)
     if MamaHorf.State == NpcState.STATE_ATTACK then
         if sprite:IsEventTriggered("Shoot") then
             local vel = dirToPlayer:Resized(SPEED)
-            local horfling = Isaac.Spawn(mod.Entities.Horfling.Type,
-                                        mod.Entities.Horfling.Var,
+            local horfling = Isaac.Spawn(mod.Entities.NPC_Horfling.Type,
+                                        mod.Entities.NPC_Horfling.Var,
                                         math.random(0, 2),
                                         MamaHorf.Position + dirToPlayer:Resized(30),
                                         vel,
@@ -64,4 +64,4 @@ function mod:MamaHorfUpdate(MamaHorf)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.MamaHorfUpdate, mod.Entities.MamaHorf.Type)
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.MamaHorfUpdate, mod.Entities.NPC_MamaHorf.Type)
