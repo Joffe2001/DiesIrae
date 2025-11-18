@@ -9,7 +9,7 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 ---
 
 local BASE_REWARD_CHANCES = 0.33
-local BEGGAR_ITEM_POOL = ItemPoolType.POOL_SHOP
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_KEY_MASTER
 local BEGGAR_PICKUP = PickupVariant.PICKUP_KEY
 
 --- Definitions
