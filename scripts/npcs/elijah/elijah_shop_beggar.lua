@@ -16,6 +16,14 @@ local BEGGAR_ITEM_POOL = ItemPoolType.POOL_SHOP
 
 local beggar = mod.ElijahNPCs.ShopBeggarElijah
 
+---@type beggarEventPool
+local beggarEvents = {
+    [1] = function(beggarEntity)
+        beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+        return true
+    end
+}
+
 local beggarFuncs = {}
 
 
@@ -40,7 +48,7 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollisi
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, BEGGAR_ITEM_POOL)
+    beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
