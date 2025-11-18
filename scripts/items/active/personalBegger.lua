@@ -28,7 +28,7 @@ local beggarTypes = {
     {Type = EntityType.ENTITY_SLOT, Variant = SV.BATTERY_BUM},
     {Type = EntityType.ENTITY_SLOT, Variant = SV.ROTTEN_BEGGAR},
     {Type = EntityType.ENTITY_SLOT, Variant = SV.DEVIL_BEGGAR},
-    {Type = EntityType.ENTITY_SLOT, Variant = mod.NPCS.TechBeggar} 
+    {Type = EntityType.ENTITY_SLOT, Variant = mod.Entities.BEGGAR_Tech.Var} 
 }
 
 function PersonalBeggar:UseItem(_, rng, player)

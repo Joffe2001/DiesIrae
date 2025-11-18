@@ -14,7 +14,7 @@ local BEGGAR_ITEM_POOL = ItemPoolType.POOL_TREASURE
 --- Definitions
 ---
 
-local beggar = mod.ElijahNPCs.TreasureBeggarElijah
+local beggar = mod.Entities.BEGGAR_TreasureElijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {

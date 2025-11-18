@@ -12,7 +12,7 @@ function ParanoidAndroid:onCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_FAMILIARS then
         local count = player:GetCollectibleNum(mod.Items.ParanoidAndroid)
         player:CheckFamiliar(
-            mod.Familiars.ParanoidAndroid,
+            mod.Entities.FAMILIAR_ParanoidAndroid.Var,
             count,
             RNG(),
             Isaac.GetItemConfig():GetCollectible(mod.Items.ParanoidAndroid)
@@ -51,7 +51,7 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
         if not familiar:GetData().Ring or not familiar:GetData().Ring:Exists() then
             local ring = Isaac.Spawn(
                 EntityType.ENTITY_EFFECT,
-                mod.Familiars.AndroidLazerRing,
+                mod.Entities.EFFECT_AndroidLazerRing.Var,
                 0,
                 familiar.Position,
                 Vector.Zero,
@@ -110,9 +110,9 @@ function ParanoidAndroid:onRingUpdate(effect)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, ParanoidAndroid.onCache)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, ParanoidAndroid.onFamiliarInit, mod.Familiars.ParanoidAndroid)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdate, mod.Familiars.ParanoidAndroid)
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate, mod.Familiars.AndroidLazerRing)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, ParanoidAndroid.onFamiliarInit, mod.Entities.FAMILIAR_ParanoidAndroid.Var)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdate, mod.Entities.FAMILIAR_ParanoidAndroid.Var)
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate, mod.Entities.EFFECT_AndroidLazerRing.Var)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.ParanoidAndroid, "Dad's Playlist")

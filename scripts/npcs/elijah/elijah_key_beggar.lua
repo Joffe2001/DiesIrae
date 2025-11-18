@@ -15,7 +15,7 @@ local BEGGAR_PICKUP = PickupVariant.PICKUP_KEY
 --- Definitions
 ---
 
-local beggar = mod.ElijahNPCs.KeyBeggarElijah
+local beggar = mod.Entities.BEGGAR_KeyElijah
 
 ---@type beggarEventPool
 local beggarEvents = {

@@ -1,4 +1,12 @@
 <data>
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/tech_beggar.png" Name="Fiend Beggar" Subtype="0" Variant="121" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/guppy_beggar.png" Name="Guppy Beggar" Subtype="0" Variant="122" />
+    <entity Image="icons/Enemies/blinded_horf.png" Name="Blinded Horf" ID="400" Subtype="0" Variant="1" BaseHP="70" Group="Monsters" Kind="Dies Irae"/>
+    <entity Image="icons/Enemies/horfling.png" Name="Horfling" ID="400" Subtype="0" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae">
+        <bitfield Key="Subtype">
+            <spinner Length="2" Minimum="0" Maximum="2" Name="Variant">
+                <tooltip>Sprite variant of The Horfling</tooltip>
+            </spinner>
+        </bitfield>
+    </entity>
 </data> 

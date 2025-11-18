@@ -9,7 +9,7 @@ DiesIraeMod.JSON = require("json")
 
 include("scripts.core.enums")
 include("scripts.core.pools")
-include("scripts.core.utils")
+DiesIraeMod.Utils = include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 
@@ -162,7 +162,8 @@ include("scripts.npcs.elijah.elijah_shop_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
-include("scripts.enemies.mamahorf")
+include("scripts.enemies.blindedHorf")
+include("scripts.enemies.horfling")
 ---------------------------------------------------
 --  Somethings that comes with the mod
 ---------------------------------------------------

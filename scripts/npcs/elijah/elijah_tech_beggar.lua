@@ -2,7 +2,7 @@ local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
 local sfx = SFXManager()
-local TechBeggar = mod.ElijahNPCs.TechBeggarElijah
+local TechBeggar = mod.Entities.BEGGAR_TechElijah.Var
 
 local payChance = 0.8
 local prizeChance = 0.2
