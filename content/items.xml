@@ -2,7 +2,7 @@
     <!-- Passive items -->
     <passive id="1"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2" />
     <passive id="2"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
-    <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="1" tags="nolostbr"          achievement="The Bad Touch" />
+    <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="2" tags="nolostbr"          achievement="The Bad Touch" />
     <passive id="4"  name="Universal"                  gfx="universal.png"                 description="Woo hoo!!"                                   quality="3"                          achievement="Universal" />
     <passive id="5"  name="Ring of Fire"               gfx="ring_of_fire.png"              description="Burn it down"                                quality="1" tags="nolostbr"          achievement="Ring of Fire" />
     <passive id="6"  name="Still Standing"             gfx="item_placeholder.png"          description="Feelin' like a true survivor"                quality="1" tags="nolostbr" />    

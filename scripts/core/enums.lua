@@ -206,6 +206,7 @@ mod.Achievements = {
     --- Characters 
     David                 = Isaac.GetAchievementIdByName("David"),
     T_David               = Isaac.GetAchievementIdByName("Tainted David"),
+    Elijah                = Isaac.GetAchievementIdByName("Elijah"),
     --- David's unlocks 
     ArmyOfLovers          = Isaac.GetAchievementIdByName("Army of Lovers"),
     TheBadTouch           = Isaac.GetAchievementIdByName("The Bad Touch"),
