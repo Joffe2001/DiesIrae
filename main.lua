@@ -162,7 +162,8 @@ include("scripts.npcs.elijah.elijah_shop_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
-include("scripts.enemies.mamahorf")
+include("scripts.enemies.blindedHorf")
+include("scripts.enemies.horfling")
 ---------------------------------------------------
 --  Somethings that comes with the mod
 ---------------------------------------------------
