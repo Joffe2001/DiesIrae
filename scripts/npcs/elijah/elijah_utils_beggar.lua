@@ -132,12 +132,14 @@ function beggarFuncs.SpawnItemFromPool(beggarEntity, itemPool)
         Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
 end
 
+
 ---@param beggarEntity EntityNPC
 ---@param pickupVariant PickupVariant
 function beggarFuncs.SpawnPickup(beggarEntity, pickupVariant)
     Isaac.Spawn(EntityType.ENTITY_PICKUP, pickupVariant, 0,
         Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
 end
+
 
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
@@ -161,13 +163,18 @@ function beggarFuncs.StateMachine(beggarEntity, pool)
         local BeggarEvent = utils.WeightedRandom(pool, rng)
         local shouldTeleport = BeggarEvent(beggarEntity)
 
-        if shouldTeleport then sprite:Play("Teleport") end
+        if shouldTeleport then
+            sprite:Play("Teleport")
+        else
+            sprite:Play("Idle")
+        end
     end
 
     if sprite:IsFinished("Teleport") then
         beggarEntity:Remove()
     end
 end
+
 
 ---SFX BOOM then remove the beggar
 ---@param beggar EntityNPC
