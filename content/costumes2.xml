@@ -17,6 +17,7 @@
     <!--Characters costumes-->
     <costume id="1000" anm2path="david_hair.anm2" type="none" priority="800"/>
     <costume id="1001" anm2path="tdavid_hair.anm2" type="none" priority="800"/>
+    <costume id="1002" anm2path="elijah_hair.anm2" type="none" priority="800"/>
     <!--Transformations-->
     <costume id="2000" anm2path="dads_playlist.anm2" type="none" priority="700" />
     <costume id="2001" anm2path="isaac_playlist.anm2" type="none" priority="700" />
