@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
-local myBeggar = mod.NPCS.TechBeggar
+local myBeggar = mod.Entities.BEGGAR_Tech.Var
 
 
 local payChance = 0.8

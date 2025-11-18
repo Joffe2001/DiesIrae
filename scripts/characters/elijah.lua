@@ -27,19 +27,19 @@ WILL_LUCK_UP = 0.5
 local elijah = mod.Players.Elijah
 
 ---@type PickupVariant
-local elijahWill = mod.Pickups.ElijahsWill
+local elijahWill = mod.Entities.PICKUP_ElijahsWill.Var
 
 ---@type CollectibleType
 local elijahStartingItem = mod.Items.PersonalBeggar
 
 local customBeggar = {
-    [SlotVariant.BEGGAR] = mod.ElijahNPCs.BeggarElijah,
-    [mod.NPCS.TechBeggar] = mod.ElijahNPCs.TechBeggarElijah,
-    [SlotVariant.BOMB_BUM] = mod.ElijahNPCs.BombBeggarElijah,
-    [SlotVariant.KEY_MASTER] = mod.ElijahNPCs.KeyBeggarElijah,
-    [SlotVariant.ROTTEN_BEGGAR] = mod.ElijahNPCs.RottenBeggarElijah,
-    [SlotVariant.BATTERY_BUM] = mod.ElijahNPCs.BatteryBeggarElijah,
-    [PickupVariant.PICKUP_MOMSCHEST] = mod.ElijahNPCs.MomBoxBeggarElijah,
+    [SlotVariant.BEGGAR] = mod.Entities.BEGGAR_Elijah.Var,
+    [mod.Entities.BEGGAR_Tech.Var] = mod.Entities.BEGGAR_TechElijah.Var,
+    [SlotVariant.BOMB_BUM] = mod.Entities.BEGGAR_BombElijah.Var,
+    [SlotVariant.KEY_MASTER] = mod.Entities.BEGGAR_KeyElijah.Var,
+    [SlotVariant.ROTTEN_BEGGAR] = mod.Entities.BEGGAR_RottenElijah.Var,
+    [SlotVariant.BATTERY_BUM] = mod.Entities.BEGGAR_BatteryElijah.Var,
+    [PickupVariant.PICKUP_MOMSCHEST] = mod.Entities.BEGGAR_MomBoxElijah.Var,
 }
 
 local spawnElijahWill = {
@@ -49,8 +49,8 @@ local spawnElijahWill = {
 }
 
 local ItemRoomBeggar = {
-    [RoomType.ROOM_TREASURE] = mod.ElijahNPCs.TreasureBeggarElijah,
-    [RoomType.ROOM_SHOP]     = mod.ElijahNPCs.ShopBeggarElijah
+    [RoomType.ROOM_TREASURE] = mod.Entities.BEGGAR_TreasureElijah.Var,
+    [RoomType.ROOM_SHOP]     = mod.Entities.BEGGAR_ShopElijah.Var
 }
 
 ---@alias statUpFun fun(data: table): string
@@ -262,9 +262,9 @@ function elijahFuncs:PostNewRoomShop()
     local extraBeggars   = math.random(3, 4)
 
     local randomPool     = {
-        mod.ElijahNPCs.BatteryBeggarElijah,
-        mod.ElijahNPCs.KeyBeggarElijah,
-        mod.ElijahNPCs.BombBeggarElijah
+        mod.Entities.BEGGAR_BatteryElijah.Var,
+        mod.Entities.BEGGAR_KeyElijah.Var,
+        mod.Entities.BEGGAR_BombElijah.Var
     }
 
     local function spawnBeggar(variant, pos)
@@ -279,7 +279,7 @@ function elijahFuncs:PostNewRoomShop()
 
     for _ = 1, numShopBeggars do
         local pos = center + Vector.FromAngle(index * angleStep) * radius
-        spawnBeggar(mod.ElijahNPCs.ShopBeggarElijah, pos)
+        spawnBeggar(mod.Entities.BEGGAR_ShopElijah.Var, pos)
         index = index + 1
     end
 

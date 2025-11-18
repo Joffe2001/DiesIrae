@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
-local beggar = mod.ElijahNPCs.BombBeggarElijah
+local beggar = mod.Entities.BEGGAR_BombElijah.Var
 
 local chanceNothing = 0.5
 local chanceBomb = 0.45

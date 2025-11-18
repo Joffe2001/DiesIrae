@@ -14,7 +14,7 @@ local BEGGAR_ITEM_POOL = ItemPoolType.POOL_SHOP
 --- Definitions
 ---
 
-local beggar = mod.ElijahNPCs.ShopBeggarElijah
+local beggar = mod.Entities.BEGGAR_ShopElijah.Var
 
 local beggarFuncs = {}
 
