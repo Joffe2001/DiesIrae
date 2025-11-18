@@ -16,6 +16,14 @@ local BEGGAR_ITEM_POOL = ItemPoolType.POOL_TREASURE
 
 local beggar = mod.ElijahNPCs.TreasureBeggarElijah
 
+---@type beggarEventPool
+local beggarEvents = {
+    [1] = function(beggarEntity)
+        beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+        return true
+    end
+}
+
 local beggarFuncs = {}
 
 
@@ -40,8 +48,9 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollisi
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, BEGGAR_ITEM_POOL)
+    beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
+
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
 
@@ -49,4 +58,5 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, be
 function beggarFuncs:PreSlotExplosion(beggarEntity)
     beggarUtils.DoBeggarExplosion(beggarEntity)
 end
+
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)
