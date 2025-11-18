@@ -43,7 +43,8 @@ function mod:HorflingUpdate(horf)
         end
 
         if horf.I1 <= 0 then
-            if dirToPlayer:Length() < ATTACK_RANGE then
+            if dirToPlayer:Length() < ATTACK_RANGE 
+                and Game():GetRoom():CheckLine(target.Position, horf.Position, 3, 900) then
                 horf.State = NpcState.STATE_ATTACK
                 sprite:Play("Attack", true)
             end

@@ -26,7 +26,8 @@ function mod:MamaHorfUpdate(MamaHorf)
         end
 
         if MamaHorf.I1 <= 0 then
-            if dirToPlayer:Length() < ATTACK_RANGE then
+            if dirToPlayer:Length() < ATTACK_RANGE 
+                and Game():GetRoom():CheckLine(target.Position, MamaHorf.Position, 3, 900) then
                 local cnt = 0
 
                 for _, horf in ipairs(Isaac.FindByType(mod.Entities.NPC_Horfling.Type, mod.Entities.NPC_Horfling.Var)) do
