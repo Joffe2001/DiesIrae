@@ -159,7 +159,7 @@ include("scripts.entities.slots.elijah.elijah_battery_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
-include("scripts.entities.enemies.mamahorf")
+include("scripts.entities.enemies.blindedHorf")
 include("scripts.entities.enemies.horfling")
 ---------------------------------------------------
 --  Somethings that comes with the mod
