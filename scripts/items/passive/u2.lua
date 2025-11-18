@@ -7,27 +7,34 @@ function U2:onCache(player, cacheFlag)
 
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + 0.2
+
     elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local currentTears = 30 / (player.MaxFireDelay + 1)
         local newTears = currentTears + 0.2
-        player.MaxFireDelay = (30 / newTears) - 1
+        player.MaxFireDelay = math.max(1, (30 / newTears) - 1)
+
     elseif cacheFlag == CacheFlag.CACHE_SPEED then
         player.MoveSpeed = player.MoveSpeed + 0.2
+
     elseif cacheFlag == CacheFlag.CACHE_RANGE then
-    elseif cacheFlag == CacheFlag.CACHE_RANGE then
-        player.TearHeight = player.TearHeight - 5   -- ≈ +1.7 range
-        player.TearFallingSpeed = player.TearFallingSpeed + 0.5
+        player.TearRange = player.TearRange + (0.2 * 40)
+
     elseif cacheFlag == CacheFlag.CACHE_SHOTSPEED then
         player.ShotSpeed = player.ShotSpeed + 0.2
+
     elseif cacheFlag == CacheFlag.CACHE_LUCK then
         player.Luck = player.Luck + 0.2
     end
 end
 
+
 function U2:onUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.U2) and not player:GetData().U2CacheApplied then
+
+        if player:HasCollectible(mod.Items.U2)
+        and not player:GetData().U2CacheApplied then
+
             player:AddCacheFlags(
                 CacheFlag.CACHE_DAMAGE
                 | CacheFlag.CACHE_FIREDELAY
@@ -37,6 +44,7 @@ function U2:onUpdate()
                 | CacheFlag.CACHE_LUCK
             )
             player:EvaluateItems()
+
             player:GetData().U2CacheApplied = true
         end
     end
