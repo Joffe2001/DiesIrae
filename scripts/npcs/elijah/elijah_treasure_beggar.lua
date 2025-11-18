@@ -18,10 +18,14 @@ local beggar = mod.ElijahNPCs.TreasureBeggarElijah
 
 ---@type beggarEventPool
 local beggarEvents = {
-    [1] = function(beggarEntity)
-        beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
-        return true
-    end
+    {
+        1,
+        ---@type beggarEventFunc
+        function(beggarEntity)
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+            return true
+        end
+    }
 }
 
 local beggarFuncs = {}

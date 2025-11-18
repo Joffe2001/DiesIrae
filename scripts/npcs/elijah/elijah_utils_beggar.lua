@@ -142,7 +142,7 @@ end
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
 ---@alias beggarEventFunc fun(beggarEntity: EntityNPC): boolean
----@alias beggarEventPool table<integer,beggarEventFunc>
+---@alias beggarEventPool table<table<integer,beggarEventFunc>>
 ---@param pool beggarEventPool
 function beggarFuncs.StateMachine(beggarEntity, pool)
     local sprite = beggarEntity:GetSprite()

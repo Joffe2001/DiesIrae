@@ -20,7 +20,7 @@ end
 
 ---Choose a random element from a weighted table
 ---@generic T
----@alias weight_table table<integer, T>
+---@alias weight_table table<table<integer, T>>
 ---@param table weight_table
 ---@param rng RNG
 ---@return T
