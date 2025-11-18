@@ -118,6 +118,20 @@ function elijahFuncs:PlayerInit(player)
     if player:GetPlayerType() ~= elijah then return end
 
     player:AddCollectible(elijahStartingItem)
+
+    -- local backdrop = Game():GetRoom():GetBackdrop()
+    -- ---@type Sprite
+    -- ---@diagnostic disable-next-line: undefined-field
+    -- local sprite = backdrop:GetFloorANM2()
+    -- print("ok anm2?")
+    -- if sprite == nil then
+        -- print("no sprite")
+        -- return
+    -- end
+    -- sprite:Load("gfx/controls.anm2", true)
+    -- print(sprite:GetFilename())
+    -- sprite:Play("Controls", true)
+    -- sprite.Scale = sprite.Scale * 2
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
