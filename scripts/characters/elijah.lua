@@ -108,6 +108,21 @@ local cacheFuncs = {
 
 local elijahFuncs = {}
 
+--- Functions
+--- 
+
+---return true if in the Beggar table
+---@param npcVariant SlotVariant
+local function IsWhitelist(npcVariant)
+    for _, variant in ipairs(customBeggar) do
+        if npcVariant ~= variant then
+            return false
+        end
+    end
+
+    return true
+end
+
 
 --- Callbacks
 ---
@@ -125,8 +140,8 @@ function elijahFuncs:PlayerInit(player)
     -- local sprite = backdrop:GetFloorANM2()
     -- print("ok anm2?")
     -- if sprite == nil then
-        -- print("no sprite")
-        -- return
+    -- print("no sprite")
+    -- return
     -- end
     -- sprite:Load("gfx/controls.anm2", true)
     -- print(sprite:GetFilename())
@@ -189,11 +204,14 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 ---@param type EntityType
 ---@param variant integer
 ---@param seed integer
+---@param spawner Entity | nil
 ---@return table | nil
-function elijahFuncs:PreEntitySpawnWill(type, variant, _, _, _, _, seed)
+function elijahFuncs:PreEntitySpawnWill(type, variant, _, _, _, spawner, seed)
     if type ~= EntityType.ENTITY_PICKUP then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-
+    if spawner then
+        if IsWhitelist(spawner.Variant) then return end
+    end
     local will = spawnElijahWill[variant]
     if will then
         return { type, will, 0, seed }
