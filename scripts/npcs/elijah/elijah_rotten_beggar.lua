@@ -93,7 +93,7 @@ local beggarFuncs = {}
 function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
-    print("TOUCHE")
+
     local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
     if ok then
         player:PlayExtraAnimation("Sad")
