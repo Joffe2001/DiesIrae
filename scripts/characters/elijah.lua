@@ -53,33 +53,26 @@ local ItemRoomBeggar = {
     [RoomType.ROOM_SHOP]     = mod.Entities.BEGGAR_ShopElijah.Var
 }
 
----@alias statUpFun fun(data: table): string
+---@alias statUpFun fun(data: table)
 ---@type statUpFun[]
 local statsUpFuncs = {
     function(data)
         data.WillSpeed = (data.WillSpeed or 0) + WILL_SPEED_UP
-        print(data.WillSpeed)
-        return "Speed Up!"
     end,
     function(data)
         data.WillFireDelay = (data.WillFireDelay or 0) + WILL_TEARS_UP
-        return "Tears Up!"
     end,
     function(data)
         data.WillDamage = (data.WillDamage or 0) + WILL_DAMAGE_UP
-        return "Damage Up!"
     end,
     function(data)
         data.WillRange = (data.WillRange or 0) + WILL_RANGE_UP
-        return "Range Up!"
     end,
     function(data)
         data.WillShotSpeed = (data.WillShotSpeed or 0) + WILL_SHOT_SPEED_UP
-        return "Shot Speed Up!"
     end,
     function(data)
         data.WillLuck = (data.WillLuck or 0) + WILL_LUCK_UP
-        return "Luck Up!"
     end,
 }
 
@@ -109,7 +102,7 @@ local cacheFuncs = {
 local elijahFuncs = {}
 
 --- Functions
---- 
+---
 
 ---return true if in the Beggar table
 ---@param npcVariant SlotVariant
@@ -180,11 +173,12 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
 
     local stat = math.random(#statsUpFuncs)
     StatUp = statsUpFuncs[stat]
-    local secondaryString = StatUp(data)
+
+    StatUp(data)
 
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 
-    game:GetHUD():ShowItemText(ELIJAHSWILL_HEADER, secondaryString)
+    player:PlayExtraAnimation("Happy")
     sfx:Play(SoundEffect.SOUND_POWERUP1)
     pickup:Remove()
 end
