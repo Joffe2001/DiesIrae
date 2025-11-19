@@ -140,6 +140,12 @@ function beggarFuncs.SpawnPickup(beggarEntity, pickupVariant)
         Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
 end
 
+---@param beggarEntity EntityNPC
+---@param trinketType TrinketType
+function beggarFuncs.SpawnTrinket(beggarEntity, trinketType)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketType,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
+end
 
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
