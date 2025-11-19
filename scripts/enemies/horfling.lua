@@ -13,8 +13,6 @@ function mod:HorflingInit(horf)
 	if horf.Variant ~= mod.Entities.NPC_Horfling.Var then return end
 
     horf.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-    horf.State = NpcState.STATE_IDLE
-    horf:GetSprite():Play("Shake", true)
 
 	if horf.SubType ~= 0 then
 		horf:GetSprite():ReplaceSpritesheet(0, gfx[horf.SubType] or "", true)
@@ -35,9 +33,21 @@ function mod:HorflingUpdate(horf)
         horf.Velocity = data.shoot_vel
     else
         horf.Velocity = horf.Velocity - horf.Velocity:Resized(horf.Velocity:Length() * 0.1)
-    end
+    end 
+    
+    if horf.State == NpcState.STATE_INIT then
+        if sprite:IsFinished("Appear") then
+            horf.State = NpcState.STATE_IDLE
+            sprite:Play("Shake", true)
+        end
 
-    if horf.State == NpcState.STATE_IDLE then
+    elseif horf.State == NpcState.STATE_IDLE then
+
+        if not sprite:IsPlaying("Shake") then
+            sprite:Play("Shake", true)
+        end
+
+
         if horf.I1 > 0 then
             horf.I1 = horf.I1 - 1
         end
@@ -49,9 +59,8 @@ function mod:HorflingUpdate(horf)
                 sprite:Play("Attack", true)
             end
         end
-    end
 
-    if horf.State == NpcState.STATE_ATTACK then
+    elseif horf.State == NpcState.STATE_ATTACK then
         if sprite:IsEventTriggered("Shoot") then
             local params = ProjectileParams()
             params.Scale = 0.5

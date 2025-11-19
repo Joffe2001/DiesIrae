@@ -54,6 +54,7 @@ function mod:MamaHorfUpdate(MamaHorf)
                                         vel,
                                         MamaHorf):ToNPC()
             horfling:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+            horfling.State = NpcState.STATE_IDLE
             horfling.Parent = MamaHorf
             mod.Utils:GetData(horfling).shoot_vel = vel
         end
