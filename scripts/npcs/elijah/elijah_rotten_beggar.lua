@@ -11,7 +11,7 @@ local utils = include("scripts.core.utils")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.45
+local BASE_REWARD_CHANCES = 0.80
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_ROTTEN_BEGGAR
 
 local BEGGAR_PICKUP = PickupVariant.PICKUP_HEART
