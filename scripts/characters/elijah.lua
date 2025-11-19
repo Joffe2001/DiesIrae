@@ -143,6 +143,8 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 ---@param continue boolean
 function elijahFuncs:PostGameStarted(continue)
     if continue then return end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
     for _ = 1, STARTING_WILL_AMOUNT do
         local vec = RandomUnitCircle() * math.random(STARTINGE_WILL_VELOCITY)
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY,
