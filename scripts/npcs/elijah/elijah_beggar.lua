@@ -1,19 +1,27 @@
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
-local beggar = mod.Entities.BEGGAR_Elijah.Var
 
-local payChance = 0.5
-local prizeChance = 0.2
+---@class BeggarUtils
+local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 
-local beggarPrizes = {
-    {type = PickupVariant.PICKUP_HEART, chance = 0.25, teleport = false},
-    {type = PickupVariant.PICKUP_TAROTCARD, chance = 0.25, teleport = false},
-    {type = PickupVariant.PICKUP_COLLECTIBLE, chance = 0.25, teleport = true},
-    {type = "FOOD_POOL", chance = 0.25, teleport = true}
-}
+---@class Utils
+local utils = include("scripts.core.utils")
 
-local foods = {
+--- MAGIC NUMBERS
+---
+
+local BASE_REWARD_CHANCES = 0.2
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_NULL
+
+local BEGGAR_PICKUP = PickupVariant.PICKUP_HEART
+local BEGGAR_PICKUP2 = PickupVariant.PICKUP_TAROTCARD
+
+--- Definitions
+---
+
+---@type CollectibleType[]
+local custom_pool = {
     CollectibleType.COLLECTIBLE_BREAKFAST,
     CollectibleType.COLLECTIBLE_LUNCH,
     CollectibleType.COLLECTIBLE_SUPPER,
@@ -21,100 +29,74 @@ local foods = {
     CollectibleType.COLLECTIBLE_ROTTEN_MEAT
 }
 
-function mod:BeggarCollision(beggarEntity, collider, low)
-    if not collider:ToPlayer() then return end
+local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
+
+---@type beggarEventPool
+local beggarEvents = {
+    {
+        1,
+        function(beggarEntity)
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+            return true
+        end
+    },
+    {
+        2,
+        function(beggarEntity)
+            local item = utils.GetRandomFromTable(custom_pool)
+            beggarUtils.SpawnItemFromPool(beggarEntity, item)
+            return true
+        end
+    },
+    {
+        2,
+        function(beggarEntity)
+            beggarUtils.SpawnPickup(beggarEntity, BEGGAR_PICKUP)
+            return false
+        end
+    },
+    {
+        2,
+        function(beggarEntity)
+            beggarUtils.SpawnPickup(beggarEntity, BEGGAR_PICKUP2)
+            return false
+        end
+    }
+}
+
+local beggarFuncs = {}
+
+
+--- Callbacks
+---
+
+---@param beggarEntity EntityNPC
+---@param collider Entity
+---@param _ any
+function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
-    local sprite = beggarEntity:GetSprite()
-
-    if player:GetPlayerType() ~= mod.Players.Elijah then
-        return
-    end
-
-    if sprite:IsPlaying("Idle") then
-        local rng = beggarEntity:GetDropRNG()
-        local paid = mod:DrainElijahStat(player)
-
-        if paid then
-            sfx:Play(SoundEffect.SOUND_SCAMPER)
-
-            if rng:RandomFloat() > payChance then
-                sprite:Play("PayPrize")
-                beggarEntity:GetData().LastPayer = player
-            else
-                sprite:Play("PayNothing")
-            end
-        end
+    if not player then return end
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    if ok then
+        player:PlayExtraAnimation("Sad")
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.BeggarCollision, beggar)
 
-function mod:BeggarUpdate(beggarEntity)
-    local sprite = beggarEntity:GetSprite()
-    local rng = beggarEntity:GetDropRNG()
-    local data = beggarEntity:GetData()
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
-    if sprite:IsFinished("PayNothing") then
-        sprite:Play("Idle")
-    elseif sprite:IsFinished("PayPrize") then
-        sprite:Play("Prize")
-    end
 
-    if sprite:IsFinished("Prize") then
-        sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
-        local totalChance = 0
-        for _, p in ipairs(beggarPrizes) do
-            totalChance = totalChance + p.chance
-        end
-
-        local roll = rng:RandomFloat() * totalChance
-        local accumulated = 0
-        local chosenPrize = nil
-
-        for _, p in ipairs(beggarPrizes) do
-            accumulated = accumulated + p.chance
-            if roll <= accumulated then
-                chosenPrize = p
-                break
-            end
-        end
-
-        if chosenPrize then
-            if chosenPrize.type == "FOOD_POOL" then
-                local food = foods[rng:RandomInt(#foods) + 1]
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, food,
-                    Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, nil)
-            elseif chosenPrize.type == PickupVariant.PICKUP_COLLECTIBLE then
-                local item = game:GetItemPool():GetCollectible(ItemPoolType.POOL_BEGGAR, true)
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
-                    Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, nil)
-            else
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, chosenPrize.type, 0,
-                    Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, nil)
-            end
-
-            if chosenPrize.teleport then
-                sprite:Play("Teleport")
-            else
-                sprite:Play("Idle")
-            end
-        else
-            sprite:Play("Idle")
-        end
-    end
-
-    if sprite:IsFinished("Teleport") then
-        beggarEntity:Remove()
-    end
+---@param beggarEntity EntityNPC
+function beggarFuncs:PostSlotUpdate(beggarEntity)
+    beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.BeggarUpdate, beggar)
 
-function mod:BeggarExploded(beggar)
-    local player = Isaac.GetPlayer(0)
-    sfx:Play(SoundEffect.SOUND_MEATY_DEATHS)
-    game:SpawnParticles(beggar.Position, EffectVariant.BLOOD_EXPLOSION, 1, 3, Color.Default)
-    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_SPLAT, 0, beggar.Position, Vector.Zero, beggar)
-    beggar:Remove()
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
+
+
+---@param beggarEntity EntityNPC
+function beggarFuncs:PreSlotExplosion(beggarEntity)
+    beggarUtils.DoBeggarExplosion(beggarEntity)
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.BeggarExploded, beggar)
 
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)
