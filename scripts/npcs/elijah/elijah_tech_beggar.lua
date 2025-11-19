@@ -18,19 +18,19 @@ local BASE_REWARD_CHANCES = 0.2
 
 ---@type CollectibleType[]
 local custom_pool = {
-        CollectibleType.COLLECTIBLE_TECHNOLOGY,
-        CollectibleType.COLLECTIBLE_TECH_X,
-        CollectibleType.COLLECTIBLE_TECHNOLOGY_2,
-        CollectibleType.COLLECTIBLE_TRACTOR_BEAM,
-        CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,
-        CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
-        CollectibleType.COLLECTIBLE_ROBO_BABY,
-        CollectibleType.COLLECTIBLE_ROBO_BABY_2,
-        CollectibleType.COLLECTIBLE_TECH_5,
-        CollectibleType.COLLECTIBLE_SPIDER_MOD,
-        CollectibleType.COLLECTIBLE_JACOBS_LADDER,
-        CollectibleType.COLLECTIBLE_120_VOLT,
-        CollectibleType.COLLECTIBLE_BOT_FLY
+    CollectibleType.COLLECTIBLE_TECHNOLOGY,
+    CollectibleType.COLLECTIBLE_TECH_X,
+    CollectibleType.COLLECTIBLE_TECHNOLOGY_2,
+    CollectibleType.COLLECTIBLE_TRACTOR_BEAM,
+    CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,
+    CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
+    CollectibleType.COLLECTIBLE_ROBO_BABY,
+    CollectibleType.COLLECTIBLE_ROBO_BABY_2,
+    CollectibleType.COLLECTIBLE_TECH_5,
+    CollectibleType.COLLECTIBLE_SPIDER_MOD,
+    CollectibleType.COLLECTIBLE_JACOBS_LADDER,
+    CollectibleType.COLLECTIBLE_120_VOLT,
+    CollectibleType.COLLECTIBLE_BOT_FLY
 }
 
 local beggar = mod.Entities.BEGGAR_TechElijah.Var
@@ -41,7 +41,7 @@ local beggarEvents = {
         1,
         function(beggarEntity)
             local item = utils.GetRandomFromTable(custom_pool)
-            beggarUtils.SpawnItemFromPool(beggarEntity, item)
+            beggarUtils.SpawnItem(beggarEntity, item)
             return true
         end
     },
@@ -78,7 +78,7 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, be
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PreSlotExplosion(beggarEntity)
-        for i = 1, 2 do
+    for i = 1, 2 do
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, 1,
             beggarEntity.Position + RandomVector() * 20, RandomVector() * 3, beggarEntity)
     end

@@ -11,7 +11,7 @@ local utils = include("scripts.core.utils")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.2
+local BASE_REWARD_CHANCES = 0.25
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_NULL
 
 local BEGGAR_PICKUP = PickupVariant.PICKUP_HEART
@@ -44,7 +44,7 @@ local beggarEvents = {
         2,
         function(beggarEntity)
             local item = utils.GetRandomFromTable(custom_pool)
-            beggarUtils.SpawnItemFromPool(beggarEntity, item)
+            beggarUtils.SpawnItem(beggarEntity, item)
             return true
         end
     },
