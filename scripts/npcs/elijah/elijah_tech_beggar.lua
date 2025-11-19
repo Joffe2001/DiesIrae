@@ -33,7 +33,7 @@ local custom_pool = {
         CollectibleType.COLLECTIBLE_BOT_FLY
 }
 
-local beggar = mod.Entities.BEGGAR_Elijah.Var
+local beggar = mod.Entities.BEGGAR_TechElijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {
