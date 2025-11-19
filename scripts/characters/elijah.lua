@@ -123,6 +123,12 @@ local function IsWhitelist(npcVariant)
     return true
 end
 
+--- math
+---@return Vector
+function RandomUnitCircle()
+    local angle = math.random() * math.pi * 2
+    return Vector(math.cos(angle), math.sin(angle))
+end
 
 --- Callbacks
 ---
@@ -150,6 +156,20 @@ function elijahFuncs:PlayerInit(player)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
+
+
+---Spawn Elijah's Will when starting the game
+---@param continue boolean
+function elijahFuncs:PostGameStarted(continue)
+    if continue then return end
+    for _ = 1, 6 do
+        local vec = RandomUnitCircle() * math.random(4)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY,
+            game:GetRoom():GetCenterPos() + vec, vec, nil)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, elijahFuncs.PostGameStarted)
 
 
 ---Delete Elijah's Will if not playing Elijah.
