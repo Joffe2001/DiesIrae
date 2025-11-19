@@ -211,7 +211,8 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 function elijahFuncs:PreEntitySpawnWill(type, variant, _, _, _, spawner, seed)
     if type ~= EntityType.ENTITY_PICKUP then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-    if spawner then
+
+    if spawner and spawner:ToSlot() then
         if IsWhitelist(spawner.Variant) then return end
     end
     local will = spawnElijahWill[variant]
