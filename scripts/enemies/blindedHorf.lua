@@ -31,7 +31,7 @@ function mod:MamaHorfUpdate(MamaHorf)
                 local cnt = 0
 
                 for _, horf in ipairs(Isaac.FindByType(mod.Entities.NPC_Horfling.Type, mod.Entities.NPC_Horfling.Var)) do
-                    if GetPtrHash(horf.Parent) == GetPtrHash(MamaHorf) then
+                    if horf.Parent and GetPtrHash(horf.Parent) == GetPtrHash(MamaHorf) then
                         cnt = cnt + 1
                     end
                 end
