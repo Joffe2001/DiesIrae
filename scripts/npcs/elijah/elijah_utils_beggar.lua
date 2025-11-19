@@ -125,37 +125,6 @@ function beggarFuncs.DrainElijahsWill(player, rng)
 end
 
 
----@param beggarEntity EntityNPC
----@param itemPool ItemPoolType
-function beggarFuncs.SpawnItemFromPool(beggarEntity, itemPool)
-    local item = game:GetItemPool():GetCollectible(itemPool, true, beggarEntity:GetDropRNG():Next())
-    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
-        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
-end
-
-
----@param beggarEntity EntityNPC
----@param pickupVariant PickupVariant
----@param pickupSubtype integer | nil
-function beggarFuncs.SpawnPickup(beggarEntity, pickupVariant, pickupSubtype)
-    Isaac.Spawn(EntityType.ENTITY_PICKUP, pickupVariant, pickupSubtype or 0,
-        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
-end
-
----@param beggarEntity EntityNPC
----@param trinketType TrinketType
-function beggarFuncs.SpawnTrinket(beggarEntity, trinketType)
-    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketType,
-        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
-end
-
----@param beggarEntity EntityNPC
----@param familiarVariant FamiliarVariant
-function beggarFuncs.SpawnFamiliar(beggarEntity, familiarVariant)
-    Isaac.Spawn(EntityType.ENTITY_FAMILIAR, familiarVariant, 0,
-        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
-end
-
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
 ---@alias beggarEventFunc fun(beggarEntity: EntityNPC): boolean
@@ -200,5 +169,44 @@ function beggarFuncs.DoBeggarExplosion(beggar)
     Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_SPLAT, 0, beggar.Position, Vector.Zero, beggar)
     beggar:Remove()
 end
+
+
+---@param beggarEntity EntityNPC
+---@param itemPool ItemPoolType
+function beggarFuncs.SpawnItemFromPool(beggarEntity, itemPool)
+    local item = game:GetItemPool():GetCollectible(itemPool, true, beggarEntity:GetDropRNG():Next())
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
+end
+
+---@param beggarEntity EntityNPC
+---@param collectibleType CollectibleType
+function beggarFuncs.SpawnItem(beggarEntity, collectibleType)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, collectibleType,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
+end
+
+---@param beggarEntity EntityNPC
+---@param pickupVariant PickupVariant
+---@param pickupSubtype integer | nil
+function beggarFuncs.SpawnPickup(beggarEntity, pickupVariant, pickupSubtype)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, pickupVariant, pickupSubtype or 0,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
+end
+
+---@param beggarEntity EntityNPC
+---@param trinketType TrinketType
+function beggarFuncs.SpawnTrinket(beggarEntity, trinketType)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketType,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
+end
+
+---@param beggarEntity EntityNPC
+---@param familiarVariant FamiliarVariant
+function beggarFuncs.SpawnFamiliar(beggarEntity, familiarVariant)
+    Isaac.Spawn(EntityType.ENTITY_FAMILIAR, familiarVariant, 0,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
+end
+
 
 return beggarFuncs
