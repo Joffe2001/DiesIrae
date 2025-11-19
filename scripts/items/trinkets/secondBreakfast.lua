@@ -1,5 +1,5 @@
 local SecondBreakfast = {}
-SecondBreakfast.TRINKET_ID = Enums.Trinkets.SecondBreakfast
+SecondBreakfast.TRINKET_ID = DiesIraeMod.Trinkets.SecondBreakfast
 local game = Game()
 
 local foodItemStats = {

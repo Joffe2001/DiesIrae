@@ -135,6 +135,51 @@ if REPENTOGON then
     end
     mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.HiddenCloset)
     end
+
+------------------------------------------------------
+---                  Elijah Unlock                 ---
+------------------------------------------------------
+local beggarsPaidThisRun = 0
+
+function OnSlotUpdate_Elijah(_, slot)
+    if beggarsPaidThisRun >= 3 then return end
+
+    local spr = slot:GetSprite()
+
+    if spr:IsFinished("Teleport") then
+        RegisterBeggarPaid(slot)
+    end
+
+    if spr:IsFinished("Disappear") then
+        RegisterBeggarPaid(slot)
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, OnSlotUpdate_Elijah)
+
+function RegisterBeggarPaid(slot)
+    local v = slot.Variant
+    if v == SlotVariant.BEGGAR
+    or v == SlotVariant.KEY_MASTER
+    or v == SlotVariant.BOMB_BUM
+    or v == SlotVariant.ROTTEN_BEGGAR
+    or v == SlotVariant.BATTERY_BUM
+    or v == SlotVariant.DEVIL_BEGGAR
+    then
+        beggarsPaidThisRun = beggarsPaidThisRun + 1
+
+        if beggarsPaidThisRun >= 3 then
+            TryUnlock(mod.Achievements.Elijah)
+        end
+    end
+end
+
+local function OnNewRun_Elijah(_, reenter)
+    if not reenter then
+        beggarsPaidThisRun = 0
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_Elijah)
+
 ------------------------------------------------------
 ---                 Unlock Golden Day              ---
 ------------------------------------------------------

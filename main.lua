@@ -9,7 +9,7 @@ DiesIraeMod.JSON = require("json")
 
 include("scripts.core.enums")
 include("scripts.core.pools")
-include("scripts.core.utils")
+DiesIraeMod.Utils = include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 
@@ -31,12 +31,12 @@ include("scripts.characters.elijah")
 ---------------------------------------------------
 --  Active items
 ----------------------------------------------------
-include("scripts.items.active.bigShot") 
-include("scripts.items.active.armyOfLovers") 
+include("scripts.items.active.bigShot")
+include("scripts.items.active.armyOfLovers")
 include("scripts.items.active.guppysSoul")
 include("scripts.items.active.shBoom")
-include("scripts.items.active.helterSkelter") 
-include("scripts.items.active.hypaHypa") 
+include("scripts.items.active.helterSkelter")
+include("scripts.items.active.hypaHypa")
 include("scripts.items.active.holyWood")
 include("scripts.items.active.diaryOfAMadman")
 include("scripts.items.active.comaWhite")
@@ -46,8 +46,8 @@ include("scripts.items.active.devilsHeart")
 include("scripts.items.active.anotherMedium")
 include("scripts.items.active.littleLies")
 include("scripts.items.active.kingsHeart")
-include("scripts.items.active.personalBegger") 
-include("scripts.items.active.breakStuff") 
+include("scripts.items.active.personalBegger")
+include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
@@ -96,7 +96,7 @@ include("scripts.items.passive.rewrappingPaper")
 include("scripts.items.passive.filthyRich")
 include("scripts.items.passive.grudge")
 include("scripts.items.passive.coolStick")
-include("scripts.items.passive.bloodBattery") 
+include("scripts.items.passive.bloodBattery")
 include("scripts.items.passive.corruptedMantle")
 ---------------------------------------------------
 --  Familiars
@@ -107,16 +107,16 @@ include("scripts.items.familiars.killerQueen")
 --  Pocket items
 ----------------------------------------------------
 include("scripts.items.pocketitems.customPills")
-include("scripts.items.pocketitems.locacaca") 
-include("scripts.items.pocketitems.alpoh") 
-include("scripts.items.pocketitems.starShard") 
-include("scripts.items.pocketitems.energyDrink") 
-include("scripts.items.pocketitems.dadsLottoTicket") 
+include("scripts.items.pocketitems.locacaca")
+include("scripts.items.pocketitems.alpoh")
+include("scripts.items.pocketitems.starShard")
+include("scripts.items.pocketitems.energyDrink")
+include("scripts.items.pocketitems.dadsLottoTicket")
 ---------------------------------------------------
 --  Trinkets
 ----------------------------------------------------
-include("scripts.items.trinkets.wonderOfYou") 
-include("scripts.items.trinkets.gaga") 
+include("scripts.items.trinkets.wonderOfYou")
+include("scripts.items.trinkets.gaga")
 include("scripts.items.trinkets.babyBlue")
 include("scripts.items.trinkets.secondBreakfast")
 include("scripts.items.trinkets.rottenFood")
@@ -143,26 +143,27 @@ include("scripts.effects.fragile")
 --  Transformations
 ----------------------------------------------------
 include("scripts.transformations.isaacsinfulmusic")
-include("scripts.transformations.dadsoldplaylist") 
+include("scripts.transformations.dadsoldplaylist")
 ---------------------------------------------------
 --  NPCs
 ---------------------------------------------------
-include("scripts.npcs.fiend_beggar") 
-include("scripts.npcs.tech_beggar") 
-include("scripts.npcs.guppy_beggar") 
+include("scripts.npcs.fiend_beggar")
+include("scripts.npcs.tech_beggar")
+include("scripts.npcs.guppy_beggar")
 --------Elijah's NPCs------------------------------
-include("scripts.npcs.elijah.elijah_tech_beggar") 
-include("scripts.npcs.elijah.elijah_beggar") 
+include("scripts.npcs.elijah.elijah_tech_beggar")
+include("scripts.npcs.elijah.elijah_beggar")
 include("scripts.npcs.elijah.elijah_bomb_beggar")
-include("scripts.npcs.elijah.elijah_key_beggar") 
-include("scripts.npcs.elijah.elijah_rotten_beggar") 
+include("scripts.npcs.elijah.elijah_key_beggar")
+include("scripts.npcs.elijah.elijah_rotten_beggar")
 include("scripts.npcs.elijah.elijah_battery_beggar")
 include("scripts.npcs.elijah.elijah_treasure_beggar")
 include("scripts.npcs.elijah.elijah_shop_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
-include("scripts.enemies.mamahorf")
+include("scripts.enemies.blindedHorf")
+include("scripts.enemies.horfling")
 ---------------------------------------------------
 --  Somethings that comes with the mod
 ---------------------------------------------------
@@ -172,15 +173,15 @@ include("scripts.core.voidlost")
 ---------------------------------------------------
 --include("scripts.items.active.D8055")
 --include("scripts.items.passive.hitlist")
---include("scripts.items.passive.photonlink") 
+--include("scripts.items.passive.photonlink")
 --include("scripts.items.passive.silentEcho")
---include("scripts.items.passive.conscience") 
+--include("scripts.items.passive.conscience")
 --include("scripts.items.passive.eyesacrifice")
 --include("scripts.items.passive.the_path_of_the_righteous")
---include("scripts.items.passive.challengemap") 
---include("scripts.items.passive.closecall") 
---include("scripts.items.passive.TGS") 
---include("scripts.items.passive.deliriousmind") 
+--include("scripts.items.passive.challengemap")
+--include("scripts.items.passive.closecall")
+--include("scripts.items.passive.TGS")
+--include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")

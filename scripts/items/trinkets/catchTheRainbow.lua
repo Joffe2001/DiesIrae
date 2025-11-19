@@ -1,5 +1,5 @@
 local CatchTheRainbow = {}
-CatchTheRainbow.TRINKET_ID = Enums.Trinkets.CatchTheRainbow
+CatchTheRainbow.TRINKET_ID = DiesIraeMod.Trinkets.CatchTheRainbow
 local game = Game()
 
 local BASE_CHANCE   = 1 -- 2%

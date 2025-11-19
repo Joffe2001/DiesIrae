@@ -8,13 +8,24 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.33 -- default is 1/3, if that's the case this isn't even needed
+local BASE_REWARD_CHANCES = 0.25
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_SHOP
 
 --- Definitions
 ---
 
-local beggar = mod.ElijahNPCs.ShopBeggarElijah
+local beggar = mod.Entities.BEGGAR_ShopElijah.Var
+
+---@type beggarEventPool
+local beggarEvents = {
+    {
+        1,
+        function(beggarEntity)
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+            return true
+        end
+    }
+}
 
 local beggarFuncs = {}
 
@@ -40,13 +51,16 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollisi
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, BEGGAR_ITEM_POOL)
+    beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
+
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PreSlotExplosion(beggarEntity)
     beggarUtils.DoBeggarExplosion(beggarEntity)
+    return false
 end
+
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)

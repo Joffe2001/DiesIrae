@@ -108,14 +108,14 @@
 	</entity>
 
 <!--ENEMIES-->
-    <entity id="400" variant="1" name="Mama Horf" anm2path="enemies/mama_horf.anm2" reroll="true" baseHP="70" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="19" stageHP="0" portrait="0">
-		<bestiary transform="0,0,1" anim="Shake" overlay="Head" />
+    <entity id="400" variant="1" name="Blinded Horf" anm2path="enemies/mama_horf.anm2" reroll="true" baseHP="70" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="19" stageHP="0" portrait="0">
+        <bestiary transform="0,0,1" anim="Shake" overlay="Head" />
         <gibs amount="6" blood="1" bone="0" eye="0" gut="3" large="0" />
-        <devolve id="400.1.0" weight="1" />
+        <devolve id="12.0.0" weight="1" />
         <preload-snd id="605" /> 
     </entity>
-    <entity id="400" variant="2" name="Horfling1" anm2path="enemies/horflings.anm2" reroll="true" baseHP="4" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="10" stageHP="0" portrait="1">
-		<bestiary transform="0,0,1" anim="Shake" overlay="Head" />
+    <entity id="400" variant="2" name="Horfling" anm2path="enemies/horfling.anm2" reroll="true" baseHP="4" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="1" numGridCollisionPoints="12" shadowSize="10" stageHP="0" portrait="1">
+        <bestiary transform="0,0,1" anim="Shake" overlay="Head" />
         <gibs amount="1" blood="1" bone="0" eye="0" gut="0" large="0" />
         <preload-snd id="146" /> 
     </entity>

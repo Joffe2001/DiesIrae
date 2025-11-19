@@ -12,6 +12,7 @@ mod.EIDescs = {
                 "↑ +0.2 {{Tears}}Tears",
                 "↑ +0.2 {{Speed}}Speed",
                 "↑ +0.2 {{Range}}Range",
+                "↑ +0.2 {{Luck}}Luck",
                 "↑ +0.2 {{Shotspeed}}Shot Speed"
             },
             ru = { 
@@ -27,7 +28,7 @@ mod.EIDescs = {
                 "On hit has a chance to spawn a pickup from below:",
                 "20% {{Card}}Tarot card",
                 "10% {{Rune}}Rune",
-                "20% non-heart pickup",
+                "20% random pickup",
                 "1% random item from current pool"
             },
             ru = { 
@@ -351,7 +352,7 @@ mod.EIDescs = {
         [mod.Items.KoRn] = {
             en_us = { 
                 "10% chance to shoot a random colored tear",
-                "Colored tears create matching clouds on impact that inflict status effects"
+                "Colored tears create matching clouds on impact that apply status effects"
             },
             ru = { 
                 "Стрельба сзади",

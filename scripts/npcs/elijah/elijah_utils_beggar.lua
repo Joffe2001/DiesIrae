@@ -2,6 +2,9 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
+---@class Utils
+local utils = include("scripts.core.utils")
+
 
 --- MAGIC NUMBERS
 ---
@@ -121,10 +124,29 @@ function beggarFuncs.DrainElijahsWill(player, rng)
 end
 
 
----Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
 ---@param itemPool ItemPoolType
-function beggarFuncs.StateMachine(beggarEntity, itemPool)
+function beggarFuncs.SpawnItemFromPool(beggarEntity, itemPool)
+    local item = game:GetItemPool():GetCollectible(itemPool, true, beggarEntity:GetDropRNG():Next())
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
+end
+
+
+---@param beggarEntity EntityNPC
+---@param pickupVariant PickupVariant
+function beggarFuncs.SpawnPickup(beggarEntity, pickupVariant)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, pickupVariant, 0,
+        Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, beggarEntity)
+end
+
+
+---Basic beggar stats machine that gives a random item from a pool then vanish
+---@param beggarEntity EntityNPC
+---@alias beggarEventFunc fun(beggarEntity: EntityNPC): boolean
+---@alias beggarEventPool table<table<integer,beggarEventFunc>>
+---@param pool beggarEventPool
+function beggarFuncs.StateMachine(beggarEntity, pool)
     local sprite = beggarEntity:GetSprite()
     local rng = beggarEntity:GetDropRNG()
 
@@ -136,11 +158,16 @@ function beggarFuncs.StateMachine(beggarEntity, itemPool)
 
     if sprite:IsFinished("Prize") then
         sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
-        local item = game:GetItemPool():GetCollectible(itemPool, true, rng:Next())
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
-            Isaac.GetFreeNearPosition(beggarEntity.Position, 40), Vector.Zero, nil)
 
-        sprite:Play("Teleport")
+        ---@type beggarEventFunc
+        local BeggarEvent = utils.WeightedRandom(pool, rng)
+        local shouldTeleport = BeggarEvent(beggarEntity)
+
+        if shouldTeleport then
+            sprite:Play("Teleport")
+        else
+            sprite:Play("Idle")
+        end
     end
 
     if sprite:IsFinished("Teleport") then

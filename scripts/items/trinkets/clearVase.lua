@@ -1,5 +1,5 @@
 local ClearVase = {}
-ClearVase.TRINKET_ID = Enums.Trinkets.ClearVase
+ClearVase.TRINKET_ID = DiesIraeMod.Trinkets.ClearVase
 
 local game = Game()
 local brokenPots = {}
