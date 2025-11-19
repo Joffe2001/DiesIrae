@@ -31,7 +31,7 @@ function mod:MamaHorfUpdate(MamaHorf)
                 local cnt = 0
 
                 for _, horf in ipairs(Isaac.FindByType(mod.Entities.NPC_Horfling.Type, mod.Entities.NPC_Horfling.Var)) do
-                    if GetPtrHash(horf.Parent) == GetPtrHash(MamaHorf) then
+                    if horf.Parent and GetPtrHash(horf.Parent) == GetPtrHash(MamaHorf) then
                         cnt = cnt + 1
                     end
                 end
@@ -49,11 +49,12 @@ function mod:MamaHorfUpdate(MamaHorf)
             local vel = dirToPlayer:Resized(SPEED)
             local horfling = Isaac.Spawn(mod.Entities.NPC_Horfling.Type,
                                         mod.Entities.NPC_Horfling.Var,
-                                        math.random(0, 2),
+                                        0,
                                         MamaHorf.Position + dirToPlayer:Resized(30),
                                         vel,
                                         MamaHorf):ToNPC()
             horfling:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+            horfling.State = NpcState.STATE_IDLE
             horfling.Parent = MamaHorf
             mod.Utils:GetData(horfling).shoot_vel = vel
         end
