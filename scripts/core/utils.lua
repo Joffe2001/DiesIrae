@@ -23,8 +23,9 @@ end
 
 ---Choose a random element from a weighted table
 ---@generic T
----@alias weight_table table<table<integer, T>>
----@param table weight_table
+---@alias weightedEntry { [1]: number, [2]: T }
+---@alias weightedTable weightedEntry[]
+---@param table weightedTable<T>
 ---@param rng RNG
 ---@return T
 function utils.WeightedRandom(table, rng)
