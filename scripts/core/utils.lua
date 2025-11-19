@@ -76,5 +76,20 @@ mod:AddPriorityCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, CallbackPriority.LAT
     obj_data[GetPtrHash(obj)] = nil
 end)
 
+---Returns a random element from a table.\
+---You can give Isaac RNG or just nil if you are lazy.
+---@generic T
+---@param table T[]
+---@param rng RNG | nil
+---@return T
+function utils.GetRandomFromTable(table, rng)
+    local idx = -1
+    if rng then
+        idx = rng:RandomInt(#table) + 1
+    else
+        idx = math.random(#table)
+    end
+    return table[idx]
+end
 
 return utils
