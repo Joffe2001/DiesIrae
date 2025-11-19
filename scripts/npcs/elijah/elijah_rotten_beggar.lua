@@ -32,7 +32,7 @@ local rotten_trinkets = {
     TrinketType.TRINKET_ROTTEN_PENNY
 }
 
-local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
+local beggar = mod.Entities.BEGGAR_RottenElijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {

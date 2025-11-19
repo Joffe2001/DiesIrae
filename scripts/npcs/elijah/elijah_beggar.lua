@@ -29,7 +29,7 @@ local custom_pool = {
     CollectibleType.COLLECTIBLE_ROTTEN_MEAT
 }
 
-local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
+local beggar = mod.Entities.BEGGAR_Elijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {
