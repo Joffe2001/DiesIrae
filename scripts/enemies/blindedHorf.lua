@@ -49,7 +49,7 @@ function mod:MamaHorfUpdate(MamaHorf)
             local vel = dirToPlayer:Resized(SPEED)
             local horfling = Isaac.Spawn(mod.Entities.NPC_Horfling.Type,
                                         mod.Entities.NPC_Horfling.Var,
-                                        math.random(0, 2),
+                                        0,
                                         MamaHorf.Position + dirToPlayer:Resized(30),
                                         vel,
                                         MamaHorf):ToNPC()

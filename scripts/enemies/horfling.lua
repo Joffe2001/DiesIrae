@@ -5,8 +5,9 @@ local ATTACK_RANGE = 200
 local ATTACK_COOLDOWN = 60
 
 local gfx = {
-	[1] = "gfx/enemies/horfling1.png",
-	[2] = "gfx/enemies/horfling2.png",
+	[1] = "gfx/enemies/horfling.png",
+	[2] = "gfx/enemies/horfling1.png",
+    [3] = "gfx/enemies/horfling2.png",
 }
 
 function mod:HorflingInit(horf)
@@ -14,9 +15,7 @@ function mod:HorflingInit(horf)
 
     horf.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
 
-	if horf.SubType ~= 0 then
-		horf:GetSprite():ReplaceSpritesheet(0, gfx[horf.SubType] or "", true)
-	end
+	horf:GetSprite():ReplaceSpritesheet(0, gfx[horf.SubType] or gfx[math.random(1, #gfx)], true)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.HorflingInit, mod.Entities.NPC_Horfling.Type)
