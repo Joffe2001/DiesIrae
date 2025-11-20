@@ -1,6 +1,8 @@
+---@class ModReference
 local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
+local sfx = SFXManager()
 local myBeggar = mod.Entities.BEGGAR_Tech.Var
 
 
@@ -66,7 +68,7 @@ function mod:TechBeggarUpdate(beggar)
     if sprite:IsPlaying("Idle") and math.random() < 0.0005 then
         sprite:Play("Waiting")
         if not data.HasPlayedWaitingMusic then
-            music:Play(mod.Music.TechBeggarWaiting)
+            music:Play(mod.Music.TechBeggarWaiting, 1)
             data.HasPlayedWaitingMusic = true
         end
     end

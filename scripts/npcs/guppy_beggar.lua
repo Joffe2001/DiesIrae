@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
@@ -81,7 +82,7 @@ function mod:GuppyBeggarUpdate(beggar)
         data.EasterEggActive = true
         data.EasterEggPhase = 1
         sprite:Play("Waiting")
-        music:Play(mod.Music.Oiiai)
+        music:Play(mod.Music.Oiiai, 1)
     end
 
     if data.EasterEggActive then
