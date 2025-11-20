@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch
 local DSSCoreVersion = 7
 local dssmenucore = {}
 
@@ -1045,6 +1046,7 @@ function dssmenucore.init(DSSModName, MenuProvider)
             local uspr = tab.sprite
             local floaty = 0
             if tab.float then
+                ---@diagnostic disable-next-line: cast-local-type
                 floaty = Vector(0, tab.float[1]):Rotated((game:GetFrameCount() * tab.float[2]) % 360)
                 floaty = floaty.Y
             end
@@ -2799,7 +2801,7 @@ function dssmenucore.init(DSSModName, MenuProvider)
                     entity.Type == EntityType.ENTITY_PROJECTILE
                     and entity:ToProjectile().ProjectileFlags & ProjectileFlags.CANT_HIT_PLAYER == 0
                     )
-                    or entity.Type == EntityType.ENTITY_BOMBDROP
+                    or entity.Type == EntityType.ENTITY_BOMB
                 then
                     roomHasDanger = true
                     break
@@ -3410,10 +3412,12 @@ function dssmenucore.init(DSSModName, MenuProvider)
         DeadSeaScrollsMenu = dssmenu
     end
 
+    ---@diagnostic disable-next-line: inject-field
     function MenuProvider.IsMenuCore()
         return DeadSeaScrollsMenu.CoreMod == DSSModName
     end
 
+    ---@diagnostic disable-next-line: inject-field
     function MenuProvider.GetCoreInput()
         return menuinput
     end
