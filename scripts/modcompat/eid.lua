@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 
 local function always_true()
@@ -20,6 +21,7 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 			base_desc = base_desc .. "#" .. str
 		else
 			descmods_num = descmods_num + 1
+			---@type function, function
 			local ModFunc, CondFunc
 
 			if type(str) == "table" then
@@ -38,6 +40,8 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 						and (descObj.ObjSubType == id 
 							or (var == "Trinket" and descObj.ObjSubType == id + (1 << 15))
 						)
+
+						---@diagnostic disable-next-line: redundant-parameter
 						and CondFunc(descObj, player)
 						and (EID:getLanguage() == lang 
 							or (lang == "en_us" and not lang_table[EID:getLanguage()])
@@ -58,10 +62,12 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 		end
 	end
 
+	---@diagnostic disable-next-line: undefined-global
 	add_func(id, base_desc, _, lang)
 end
 
-for var, t1 in pairs(mod.EIDescs) do
+---@diagnostic disable-next-line: undefined-field
+for var, t1 in pairs(mod.EIDes) do
 	for id, t2 in pairs(t1) do
 		if type(t2) == "table" then
 			for lang, desc in pairs(t2) do
