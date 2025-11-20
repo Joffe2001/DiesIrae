@@ -1,45 +1,67 @@
 local mod = DiesIraeMod
 local game = Game()
+local sfx = SFXManager()
+
+---@class BeggarUtils
+local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
+
+--- MAGIC NUMBERS
+---
+
+local BASE_REWARD_CHANCES = 0.75
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_MOMS_CHEST
+
+--- Definitions
+---
+
 local beggar = mod.Entities.BEGGAR_MomBoxElijah.Var
 
-local momItemPool = ItemPoolType.POOL_MOMS_CHEST
-
-function mod:MomBoxCollision(beggarEntity, collider)
-    if not collider:ToPlayer() then return end
-    local player = collider:ToPlayer()
-    local sprite = beggarEntity:GetSprite()
-
-    if player:GetPlayerType() ~= mod.Players.Elijah then return end
-
-    local data = beggarEntity:GetData()
-
-    if sprite:IsPlaying("Idle") then
-        sprite:Play("Open")
-    elseif sprite:IsPlaying("Opened") and not data.Donated then
-        local paid = mod:DrainElijahStat(player)
-        if paid then
-            data.Donated = true
-            sprite:Play("Donated")
+---@type beggarEventPool
+local beggarEvents = {
+    {
+        1,
+        ---@type beggarEventFunc
+        function(beggarEntity)
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+            return true
         end
+    }
+}
+
+local beggarFuncs = {}
+
+
+--- Callbacks
+---
+
+---@param beggarEntity EntityNPC
+---@param collider Entity
+---@param _ any
+function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
+    local player = collider:ToPlayer()
+    if not player then return end
+
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    if ok then
+        player:PlayExtraAnimation("Sad")
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.MomBoxCollision, beggar)
 
-function mod:MomBoxUpdate(beggarEntity)
-    local sprite = beggarEntity:GetSprite()
-    local data = beggarEntity:GetData()
-    local rng = beggarEntity:GetDropRNG()
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
-    if sprite:IsFinished("Open") then
-        sprite:Play("Opened")
-    elseif sprite:IsFinished("Donated") then
-        sprite:Play("Nothing")
-    elseif sprite:IsFinished("Nothing") and not data.ItemSpawned then
 
-        local item = game:GetItemPool():GetCollectible(momItemPool, true, rng)
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item,
-            beggarEntity.Position - Vector(0, 20), Vector.Zero, nil)
-        data.ItemSpawned = true
-    end
+---@param beggarEntity EntityNPC
+function beggarFuncs:PostSlotUpdate(beggarEntity)
+    beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.MomBoxUpdate, beggar)
+
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
+
+
+---@param beggarEntity EntityNPC
+function beggarFuncs:PreSlotExplosion(beggarEntity)
+    beggarUtils.DoBeggarExplosion(beggarEntity)
+    return false
+end
+
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)
