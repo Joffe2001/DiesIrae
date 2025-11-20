@@ -1,5 +1,5 @@
 local FriendlessChild = {}
-FriendlessChild.COLLECTIBLE_ID = Enums.Items.FriendlessChild
+FriendlessChild.COLLECTIBLE_ID = DiesIraeMod.Items.FriendlessChild
 local game = Game()
 
 local FamiliarStatBoosts = {
@@ -13,7 +13,7 @@ local FamiliarStatBoosts = {
 function FriendlessChild:onPickup(player)
     if player:HasCollectible(FriendlessChild.COLLECTIBLE_ID) then
         for _, familiar in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
-            if familiar:ToFamiliar() and familiar.Player and familiar.Player.InitSeed == player.InitSeed then
+            if familiar:ToFamiliar() and familiar.Parent and familiar.Parent.InitSeed == player.InitSeed then
                 familiar:Remove()
             end
         end
@@ -36,8 +36,7 @@ function FriendlessChild:onPreGetCollectible(pool, decrease, seed, loopCount, cu
                 data.FriendlessBoosts[stat] = data.FriendlessBoosts[stat] + value
             end
 
-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_SPEED | CacheFlag.CACHE_RANGE)
-            player:EvaluateItems()
+            player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 
             return CollectibleType.COLLECTIBLE_NULL
         end
