@@ -67,7 +67,7 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 end
 
 ---@diagnostic disable-next-line: undefined-field
-for var, t1 in pairs(mod.EIDes) do
+for var, t1 in pairs(mod.EIDescs) do
 	for id, t2 in pairs(t1) do
 		if type(t2) == "table" then
 			for lang, desc in pairs(t2) do
