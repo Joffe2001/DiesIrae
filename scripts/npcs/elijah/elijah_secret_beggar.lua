@@ -9,12 +9,12 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 ---
 
 local BASE_REWARD_CHANCES = 0.33
-local BEGGAR_ITEM_POOL = ItemPoolType.POOL_PLANETARIUM
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_SECRET
 
 --- Definitions
 ---
 
-local beggar = mod.Entities.BEGGAR_PlanetariumElijah.Var
+local beggar = mod.Entities.BEGGAR_SecretElijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {

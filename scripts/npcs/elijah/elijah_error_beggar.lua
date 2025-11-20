@@ -8,24 +8,53 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.33
-local BEGGAR_ITEM_POOL = ItemPoolType.POOL_PLANETARIUM
+local BASE_REWARD_CHANCES = 0.75
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_NULL
 
 --- Definitions
 ---
 
-local beggar = mod.Entities.BEGGAR_PlanetariumElijah.Var
+local beggar = mod.Entities.BEGGAR_ERROR_Elijah.Var
 
 ---@type beggarEventPool
 local beggarEvents = {
     {
         1,
         ---@type beggarEventFunc
+        function(beggarEntity, player)
+            print("JAR")
+            if player then
+                player:UseActiveItem(CollectibleType.COLLECTIBLE_EVERYTHING_JAR,
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    UseFlag.USE_NOANIM | UseFlag.USE_CUSTOMVARDATA, -1, 12)
+            end
+            return false
+        end
+    },
+    {
+        2,
+        ---@type beggarEventFunc
+        function(beggarEntity, player)
+            print("DATAMINER")
+            if player then
+                player:AddCollectible(CollectibleType.COLLECTIBLE_TMTRAINER)
+            end
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
+            if player then
+                player:RemoveCollectible(CollectibleType.COLLECTIBLE_TMTRAINER)
+            end
+            return true
+        end
+    },
+    {
+        3,
+        ---@type beggarEventFunc
         function(beggarEntity)
             beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
             return true
         end
-    }
+    },
+
 }
 
 local beggarFuncs = {}
@@ -41,9 +70,11 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
 
+    beggarEntity:AddEntityFlags(EntityFlag.FLAG_GLITCH)
+
     local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
     if ok then
-        player:PlayExtraAnimation("Sad")
+        player:PlayExtraAnimation("Glitch")
     end
 end
 

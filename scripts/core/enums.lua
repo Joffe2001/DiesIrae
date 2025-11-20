@@ -173,6 +173,7 @@ mod.Entities = {
     BEGGAR_Fiend             = MakeEntityTable("Fiend Beggar"),
     BEGGAR_Tech              = MakeEntityTable("Tech Beggar"),
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
+    
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
     BEGGAR_BombElijah        = MakeEntityTable("Bomb Beggar Elijah"),
@@ -182,6 +183,13 @@ mod.Entities = {
     BEGGAR_MomBoxElijah      = MakeEntityTable("Mom's Chest Elijah"),
     BEGGAR_TreasureElijah    = MakeEntityTable("Treasure Beggar Elijah"),
     BEGGAR_ShopElijah        = MakeEntityTable("Shop Beggar Elijah"),
+    BEGGAR_AngelElijah       = MakeEntityTable("Angel Beggar Elijah"),
+    BEGGAR_DevilElijah       = MakeEntityTable("Devil Beggar Elijah"),
+    BEGGAR_SecretElijah      = MakeEntityTable("Secret Beggar Elijah"),
+    BEGGAR_UltraSecretElijah = MakeEntityTable("Ultra Secret Beggar Elijah"),
+    BEGGAR_PlanetariumElijah = MakeEntityTable("Planetarium Beggar Elijah"),
+    BEGGAR_ERROR_Elijah      = MakeEntityTable("ERROR Beggar Elijah"),
+
     FAMILIAR_ParanoidAndroid = MakeEntityTable("Paranoid Android"),
     FAMILIAR_KillerQueen     = MakeEntityTable("Killer Queen"),
     FAMILIAR_BatKolGhost     = MakeEntityTable("Bat Kol's Ghosts"),

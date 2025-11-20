@@ -127,7 +127,7 @@ end
 
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
----@alias beggarEventFunc fun(beggarEntity: EntityNPC): boolean
+---@alias beggarEventFunc fun(beggarEntity: EntityNPC, playerEntity: EntityPlayer | nil): boolean
 ---@alias beggarEventEntry { [1]: integer, [2]: beggarEventFunc }
 ---@alias beggarEventPool beggarEventEntry[]
 ---@param pool beggarEventPool
@@ -146,7 +146,7 @@ function beggarFuncs.StateMachine(beggarEntity, pool)
 
         ---@type beggarEventFunc
         local BeggarEvent = utils.WeightedRandom(pool, rng)
-        local shouldTeleport = BeggarEvent(beggarEntity)
+        local shouldTeleport = BeggarEvent(beggarEntity, PlayerManager.FirstPlayerByType(elijah))
 
         if shouldTeleport then
             sprite:Play("Teleport")

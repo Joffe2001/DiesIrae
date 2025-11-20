@@ -157,8 +157,15 @@ include("scripts.npcs.elijah.elijah_bomb_beggar")
 include("scripts.npcs.elijah.elijah_key_beggar")
 include("scripts.npcs.elijah.elijah_rotten_beggar")
 include("scripts.npcs.elijah.elijah_battery_beggar")
+
 include("scripts.npcs.elijah.elijah_treasure_beggar")
 include("scripts.npcs.elijah.elijah_shop_beggar")
+include("scripts.npcs.elijah.elijah_angel_beggar")
+include("scripts.npcs.elijah.elijah_devil_beggar")
+include("scripts.npcs.elijah.elijah_planeterium_beggar")
+include("scripts.npcs.elijah.elijah_secret_beggar")
+include("scripts.npcs.elijah.elijah_ultra_secret_beggar")
+include("scripts.npcs.elijah.elijah_error_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------

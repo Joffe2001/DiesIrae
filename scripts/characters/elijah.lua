@@ -51,8 +51,14 @@ local spawnElijahWill = {
 }
 
 local ItemRoomBeggar = {
-    [RoomType.ROOM_TREASURE] = mod.Entities.BEGGAR_TreasureElijah.Var,
-    [RoomType.ROOM_SHOP]     = mod.Entities.BEGGAR_ShopElijah.Var
+    [RoomType.ROOM_TREASURE]    = mod.Entities.BEGGAR_TreasureElijah.Var,
+    [RoomType.ROOM_SHOP]        = mod.Entities.BEGGAR_ShopElijah.Var,
+    [RoomType.ROOM_DEVIL]       = mod.Entities.BEGGAR_DevilElijah.Var,
+    [RoomType.ROOM_ANGEL]       = mod.Entities.BEGGAR_AngelElijah.Var,
+    [RoomType.ROOM_SECRET]      = mod.Entities.BEGGAR_SecretElijah.Var,
+    [RoomType.ROOM_ULTRASECRET] = mod.Entities.BEGGAR_UltraSecretElijah.Var,
+    [RoomType.ROOM_PLANETARIUM] = mod.Entities.BEGGAR_PlanetariumElijah.Var,
+    [RoomType.ROOM_ERROR]       = mod.Entities.BEGGAR_ERROR_Elijah.Var
 }
 
 ---@alias statUpFun fun(data: table)
