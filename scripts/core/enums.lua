@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 
+---@param name string
+---@alias entityTable {Type: integer, Var: integer, SType: integer}
+---@return entityTable
 local function MakeEntityTable(name)
     return {
         Type = Isaac.GetEntityTypeByName(name),
