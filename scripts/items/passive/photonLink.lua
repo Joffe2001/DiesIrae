@@ -16,7 +16,7 @@ function PhotonLink:OnTearUpdate(_, tear)
 
     if not data.PhotonLaser or not data.PhotonLaser:Exists() then
         local direction = (tear.Position - player.Position):Normalized()
-        local laser = FireTechLaser(
+        local laser = player:FireTechLaser(
             player.Position,
             LASER_OFFSET, 
             direction,
