@@ -1,5 +1,5 @@
 local TrinketCollector = {}
-TrinketCollector.TRINKET_ID = Enums.Trinkets.TrinketCollector
+TrinketCollector.TRINKET_ID = DiesIraeMod.Trinkets.TrinketCollector
 local game = Game()
 
 local swallowedTrinkets = {}
