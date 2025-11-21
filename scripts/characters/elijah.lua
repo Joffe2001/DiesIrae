@@ -11,6 +11,8 @@ local save = mod.SaveManager
 --- MAGIC NUMBERS
 ---
 
+local HUD_PICKUP_PATH = "gfx/ui/HUD/hudpickups.png"
+
 local STARTING_ITEM_CHARGES = 3
 local STARTING_WILL_AMOUNT = 6
 local STARTING_WILL_VELOCITY = 4
@@ -21,7 +23,7 @@ local AMOUNT_SHOP_BEGGAR_PER_SHOP = { 1, 3 }
 local AMOUNT_PICKUP_BEGGAR_PER_SHOP = { 2, 3 }
 
 WILL_SPEED_UP = 0.1
-WILL_TEARS_UP = 0.15
+WILL_TEARS_UP = 0.2
 WILL_DAMAGE_UP = 0.2
 WILL_RANGE_UP = 0.25
 WILL_SHOT_SPEED_UP = 0.1
@@ -136,6 +138,23 @@ local function RandomUnitCircle()
     return Vector(math.cos(angle), math.sin(angle))
 end
 
+local function SetupHUDPickup()
+    local sprite = game:GetHUD():GetPickupsHUDSprite()
+    sprite:ReplaceSpritesheet(0, HUD_PICKUP_PATH)
+    sprite:LoadGraphics()
+end
+
+local function GetTotalWillStats(player)
+    local runSave = save.GetRunSave(player)
+    return
+        (runSave.WillSpeed or 0) * 10 +
+        (runSave.WillFireDelay or 0) * 5 +
+        (runSave.WillDamage or 0) * 5 +
+        (runSave.WillRange or 0) * 4 +
+        (runSave.WillShotSpeed or 0) * 10 +
+        (runSave.WillLuck or 0) * 2
+end
+
 --- Callbacks
 ---
 
@@ -156,6 +175,8 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 function elijahFuncs:PostGameStarted(continue)
     if continue then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
+    SetupHUDPickup()
 
     for _ = 1, STARTING_WILL_AMOUNT do
         local vec = RandomUnitCircle() * math.random(STARTING_WILL_VELOCITY)
@@ -330,3 +351,16 @@ function elijahFuncs:PostNewRoomShop()
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoomShop)
+
+
+---Sync Will amount with the coins of Elijah
+---@param player EntityPlayer
+function elijahFuncs:PostPlayerUpdate(player)
+    if player:GetPlayerType() ~= elijah then return end
+
+    local amount = GetTotalWillStats(player)
+    print(amount)
+    player:AddCoins(amount - player:GetNumCoins())
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, elijahFuncs.PostPlayerUpdate)
