@@ -1,6 +1,6 @@
 if Encyclopedia then
-    local save = require("savedata")
-    local Enums = require("core.enums")
+    local save = require("scripts.dependencies.save_manager")
+    local Enums = require("scripts.core.enums")
 
     local Wiki = {
         David = {
@@ -22,14 +22,16 @@ if Encyclopedia then
 				{str = "David knows a secret chord, he loves music and always feels the Muse."},
 				{str = "He loves gold."},
 			},
-			{ -- Muse
-				{str = "Muse", fsize = 2, clr = 3, halign = 0},
-				{str = "Muse is a passive item that can give you any pick up when David got hit, and sometimes, rarely, an item."},
+			{ -- Birthright
+			{str = "Birthright", fsize = 2, clr = 3, halign = 0},
+			{str = "Does double damage to bosses."},
 			},
-			{ -- Gaga
-				{str = "Gaga", fsize = 2, clr = 3, halign = 0},
-				{str = "Gaga is a trinket, gives the player higher chance to get golden pick ups."},
-				{str = "I don't know why I picked Gaga as a name, I wanted a music reference and god bless Lady Gaga's music (Note: The modder is straight)"},
+			{ -- Trivia
+			{str = "Trivia", fsize = 2, clr = 3, halign = 0},
+			{str = "Just like the original David, ours also have a red hair."},
+			{str = "David theme is revovled around music and gold."},
+		},
+
 		},
 			{ -- Transformation
 				{str = "Dad's Old Playlist", fsize = 2, clr = 3, halign = 0},
@@ -37,17 +39,5 @@ if Encyclopedia then
 				{str = "Gives you +2 tears up"},
 				{str = "When shooting it can create a small shockwave that knockback and can charm enemies."},
 			},
-			{ -- Birthright
-				{str = "Birthright", fsize = 2, clr = 3, halign = 0},
-				{str = "Does double damage to bosses."},
-
-			},
-			{ -- Trivia
-				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
-				{str = "Just like the original David, ours also have a red hair."},
-				{str = "David theme is revovled around music and gold."},
-			},
-		},
-    }
-
-end
+		}
+    end

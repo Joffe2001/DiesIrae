@@ -95,8 +95,6 @@
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
 
-    <active id="500"  name="D8055"                     gfx="active_placeholder"            description="Another one would bother me"                quality="1" maxcharges="6" chargetype="normal" />
-
     <trinket id="400" name="Money for nothing"         gfx="trinket_placeholder.png"       description="You don't need money no more"        />
     <trinket id="401" name="Catch the Rainbow"         gfx="trinket_placeholder.png"       description="Tasted the rainbow"                  />
     <trinket id="402" name="Fixed Metabolism"          gfx="trinket_placeholder.png"       description="I feel good now"                     />

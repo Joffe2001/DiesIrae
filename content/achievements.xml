@@ -6,12 +6,12 @@
 	<achievement name="Elijah" text=''                    gfx="achievement_elijah.png"             gfxback="paper_beggar.png"/>
 <!--David's Unlocks-->
 	<achievement name="Army of Lovers" text=''            gfx="achievement_armyoflovers.png"       gfxback="paper_music.png"/>
-	<achievement name="The Bad Touch" text=''             gfx="achievement_thebadtouch.png"        gfxback="paper_music.png" />
+	<achievement name="The Bad Touch" text=''             gfx="achievement_thebadtouch.png"        gfxback="paper_music.png"/>
 	<achievement name="Little Lies" text=''               gfx="achievement_littlelies.png"         gfxback="paper_music.png"/>
 	<achievement name="Paranoid Android" text=''          gfx="achievement_paranoidandroid.png"    gfxback="paper_music.png"/>
-	<achievement name="Sh-boom!!" text=''                 gfx="achievement_shboom.png"             gfxback="paper_music.png" />
+	<achievement name="Sh-boom!!" text=''                 gfx="achievement_shboom.png"             gfxback="paper_music.png"/>
 	<achievement name="Universal" text=''                 gfx="achievement_universal.png"          gfxback="paper_music.png"/>
-	<achievement name="Everybody's Changing" text=''      gfx="achievement_everybodyschanging.png" gfxback="paper_music.png" />
+	<achievement name="Everybody's Changing" text=''      gfx="achievement_everybodyschanging.png" gfxback="paper_music.png"/>
 	<achievement name="U2" text=''                        gfx="achievement_u2.png"                 gfxback="paper_music.png"/>
 	<achievement name="Killer Queen" text=''              gfx="achievement_killerqueen.png"        gfxback="paper_music.png"/>
 	<achievement name="Ring of Fire" text=''              gfx="achievement_ringoffire.png"         gfxback="paper_music.png"/>
@@ -21,8 +21,18 @@
 	<achievement name="Muse" text=''                      gfx="achievement_muse.png"               gfxback="paper_music.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
+	<achievement name="Devil's Heart" text=''             gfx="achievement_devilsheart.png"         gfxback="paper_music.png"/>
+
 <!--Passive items Unlocks-->
 	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
+	<achievement name="Ultra Secret Map" text=''          gfx="achievement_ultrasecretmap.png"     gfxback="paper.png"/>
+	<achievement name="Creatine Overdose" text=''         gfx="achievement_creatingoverdose.png"   gfxback="paper.png"/>
+	<achievement name="PTSD" text=''                      gfx="achievement_PTSD.png"               gfxback="paper.png"/>
+	<achievement name="PTSD" text=''                      gfx="achievement_PTSD.png"               gfxback="paper.png"/>
 <!--Trinkets Unlocks-->
 	<achievement name="Gaga" text=''                      gfx="achievement_gaga.png"               gfxback="paper_music.png"/>
+<!--Extra Unlocks-->
+	<achievement name="Cheater" text=''                   gfx="achievement_cheater.png"            gfxback="paper.png"/>
+	<achievement name="Speedrunner1" text=''              gfx="achievement_speedrun1.png"          gfxback="paper.png"/>
+	<achievement name="GYM" text=''                       gfx="achievement_gym.png"                gfxback="paper.png"/>
 </achievements>

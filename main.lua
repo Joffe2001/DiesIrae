@@ -157,7 +157,6 @@ include("scripts.npcs.elijah.elijah_bomb_beggar")
 include("scripts.npcs.elijah.elijah_key_beggar")
 include("scripts.npcs.elijah.elijah_rotten_beggar")
 include("scripts.npcs.elijah.elijah_battery_beggar")
-
 include("scripts.npcs.elijah.elijah_treasure_beggar")
 include("scripts.npcs.elijah.elijah_shop_beggar")
 include("scripts.npcs.elijah.elijah_angel_beggar")
@@ -178,7 +177,6 @@ include("scripts.core.voidlost")
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------
---include("scripts.items.active.D8055")
 --include("scripts.items.passive.hitlist")
 --include("scripts.items.passive.photonlink")
 --include("scripts.items.passive.silentEcho")

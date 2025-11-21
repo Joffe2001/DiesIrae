@@ -247,7 +247,7 @@ function mod:OnPlayerUpdate(player)
     local goldenHeartCount = player:GetGoldenHearts()
 
     if goldenHeartCount >= 3 and not hasUnlockedKingsHeart then
-        TryUnlock(mod.Items.KingsHeart)
+        TryUnlock(mod.Achievements.KingsHeart)
         hasUnlockedKingsHeart = true
     end
 end
@@ -260,11 +260,260 @@ local function OnNewRun_KingsHeart(_, reenter)
 end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_KingsHeart)
 
+------------------------------------------------------
+---              Unlock Devil's Heart              ---
+------------------------------------------------------
+local hasUnlockedDevilsHeart = false
+local tookDevilDealFatal = false 
+
+local function OnPlayerDamaged_Devil(_, entity, amount, flags, source)
+    local player = entity:ToPlayer()
+    if not player then return end
+    tookDevilDealFatal = false
+
+    if flags & DamageFlag.DAMAGE_RED_HEARTS ~= 0 then
+        if amount >= player:GetHearts() + player:GetSoulHearts() then
+            tookDevilDealFatal = true
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnPlayerDamaged_Devil, EntityType.ENTITY_PLAYER)
+
+local function OnEntityKill_Devil(_, entity)
+    local player = entity:ToPlayer()
+    if not player then return end
+    if hasUnlockedDevilsHeart then return end
+
+    if tookDevilDealFatal then
+        TryUnlock(mod.Achievements.DevilsHeart)
+        hasUnlockedDevilsHeart = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, OnEntityKill_Devil, EntityType.ENTITY_PLAYER)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    hasUnlockedDevilsHeart = false
+    tookDevilDealFatal = false
+end)
+
+------------------------------------------------------
+---                 Unlock PTSD                    ---
+------------------------------------------------------
+local hasUnlockedPTSD = false
+local lastBossDamage = false 
+
+local function OnPlayerDamaged_PTSD(_, entity, amount, flags, source)
+    local player = entity:ToPlayer()
+    if not player then return end
+    lastBossDamage = false
+
+    if source and source.Entity and source.Entity:IsBoss() then
+        lastBossDamage = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnPlayerDamaged_PTSD, EntityType.ENTITY_PLAYER)
+
+local function OnEntityKill_PTSD(_, entity)
+    local player = entity:ToPlayer()
+    if not player then return end  
+    if hasUnlockedPTSD then return end
+
+    local stage = Game():GetLevel():GetStage()
+    if stage ~= LevelStage.STAGE1_1 then return end
+
+    if lastBossDamage then
+        TryUnlock(mod.Achievements.PTSD)
+        hasUnlockedPTSD = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, OnEntityKill_PTSD, EntityType.ENTITY_PLAYER)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    hasUnlockedPTSD = false
+    lastBossDamage = false
+end)
+------------------------------------------------------
+---            Unlock Ultra Secret Map             ---
+------------------------------------------------------
+local visitedUSR = {}
+local ultraUnlockDone = false
+
+local function OnNewRun_USR(_, reenter)
+    if reenter then return end
+    visitedUSR = {}
+    ultraUnlockDone = false
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_USR)
+
+local function OnPostNewRoom_USR()
+    if ultraUnlockDone then return end
+
+    local level = Game():GetLevel()
+    local desc = level:GetCurrentRoomDesc()
+    if not desc or not desc.Data then return end
+
+    if desc.Data.Type == RoomType.ROOM_ULTRASECRET then
+        local idx = level:GetCurrentRoomIndex()
+        if not idx then return end
+
+        visitedUSR[idx] = true
+
+        local count = 0
+        for _ in pairs(visitedUSR) do
+            count = count + 1
+        end
+
+        if count >= 2 then
+            TryUnlock(mod.Achievements.UltraSecretMap)
+            ultraUnlockDone = true
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnPostNewRoom_USR)
+
+------------------------------------------------------
+---         Unlock Creatine Overdose                ---
+------------------------------------------------------
+local creatineUnlocked = false
+local function CheckCreatineUnlock(player)
+    if creatineUnlocked then return end
+
+    if player:GetCollectibleNum(mod.Items.ProteinPowder, false) >= 2 then
+        TryUnlock(mod.Achievements.CreatineOverdose)
+        creatineUnlocked = true
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+    CheckCreatineUnlock(player)
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    creatineUnlocked = false
+end)
+
+------------------------------------------------------
+---                 Unlock Cheater                 ---
+------------------------------------------------------
+local CHEATER_BOSSES = {
+    [EntityType.ENTITY_HUSH] = true,
+    [EntityType.ENTITY_MEGA_SATAN] = true,
+    [EntityType.ENTITY_DELIRIUM] = true,
+}
+
+local cheaterStartFrame = nil
+local cheaterActive = false
+local cheaterUnlocked = false
+
+function mod:Cheater_OnNewRoom()
+    if Game():GetRoom():IsClear() then return end
+    if cheaterUnlocked then return end
+
+    local room = Game():GetRoom()
+    local roomType = room:GetType()
+
+    if roomType ~= RoomType.ROOM_BOSS then return end
+
+    for _, e in ipairs(Isaac.GetRoomEntities()) do
+        if CHEATER_BOSSES[e.Type] then
+            cheaterStartFrame = Game():GetFrameCount()
+            cheaterActive = true
+            return
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.Cheater_OnNewRoom)
+
+
+function mod:Cheater_OnEntityKill(entity)
+    if not cheaterActive or cheaterUnlocked then return end
+
+    if not CHEATER_BOSSES[entity.Type] then return end
+
+    local now = Game():GetFrameCount()
+    local elapsed = now - (cheaterStartFrame or now)
+
+    if elapsed <= 60 * 30 then 
+        TryUnlock(mod.Achievements.Cheater)
+        cheaterUnlocked = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, mod.Cheater_OnEntityKill)
+
+
+function mod:Cheater_OnNewRun(_, reenter)
+    if reenter then return end
+    cheaterStartFrame = nil
+    cheaterActive = false
+    cheaterUnlocked = false
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.Cheater_OnNewRun)
+
+------------------------------------------------------
+---              Unlock Speedrun1                  ---
+------------------------------------------------------
+local levelStartTime = 0
+local SPEEDRUN_TIME_LIMIT = 30 
+local hasUnlockedSpeedrun1 = false
+
+local function OnNewLevel_Speedrun1()
+    local level = Game():GetLevel()
+
+    if level:GetStage() == LevelStage.STAGE1_1 then
+        levelStartTime = Isaac.GetTime() 
+        hasUnlockedSpeedrun1 = false
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, OnNewLevel_Speedrun1)
+
+
+local function OnNPCDeath_Speedrun1(_, npc)
+    if hasUnlockedSpeedrun1 then return end
+    if not npc:IsBoss() then return end
+    local level = Game():GetLevel()
+    if level:GetStage() ~= LevelStage.STAGE1_1 then return end
+
+    local elapsed = (Isaac.GetTime() - levelStartTime) / 1000
+
+    if elapsed <= SPEEDRUN_TIME_LIMIT then
+        TryUnlock(mod.Achievements.Speedrun1)
+        hasUnlockedSpeedrun1 = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, OnNPCDeath_Speedrun1)
+
+------------------------------------------------------
+---                 Unlock we go GYM               ---
+------------------------------------------------------
+local gymUnlocked = false
+local function CheckGYMUnlock(player)
+    if gymUnlocked then return end
+
+    if player:HasCollectible(mod.Items.ProteinPowder)
+    and player:HasCollectible(mod.Items.CreatineOverdose)
+    and player:HasCollectible(mod.Items.SweetCaffeine) then
+        TryUnlock(mod.Achievements.GYM)
+        gymUnlocked = true
+    end
+end
+
+local function OnPlayerUpdate_GYM(_, player)
+    CheckGYMUnlock(player)
+end
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnPlayerUpdate_GYM)
+
+local function OnNewRun_GYM(_, reenter)
+    if reenter then return end
+    gymUnlocked = false
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_GYM)
 
 ------------------------------------------------------
 ---                 Unlock function                ---
 ------------------------------------------------------
----
 function mod:DebugUnlock(cmd, params)
     if cmd ~= "DIunlock" then
         return 

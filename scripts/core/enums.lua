@@ -111,10 +111,6 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
-
-    D8055                 = Isaac.GetItemIdByName("D8055"),
-
-
 }
 
 mod.Trinkets = {
@@ -211,10 +207,6 @@ mod.Challenges = {
     SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
 }
 
-mod.enemies = {
-    MamaHorf = Isaac.GetEntityVariantByName("Mama Horf"),
-}
-
 mod.Achievements = {
     --- Characters
     David              = Isaac.GetAchievementIdByName("David"),
@@ -244,9 +236,20 @@ mod.Achievements = {
     HereToStay         = Isaac.GetAchievementIdByName("Here to Stay"),
     Hysteria           = Isaac.GetAchievementIdByName("Hysteria"),
 
+    --- Active items unlocks
+    DevilsHeart        = Isaac.GetAchievementIdByName("Devil's Heart"),
+    KingsHeart         = Isaac.GetAchievementIdByName("King's Heart"),
     --- Passive items unlocks
     GoldenDay          = Isaac.GetAchievementIdByName("Golden Day"),
+    UltraSecretMap     = Isaac.GetAchievementIdByName("Ultra Secret Map"),
+    CreatineOverdose   = Isaac.GetAchievementIdByName("Creatine Overdose"),
+    PTSD               = Isaac.GetAchievementIdByName("PTSD"),
 
     --- Trinkets unlocks
     Gaga               = Isaac.GetAchievementIdByName("Gaga"),
+
+    --- Extra unlocks
+    Cheater            = Isaac.GetAchievementIdByName("Cheater"),
+    Speedrun1          = Isaac.GetAchievementIdByName("Speedrunner1"),
+    GYM                = Isaac.GetAchievementIdByName("GYM"),
 }
