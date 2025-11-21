@@ -1018,7 +1018,7 @@ mod.EIDescs = {
         },
         [mod.Cards.DadsLottoTicket] = {
             en_us = {
-                "Has a chance to spawn a Penny, a nickel or a dime",
+                "Has a chance to spawn a Penny or a variant",
                 "There's a chance for nothing to spawn"
             },
             ru = {
