@@ -30,7 +30,7 @@
         rottenhearts="1"
         portrait="elijah.png"
         skinColor="-1"
-        speedmodifier="-0.3"
+        speedmodifier="-0.1"
         damagemodifier="-1.5"
         shotspeedmodifier="-0.2"
         rangemodifier="-1.5"
