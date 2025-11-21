@@ -34,7 +34,7 @@
         damagemodifier="-1.5"
         shotspeedmodifier="-0.2"
         rangemodifier="-1.5"
-        luckmodifier="-2"
+        luckmodifier="-1"
         firedelaymodifier="0"
         bombs="1"
         keys="1"

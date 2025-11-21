@@ -90,7 +90,11 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
 
     sfx:Play(SoundEffect.SOUND_SCAMPER)
 
-    local chance = (rewardChance or BASE_REWARD_CHANCES) + (utils.HasBirthright(player) and 10 or 0)
+    local chance =
+        (rewardChance or BASE_REWARD_CHANCES) +
+        (utils.HasBirthright(player) and 10 or 0) +
+        player.Luck
+
     if rng:RandomFloat() < chance then
         sprite:Play("PayPrize")
     else
@@ -99,7 +103,6 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
 
     return true
 end
-
 
 ---Remove stats from an Elijah character
 ---@param player EntityPlayer
@@ -124,7 +127,6 @@ function beggarFuncs.DrainElijahsWill(player, rng)
     pick.func(data)
     return true
 end
-
 
 ---Basic beggar stats machine that gives a random item from a pool then vanish
 ---@param beggarEntity EntityNPC
@@ -161,7 +163,6 @@ function beggarFuncs.StateMachine(beggarEntity, pool)
     end
 end
 
-
 ---SFX BOOM then remove the beggar
 ---@param beggar EntityNPC
 function beggarFuncs.DoBeggarExplosion(beggar)
@@ -170,7 +171,6 @@ function beggarFuncs.DoBeggarExplosion(beggar)
     Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_SPLAT, 0, beggar.Position, Vector.Zero, beggar)
     beggar:Remove()
 end
-
 
 ---@param beggarEntity EntityNPC
 ---@param itemPool ItemPoolType
@@ -208,6 +208,5 @@ function beggarFuncs.SpawnFamiliar(beggarEntity, familiarVariant)
     Isaac.Spawn(EntityType.ENTITY_FAMILIAR, familiarVariant, 0,
         Isaac.GetFreeNearPosition(beggarEntity.Position, NEAR_POSITION), Vector.Zero, beggarEntity)
 end
-
 
 return beggarFuncs
