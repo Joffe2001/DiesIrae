@@ -13,7 +13,9 @@ local save = mod.SaveManager
 
 local STARTING_ITEM_CHARGES = 3
 local STARTING_WILL_AMOUNT = 6
-local STARTINGE_WILL_VELOCITY = 4
+local STARTING_WILL_VELOCITY = 4
+
+local STARTING_GULPED_TRINKET = TrinketType.TRINKET_STORE_KEY
 
 WILL_SPEED_UP = 0.1
 WILL_TEARS_UP = 0.15
@@ -140,6 +142,7 @@ function elijahFuncs:PlayerInit(player)
     if player:GetPlayerType() ~= elijah then return end
 
     player:AddCollectible(elijahStartingItem, STARTING_ITEM_CHARGES)
+    player:AddSmeltedTrinket(STARTING_GULPED_TRINKET)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
@@ -152,7 +155,7 @@ function elijahFuncs:PostGameStarted(continue)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
     for _ = 1, STARTING_WILL_AMOUNT do
-        local vec = RandomUnitCircle() * math.random(STARTINGE_WILL_VELOCITY)
+        local vec = RandomUnitCircle() * math.random(STARTING_WILL_VELOCITY)
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY,
             game:GetRoom():GetCenterPos() + vec, vec, nil)
     end
