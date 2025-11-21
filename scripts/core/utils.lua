@@ -93,4 +93,10 @@ function utils.GetRandomFromTable(table, rng)
     return table[idx]
 end
 
+
+---@param player EntityPlayer
+function utils.HasBirthright(player)
+    return player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+end
+
 return utils
