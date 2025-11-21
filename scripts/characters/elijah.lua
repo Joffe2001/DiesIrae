@@ -17,6 +17,9 @@ local STARTING_WILL_VELOCITY = 4
 
 local STARTING_GULPED_TRINKET = TrinketType.TRINKET_STORE_KEY
 
+local AMOUNT_SHOP_BEGGAR_PER_SHOP = { 1, 3 }
+local AMOUNT_PICKUP_BEGGAR_PER_SHOP = { 2, 3 }
+
 WILL_SPEED_UP = 0.1
 WILL_TEARS_UP = 0.15
 WILL_DAMAGE_UP = 0.2
@@ -293,8 +296,8 @@ function elijahFuncs:PostNewRoomShop()
         end
     end
 
-    local numShopBeggars = math.random(2, 3)
-    local extraBeggars   = math.random(3, 4)
+    local numShopBeggars = math.random(AMOUNT_SHOP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
+    local extraBeggars   = math.random(AMOUNT_PICKUP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
 
     local randomPool     = {
         mod.Entities.BEGGAR_BatteryElijah.Var,
