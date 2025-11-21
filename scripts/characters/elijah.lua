@@ -359,7 +359,6 @@ function elijahFuncs:PostPlayerUpdate(player)
     if player:GetPlayerType() ~= elijah then return end
 
     local amount = GetTotalWillStats(player)
-    print(amount)
     player:AddCoins(amount - player:GetNumCoins())
 end
 
