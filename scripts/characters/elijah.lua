@@ -126,7 +126,7 @@ end
 
 --- math
 ---@return Vector
-function RandomUnitCircle()
+local function RandomUnitCircle()
     local angle = math.random() * math.pi * 2
     return Vector(math.cos(angle), math.sin(angle))
 end
@@ -171,7 +171,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.OnPickupInit, elijahWill)
 
 
----Display a header when picking up a Elijah's Will
+---Picking up a Elijah's Will
 ---@param pickup EntityPickup
 ---@param collider Entity
 ---@return boolean | nil
@@ -185,6 +185,9 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
     StatUp = statsUpFuncs[stat]
 
     StatUp(data)
+    if utils.HasBirthright(player) then
+        StatUp(data)
+    end
 
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 

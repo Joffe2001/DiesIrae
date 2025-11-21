@@ -90,7 +90,8 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
 
     sfx:Play(SoundEffect.SOUND_SCAMPER)
 
-    if rng:RandomFloat() < (rewardChance or BASE_REWARD_CHANCES) then
+    local chance = (rewardChance or BASE_REWARD_CHANCES) + (utils.HasBirthright(player) and 10 or 0)
+    if rng:RandomFloat() < chance then
         sprite:Play("PayPrize")
     else
         sprite:Play("PayNothing")
