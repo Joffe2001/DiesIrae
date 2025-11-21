@@ -8,7 +8,7 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 0.33
+local BASE_REWARD_CHANCES = 0.50
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_KEY_MASTER
 local BEGGAR_PICKUP = PickupVariant.PICKUP_KEY
 
