@@ -28,37 +28,37 @@ local statsDownFuncs = {
     {
         key = "WillSpeed",
         func = function(data)
-            data.WillSpeed = (data.WillSpeed or 0) - WILL_SPEED_UP
+            data.WillSpeed = (data.WillSpeed) - WILL_SPEED_UP
         end
     },
     {
         key = "WillFireDelay",
         func = function(data)
-            data.WillFireDelay = (data.WillFireDelay or 0) - WILL_TEARS_UP
+            data.WillFireDelay = (data.WillFireDelay) - WILL_TEARS_UP
         end
     },
     {
         key = "WillDamage",
         func = function(data)
-            data.WillDamage = (data.WillDamage or 0) - WILL_DAMAGE_UP
+            data.WillDamage = (data.WillDamage) - WILL_DAMAGE_UP
         end
     },
     {
         key = "WillRange",
         func = function(data)
-            data.WillRange = (data.WillRange or 0) - WILL_RANGE_UP
+            data.WillRange = (data.WillRange) - WILL_RANGE_UP
         end
     },
     {
         key = "WillShotSpeed",
         func = function(data)
-            data.WillShotSpeed = (data.WillShotSpeed or 0) - WILL_SHOT_SPEED_UP
+            data.WillShotSpeed = (data.WillShotSpeed) - WILL_SHOT_SPEED_UP
         end
     },
     {
         key = "WillLuck",
         func = function(data)
-            data.WillLuck = (data.WillLuck or 0) - WILL_LUCK_UP
+            data.WillLuck = (data.WillLuck) - WILL_LUCK_UP
         end
     },
 }
@@ -90,12 +90,14 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
 
     sfx:Play(SoundEffect.SOUND_SCAMPER)
 
+    local roll = rng:RandomFloat()
     local chance =
         (rewardChance or BASE_REWARD_CHANCES) +
         (utils.HasBirthright(player) and 10 or 0) +
-        player.Luck
+        player.Luck / 100
 
-    if rng:RandomFloat() < chance then
+    print("Rolled " .. roll .. " against " .. chance)
+    if roll < chance then
         sprite:Play("PayPrize")
     else
         sprite:Play("PayNothing")

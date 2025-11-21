@@ -146,6 +146,13 @@ end
 
 local function GetTotalWillStats(player)
     local runSave = save.GetRunSave(player)
+    -- print("_________________________________")
+    -- print((runSave.WillSpeed or 0) * 10)
+    -- print((runSave.WillFireDelay or 0) * 5)
+    -- print((runSave.WillDamage or 0) * 5)
+    -- print((runSave.WillRange or 0) * 4)
+    -- print((runSave.WillShotSpeed or 0) * 10)
+    -- print((runSave.WillLuck or 0) * 2)
     return
         (runSave.WillSpeed or 0) * 10 +
         (runSave.WillFireDelay or 0) * 5 +
@@ -357,8 +364,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoomShop)
 ---@param player EntityPlayer
 function elijahFuncs:PostPlayerUpdate(player)
     if player:GetPlayerType() ~= elijah then return end
-
-    local amount = GetTotalWillStats(player)
+    local amount = math.floor(GetTotalWillStats(player))
     player:AddCoins(amount - player:GetNumCoins())
 end
 
