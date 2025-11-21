@@ -24,7 +24,7 @@ end
 ---------------------------------------------------
 --  Characters
 ---------------------------------------------------
-include("scripts.characters.david") --WORKING
+include("scripts.characters.david")
 include("scripts.characters.tdavid")
 include("scripts.characters.elijah")
 --include("scripts.characters.bat_kol")

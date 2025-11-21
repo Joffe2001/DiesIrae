@@ -12,7 +12,7 @@ function HypaHypa:UseItem(_, _, player)
 
         for i = 1, CollectibleType.NUM_COLLECTIBLES - 1 do
             local item = itemConfig:GetCollectible(i)
-            if item and item.Quality == 4 and not item.Hidden then
+            if item and item.Quality == 4 and not item.Hidden and not item:HasTags(ItemConfig.TAG_QUEST) then
                 table.insert(quality4Items, i)
             end
         end
