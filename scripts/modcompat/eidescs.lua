@@ -71,11 +71,11 @@ mod.EIDescs = {
 		[mod.Items.MomsDress ] = {
 			en_us = { 
                 "Spawns 2 {{RottenHeart}}Rotten Hearts on pickup",
-                "20% chance to gain {{Collectible313}}Holy Mantle effect in uncleared rooms"
+                "30% chance to gain {{Collectible313}}Holy Mantle effect in uncleared rooms"
             },
             ru = { 
                 "Создаёт 2 {{RottenHeart}}Гнилых Сердца при подборе",
-                "20% шанс дать эффект {{Collectible313}}Святой Мантии в незачищенных комнатах"
+                "30% шанс дать эффект {{Collectible313}}Святой Мантии в незачищенных комнатах"
             }
 		},
 		[mod.Items.EnjoymentOfTheUnlucky] = {
@@ -998,12 +998,12 @@ mod.EIDescs = {
         },
         [mod.Cards.StarShard] = {
             en_us = {
-                "Change a pedestal into a Planetarium item",
-                "If there's no pedestal in the room it will give two soul hearts instead"
+                "Change a pedestal into a Planetarium or Planetarium related item",
+                "If there's no pedestal in the room it will give one soul heart instead"
             },
             ru = {
                 "Меняет предмет на предмет из Планетария",
-                "Если предметов нет, даст 2 сердца души"
+                "Если предметов нет, даст 1 сердца души"
             },
         },
         [mod.Cards.EnergyDrink] = {
@@ -1065,12 +1065,14 @@ mod.EIDescs = {
                 "Опустошает заряд активного предмета"
             },
 		},
-        [mod.Pills.GULPING] = {
+        [mod.Pills.VOMIT] = {
 			en_us = {
-                "Gulps your current trinket"
+                "Spawn a random {{Trinket}} trinket"
             },
-            ru = {
-                "Проглатывает текущий брелок"
+		},
+        [mod.Pills.SOMETHING_CHANGED] = {
+			en_us = {
+                "Change held {{Trinket}} trinket(s)"
             },
 		},
         [mod.Pills.EQUAL] = {

@@ -9,7 +9,6 @@ local hasSpawnedHearts = false
 function MomsDress:CheckPickup(player)
     if player:HasCollectible(mod.Items.MomsDress) and not hasSpawnedHearts then
         hasSpawnedHearts = true
-        print("Mom's Dress: Spawning 2 Rotten Hearts")
 
         for i = 1, 2 do
             Isaac.Spawn(
@@ -38,12 +37,10 @@ function MomsDress:OnNewRoom()
 
     mantleGiven = false
 
-    if rng:RandomFloat() < 0.2 then
-        print("Mom's Dress: Holy Mantle effect granted!")
+    if rng:RandomFloat() < 0.3 then
         player:AddCollectibleEffect(mantle, true)
         mantleGiven = true
     else
-        print("Mom's Dress: Holy Mantle not granted this room.")
     end
 end
 
@@ -52,7 +49,6 @@ function MomsDress:OnTakeDamage(entity)
 
     local player = entity:ToPlayer()
     if player and player:HasCollectibleEffect(mantle) then
-        print("Mom's Dress: Blocking damage with Holy Mantle")
         mantleGiven = false
         return false
     end
