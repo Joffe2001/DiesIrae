@@ -132,12 +132,13 @@ mod.Trinkets = {
 }
 
 mod.Pills = {
-    CURSED      = Isaac.GetPillEffectByName("Cursed Pill"),
-    BLESSED     = Isaac.GetPillEffectByName("Blessed Pill"),
-    HEARTBREAK  = Isaac.GetPillEffectByName("Heartbreak Pill"),
-    POWER_DRAIN = Isaac.GetPillEffectByName("Power Drain Pill"),
-    GULPING     = Isaac.GetPillEffectByName("Gulping Pill"),
-    EQUAL       = Isaac.GetPillEffectByName("Equal Pill")
+    CURSED             = Isaac.GetPillEffectByName("Cursed Pill"),
+    BLESSED            = Isaac.GetPillEffectByName("Blessed Pill"),
+    HEARTBREAK         = Isaac.GetPillEffectByName("Heartbreak Pill"),
+    POWER_DRAIN        = Isaac.GetPillEffectByName("Power Drain Pill"),
+    VOMIT              = Isaac.GetPillEffectByName("Vomit Pill"),
+    SOMETHING_CHANGED  = Isaac.GetPillEffectByName("Something Changed Pill"),
+    EQUAL              = Isaac.GetPillEffectByName("Equal Pill")
 }
 
 mod.Sounds = {
