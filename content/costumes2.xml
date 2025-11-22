@@ -1,15 +1,17 @@
 <costumes anm2root="gfx/characters/">
     <!--Items-->
-    <costume id="1"   name="U2"                anm2path="u2.anm2"             type="passive" priority="20" />
-    <costume id="3"   name="The Bad Touch"     anm2path="thebadtouch.anm2"    type="passive" priority="20" />
-    <costume id="4"   name="Universal"         anm2path="universal_body.anm2" type="passive" priority="100" />
-    <custume id="5"   name="Ring of Fire"      anm2path="ringoffire.anm2"     type="passive" priority="20" />
-    <costume id="7"   name="Mom's Dress"       anm2path="momsdress.anm2"      type="passive" priority="50" />
-    <costume id="30"  name="Rainbow KoRn"      anm2path="KoRn.anm2"           type="passive" priority="600" />
-    <costume id="40"  name="PTSD"              anm2path="ptsd.anm2"           type="passive" priority="20" hasSkinAlt="true" />
-    <costume id="41"  name="Flowering Skull"   anm2path="floweringskull.anm2" type="passive" priority="20" />
-    <costume id="44"  name="Cool Stick"        anm2path="coolstick.anm2"      type="passive" priority="30" />
-    <costume id="104" name="Helter skelter"    anm2path="helterskelter.anm2"  type="active"  priority="200" />
+    <costume id="1"   name="U2"                anm2path="u2.anm2"               type="passive" priority="20" />
+    <costume id="3"   name="The Bad Touch"     anm2path="thebadtouch.anm2"      type="passive" priority="20" />
+    <costume id="4"   name="Universal"         anm2path="universal_body.anm2"   type="passive" priority="100" />
+    <custume id="5"   name="Ring of Fire"      anm2path="ringoffire.anm2"       type="passive" priority="20" />
+    <costume id="7"   name="Mom's Dress"       anm2path="momsdress.anm2"        type="passive" priority="50" />
+    <costume id="11"  name="Engel"             anm2path="engel.anm2"            type="passive" priority="20" />
+    <costume id="19"  name="Thought Contagion" anm2path="thoughtcontagion.anm2" type="passive" priority="20" hasSkinAlt="true" />
+    <costume id="30"  name="Rainbow KoRn"      anm2path="KoRn.anm2"             type="passive" priority="600" />
+    <costume id="40"  name="PTSD"              anm2path="ptsd.anm2"             type="passive" priority="20" hasSkinAlt="true" />
+    <costume id="41"  name="Flowering Skull"   anm2path="floweringskull.anm2"   type="passive" priority="20" />
+    <costume id="44"  name="Cool Stick"        anm2path="coolstick.anm2"        type="passive" priority="30" />
+    <costume id="104" name="Helter skelter"    anm2path="helterskelter.anm2"    type="active"  priority="200" />
 
     <costume id="306" name="Eye Sacrifice"     anm2path="eyesacrifice.anm2"   type="passive"  priority="200" />
     <costume id="316" name="Triple Gooberberry Sunrise" anm2path="TGS.anm2"   type="passive"  priority="200" />

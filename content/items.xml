@@ -18,7 +18,7 @@
     <passive id="16" name="Protein Powder"             gfx="item_placeholder.png"          description="STRENGTH!!!!"                                quality="3" tags="offensive food" />
     <passive id="17" name="Hysteria"                   gfx="item_placeholder.png"          description="Last chance to lose control"                 quality="2" tags="nolostbr" />
     <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive" />
-    <passive id="19" name="Thought Contagion"          gfx="item_placeholder.png"          description="The modder really wanted crowd controller"   quality="4" tags="offensive" />
+    <passive id="19" name="Thought Contagion"          gfx="Thought_Contagion.png"         description="The modder really wanted crowd controller"   quality="4" tags="offensive" />
     <passive id="20" name="Boss Compass"               gfx="bosscompass.png"               description="Where is he???"                              quality="1" />      
     <passive id="21" name="Golden Day"                 gfx="item_placeholder.png"          description="As long its not green..."                    quality="0" tags="nolostbr nogreed" achievement="Golden Day" />
     <passive id="22" name="Mutter"                     gfx="item_placeholder.png"          description="Why is it in german?"                        quality="2" />
