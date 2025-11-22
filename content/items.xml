@@ -42,7 +42,7 @@
     <passive id="40" name="PTSD"                       gfx="ptsd.png"                      description="Not again..."                                quality="3" tags="nolostbr"/>
     <passive id="41" name="Flowering Skull"            gfx="floweringskull.png"            description="Is this the real life?"                      quality="2" customtags="revive"/>
     <passive id="42" name="Rewrapping Paper"           gfx="item_placeholder.png"          description="Christmas has come early this year!"         quality="3"/>
-    <passive id="43" name="Filthy Rich"                gfx="item_placeholder.png"          description="Those coins aren't clean"                    quality="1" />
+    <passive id="43" name="Filthy Rich"                gfx="filthy_rich.png"               description="Those coins aren't clean"                    quality="1" />
     <passive id="44" name="Cool Stick"                 gfx="coolstick.png"                 description="My only and true friend"                     quality="2" />
     <passive id="45" name="Grudge"                     gfx="item_placeholder.png"          description="I shall never forget that"                   quality="2" tags="nolostbr"/>
     <passive id="46" name="Blood Battery"              gfx="item_placeholder.png"          description="Blood is fuel"                               quality="2" tags="nolostbr"/>
@@ -62,7 +62,7 @@
     <active id="107" name="Coma White"                 gfx="active_placeholder.png"        description="A special heart, but with a price"           quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
     <active id="108" name="Good Vibes"                 gfx="active_placeholder.png"        description="It's good man"                               quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
     <active id="109" name="Big Shot"                   gfx="big_shot.png"                  description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240" />
-    <active id="110" name="Devil's Heart"              gfx="active_placeholder.png"        description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
+    <active id="110" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
     <active id="111" name="Mom's Diary"                gfx="momsdiary2.png"                description="Is that what she thinks of me?"              quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active id="112" name="Another Medium"             gfx="active_placeholder.png"        description="Things will not be the same"                 quality="1" maxcharges="1" chargetype="normal" />
     <active id="113" name="Little Lies"                gfx="littlelies.png"                description="Tell me sweet little lies"                   quality="1" maxcharges="4" chargetype="normal" achievement="Little lies" />
