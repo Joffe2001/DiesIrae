@@ -62,11 +62,11 @@ mod.EIDescs = {
 		},
 		[mod.Items.RingOfFire] = {
 			en_us = { 
-                "Standing in the room center releases a burst of fire outward"
+                "Isaac gets 6 fire-wisps",
+                "Fire wisps doesn't fire tears but cause {{Burning}}burning and can block shots",
+                "Upon clearing a room, add 1 fire wisp",
+                "Caps at 8 wisps"
             },
-            ru = { 
-                "Нахождение в центре комнаты высвобождает круг огня"
-            }
 		},
 		[mod.Items.MomsDress ] = {
 			en_us = { 

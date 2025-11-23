@@ -1,40 +1,89 @@
 local mod = DiesIraeMod
-local RingOfFire = {}
 local game = Game()
 
-local fireDamage = 3
-local fireInterval = 60
-local fireProjectiles = 12
-local fireSpeed = 8
+local RingOfFire = {}
+RingOfFire.MAX_WISPS = 6
 
-local lastBurstFrame = -9999
-local spawnedRing = false
-local markActive = true 
 
-function RingOfFire:onUpdate()
+function RingOfFire:SpawnFireWisp(player)
+    local wisp = player:AddWisp(mod.Items.RingOfFire, player.Position, false, true)
+    if not wisp then return end
+
+    local data = wisp:GetData()
+    data.IsRingOfFireWisp = true
+    wisp.Color = Color(1.3, 0.5, 0.1, 1, 0, 0, 0)
+
+    return wisp
+end
+
+function RingOfFire:OnNewRoom()
+    local level = game:GetLevel()
     local room = game:GetRoom()
-    local frame = game:GetFrameCount()
-    local roomCenter = room:GetCenterPos()
+    local idx = level:GetCurrentRoomIndex()
 
-    for i = 0, game:GetNumPlayers() - 1 do
-        local player = Isaac.GetPlayer(i)
+    local hadEnemies = room:GetAliveEnemiesCount() > 0
 
-        if player:HasCollectible(mod.Items.RingOfFire) then
-            if markActive and not spawnedRing then
-                Isaac.Spawn(EntityType.ENTITY_EFFECT, 1234, 0, roomCenter, Vector.Zero, nil)
-                spawnedRing = true
+    local data = level:GetRoomByIdx(idx).Data
+    if data then
+        room:GetRoomConfigStage()
+    end
+
+    RingOfFire.LastRoomHadEnemies = hadEnemies
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, RingOfFire.OnNewRoom)
+
+function RingOfFire:GetFireWispCount(player)
+    local count = 0
+    for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, -1)) do
+        local fam = ent:ToFamiliar()
+        if fam and fam.Player == player then
+            if fam:GetData().IsRingOfFireWisp then
+                count = count + 1
             end
+        end
+    end
+    return count
+end
 
-            if player.Position:Distance(roomCenter) < 30 then
-                if frame - lastBurstFrame >= fireInterval then
-                    RingOfFire:spawnFireBurst(player)
-                    lastBurstFrame = frame
+local function OnPlayerUpdate(_, player)
+    if not player:HasCollectible(mod.Items.RingOfFire) then return end
 
-                    if markActive then
-                        markActive = false
-                        for _, e in ipairs(Isaac.FindByType(EntityType.ENTITY_EFFECT, 1234, -1, false, false)) do
-                            e:Remove()
-                        end
+    local data = player:GetData()
+    if data.RingOfFire_Init then return end
+    data.RingOfFire_Init = true
+
+    for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP)) do
+        local fam = ent:ToFamiliar()
+        if fam and fam.Player == player then
+            if fam:GetData().IsRingOfFireWisp then
+                fam:Remove()
+            end
+        end
+    end
+
+    for i = 1, RingOfFire.MAX_WISPS do
+        RingOfFire:SpawnFireWisp(player)
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, OnPlayerUpdate)
+
+local lastClearedRoom = -1
+
+function RingOfFire:OnUpdate()
+    local room = game:GetRoom()
+    local idx = game:GetLevel():GetCurrentRoomIndex()
+
+    if room:IsClear() and idx ~= lastClearedRoom then
+        lastClearedRoom = idx
+
+        if RingOfFire.LastRoomHadEnemies then
+            for i = 0, game:GetNumPlayers() - 1 do
+                local player = Isaac.GetPlayer(i)
+                if player:HasCollectible(mod.Items.RingOfFire) then
+
+                    local count = RingOfFire:GetFireWispCount(player)
+                    if count < RingOfFire.MAX_WISPS then
+                        RingOfFire:SpawnFireWisp(player)
                     end
                 end
             end
@@ -42,29 +91,23 @@ function RingOfFire:onUpdate()
     end
 end
 
-function RingOfFire:onNewRoom()
-    spawnedRing = false
-    markActive = true
-end
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, RingOfFire.OnUpdate)
 
-function RingOfFire:spawnFireBurst(player)
-    for i = 1, fireProjectiles do
-        local angle = (360 / fireProjectiles) * i
-        local velocity = Vector.FromAngle(angle) * fireSpeed
 
-        local flame = player:FireTear(player.Position, velocity, false, true, false):ToTear()
-        flame.CollisionDamage = fireDamage
-        flame:ChangeVariant(TearVariant.FIRE)
-        flame:AddTearFlags(TearFlags.TEAR_BURN | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING)
+function RingOfFire:OnFamiliarCollision(fam, collider)
+    if not fam:GetData().IsRingOfFireWisp then return end
+
+    if collider:IsVulnerableEnemy() then
+        local player = fam.Player
+        collider:AddBurn(EntityRef(player), 45, player.Damage * 0.7)
     end
-
-    game:ShakeScreen(5)
-    SFXManager():Play(SoundEffect.SOUND_FLAME_BURST, 1.0, 0, false, 1.0)
 end
+mod:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, RingOfFire.OnFamiliarCollision, FamiliarVariant.WISP)
 
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, RingOfFire.onUpdate)
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, RingOfFire.onNewRoom)
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.RingOfFire, "Dad's Playlist")
-end
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, familiar)
+    if familiar.Variant ~= FamiliarVariant.WISP then return end
+    if familiar:GetData().IsRingOfFireWisp then
+        familiar.FireCooldown = 99999
+        familiar.ShootDirection = Direction.NO_DIRECTION
+    end
+end)

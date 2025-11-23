@@ -4,7 +4,7 @@
     <passive id="2"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
     <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="2" tags="nolostbr"          achievement="The Bad Touch" />
     <passive id="4"  name="Universal"                  gfx="universal.png"                 description="Woo hoo!!"                                   quality="3"                          achievement="Universal" />
-    <passive id="5"  name="Ring of Fire"               gfx="ring_of_fire.png"              description="Burn it down"                                quality="1" tags="nolostbr"          achievement="Ring of Fire" />
+    <passive id="5"  name="Ring of Fire"               gfx="ring_of_fire.png"              description="Burn it down"                                quality="3" tags="nolostbr"          achievement="Ring of Fire" />
     <passive id="6"  name="Still Standing"             gfx="item_placeholder.png"          description="Feelin' like a true survivor"                quality="1" tags="nolostbr" />    
     <passive id="7"  name="Mom's Dress"                gfx="momsdress.png"                 description="It's like her hug!"                          quality="2" tags="nolostbr mom" />
     <passive id="8"  name="Enjoyment of the Unlucky"   gfx="item_placeholder.png"          description="Bad luck is a good luck!"                    quality="2" />
