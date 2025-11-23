@@ -30,7 +30,7 @@
     <passive id="28" name="Red Compass"                gfx="redcompass.png"                description="Maybe I'll find something new"               quality="3" />
     <passive id="29" name="Last Resort"                gfx="item_placeholder.png"          description="Wish somebody will tell me I'm fine"         quality="2" tags="nolostbr" />
     <passive id="30" name="Rainbow KoRn"               gfx="rainbow_korn.png"              description="Life's gotta always be messing with me"      quality="4" tags="food"/>
-    <passive id="31" name="Creatine Overdose"          gfx="item_placeholder.png"          description="UNLIMITED POWER!!!"                          quality="3" tags="offensive" />
+    <passive id="31" name="Creatine Overdose"          gfx="creatine_overdose.png"         description="UNLIMITED POWER!!!"                          quality="3" tags="offensive" />
     <passive id="32" name="Fragile Ego"                gfx="item_placeholder.png"          description="I find bliss in ignorance"                   quality="2" />
     <passive id="33" name="Symphony Of Destruction"    gfx="item_placeholder.png"          description="The head explodes"                           quality="1"/>      
     <passive id="34" name="Beggar's Tear"              gfx="item_placeholder.png"          description="I want it all, and I want it now"            quality="1" />
@@ -45,7 +45,7 @@
     <passive id="43" name="Filthy Rich"                gfx="filthy_rich.png"               description="Those coins aren't clean"                    quality="1" />
     <passive id="44" name="Cool Stick"                 gfx="coolstick.png"                 description="My only and true friend"                     quality="2" />
     <passive id="45" name="Grudge"                     gfx="item_placeholder.png"          description="I shall never forget that"                   quality="2" tags="nolostbr"/>
-    <passive id="46" name="Blood Battery"              gfx="item_placeholder.png"          description="Blood is fuel"                               quality="2" tags="nolostbr"/>
+    <passive id="46" name="Blood Battery"              gfx="blood_battery.png"             description="Blood is fuel"                               quality="2" tags="nolostbr"/>
     <passive id="47" name="Corrupted Mantle"           gfx="item_placeholder.png"          description="Holy shield..at a cost"                      quality="3"/>
     <passive id="48" name="Delirious Mind"             gfx="delirious_mind.png"            description="Why is this exist?"                          quality="2"/>
     <!-- Familiars -->
