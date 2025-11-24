@@ -7,7 +7,9 @@ end
 
 local Name2Variant = {
 	Collectible = PickupVariant.PICKUP_COLLECTIBLE,
-	Trinket = PickupVariant.PICKUP_TRINKET
+	Trinket = PickupVariant.PICKUP_TRINKET,
+	Card = PickupVariant.PICKUP_TAROTCARD,
+	Pill = PickupVariant.PICKUP_PILL
 }
 
 local descmods_num = 0
