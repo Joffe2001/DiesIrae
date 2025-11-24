@@ -56,7 +56,7 @@ function mod:MamaHorfUpdate(MamaHorf)
             horfling:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
             horfling.State = NpcState.STATE_IDLE
             horfling.Parent = MamaHorf
-            mod.Utils:GetData(horfling).shoot_vel = vel
+            mod.SaveManager.GetRoomSave(horfling).shoot_vel = vel
         end
 
         if sprite:IsFinished("Attack") then

@@ -43,21 +43,6 @@ function utils.WeightedRandom(table, rng)
     return nil
 end
 
----Returns a table where you can store all object-exclusive data
----@param obj userdata
----@return table
-function utils:GetData(obj)
-    if type(obj) ~= "userdata" then return {} end
-    local hash = GetPtrHash(obj)
-    local data = obj_data[hash]
-    if not data then
-        local newData = {}
-        obj_data[hash] = newData
-        data = newData
-    end
-    return data
-end
-
 ---Checks if the objects are equal or not
 ---@param obj1 any
 ---@param obj2 any
@@ -72,10 +57,6 @@ function utils:IsEqual(obj1, obj2)
         return obj1 == obj2
     end
 end
-
-mod:AddPriorityCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, CallbackPriority.LATE, function(_, obj)
-    obj_data[GetPtrHash(obj)] = nil
-end)
 
 ---Returns a random element from a table.\
 ---You can give Isaac RNG or just nil if you are lazy.
