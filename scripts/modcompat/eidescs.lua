@@ -1018,12 +1018,34 @@ mod.EIDescs = {
         },
         [mod.Cards.DadsLottoTicket] = {
             en_us = {
-                "Has a chance to spawn a Penny or a variant",
-                "There's a chance for nothing to spawn"
+                "Has a chance to spawn a combination of coins.",
+                "Nothing: 25%",
+                "{{Blank}}{{Coin}}: 60",
+                "{{Coin}}{{Coin}}: 9%",
+                "{{Nickel}}: 5%",
+                "{{ColorGold}}A prize: 1%",
+                "{{Collectible46}}: Increases the chance of the prize to 2%",
+                "Possible Prizes:",
+                "{{Dime}}: 0.2%",
+                "{{Crafting26}}: 0.2%",
+                "{{Crafting11}}: 0.1%",
+                "3{{ColorGray}}_{{Nickel}}_{{CR}}: 0.1%",
+                "10{{Coin}}{{Coin}}: 0.05%",
+                "10{{ColorGray}}_{{Nickel}}_{{CR}}: 0.05%",
+                "{{Dime}}, {{Crafting11}}, {{Crafting26}}: 0.05%",
+                "2{{Dime}}, 2{{Crafting11}}, 2{{Crafting26}}: 0.05%",
+                "6{{Dime}}: 0.04%",
+                "4{{Crafting26}}: 0.04%",
+                "5{{Crafting11}}: 0.02%",
+                "2{{Dime}}, 5{{Crafting26}}: 0.03%",
+                "3{{Crafting11}}, {{Coin}}{{Coin}}, {{Nickel}}, {{Dime}}: 0.03%",
+                "2{{Crafting26}}, 3{{Crafting11}}: 0.02%",
+                "6{{Nickel}}, 6{{ColorGray}}_{{Nickel}}_{{CR}}: 0.02%",
             },
             ru = {
                 "Шанс создать Монету, Пятак или Гривенник",
-                "Есть шанс не создать ничего"
+                "Есть шанс не создать ничего",
+                "{{Warning}} Outdated description.",
             },
         }
 	},

@@ -1,71 +1,62 @@
 local mod = DiesIraeMod
 local game = Game()
 
+---@class Utils
+local utils = mod.Utils
 
-local function GetNearbyFreePosition(origin)
-    local room = game:GetRoom()
-    local candidates = {}
+local dadsLottoTicket = {}
 
-
-    local offsets = {
-        Vector(0,0),
-        Vector(40,0),
-        Vector(-40,0),
-        Vector(0,40),
-        Vector(0,-40),
-        Vector(40,40),
-        Vector(-40,40),
-        Vector(40,-40),
-        Vector(-40,-40)
-    }
-
-    for _, off in ipairs(offsets) do
-        local pos = origin + off
-        if room:GetGridCollisionAtPos(pos) == GridCollisionClass.COLLISION_NONE then
-            table.insert(candidates, pos)
-        end
-    end
-
-    if #candidates == 0 then
-        return origin
-    end
-
-    return candidates[math.random(#candidates)]
-end
-
-function mod:UseDadsLottoTicket(card, player, flags)
+function dadsLottoTicket:onUse(card, player, flags)
     if card ~= mod.Cards.DadsLottoTicket then return false end
 
     local rng = player:GetCollectibleRNG(mod.Cards.DadsLottoTicket)
-    local roll = rng:RandomInt(100) + 1
-    local coinType = nil
 
-    if roll <= 30 then
-        coinType = CoinSubType.COIN_PENNY
-    elseif roll <= 45 then
-        coinType = CoinSubType.COIN_NICKEL
-    elseif roll <= 50 then
-        coinType = CoinSubType.COIN_DIME
-    elseif roll <= 60 then
-        coinType = CoinSubType.COIN_LUCKYPENNY
-    elseif roll <= 70 then
-        coinType = CoinSubType.COIN_STICKYNICKEL
-    elseif roll <= 75 then
-        coinType = CoinSubType.COIN_DOUBLEPACK
-    elseif roll <= 80 then
-        coinType = CoinSubType.COIN_GOLDEN
-    else
-        coinType = nil
-        SFXManager():Play(mod.Sounds.KINGS_FART)
+    local luckyFootMutiplier = 1
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT) then
+        luckyFootMutiplier = 0.5
     end
 
-    if coinType then
-        local pos = GetNearbyFreePosition(player.Position)
+    local rewardPool = {
+        {2500 * luckyFootMutiplier, nil},
+        {6000 * luckyFootMutiplier, {CoinSubType.COIN_PENNY}},
+        {900 * luckyFootMutiplier, {CoinSubType.COIN_DOUBLEPACK}},
+        {500 * luckyFootMutiplier, {CoinSubType.COIN_NICKEL}},
+
+        -- 1% chance below, total weight 100
+        {20, {CoinSubType.COIN_DIME}},
+        {20, {CoinSubType.COIN_GOLDEN}},
+        {10, {CoinSubType.COIN_LUCKYPENNY}},
+        {10, {CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL}},
+        {5, {CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK,
+            CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_DOUBLEPACK}},
+        {5, {CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL,
+            CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_STICKYNICKEL}},
+        {5, {CoinSubType.COIN_DIME, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_GOLDEN}},
+        {5, {CoinSubType.COIN_DIME, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_DIME, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_GOLDEN}},
+        {4, {CoinSubType.COIN_DIME, CoinSubType.COIN_DIME, CoinSubType.COIN_DIME, CoinSubType.COIN_DIME, CoinSubType.COIN_DIME, CoinSubType.COIN_DIME}},
+        {4, {CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN}},
+        {2, {CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY}},
+        {3, {CoinSubType.COIN_DIME, CoinSubType.COIN_DIME, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN}},
+        {3, {CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_DOUBLEPACK, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_NICKEL, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_DIME}},
+        {2, {CoinSubType.COIN_GOLDEN, CoinSubType.COIN_GOLDEN, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY, CoinSubType.COIN_LUCKYPENNY}},
+        {2, {CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL,
+            CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL,
+            CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL, CoinSubType.COIN_STICKYNICKEL, CoinSubType.COIN_NICKEL,}},
+    }
+
+    local reward = utils.WeightedRandom(rewardPool, rng)
+    if reward == nil then
+        SFXManager():Play(mod.Sounds.KINGS_FART)
+        return false
+    end
+
+    for _, coinType in ipairs(reward) do
+        local spawnPos = Isaac.GetFreeNearPosition(player.Position, 40)
         Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
             PickupVariant.PICKUP_COIN,
             coinType,
-            pos,
+            spawnPos,
             Vector.Zero,
             player
         )
@@ -73,4 +64,4 @@ function mod:UseDadsLottoTicket(card, player, flags)
 
     return true
 end
-mod:AddCallback(ModCallbacks.MC_USE_CARD, mod.UseDadsLottoTicket)
+mod:AddCallback(ModCallbacks.MC_USE_CARD, dadsLottoTicket.onUse)
