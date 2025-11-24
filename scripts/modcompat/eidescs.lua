@@ -1024,6 +1024,14 @@ mod.EIDescs = {
                 "{{Coin}}{{Coin}}: 9%",
                 "{{Nickel}}: 5%",
                 "{{ColorGold}}A prize: 1%",
+                {
+                    function(_, player)
+                        return player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+                    end,
+                    function()
+                        return "{{Collectible46}}: Increases the chance of {{ColorGold}}the prize{{CR}} to 2%"
+                    end
+                },
                 "Possible Prizes:",
                 "{{Dime}}: 0.2%",
                 "{{Crafting26}}: 0.2%",
@@ -1039,15 +1047,7 @@ mod.EIDescs = {
                 "2{{Dime}}, 5{{Crafting26}}: 0.03%",
                 "3{{Crafting11}}, {{Coin}}{{Coin}}, {{Nickel}}, {{Dime}}: 0.03%",
                 "2{{Crafting26}}, 3{{Crafting11}}: 0.02%",
-                "6{{Nickel}}, 6{{ColorGray}}_{{Nickel}}_{{CR}}: 0.02%",
-                {
-                    function(_, player)
-                        return player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-                    end,
-                    function()
-                        return "{{Collectible46}}: Increases the chance of {{ColorGold}}the prize{{CR}} to 2%"
-                    end
-                },
+                "6{{Nickel}}, 6{{ColorGray}}_{{Nickel}}_{{CR}}: 0.02%"
             },
             ru = {
                 "Шанс создать Монету, Пятак или Гривенник",

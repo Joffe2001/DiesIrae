@@ -18,7 +18,7 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 	local base_desc = ""
 	local variant = Name2Variant[var]
 
-	for _, str in ipairs(desc_table) do
+	for idx, str in ipairs(desc_table) do
 		if type(str) == "string" then
 			base_desc = base_desc .. "#" .. str
 		else
@@ -52,8 +52,19 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 
 			local function Modifier(descObj)
 				local player = EID:ClosestPlayerTo(descObj.Entity)
-				local new_desc = "#" .. ModFunc(descObj, player)
-				EID:appendToDescription(descObj, new_desc)
+				local old_desc = descObj.Description
+				local add = "#" .. ModFunc(descObj, player)
+				local start = 0
+
+				if idx == 1 then
+					descObj.Description = add .. old_desc
+				else
+					for i = 1, idx do
+						start, _ = old_desc:find("#", start + 1) or 0
+					end
+
+					descObj.Description = old_desc:sub(1, start - 1) .. add .. old_desc:sub(start == 0 and -1 or start, -1)
+				end
 
 				return descObj
 			end
