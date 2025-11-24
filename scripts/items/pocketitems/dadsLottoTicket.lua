@@ -6,6 +6,8 @@ local utils = mod.Utils
 
 local dadsLottoTicket = {}
 
+Isaac.GetItemConfig():GetCard(mod.Cards.DadsLottoTicket).MimicCharge = 4
+
 function dadsLottoTicket:onUse(card, player, flags)
     if card ~= mod.Cards.DadsLottoTicket then return false end
 
