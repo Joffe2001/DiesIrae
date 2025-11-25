@@ -180,6 +180,7 @@ mod.Entities = {
     BEGGAR_MomBoxElijah      = MakeEntityTable("Mom's Chest Elijah"),
     BEGGAR_TreasureElijah    = MakeEntityTable("Treasure Beggar Elijah"),
     BEGGAR_ShopElijah        = MakeEntityTable("Shop Beggar Elijah"),
+    BEGGAR_LibraryElijah     = MakeEntityTable("Library Beggar Elijah"),
     BEGGAR_AngelElijah       = MakeEntityTable("Angel Beggar Elijah"),
     BEGGAR_DevilElijah       = MakeEntityTable("Devil Beggar Elijah"),
     BEGGAR_SecretElijah      = MakeEntityTable("Secret Beggar Elijah"),

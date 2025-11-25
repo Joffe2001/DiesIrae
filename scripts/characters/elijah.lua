@@ -65,6 +65,7 @@ local ItemRoomBeggar = {
     [RoomType.ROOM_SECRET]      = mod.Entities.BEGGAR_SecretElijah.Var,
     [RoomType.ROOM_ULTRASECRET] = mod.Entities.BEGGAR_UltraSecretElijah.Var,
     [RoomType.ROOM_PLANETARIUM] = mod.Entities.BEGGAR_PlanetariumElijah.Var,
+    [RoomType.ROOM_LIBRARY]     = mod.Entities.BEGGAR_LibraryElijah.Var,
     [RoomType.ROOM_ERROR]       = mod.Entities.BEGGAR_ERROR_Elijah.Var
 }
 
