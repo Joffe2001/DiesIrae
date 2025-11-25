@@ -91,7 +91,5 @@ function CustomPills:OnUsePill(pillEffect, player, flags)
         end
     end
 end    
-
-
 mod:AddCallback(ModCallbacks.MC_USE_PILL, CustomPills.OnUsePill)
 
