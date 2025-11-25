@@ -69,13 +69,15 @@ mod.EIDescs = {
             },
 		},
 		[mod.Items.MomsDress ] = {
-			en_us = { 
-                "Spawns 2 {{RottenHeart}}Rotten Hearts on pickup",
-                "30% chance to gain {{Collectible313}}Holy Mantle effect in uncleared rooms"
+			en_us = {
+                "{{RottenHeart}} Spawns 2 Rotten Hearts",
+                "{{Collectible313}} {{ColorCyan}}(20 + 10{{ColorYellow}}N{{CR}})%{{CR}} chance to gain Holy Mantle effect in uncleared rooms.",
+                "{{Collectible739}} {{ColorYellow}}N{{CR}} is the number of Mom's Dress items the player has."
             },
-            ru = { 
+            ru = {
                 "Создаёт 2 {{RottenHeart}}Гнилых Сердца при подборе",
-                "30% шанс дать эффект {{Collectible313}}Святой Мантии в незачищенных комнатах"
+                "30% шанс дать эффект {{Collectible313}}Святой Мантии в незачищенных комнатах",
+                "!!! Outdated description."
             }
 		},
 		[mod.Items.EnjoymentOfTheUnlucky] = {
@@ -1052,7 +1054,7 @@ mod.EIDescs = {
             ru = {
                 "Шанс создать Монету, Пятак или Гривенник",
                 "Есть шанс не создать ничего",
-                "{{Warning}} Outdated description.",
+                "!!! Outdated description.",
             },
         }
 	},
