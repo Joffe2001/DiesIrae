@@ -113,6 +113,14 @@ mod.Items = {
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
 }
 
+mod.Wisps = {
+    RingofFire1 = Isaac.GetItemIdByName("Wisp Ring of Fire 1"),
+    RingofFire2 = Isaac.GetItemIdByName("Wisp Ring of Fire 2"),
+    RingofFire3 = Isaac.GetItemIdByName("Wisp Ring of Fire 3"),
+    RingofFire4 = Isaac.GetItemIdByName("Wisp Ring of Fire 4"),
+    RingofFire5 = Isaac.GetItemIdByName("Wisp Ring of Fire 5"),
+}
+
 mod.Trinkets = {
     Gaga             = Isaac.GetTrinketIdByName("Gaga"),
     BabyBlue         = Isaac.GetTrinketIdByName("Baby Blue"),
@@ -132,13 +140,13 @@ mod.Trinkets = {
 }
 
 mod.Pills = {
-    CURSED             = Isaac.GetPillEffectByName("Cursed Pill"),
-    BLESSED            = Isaac.GetPillEffectByName("Blessed Pill"),
-    HEARTBREAK         = Isaac.GetPillEffectByName("Heartbreak Pill"),
-    POWER_DRAIN        = Isaac.GetPillEffectByName("Power Drain Pill"),
-    VOMIT              = Isaac.GetPillEffectByName("Vomit Pill"),
-    SOMETHING_CHANGED  = Isaac.GetPillEffectByName("Something Changed Pill"),
-    EQUAL              = Isaac.GetPillEffectByName("Equal Pill")
+    CURSED            = Isaac.GetPillEffectByName("Cursed Pill"),
+    BLESSED           = Isaac.GetPillEffectByName("Blessed Pill"),
+    HEARTBREAK        = Isaac.GetPillEffectByName("Heartbreak Pill"),
+    POWER_DRAIN       = Isaac.GetPillEffectByName("Power Drain Pill"),
+    VOMIT             = Isaac.GetPillEffectByName("Vomit Pill"),
+    SOMETHING_CHANGED = Isaac.GetPillEffectByName("Something Changed Pill"),
+    EQUAL             = Isaac.GetPillEffectByName("Equal Pill")
 }
 
 mod.Sounds = {
@@ -170,7 +178,7 @@ mod.Entities = {
     BEGGAR_Fiend             = MakeEntityTable("Fiend Beggar"),
     BEGGAR_Tech              = MakeEntityTable("Tech Beggar"),
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
-    
+
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
     BEGGAR_BombElijah        = MakeEntityTable("Bomb Beggar Elijah"),

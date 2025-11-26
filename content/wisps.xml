@@ -1,0 +1,24 @@
+<wisps gfxroot="gfx/familiar/wisps/">
+	<color name="default" />
+
+	<color name="flame_light_yellow" r="255" g="231" b="167"/>
+	<color name="core_light_yellow" r="252" g="189" b="116"/>
+
+	<color name="flame_yellow" r="255" g="220" b="115"/>
+	<color name="core_yellow" r="255" g="199" b="31"/>
+
+	<color name="flame_red" r="255" g="107" b="147"/>
+	<color name="core_red" r="255" g="20" b="83"/>
+
+	<color name="flame_blue" r="122" g="173" b="255"/>
+	<color name="core_blue" r="199" g="220" b="255"/>
+
+	<color name="flame_black" r="0" g="0" b="0"/>
+	<color name="core_black" r="89" g="89" b="89"/>
+
+	<wisp id="1001" hp="1" damage="1" flameColor="flame_light_yellow" coreColor="core_light_yellow" canShoot="false"/>
+	<wisp id="1002" hp="1" damage="1" flameColor="flame_yellow" coreColor="core_yellow" canShoot="false"/>
+	<wisp id="1003" hp="1" damage="1" flameColor="flame_red" coreColor="core_red" canShoot="false"/>
+	<wisp id="1004" hp="1" damage="1" flameColor="flame_blue" coreColor="core_blue" canShoot="false"/>
+	<wisp id="1005" hp="1" damage="1" flameColor="flame_black" coreColor="core_black" canShoot="false"/>
+</wisps>
