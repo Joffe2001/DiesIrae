@@ -206,7 +206,7 @@ mod.Curses = {
 }
 
 mod.Challenges = {
-    SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
+    SoundOfSilence = Isaac.GetChallengeIdByName("The Worst Touch")
 }
 
 mod.Achievements = {
@@ -254,4 +254,5 @@ mod.Achievements = {
     Cheater            = Isaac.GetAchievementIdByName("Cheater"),
     Speedrun1          = Isaac.GetAchievementIdByName("Speedrunner1"),
     GYM                = Isaac.GetAchievementIdByName("GYM"),
+    Wimter             = Isaac.GetAchievementIdByName("Wimter"),
 }

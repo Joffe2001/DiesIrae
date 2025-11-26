@@ -374,7 +374,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnPostNewRoom_USR)
 
 ------------------------------------------------------
----         Unlock Creatine Overdose                ---
+---         Unlock Creatine Overdose               ---
 ------------------------------------------------------
 local creatineUnlocked = false
 local function CheckCreatineUnlock(player)
@@ -396,7 +396,7 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
 end)
 
 ------------------------------------------------------
----                 Unlock Cheater                 ---
+---                 Unlock Cheater                 --- SECRET
 ------------------------------------------------------
 local CHEATER_BOSSES = {
     [EntityType.ENTITY_HUSH] = true,
@@ -453,7 +453,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.Cheater_OnNewRun)
 
 ------------------------------------------------------
----              Unlock Speedrun1                  ---
+---              Unlock Speedrun1                  --- SECRET
 ------------------------------------------------------
 local levelStartTime = 0
 local SPEEDRUN_TIME_LIMIT = 30 
@@ -486,30 +486,30 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, OnNPCDeath_Speedrun1)
 
 ------------------------------------------------------
----                 Unlock we go GYM               ---
+---                 Unlock Wimter                  --- SECRET
 ------------------------------------------------------
-local gymUnlocked = false
-local function CheckGYMUnlock(player)
-    if gymUnlocked then return end
+local wimterUnlocked = false
+local function CheckwimterUnlock(player)
+    if wimterUnlocked then return end
 
-    if player:HasCollectible(mod.Items.ProteinPowder)
-    and player:HasCollectible(mod.Items.CreatineOverdose)
-    and player:HasCollectible(mod.Items.SweetCaffeine) then
-        TryUnlock(mod.Achievements.GYM)
-        gymUnlocked = true
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_URANUS)
+    and player:HasCollectible(CollectibleType.COLLECTIBLE_FREEZER_BABY)
+    and player:HasCollectible(CollectibleType.COLLECTIBLE_CUBE_BABY) then
+        TryUnlock(mod.Achievements.Wimter)
+        wimterUnlocked = true
     end
 end
 
-local function OnPlayerUpdate_GYM(_, player)
-    CheckGYMUnlock(player)
+local function OnPlayerUpdate_wimter(_, player)
+    CheckwimterUnlock(player)
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnPlayerUpdate_GYM)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, OnPlayerUpdate_wimter)
 
-local function OnNewRun_GYM(_, reenter)
+local function OnNewRun_wimter(_, reenter)
     if reenter then return end
-    gymUnlocked = false
+    wimterUnlocked = false
 end
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_GYM)
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_wimter)
 
 ------------------------------------------------------
 ---                 Unlock function                ---

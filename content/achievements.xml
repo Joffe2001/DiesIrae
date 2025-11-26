@@ -31,8 +31,9 @@
 	<achievement name="PTSD" text=''                      gfx="achievement_PTSD.png"               gfxback="paper.png"/>
 <!--Trinkets Unlocks-->
 	<achievement name="Gaga" text=''                      gfx="achievement_gaga.png"               gfxback="paper_music.png"/>
-<!--Extra Unlocks-->
-	<achievement name="Cheater" text=''                   gfx="achievement_cheater.png"            gfxback="paper.png"/>
-	<achievement name="Speedrunner1" text=''              gfx="achievement_speedrun1.png"          gfxback="paper.png"/>
-	<achievement name="GYM" text=''                       gfx="achievement_gym.png"                gfxback="paper.png"/>
+<!--Secret Unlocks-->
+	<achievement name="Cheater" text=''                   gfx="achievement_cheater.png"            gfxback="paper.png" />
+	<achievement name="Speedrunner1" text=''              gfx="achievement_speedrun1.png"          gfxback="paper.png" />
+	<achievement name="GYM" text=''                       gfx="achievement_gym.png"                gfxback="paper.png" />
+	<achievement name="Wimter" text=''                    gfx="achievement_wimter.png"             gfxback="paper.png" />
 </achievements>
