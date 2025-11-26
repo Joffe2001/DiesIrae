@@ -139,7 +139,7 @@ include("scripts.effects.fragile")
 ----------------------------------------------------
 --  Challenges
 ----------------------------------------------------
-include("scripts.challenges.wprsttouch")
+include("scripts.challenges.worsttouch")
 ---------------------------------------------------
 --  Transformations
 ----------------------------------------------------
