@@ -65,6 +65,7 @@ local ItemRoomBeggar = {
     [RoomType.ROOM_SECRET]      = mod.Entities.BEGGAR_SecretElijah.Var,
     [RoomType.ROOM_ULTRASECRET] = mod.Entities.BEGGAR_UltraSecretElijah.Var,
     [RoomType.ROOM_PLANETARIUM] = mod.Entities.BEGGAR_PlanetariumElijah.Var,
+    [RoomType.ROOM_LIBRARY]     = mod.Entities.BEGGAR_LibraryElijah.Var,
     [RoomType.ROOM_ERROR]       = mod.Entities.BEGGAR_ERROR_Elijah.Var
 }
 
@@ -310,38 +311,51 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
 
 ---Replace shop with beggars
+local lastShopRoomIndex = nil
 function elijahFuncs:PostNewRoomShop()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
     local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_SHOP then return end
+    local level = game:GetLevel()
+
+    if room:GetType() ~= RoomType.ROOM_SHOP then
+        return
+    end
+
+
+    local roomIndex = level:GetCurrentRoomIndex()
+    if lastShopRoomIndex == roomIndex then
+        return
+    end
+    lastShopRoomIndex = roomIndex
 
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent.Type == EntityType.ENTITY_PICKUP
-            or ent.Type == EntityType.ENTITY_SHOPKEEPER
-            or ent.Type == EntityType.ENTITY_SLOT then
+        or ent.Type == EntityType.ENTITY_SHOPKEEPER
+        or ent.Type == EntityType.ENTITY_SLOT then
             ent:Remove()
         end
     end
 
-    local numShopBeggars = math.random(AMOUNT_SHOP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
+    local numShopBeggars = math.random(AMOUNT_SHOP_BEGGAR_PER_SHOP[1], AMOUNT_SHOP_BEGGAR_PER_SHOP[2])
     local extraBeggars   = math.random(AMOUNT_PICKUP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
 
-    local randomPool     = {
+    local randomPool = {
         mod.Entities.BEGGAR_BatteryElijah.Var,
         mod.Entities.BEGGAR_KeyElijah.Var,
         mod.Entities.BEGGAR_BombElijah.Var
     }
 
     local function spawnBeggar(variant, pos)
-        Isaac.Spawn(EntityType.ENTITY_SLOT, variant, 0, pos, Vector.Zero, nil)
+        local safePos = room:FindFreePickupSpawnPosition(pos, 40, true)
+        Isaac.Spawn(EntityType.ENTITY_SLOT, variant, 0, safePos, Vector.Zero, nil)
     end
 
     local center = room:GetCenterPos()
     local radius = 90
-    local angleStep = 360 / (numShopBeggars + extraBeggars)
+    local total = numShopBeggars + extraBeggars
+    local angleStep = 360 / total
     local index = 0
-
 
     for _ = 1, numShopBeggars do
         local pos = center + Vector.FromAngle(index * angleStep) * radius
@@ -350,9 +364,9 @@ function elijahFuncs:PostNewRoomShop()
     end
 
     for _ = 1, extraBeggars do
-        local variant = randomPool[math.random(#randomPool)]
+        local var = randomPool[math.random(#randomPool)]
         local pos = center + Vector.FromAngle(index * angleStep) * radius
-        spawnBeggar(variant, pos)
+        spawnBeggar(var, pos)
         index = index + 1
     end
 end

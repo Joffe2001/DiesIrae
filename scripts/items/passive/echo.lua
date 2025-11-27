@@ -1,22 +1,25 @@
 local mod = DiesIraeMod
 
-local Echo = {}
-local rng = RNG()
-
-rng:SetSeed(Random(), 1)
-
-mod:AddCallback(ModCallbacks.MC_PRE_PLANETARIUM_APPLY_ITEMS, function(_, chance)
+mod:AddCallback(ModCallbacks.MC_PRE_PLANETARIUM_APPLY_STAGE_PENALTY, function()
     local player = Isaac.GetPlayer(0)
+
     if player:HasCollectible(mod.Items.Echo) then
-        local stage = Game():GetLevel():GetStage()
-        local bonus = stage >= LevelStage.STAGE4_1 and 0.10 or 0.25
-        local newChance = chance + bonus
-
-        print("[Echo] Player has Echo! Current stage: " .. tostring(stage))
-        print(string.format("[Echo] Base chance: %.2f%% | Bonus: %.2f%% | Final chance: %.2f%%", chance * 100, bonus * 100, newChance * 100))
-
-        return newChance
+        return false 
     end
-    return chance
 end)
 
+mod:AddCallback(ModCallbacks.MC_POST_PLANETARIUM_CALCULATE, function(_, chance)
+    local player = Isaac.GetPlayer(0)
+    if not player:HasCollectible(mod.Items.Echo) then
+        return chance
+    end
+    local stage = Game():GetLevel():GetStage()
+
+    if stage >= LevelStage.STAGE4_1 then
+        return 0.10
+    end
+
+    local bonus = 0.25
+    local newChance = chance + bonus
+    return newChance
+end)

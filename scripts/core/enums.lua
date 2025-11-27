@@ -188,6 +188,7 @@ mod.Entities = {
     BEGGAR_MomBoxElijah      = MakeEntityTable("Mom's Chest Elijah"),
     BEGGAR_TreasureElijah    = MakeEntityTable("Treasure Beggar Elijah"),
     BEGGAR_ShopElijah        = MakeEntityTable("Shop Beggar Elijah"),
+    BEGGAR_LibraryElijah     = MakeEntityTable("Library Beggar Elijah"),
     BEGGAR_AngelElijah       = MakeEntityTable("Angel Beggar Elijah"),
     BEGGAR_DevilElijah       = MakeEntityTable("Devil Beggar Elijah"),
     BEGGAR_SecretElijah      = MakeEntityTable("Secret Beggar Elijah"),
@@ -213,7 +214,7 @@ mod.Curses = {
 }
 
 mod.Challenges = {
-    SoundOfSilence = Isaac.GetChallengeIdByName("Sound of Silence")
+    SoundOfSilence = Isaac.GetChallengeIdByName("The Worst Touch")
 }
 
 mod.Achievements = {
@@ -261,4 +262,5 @@ mod.Achievements = {
     Cheater            = Isaac.GetAchievementIdByName("Cheater"),
     Speedrun1          = Isaac.GetAchievementIdByName("Speedrunner1"),
     GYM                = Isaac.GetAchievementIdByName("GYM"),
+    Wimter             = Isaac.GetAchievementIdByName("Wimter"),
 }

@@ -139,6 +139,7 @@ include("scripts.effects.fragile")
 ----------------------------------------------------
 --  Challenges
 ----------------------------------------------------
+include("scripts.challenges.worsttouch")
 ---------------------------------------------------
 --  Transformations
 ----------------------------------------------------
@@ -165,6 +166,7 @@ include("scripts.npcs.elijah.elijah_planeterium_beggar")
 include("scripts.npcs.elijah.elijah_secret_beggar")
 include("scripts.npcs.elijah.elijah_ultra_secret_beggar")
 include("scripts.npcs.elijah.elijah_error_beggar")
+include("scripts.npcs.elijah.elijah_book_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
