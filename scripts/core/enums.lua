@@ -111,6 +111,7 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
+    BackPain              = Isaac.GetItemIdByName("Back Pain"),
 }
 
 mod.Wisps = {
@@ -254,6 +255,7 @@ mod.Achievements = {
     UltraSecretMap     = Isaac.GetAchievementIdByName("Ultra Secret Map"),
     CreatineOverdose   = Isaac.GetAchievementIdByName("Creatine Overdose"),
     PTSD               = Isaac.GetAchievementIdByName("PTSD"),
+    StabWound          = Isaac.GetAchievementIdByName("Stab Wound"),
 
     --- Trinkets unlocks
     Gaga               = Isaac.GetAchievementIdByName("Gaga"),
@@ -263,4 +265,5 @@ mod.Achievements = {
     Speedrun1          = Isaac.GetAchievementIdByName("Speedrunner1"),
     GYM                = Isaac.GetAchievementIdByName("GYM"),
     Wimter             = Isaac.GetAchievementIdByName("Wimter"),
+    SkillIssue1        = Isaac.GetAchievementIdByName("Skill Issue 1"),
 }

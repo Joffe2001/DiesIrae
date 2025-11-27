@@ -396,6 +396,58 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
 end)
 
 ------------------------------------------------------
+---         Unlock Stab Wound                      ---
+------------------------------------------------------
+local tookDamage_StabWound = false
+local inHeartFight = false
+local StabWoundUnlocked = false
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    tookDamage_StabWound = false
+    inHeartFight = false
+    StabWoundUnlocked = false
+end)
+
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, dmg, flags, source)
+    if ent.Type == EntityType.ENTITY_PLAYER then
+        tookDamage_StabWound = true
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    inHeartFight = false
+
+    local room = Game():GetRoom()
+    local roomType = room:GetType()
+    if roomType ~= RoomType.ROOM_BOSS then return end
+
+    for _, ent in ipairs(Isaac.GetRoomEntities()) do
+        if ent:IsActiveEnemy() then
+            if ent.Type == EntityType.ENTITY_MOMS_HEART
+            or ent.Type == EntityType.ENTITY_IT_LIVES then
+
+                inHeartFight = true
+                return
+            end
+        end
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+    if StabWoundUnlocked then return end
+    if not inHeartFight then return end
+    if tookDamage_StabWound then return end
+
+    local room = Game():GetRoom()
+
+    if room:GetAliveEnemiesCount() == 0 then
+        TryUnlock(mod.Achievements.StabWound)
+        StabWoundUnlocked = true
+    end
+end)
+
+------------------------------------------------------
 ---                 Unlock Cheater                 --- SECRET
 ------------------------------------------------------
 local CHEATER_BOSSES = {

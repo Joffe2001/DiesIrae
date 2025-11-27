@@ -2,8 +2,8 @@
 
 <!--Characters-->
 	<achievement name="David" text=''                     gfx="achievement_david.png"              gfxback="paper_music.png"/>
-	<achievement name="Tainted David" text=''             gfx="achievement_tdavid.png"             gfxback="paper_music.png"/>
-	<achievement name="Elijah" text=''                    gfx="achievement_elijah.png"             gfxback="paper_beggar.png"/>
+	<achievement name="Tainted David" text=''             gfx="tdavid.png"                         gfxback="paper_music.png"/>
+	<achievement name="Elijah" text=''                    gfx="elijah.png"                         gfxback="paper_beggar.png"/>
 <!--David's Unlocks-->
 	<achievement name="Army of Lovers" text=''            gfx="achievement_armyoflovers.png"       gfxback="paper_music.png"/>
 	<achievement name="The Bad Touch" text=''             gfx="achievement_thebadtouch.png"        gfxback="paper_music.png"/>
@@ -20,20 +20,21 @@
 	<achievement name="Wonder of You" text=''             gfx="achievement_wonderofyou.png"        gfxback="paper_music.png"/>
 	<achievement name="Muse" text=''                      gfx="achievement_muse.png"               gfxback="paper_music.png"/>
 <!--Active items Unlocks-->
-	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
-	<achievement name="Devil's Heart" text=''             gfx="achievement_devilsheart.png"         gfxback="paper_music.png"/>
+	<achievement name="King's Heart" text=''              gfx="kingsheart.png"                     gfxback="paper_music.png"/>
+	<achievement name="Devil's Heart" text=''             gfx="devilsheart.png"                    gfxback="paper.png"/>
 
 <!--Passive items Unlocks-->
-	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
-	<achievement name="Ultra Secret Map" text=''          gfx="achievement_ultrasecretmap.png"     gfxback="paper.png"/>
-	<achievement name="Creatine Overdose" text=''         gfx="achievement_creatingoverdose.png"   gfxback="paper.png"/>
-	<achievement name="PTSD" text=''                      gfx="achievement_PTSD.png"               gfxback="paper.png"/>
-	<achievement name="PTSD" text=''                      gfx="achievement_PTSD.png"               gfxback="paper.png"/>
+	<achievement name="Golden Day" text=''                gfx="goldenday.png"                      gfxback="paper_music.png"/>
+	<achievement name="Ultra Secret Map" text=''          gfx="ultrasecretmap.png"                 gfxback="paper.png"/>
+	<achievement name="Creatine Overdose" text=''         gfx="creatingoverdose.png"               gfxback="paper.png"/>
+	<achievement name="PTSD" text=''                      gfx="PTSD.png"                           gfxback="paper.png"/>
+	<achievement name="Stab Wound" text=''                gfx="StabWound.png"                      gfxback="paper.png"/>
 <!--Trinkets Unlocks-->
-	<achievement name="Gaga" text=''                      gfx="achievement_gaga.png"               gfxback="paper_music.png"/>
+	<achievement name="Gaga" text=''                      gfx="gaga.png"                           gfxback="paper_music.png"/>
 <!--Secret Unlocks-->
-	<achievement name="Cheater" text=''                   gfx="achievement_cheater.png"            gfxback="paper.png" />
-	<achievement name="Speedrunner1" text=''              gfx="achievement_speedrun1.png"          gfxback="paper.png" />
-	<achievement name="GYM" text=''                       gfx="achievement_gym.png"                gfxback="paper.png" />
-	<achievement name="Wimter" text=''                    gfx="achievement_wimter.png"             gfxback="paper.png" />
+	<achievement name="Cheater" text=''                   gfx="cheater.png"                        gfxback="paper.png" />
+	<achievement name="Speedrunner1" text=''              gfx="speedrun1.png"                      gfxback="paper.png" />
+	<achievement name="GYM" text=''                       gfx="gym.png"                            gfxback="paper.png" />
+	<achievement name="Wimter" text=''                    gfx="wimter.png"                         gfxback="paper.png" />
+	<achievement name="Skill Issue 1" text=''             gfx="skillissue1.png"                    gfxback="paper.png" />
 </achievements>
