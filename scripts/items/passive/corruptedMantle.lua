@@ -58,36 +58,33 @@ function corruptedMantle:onEvaluateCache(player, cacheFlag)
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, corruptedMantle.onEvaluateCache)
 
-function corruptedMantle:onPrePickupCollision(pickup, collider)
-    if collider.Type == EntityType.ENTITY_PLAYER then
-        if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and pickup.SubType == mod.Items.CorruptedMantle then
-            local ptrHash = GetPtrHash(collider)
-            corruptedMantle.shieldCount[ptrHash] = 1
-            corruptedMantle.state[ptrHash] = CorruptedMantleState.SHIELD_ON
-            corruptedMantle.hurtCount[ptrHash] = 0
-            collider = collider:ToPlayer()
-            collider:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-            collider:AddCacheFlags(CacheFlag.CACHE_SPEED)
-            collider:AddCacheFlags(CacheFlag.CACHE_LUCK)
-            if corruptedMantle.spriteShimmer[ptrHash] == nil then
-                local s = Sprite('gfx/characters/313_holymantle.anm2', true)
-                s:Play("Shimmer")
-                corruptedMantle.spriteShimmer[ptrHash] = s
-            end
-            if corruptedMantle.spriteGlow[ptrHash] == nil then
-                local s = Sprite('gfx/characters/313_holymantle.anm2', true)
-                s:Play("HeadDown")
-                corruptedMantle.spriteGlow[ptrHash] = s
-            end
-            if corruptedMantle.spriteHolyMantle[ptrHash] == nil then
-                local s = Sprite('gfx/ui/ui_hearts.anm2', true)
-                s:Play("HolyMantle")
-                corruptedMantle.spriteHolyMantle[ptrHash] = s
-            end
+function corruptedMantle:onPostAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
+    if collectibleType == mod.Items.CorruptedMantle then
+        local ptrHash = GetPtrHash(player)
+        corruptedMantle.shieldCount[ptrHash] = 1
+        corruptedMantle.state[ptrHash] = CorruptedMantleState.SHIELD_ON
+        corruptedMantle.hurtCount[ptrHash] = 0
+        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+        player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+        if corruptedMantle.spriteShimmer[ptrHash] == nil then
+            local s = Sprite('gfx/characters/313_holymantle.anm2', true)
+            s:Play("Shimmer")
+            corruptedMantle.spriteShimmer[ptrHash] = s
+        end
+        if corruptedMantle.spriteGlow[ptrHash] == nil then
+            local s = Sprite('gfx/characters/313_holymantle.anm2', true)
+            s:Play("HeadDown")
+            corruptedMantle.spriteGlow[ptrHash] = s
+        end
+        if corruptedMantle.spriteHolyMantle[ptrHash] == nil then
+            local s = Sprite('gfx/ui/ui_hearts.anm2', true)
+            s:Play("HolyMantle")
+            corruptedMantle.spriteHolyMantle[ptrHash] = s
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, corruptedMantle.onPrePickupCollision)
+mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, corruptedMantle.onPostAddCollectible)
 
 function corruptedMantle:onPrePlayerTakeDamage(player, damage, damageFlags)
     if player:HasCollectible(mod.Items.CorruptedMantle) then
@@ -161,6 +158,9 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_RENDER_PLAYER_BODY, corruptedMantle.onPreRenderPlayerBody)
 
 function corruptedMantle.onPostPlayerHUDRenderHearts()
+    if ((game:GetLevel():GetCurses()) & LevelCurse.CURSE_OF_THE_UNKNOWN) ~= 0 then
+        return
+    end
     for i = 0, game:GetNumPlayers() - 1 do
         local p = Isaac.GetPlayer(i)
         if p:HasCollectible(mod.Items.CorruptedMantle) then
