@@ -17,20 +17,20 @@
     <passive id="15" name="Bloodline"                  gfx="item_placeholder.png"          description="It runs in the family"                       quality="3" tags="offensive" />  
     <passive id="16" name="Protein Powder"             gfx="item_placeholder.png"          description="STRENGTH!!!!"                                quality="3" tags="offensive food" />
     <passive id="17" name="Hysteria"                   gfx="item_placeholder.png"          description="Last chance to lose control"                 quality="2" tags="nolostbr" />
-    <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive" />
+    <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive"         achievement="Stab Wound"/>
     <passive id="19" name="Thought Contagion"          gfx="Thought_Contagion.png"         description="The modder really wanted crowd controller"   quality="4" tags="offensive" />
     <passive id="20" name="Boss Compass"               gfx="bosscompass.png"               description="Where is he???"                              quality="1" />      
-    <passive id="21" name="Golden Day"                 gfx="item_placeholder.png"          description="As long its not green..."                    quality="0" tags="nolostbr nogreed" achievement="Golden Day" />
+    <passive id="21" name="Golden Day"                 gfx="item_placeholder.png"          description="As long its not green..."                    quality="0" tags="nolostbr nogreed"  achievement="Golden Day" />
     <passive id="22" name="Mutter"                     gfx="item_placeholder.png"          description="Why is it in german?"                        quality="2" />
     <passive id="23" name="Solar Flare"                gfx="item_placeholder.png"          description="I will burn our horizons"                    quality="3" tags="offensive nogreed" />
     <passive id="24" name="Devil's Map"                gfx="item_placeholder.png"          description="I don't like this place"                     quality="2"/>
     <passive id="25" name="Psychosocial"               gfx="item_placeholder.png"          description="You're on your own"                          quality="4" tags="offensive" />
     <passive id="26" name="Borrowed Strength"          gfx="borrowedstrength.png"          description="I’ll face the fire, I’ll bear the pain"      quality="2"/>
-    <passive id="27" name="Ultra Secret Map"           gfx="ultrasecretmap2.png"           description="To find, you must seek."                     quality="4" />
+    <passive id="27" name="Ultra Secret Map"           gfx="ultrasecretmap2.png"           description="To find, you must seek."                     quality="4"                          achievement="Ultra Secret Map"/>
     <passive id="28" name="Red Compass"                gfx="redcompass.png"                description="Maybe I'll find something new"               quality="3" />
     <passive id="29" name="Last Resort"                gfx="item_placeholder.png"          description="Wish somebody will tell me I'm fine"         quality="2" tags="nolostbr" />
     <passive id="30" name="Rainbow KoRn"               gfx="rainbow_korn.png"              description="Life's gotta always be messing with me"      quality="4" tags="food"/>
-    <passive id="31" name="Creatine Overdose"          gfx="creatine_overdose.png"         description="UNLIMITED POWER!!!"                          quality="3" tags="offensive" />
+    <passive id="31" name="Creatine Overdose"          gfx="creatine_overdose.png"         description="UNLIMITED POWER!!!"                          quality="3" tags="offensive"         achievement="Creatine Overdose"/>
     <passive id="32" name="Fragile Ego"                gfx="item_placeholder.png"          description="I find bliss in ignorance"                   quality="2" />
     <passive id="33" name="Symphony Of Destruction"    gfx="item_placeholder.png"          description="The head explodes"                           quality="1"/>      
     <passive id="34" name="Beggar's Tear"              gfx="item_placeholder.png"          description="I want it all, and I want it now"            quality="1" />
@@ -39,7 +39,7 @@
     <passive id="37" name="Dad's Empty Wallet"         gfx="item_placeholder.png"          description="Money?"                                      quality="2" />
     <passive id="38" name="Fiend Deal"                 gfx="item_placeholder.png"          description="I feel... Weak"                              quality="3" />
     <passive id="39" name="Betrayal Heart"             gfx="betrayal_heart.png"            description="Nearly forgot it..."                         quality="2" tags="nolostbr"/>
-    <passive id="40" name="PTSD"                       gfx="ptsd.png"                      description="Not again..."                                quality="3" tags="nolostbr"/>
+    <passive id="40" name="PTSD"                       gfx="ptsd.png"                      description="Not again..."                                quality="3" tags="nolostbr"          achievement="PTSD" />
     <passive id="41" name="Flowering Skull"            gfx="floweringskull.png"            description="Is this the real life?"                      quality="2" customtags="revive"/>
     <passive id="42" name="Rewrapping Paper"           gfx="item_placeholder.png"          description="Christmas has come early this year!"         quality="3"/>
     <passive id="43" name="Filthy Rich"                gfx="filthy_rich.png"               description="Those coins aren't clean"                    quality="1" />
@@ -53,20 +53,20 @@
     <familiar id="50" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
-    <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive" achievement="Army of Lovers" />
+    <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
     <active id="102" name="Sh-boom!!"                  gfx="shboom.png"                    description="Life could be a dream!"                      quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
     <active id="103" name="Hypa Hypa"                  gfx="active_placeholder.png"        description="Maybe it will be good"                       quality="2" maxcharges="1" chargetype="special" tags="nogreed"  />
-    <active id="104" name="Helter skelter"             gfx="helterskelter.png"             description="Friends from the dead"                       quality="3" maxcharges="6" chargetype="normal" achievement="Helter Skelter" />
+    <active id="104" name="Helter skelter"             gfx="helterskelter.png"             description="Friends from the dead"                       quality="3" maxcharges="6" chargetype="normal"                              achievement="Helter Skelter" />
     <active id="105" name="Holy Wood"                  gfx="active_placeholder.png"        description="Safe, maybe, for now"                        quality="3" maxcharges="6" chargetype="normal" tags="nolostbr nogreed" />
     <active id="106" name="Diary of a Madman"          gfx="active_placeholder.png"        description="Anything can happen!"                        quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
     <active id="107" name="Coma White"                 gfx="active_placeholder.png"        description="A special heart, but with a price"           quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
     <active id="108" name="Good Vibes"                 gfx="active_placeholder.png"        description="It's good man"                               quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
     <active id="109" name="Big Shot"                   gfx="big_shot.png"                  description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240" />
-    <active id="110" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr" />
+    <active id="110" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr"              achievement="Devil's Heart"/>
     <active id="111" name="Mom's Diary"                gfx="momsdiary2.png"                description="Is that what she thinks of me?"              quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active id="112" name="Another Medium"             gfx="active_placeholder.png"        description="Things will not be the same"                 quality="1" maxcharges="1" chargetype="normal" />
     <active id="113" name="Little Lies"                gfx="littlelies.png"                description="Tell me sweet little lies"                   quality="1" maxcharges="4" chargetype="normal" achievement="Little lies" />
-    <active id="114" name="King's Heart"               gfx="kingsheart.png"                description="Buy his heart with riches"                   quality="3" chargetype="special" tags="nolostbr" achievement="King's Heart"/>
+    <active id="114" name="King's Heart"               gfx="kingsheart.png"                description="Buy his heart with riches"                   quality="3" chargetype="special" tags="nolostbr"                            achievement="King's Heart"/>
     <active id="115" name="Break Stuff"                gfx="active_placeholder.png"        description="It was an accident.."                        quality="2" maxcharges="8" chargetype="normal" />
     <active id="116" name="Personal Beggar"            gfx="personal_beggar.png"           description="I just love to give and give!"               quality="1" maxcharges="6" chargetype="normal" />
     <!-- Trinkets -->
@@ -94,6 +94,7 @@
     <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"               quality="2"/>
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
+    <passive id="320" name="Back Pain"                    gfx="item_placeholder.png"          description="MY BACK!!"               quality="1"/>
 
     <trinket id="400" name="Money for nothing"         gfx="trinket_placeholder.png"       description="You don't need money no more"        />
     <trinket id="401" name="Catch the Rainbow"         gfx="trinket_placeholder.png"       description="Tasted the rainbow"                  />

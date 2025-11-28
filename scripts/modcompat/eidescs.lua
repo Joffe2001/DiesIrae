@@ -178,7 +178,10 @@ mod.EIDescs = {
         },
         [mod.Items.Hysteria] = {
             en_us = { 
-                "Taking damage twice in a room doubles the damage for the room"
+                "Taking damage twice in a room doubles the {{Damage}}damage for the room",
+                "Getting damage three times in the same room removes the damage boost and gives a {{BrokenHeart}}broken heart",
+                "Getting hit the forth time gains another {{BrokenHeart}}broken heart and doubles the {{Tears}}tear rate",
+                "Getting hit 5th time is a skill issue"
             },
             ru = { 
                 "Получение урона дважды за комнату удваивает урон на комнату"
