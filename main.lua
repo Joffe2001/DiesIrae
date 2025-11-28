@@ -103,6 +103,7 @@ include("scripts.items.passive.corruptedMantle")
 ----------------------------------------------------
 include("scripts.items.familiars.paranoidAndroid")
 include("scripts.items.familiars.killerQueen")
+include("scripts.items.familiars.RedBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------

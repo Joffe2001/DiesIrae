@@ -112,6 +112,7 @@ mod.Items = {
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
     BackPain              = Isaac.GetItemIdByName("Back Pain"),
+    RedBum                = Isaac.GetItemIdByName("Red Bum"),
 }
 
 mod.Wisps = {
@@ -208,6 +209,8 @@ mod.Entities = {
     EFFECT_AndroidLazerRing  = MakeEntityTable("Android Lazer Ring"),
     EFFECT_KillerQueenRocket = MakeEntityTable("Killer Queen Rocket"),
     EFFECT_KillerQueenMark   = MakeEntityTable("Killer Queen Mark"),
+
+    FAMILIAR_RedBum          = MakeEntityTable("Red Bum"),
 }
 
 mod.Curses = {

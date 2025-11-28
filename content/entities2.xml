@@ -30,6 +30,10 @@
     <entity id="3" variant="1202" name="Righteous Ghost" anm2path="familiar/righteousghosts.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="0" friction="0" numGridCollisionPoints="1" shadowSize="2" stageHP="0">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
     </entity>
+<!--bum familiars-->
+    <entity id="3" variant="1300" name="Red Bum" anm2path="familiar/redbum.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="10" stageHP="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
 
 <!--NPCS-->
 
