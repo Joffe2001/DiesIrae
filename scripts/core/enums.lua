@@ -73,6 +73,7 @@ mod.Items = {
     -- Familiars
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
     KillerQueen           = Isaac.GetItemIdByName("Killer Queen"),
+    RedBum                = Isaac.GetItemIdByName("Red Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -112,7 +113,6 @@ mod.Items = {
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
     BackPain              = Isaac.GetItemIdByName("Back Pain"),
-    RedBum                = Isaac.GetItemIdByName("Red Bum"),
 }
 
 mod.Wisps = {

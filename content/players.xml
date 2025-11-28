@@ -1,6 +1,6 @@
 <players root="gfx/characters/costumes/" portraitroot="gfx/ui/stage/" nameimageroot="gfx/ui/boss/">
     <player name="David"
-        skin="david_spritesheet2.png"
+        skin="david_spritesheet.png"
         nameimage="david.png"
         hp="2"
         goldenhearts="1"
