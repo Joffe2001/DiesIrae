@@ -113,6 +113,7 @@ mod.Items = {
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
     BackPain              = Isaac.GetItemIdByName("Back Pain"),
+    ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
 }
 
 mod.Wisps = {
@@ -166,6 +167,8 @@ mod.Costumes = {
     David_Hair       = Isaac.GetCostumeIdByPath("gfx/characters/david_hair.anm2"),
     TDavid_Hair      = Isaac.GetCostumeIdByPath("gfx/characters/tdavid_hair.anm2"),
     Universal_active = Isaac.GetCostumeIdByPath("gfx/characters/universal_head.anm2"),
+    Holywood         = Isaac.GetCostumeIdByPath("gfx/characters/holywood.anm2"),
+    BrokenHolywood   = Isaac.GetCostumeIdByPath("gfx/characters/brokenholywood.anm2"),
 }
 
 mod.Cards = {
@@ -211,6 +214,7 @@ mod.Entities = {
     EFFECT_KillerQueenMark   = MakeEntityTable("Killer Queen Mark"),
 
     FAMILIAR_RedBum          = MakeEntityTable("Red Bum"),
+    FAMILIAR_ScammerBum      = MakeEntityTable("Scammer Bum"),
 }
 
 mod.Curses = {

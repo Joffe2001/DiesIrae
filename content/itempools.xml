@@ -142,6 +142,7 @@
         <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Sh-boom!!" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Ultra Secret Map" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Red Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="planetarium">

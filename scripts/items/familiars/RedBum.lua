@@ -13,7 +13,6 @@ redBum.Accepts = {
 }
 
 redBum.ReachDistance = 20
-
 function redBum.OnInit(fam)
     fam:GetSprite():Play("IdleDown", true)
 end

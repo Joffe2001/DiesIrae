@@ -51,7 +51,7 @@
     <!-- Familiars -->
     <familiar id="49" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
     <familiar id="50" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="51" name="Red Bum"                   gfx="item_placeholder.png"          description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"    />
+    <familiar id="51" name="Red Bum"                   gfx="item_placeholder.png"          description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
@@ -96,6 +96,7 @@
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
     <passive id="320" name="Back Pain"                    gfx="item_placeholder.png"          description="MY BACK!!"               quality="1"/>
+    <familiar id="321" name="Scammer Bum"                   gfx="item_placeholder.png"          description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
 
 
     <trinket id="400" name="Money for nothing"         gfx="trinket_placeholder.png"       description="You don't need money no more"        />

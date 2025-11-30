@@ -62,6 +62,9 @@ function bumUtils.UpdateMovement(fam)
         data.TargetPickup = nil
     end
 
+    local offset = Vector(math.random(-40, 40), math.random(-40, 40))
+    targetPos = targetPos + offset
+
     local direction = (targetPos - fam.Position):Normalized()
     local desiredVelocity = direction * speed
     fam.Velocity = fam.Velocity + (desiredVelocity - fam.Velocity) * 0.25
