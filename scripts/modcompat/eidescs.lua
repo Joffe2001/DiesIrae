@@ -158,14 +158,6 @@ mod.EIDescs = {
                 "Лужа растёт каждый кадр"
             }
         },
-        [mod.Items.SkullCrasher] = {
-            en_us = { 
-                "Allows you to damage skull-based enemies (Hosts, Hard Hosts, etc.) when invulnerable"
-            },
-            ru = { 
-                "Позволяет наносить урон врагам с броней из черепа (Наблюдатели, Твёрдые Наблюдатели и т.д.) во время их неуязвимости"
-            }
-        },
         [mod.Items.ProteinPowder] = {
             en_us = { 
                 "↑ +1 {{Damage}}Damage on first pickup, +2 on second, up to +4",
@@ -205,14 +197,6 @@ mod.EIDescs = {
             ru = { 
                 "Враги отражают получаемый урон на ближайших врагов",
                 "Отражается только чистый урон"
-            }
-        },
-        [mod.Items.DadsDumbbell] = {
-            en_us = { 
-                "Each tear from the lest eye has a 10% chance to deal +2 Damage"
-            },
-            ru = { 
-                "Каждая слеза имеет 10% шанс нанести +2 Урона"
             }
         },
         [mod.Items.GoldenDay] = {
@@ -257,32 +241,12 @@ mod.EIDescs = {
                 "{{Burning}}Слёзы накладывают горение на врагов"
             }
         },
-        [mod.Items.EyeSacrifice] = {
-            en_us = { 
-                "Shoot only from Isaac's right eye",
-                "Upon entering the Devil Deal room, receive a free Devil Deal"
-            },
-            ru = { 
-                "Стрельба только из правого глаза",
-                "При заходе в Комнату Сделки с Дьяволом даёт бесплатный предмет из сделки"
-            }
-        },
         [mod.Items.Psychosocial] = {
             en_us = { 
                 "↑ -0.5 {{Tears}}Tear Delay for each enemy in the room"
             },
             ru = { 
                 "↑ -0.5 {{Tears}}Задержки Выстрела за каждого врага в комнате"
-            }
-        },
-        [mod.Items.TravelerLogbook] = {
-            en_us = { 
-                "Entering a new room grants +0.1 to a random stat for the floor",
-                "Entering an I AM ERROR room resets stat boosts and gives +0.2 to a random stat permanently"
-            },
-            ru = { 
-                "При заходе в новую комнату даёт +0.1 к случайной характеристике на этаж",
-                "При заходе в комнату Я ОШИБКА сбрасывает повышение характеристик и даёт +0.2 к случайной характеристике навсегда"
             }
         },
         [mod.Items.UltraSecretMap] = {
@@ -337,14 +301,6 @@ mod.EIDescs = {
                 "↓ При получении урона убирает все повышения характеристик и может добавить {{BrokenHeart}}Разбитое Сердце"
             }
         },
-        [mod.Items.TouristMap] = {
-            en_us = { 
-                "Adds a {{Shop}}Shop to every floor starting from Chapter 4"
-            },
-            ru = { 
-                "Добавляет {{Shop}}Магазин на каждый этаж начиная с Матки 1"
-            }
-        },
         [mod.Items.BeggarsTear] = {
             en_us = { 
                 "Tears can collect pickups",
@@ -375,14 +331,6 @@ mod.EIDescs = {
                 "↑ +4 {{Damage}}Урона"
             }
         },
-        --[[[mod.Items.BuriedTreasureMap] = {
-            en_us = { 
-                "Crawl space will appear in the next room after defeating a boss"
-            },
-            ru = { 
-                "Ретро-Сокровищница появится в следующей комнате после убийства босса"
-            }
-        }, ]]
         [mod.Items.BigKahunaBurger] = {
             en_us = { 
                 "↑ +1-3 full {{Heart}}Red Heart Containers"
@@ -593,26 +541,6 @@ mod.EIDescs = {
                 "Множитель урона будет сброшен до x1.5 при заходе в новую комнату"
             },
         },
-		--[[[mod.Items.FriendlessChild] = { --NOT DONE
-            en_us = { 
-                "Removes all familiars",
-                "Familiar items give stat boosts instead, based on quality:",
-                "{{Quality0}} +0.25 {{Speed}}Speed",
-                "{{Quality1}} +0.5 {{Damage}}Damage",
-                "{{Quality2}} +1 {{Damage}}Damage, +0.5 {{Tears}}Tears",
-                "{{Quality3}} +1.5 {{Damage}}Damage, +1 {{Range}}Range",
-                "{{Quality4}} +2 {{Damage}}Damage, +0.7 {{Tears}}Tears"
-            },
-            ru = { 
-                "Убирает всех спутников",
-                "Вместо этого предметы спутников дают повышение характеристик в зависимости от качества:",
-                "{{Quality0}} +0.25 {{Speed}}Скорости",
-                "{{Quality1}} +0.5 {{Damage}}Урона",
-                "{{Quality2}} +1 {{Damage}}Урон, +0.5 {{Tears}}Слёз",
-                "{{Quality3}} +1.5 {{Damage}}Урона, +1 {{Range}}Дальности",
-                "{{Quality4}} +2 {{Damage}}Урона, +0.7 {{Tears}}Слёз"
-            }
-        },]]
 --------------------------------------------------------
 --Familiars
 --------------------------------------------------------    
@@ -853,65 +781,12 @@ mod.EIDescs = {
                 }
             }
 		},
-        [mod.Trinkets.MoneyForNothing] = {
-            en_us = {
-                "Description for Money for Nothing"
-            }
-        },
-        [mod.Trinkets.CatchTheRainbow] = {
-            en_us = {
-                function(descObj)
-                    local golden = descObj.ObjSubType == mod.Trinkets.CatchTheRainbow + (1 << 15)
-                    local chance = golden and "{{ColorGold}}5%{{ColorText}}" or "2%"
-                    return "Each {{Poop}} poop has a " .. chance .. " chance to be {{RainbowPoop}} Rainbow poop"
-                end
-            },
-            ru = {
-                function(descObj)
-                    local golden = descObj.ObjSubType == mod.Trinkets.CatchTheRainbow + (1 << 15)
-                    local chance = golden and "{{ColorGold}}5%{{ColorText}}" or "2%"
-                    return "Каждая {{Poop}} какашка имеет " .. chance .. " шанс стать {{RainbowPoop}} Радужной какашкой"
-                end
-            }
-        },
         [mod.Trinkets.Gaga] = {
             en_us = {
                 "Increased chance to transform regular Bombs, Keys and Coins into their golden variants"
             },
             ru = {
                 "Увеличенный шанс превратить обычные Бомбы, Ключи и Монеты в их золотые вариации"
-            }
-        },
-        [mod.Trinkets.FixedMetabolism] = {
-            en_us = {
-                "Red poops will be replaced with normal poops"
-            },
-            ru = {
-                "Красные какашки будут заменены на обычные"
-            },
-        },
-        [mod.Trinkets.ClearVase] = {
-            en_us = {
-                "Pots no longer spawn spiders or drop hearts/coins",
-                {
-                    function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.ClearVase + (1 << 15)
-                    end,
-                    function()
-                        return "{{ColorGold}}50% chance to drop hearts/coins as usual"
-                    end
-                }
-            },
-            ru = {
-                "С горшков больше не падают пауки, сердца или монеты",
-                {
-                    function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.ClearVase + (1 << 15)
-                    end,
-                    function()
-                        return "{{ColorGold}}50% шанс получить сердца/монеты с горшков как обычно"
-                    end
-                }
             }
         },
         [mod.Trinkets.WonderOfYou] = {
@@ -944,11 +819,6 @@ mod.EIDescs = {
             },
             ru = {
                 "Все {{Heart}}сердца будут {{RottenHeart}}гнилыми сердцами"
-            },
-        },
-        [mod.Trinkets.TrinketCollector] = {
-            en_us = {
-                "Description for Trinket Collector"
             },
         },
         [mod.Trinkets.SecondBreakfast] = {
