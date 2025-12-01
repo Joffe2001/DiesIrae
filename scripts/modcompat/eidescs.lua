@@ -1,3 +1,30 @@
+--------------------------------------------------------
+----Syntax----
+---
+---try using only up to one icon per line; it schould be at the start of the line replacing the bullet point
+---
+---Basic stat changes:
+---!make sure to know the difference between Tears up and Fire rate up!
+---!don't use functions in descriptions (e.g. change the damage number of a familiar if isaac has bff)!
+--↑ +[change_amount > 1] [stat(Health/Speed/Tears/Fire rate/Damage/Range/Shot speed/Luck)]
+--↓ -[change_amount < 1] [stat]
+--↑ x[multiplier_amount > 0] [stat]
+--↓ x[multiplier_amount < 0] [stat]
+--
+--{{[pickup]}} [pickup related effect]
+--{{HealingRed}} full health
+--
+---Luck based effects:
+--{{[fitting Icon]}} [effect]
+--{{Luck}} [change of effect]
+--
+---stay with often used phrases like "When taking damage, receive..." or "Taking damage has a chance to..."
+---don't talk directly to the reader ("holding the fire button" instead of "hold the fire button to")
+---try to not use words like "is", "are"
+---look at the descriptions found in the folders of the External Item Description mod!
+--------------------------------------------------------
+
+
 local mod = DiesIraeMod
 
 mod.EIDescs = {
@@ -8,99 +35,99 @@ mod.EIDescs = {
 --------------------------------------------------------    
 		[mod.Items.U2] = {
 			en_us = { 
-                "↑ +0.2 {{Damage}}Damage",
-                "↑ +0.2 {{Tears}}Tears",
-                "↑ +0.2 {{Speed}}Speed",
-                "↑ +0.2 {{Range}}Range",
-                "↑ +0.2 {{Luck}}Luck",
-                "↑ +0.2 {{Shotspeed}}Shot Speed"
+                "↑ +0.2 Damage",
+                "↑ +0.2 Tears",
+                "↑ +0.2 Speed",
+                "↑ +0.2 Range",
+                "↑ +0.2 Luck",
+                "↑ +0.2 Shot Speed"
             },
             ru = { 
-                "↑ +0.2 {{Damage}}Урона",
-                "↑ +0.2 {{Tears}}Слёз",
-                "↑ +0.2 {{Speed}}Скорости",
-                "↑ +0.2 {{Range}}Дальности",
-                "↑ +0.2 {{Luck}}Удачи",
-                "↑ +0.2 {{Shotspeed}}Скорости Слезы"
+                "↑ +0.2 Урона",
+                "↑ +0.2 Слёз",
+                "↑ +0.2 Скорости",
+                "↑ +0.2 Дальности",
+                "↑ +0.2 Удачи",
+                "↑ +0.2 Скорости Слезы"
             },
 		},
 		[mod.Items.Muse] = {
 			en_us = { 
-                "On hit has a chance to spawn a pickup from below:",
-                "20% {{Card}}Tarot card",
-                "10% {{Rune}}Rune",
-                "20% random pickup",
-                "1% random item from current pool"
+                "Taking damage has a chance to spawn:",
+                "{{Card}} a Tarot card (20%)",
+                "{{Rune}} a Rune (10%)",
+                "a random pickup (20%)",
+                "an item from the current room pool (1%)"
             },
             ru = { 
                 "При получении урона шанс создать данный ниже подбираемый предмет:",
-                "20% {{Card}}Карта Таро",
-                "10% {{Rune}}Руна",
+                "{{Card}} 20% Карта Таро",
+                "{{Rune}} 10% Руна",
                 "20% случайный подбираемый предмет",
                 "1% случайный предмет из пула данной комнаты"
             }
 		},
 		[mod.Items.TheBadTouch] = {
 			en_us = { 
-                "Instantly kills non-boss enemies on contact",
-                "Bosses are poisoned on contact"
+                "Kill non-boss enemies on contact",
+                "{{Poison}} Poison bosses on contact"
             },
             ru = { 
                 "При контакте мгновенно убивает врагов-не боссов",
-                "Отравляет боссов при контакте"
+                "{{Poison}} Отравляет боссов при контакте"
             }
 		},
 		[mod.Items.Universal] = {
 			en_us = { 
-                "{{Chargeable}} Hold and release fire button to absorb projectiles near Isaac",
-                "After absorbing {{Collectible160}}Crack the Sky beams will spawn for each projectile"
+                "Hold and release fire button to absorb projectiles near Isaac",
+                "For each absorbed projectile a beam of light will spawn"
             },
             ru = { 
-                "{{Chargeable}} Зажмите и отпустите кнопку стрельбы чтобы поглотить снаряды вблизи Исаака",
-                "После поглощения появятся лучи от {{Collectible160}}Разверзшихся Небес за каждый снаряд"
+                "Зажмите и отпустите кнопку стрельбы чтобы поглотить снаряды вблизи Исаака",
+                "После поглощения появятся лучи от Разверзшихся Небес за каждый снаряд"
             }
 		},
 		[mod.Items.RingOfFire] = {
 			en_us = { 
-                "Isaac gets 6 fire-wisps",
-                "Fire wisps doesn't fire tears but cause {{Burning}}burning and can block shots",
+                "Spawns 6 Center ring Fire Wisps",
+                "{{Burning}} Fire Wisps burn enemies on contact",
+				"Fire Wisps are unable to shoot",
                 "Upon clearing a room, add 1 fire wisp",
-                "Caps at 8 wisps"
             },
 		},
 		[mod.Items.MomsDress ] = {
 			en_us = {
                 "{{RottenHeart}} Spawns 2 Rotten Hearts",
-                "{{Collectible313}} {{ColorCyan}}(20 + 10{{ColorYellow}}N{{CR}})%{{CR}} chance to gain Holy Mantle effect in uncleared rooms.",
-                "{{Collectible739}} {{ColorYellow}}N{{CR}} is the number of Mom's Dress items the player has."
+				"{{HolyMantle}} 30% chance to grant a Holy Mantel shield for the room",
+				"each additional copie increases the chance by 10%"
             },
             ru = {
-                "Создаёт 2 {{RottenHeart}}Гнилых Сердца при подборе",
-                "30% шанс дать эффект {{Collectible313}}Святой Мантии в незачищенных комнатах",
+                "{{RottenHeart}} Создаёт 2 Гнилых Сердца при подборе",
+                "{{HolyMantle}} 30% шанс дать эффект Святой Мантии в незачищенных комнатах",
                 "!!! Outdated description."
             }
 		},
 		[mod.Items.EnjoymentOfTheUnlucky] = {
 			en_us = { 
-                "For each point of negative {{Luck}}Luck, gain:",
-                "↑ +0.4 {{Damage}}Damage",
-                "↑ -0.7 {{Tears}}Fire Delay",
-                "↑ +0.1 {{Speed}}Speed",
-                "↑ +0.2 {{Range}}Range",
-                "↑ +0.05 {{Shotspeed}}Shot Speed"
+                "{{Luck}} Each point of negative luck grants:",
+                "↑ +0.4 Damage",
+                "↑ +0.1 Speed",
+                "↑ +0.2 Range",
+                "↑ +0.05 Shot Speed",
+                "↓ -0.7 Fire Delay"
             },
             ru = { 
-                "За каждую отрицательную {{Luck}}Удачу даёт:",
-                "↑ +0.4 {{Damage}}Урона",
-                "↑ -0.7 {{Tears}}Задержки Выстрела",
-                "↑ +0.1 {{Speed}}Скорости",
-                "↑ +0.2 {{Range}}Дальности",
-                "↑ +0.05 {{Shotspeed}}Скорости Слезы"
+                "{{Luck}} За каждую отрицательную Удачу даёт:",
+                "↑ +0.4 Урона",
+                "↑ +0.1 Скорости",
+                "↑ +0.2 Дальности",
+                "↑ +0.05 Скорости Слезы",
+                "↓ -0.7 Задержки Выстрела"
             }
 		},
 		[mod.Items.EverybodysChanging] = {
 			en_us = { 
-                "All passive/familiar items are randomized on room clear"
+                "Randomize all passive items on room clear"
             },
             ru = { 
                 "Все пассивные предметы/предметы спутников рандомизируются при зачистке комнаты"
@@ -108,28 +135,30 @@ mod.EIDescs = {
 		},
 		[mod.Items.Echo] = {
             en_us = { 
-                "↑ +25% {{Planetarium}}Planetarium chance, +10% on Womb and onward"
+                "{{Planetarium}} +25% Planetarium chance",
+				"+10% after womb" --per floor? gives +25 pre womb and only +10 after?
             },
             ru = { 
-                "↑ +25% шанс {{Planetarium}}Планетария, +10% в Матке и последующих этажах"
+                "{{Planetarium}} +25% шанс Планетария",
+				"+10% в Матке и последующих этажах"
             }
         },
         [mod.Items.Engel] = {
             en_us = { 
-                "↑ +5 {{Luck}}Luck",
+                "↑ +5 Luck",
                 "Grants spectral and homing tears",
-                "Disables {{Seraphim}}Flight"
+                "Disables Flight"
             },
             ru = { 
-                "↑ +5 {{Luck}}Удачи",
+                "↑ +5 Удачи",
                 "Даёт спектральные и самонаводящиеся слёзы",
-                "Отключает {{Seraphim}}Полёт"
+                "Отключает Полёт"
             }
         },
         [mod.Items.ScaredShoes] = {
             en_us = { 
-                "↑ Sets speed to 2 when no enemies are alive",
-                "Spawns random small pee creep during combat"
+                "↑ Sets speed to 2 in non-hostile rooms",
+				"Randomly spawns small, yellow creep in hostile rooms"
             },
             ru = { 
                 "↑ Устанавливает скорость на 2 когда все враги мертвы",
@@ -138,20 +167,20 @@ mod.EIDescs = {
         },
         [mod.Items.DevilsLuck] = {
             en_us = { 
-                "↓ -6 {{Luck}}Luck",
+                "↓ -6 Luck",
                 "50% chance for pickups to vanish",
-                "↑ +0.05 {{Damage}}Damage per vanished pickup"
+                "↑ +0.05 Damage per vanished pickup"
             },
             ru = { 
-                "↓ -6 {{Luck}}Удачи",
+                "↓ -6 Удачи",
                 "50% шанс на исчезновение подбираемого предмета",
-                "↑ +0.05 {{Damage}}Урона за каждый исчезнувший предмет"
+                "↑ +0.05 Урона за каждый исчезнувший предмет"
             }
         },
         [mod.Items.HereToStay] = {
             en_us = {  
-                "Standing still spawns creep in growing steps",
-                "The puddle gets bigger each frame"
+                "Spawns creep when standing still",
+                "Creep grows while standing still"
             },
             ru = {  
                 "Стоя неподвижно создаёт увеличивающуюся лужу",
@@ -159,21 +188,21 @@ mod.EIDescs = {
             }
         },
         [mod.Items.ProteinPowder] = {
-            en_us = { 
-                "↑ +1 {{Damage}}Damage on first pickup, +2 on second, up to +4",
-                "Further pickups always grant +1 {{Damage}}Damage"
+            en_us = { -- not done
+                "↑ +1 Damage",
+                "Future copies will grant +1 damage for each collected copy",
+				"This effect stops after the fourth copy"
             },
             ru = { 
-                "↑ +1 {{Damage}}Урон при первом подборе, +2 при втором, до +4",
-                "Последующие подборы всегда дают +1 {{Damage}}Урон"
+                "↑ +1 Урон при первом подборе, +2 при втором, до +4",
+                "Последующие подборы всегда дают +1 Урон"
             }
         },
         [mod.Items.Hysteria] = {
             en_us = { 
-                "Taking damage twice in a room doubles the {{Damage}}damage for the room",
-                "Getting damage three times in the same room removes the damage boost and gives a {{BrokenHeart}}broken heart",
-                "Getting hit the forth time gains another {{BrokenHeart}}broken heart and doubles the {{Tears}}tear rate",
-                "Getting hit 5th time is a skill issue"
+                "Taking damage twice doubles damage for the room",
+                "{{BrokenHeart}} Taking damage an additional time in the room removes the effect and grants a Broken Heart",
+                "{{BrokenHeart}} Taking damage an additional time in the room grants a Broken Heart and doubles the Tear Rate for the room",
             },
             ru = { 
                 "Получение урона дважды за комнату удваивает урон на комнату"
@@ -181,18 +210,17 @@ mod.EIDescs = {
         },
         [mod.Items.StabWound] = {
             en_us = { 
-                "↑ +1 {{Damage}}Damage",
-                "↑ +0.5 {{Tears}}Tears"
+                "↑ +1 Damage",
+                "↑ +0.5 Tears"
             },
             ru = { 
-                "↑ +1 {{Damage}}Урон",
-                "↑ +0.5 {{Tears}}Слёзы"
+                "↑ +1 Урон",
+                "↑ +0.5 Слёзы"
             }
         },
         [mod.Items.ThoughtContagion] = {
             en_us = { 
-                "Enemies mirror damage they take to other nearby enemies",
-                "Only pure damage is shared"
+				"Enemies mirror pure damage to nearby enemies"
             },
             ru = { 
                 "Враги отражают получаемый урон на ближайших врагов",
@@ -201,39 +229,39 @@ mod.EIDescs = {
         },
         [mod.Items.GoldenDay] = {
             en_us = { 
-                "Spawns a {{GoldenKey}}Random key or {{GoldenBomb}} Golden bomb or {{Coin}}Golden coin",
-                "{{SecretRoom}} On each floor has a 50% chance to spawn golden pickup in the Secret Room"
+                "Spawns a golden pickup",
+                "{{SecretRoom}} 50% chance to spawn a golden pickup in the secret room"
             },
             ru = { 
                 "Даёт случайный золотой подбираемый предмет",
                 "{{SecretRoom}} На каждом этаже есть 50% шанс создать золотой подбираемый предмет в Секретной Комнате"
             }
         },
-        [mod.Items.Mutter] = {
+        [mod.Items.Mutter] = { --outdated description? rework coming?
             en_us = { 
-                "↑ +0.3 {{Speed}}Speed",
-                "↑ Increased chance to find {{Mom}}Mom's items, Dr. Fetus and C-Section",
+                "↑ +0.3 Speed",
+                "↑ Increased chance to find Mom's items, Dr. Fetus and C-Section",
                 "Stats up for each Mom item:",
-                "↑ +0.5 {{Damage}}Damage",
-                "↑ -0.3 {{Tears}}Tear Delay",
-                "↑ +1 {{Luck}}Luck",
-                "↑ +0.05 {{Speed}}Speed",
+                "↑ +0.5 Damage",
+                "↑ +1 Luck",
+                "↑ +0.05 Speed",
+                "↓ -0.3 Tear Delay"
             },
             ru = { 
-                "↑ +0.3 {{Speed}}Скорости",
+                "↑ +0.3 Скорости",
                 "↑ Увеличенный шанс найти предметы {{Mom}}Мамы, Доктора Зародыша и Кесарево",
                 "Повышение характеристик за каждый предмет Мамы:",
-                "↑ +0.5 {{Damage}}Урона",
-                "↑ -0.3 {{Tears}}Задержки Выстрела",
-                "↑ +1 {{Luck}}Удачи",
-                "↑ +0.05 {{Speed}}Скорости",
+                "↑ +0.5 Урона",
+                "↑ +1 Удачи",
+                "↑ +0.05 Скорости",
+                "↓ -0.3 Задержки Выстрела"
             }
         },
-        [mod.Items.SolarFlare] = {
+        [mod.Items.SolarFlare] = { --------------HERE HERE HERE HERE HERE
             en_us = { 
                 "Tears start slow",
                 "After 0.2 seconds they dash towards the nearest enemy, leaving a short fire trail",
-                "{{Burning}}Tears burn enemies on hit"
+                "{{Burning}} Tears burn enemies on hit"
             },
             ru = { 
                 "Слёзы медленные при выстреле",
