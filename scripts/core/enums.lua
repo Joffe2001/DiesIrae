@@ -74,6 +74,7 @@ mod.Items = {
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
     KillerQueen           = Isaac.GetItemIdByName("Killer Queen"),
     RedBum                = Isaac.GetItemIdByName("Red Bum"),
+    ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -112,8 +113,6 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
-    BackPain              = Isaac.GetItemIdByName("Back Pain"),
-    ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
 }
 
 mod.Wisps = {
@@ -183,6 +182,7 @@ mod.Entities = {
     BEGGAR_Fiend             = MakeEntityTable("Fiend Beggar"),
     BEGGAR_Tech              = MakeEntityTable("Tech Beggar"),
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
+    BEGGAR_JYS               = MakeEntityTable("Junk Yard Seller"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),

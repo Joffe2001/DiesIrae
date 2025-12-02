@@ -104,6 +104,7 @@ include("scripts.items.passive.corruptedMantle")
 include("scripts.items.familiars.paranoidAndroid")
 include("scripts.items.familiars.killerQueen")
 include("scripts.items.familiars.RedBum")
+include("scripts.items.familiars.ScammerBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -191,9 +192,8 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.TGS")
 --include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
---include("scripts.items.passive.BackPain")
+--include("scripts.npcs.JunkYardSeller")
 --include("scripts.items.familiars.tarotBum")
-include("scripts.items.familiars.ScammerBum")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")
 --include("scripts.Challenges.sound_of_silence")

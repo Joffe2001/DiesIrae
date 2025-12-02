@@ -32,13 +32,34 @@ function Diary_madman:UseItem(_, _, player)
 
     for stat, _ in pairs(stats) do
         local range = statRanges[stat]
-        local val = range.min + math.random() * (range.max - range.min)
+        local baseStat
 
-        if stat == "SPEED" then
-            val = val - 1
+        if stat == "DAMAGE" then
+            baseStat = player.Damage
+        elseif stat == "SPEED" then
+            baseStat = player.MoveSpeed
+        elseif stat == "TEAR_DELAY" then
+            baseStat = player.MaxFireDelay
+        elseif stat == "SHOT_SPEED" then
+            baseStat = player.ShotSpeed
+        elseif stat == "LUCK" then
+            baseStat = player.Luck
+        elseif stat == "RANGE" then
+            baseStat = player.TearRange
         end
 
-        statMods[stat] = val
+        local higher = math.random() < 0.5
+
+        local offset = range.min + math.random() * (range.max - range.min)
+        if stat == "SPEED" then
+            offset = offset - 1
+        end
+
+        if higher then
+            statMods[stat] = math.abs(offset)
+        else
+            statMods[stat] = -math.abs(offset)
+        end
     end
 
     player:AddCacheFlags(CacheFlag.CACHE_ALL)

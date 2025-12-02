@@ -4,12 +4,14 @@ local BackPain = {}
 local function GetPassiveItemCount(player)
     local count = 0
     local itemConfig = Isaac.GetItemConfig()
+    local totalCollectibles = itemConfig:GetCollectiblesCount()
 
-    for id = 1, CollectibleType.NUM_COLLECTIBLES do
-        if player:HasCollectible(id) then
-            local cfg = itemConfig:GetCollectible(id)
-            if cfg and cfg.Type == ItemType.ITEM_PASSIVE then
-                count = count + 1
+    for id = 1, totalCollectibles do
+        local cfg = itemConfig:GetCollectible(id)
+        if cfg and cfg.Type == ItemType.ITEM_PASSIVE then
+            local num = player:GetCollectibleNum(id)
+            if num > 0 then
+                count = count + num
             end
         end
     end
@@ -18,9 +20,7 @@ local function GetPassiveItemCount(player)
 end
 
 function BackPain:OnEvaluateCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.BackPain) then
-        return
-    end
+    if not player:HasCollectible(mod.Items.BackPain) then return end
 
     local passiveCount = GetPassiveItemCount(player)
     if passiveCount <= 0 then return end
@@ -33,34 +33,36 @@ function BackPain:OnEvaluateCache(player, cacheFlag)
 
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local tearsUp = 0.1 * passiveCount
-
         local currentTears = 30 / (player.MaxFireDelay + 1)
         local newTears = currentTears + tearsUp
-
         player.MaxFireDelay = math.max(1, (30 / newTears) - 1)
     end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, BackPain.OnEvaluateCache)
 
+function BackPain:PostPEffectUpdate(player)
+    if not player:HasCollectible(mod.Items.BackPain) then return end
 
-function BackPain:OnGetCollectible(_, itemID)
-    local player = Isaac.GetPlayer(0)
-    if not player then return end
+    local data = player:GetData()
+    data.BackPain_LastPassiveCount = data.BackPain_LastPassiveCount or -1
+    data.BackPain_HadProtein = data.BackPain_HadProtein or false
 
-    if itemID == mod.Items.BackPain then
+    local currentCount = GetPassiveItemCount(player)
+
+    if currentCount ~= data.BackPain_LastPassiveCount then
+        data.BackPain_LastPassiveCount = currentCount
         player:AddCacheFlags(CacheFlag.CACHE_SPEED | CacheFlag.CACHE_FIREDELAY)
         player:EvaluateItems()
-        return
     end
 
-    if player:HasCollectible(mod.Items.BackPain) then
-        local cfg = Isaac.GetItemConfig():GetCollectible(itemID)
-        if cfg and cfg.Type == ItemType.ITEM_PASSIVE then
-            player:AddCacheFlags(CacheFlag.CACHE_SPEED | CacheFlag.CACHE_FIREDELAY)
-            player:EvaluateItems()
-        end
+    local hasProtein = player:HasCollectible(mod.Items.ProteinPowder)
+    if hasProtein ~= data.BackPain_HadProtein then
+        data.BackPain_HadProtein = hasProtein
+        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+        player:EvaluateItems()
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, BackPain.OnGetCollectible)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BackPain.PostPEffectUpdate)
+
 return BackPain

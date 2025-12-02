@@ -46,6 +46,8 @@ function David:OnEntityTakeDamage(entity, amount, flags, source, countdown)
     end
 end
 
+
+
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, David.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, David.OnEntityTakeDamage)
