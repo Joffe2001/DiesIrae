@@ -1,15 +1,14 @@
 --------------------------------------------------------
 ----Syntax----
 ---
----try using only up to one icon per line; it schould be at the start of the line replacing the bullet point
 ---
----Basic stat changes:
+---stat changes are always indicated by ↑ or ↓
 ---!make sure to know the difference between Tears up and Fire rate up!
 ---!don't use functions in descriptions (e.g. change the damage number of a familiar if isaac has bff)!
 --↑ +[change_amount > 1] [stat(Health/Speed/Tears/Fire rate/Damage/Range/Shot speed/Luck)]
 --↓ -[change_amount < 1] [stat]
---↑ x[multiplier_amount > 0] [stat]
---↓ x[multiplier_amount < 0] [stat]
+--↑ x[multiplier_amount > 0] [stat] multiplier
+--↓ x[multiplier_amount < 0] [stat] multiplier
 --
 --{{[pickup]}} [pickup related effect]
 --{{HealingRed}} full health
@@ -20,7 +19,7 @@
 --
 ---stay with often used phrases like "When taking damage, receive..." or "Taking damage has a chance to..."
 ---don't talk directly to the reader ("holding the fire button" instead of "hold the fire button to")
----try to not use words like "is", "are"
+---try to not use words like "is", "are", "will"
 ---look at the descriptions found in the folders of the External Item Description mod!
 --------------------------------------------------------
 
@@ -257,39 +256,40 @@ mod.EIDescs = {
                 "↓ -0.3 Задержки Выстрела"
             }
         },
-        [mod.Items.SolarFlare] = { --------------HERE HERE HERE HERE HERE
+        [mod.Items.SolarFlare] = {
             en_us = { 
-                "Tears start slow",
-                "After 0.2 seconds they dash towards the nearest enemy, leaving a short fire trail",
+                "Tears get fired at low shot speed",
+				"{{Timer}} Tears dash towards the nearest enemy after 0.2 seconds",
+				"Tears leave a trail of fire",
                 "{{Burning}} Tears burn enemies on hit"
             },
             ru = { 
                 "Слёзы медленные при выстреле",
                 "После 0.2 секунд устремляются к ближайшему врагу, оставляя огненный след",
-                "{{Burning}}Слёзы накладывают горение на врагов"
+                "{{Burning}} Слёзы накладывают горение на врагов"
             }
         },
         [mod.Items.Psychosocial] = {
             en_us = { 
-                "↑ -0.5 {{Tears}}Tear Delay for each enemy in the room"
+                "↓ -0.5 Tears per enemy in the room"
             },
             ru = { 
-                "↑ -0.5 {{Tears}}Задержки Выстрела за каждого врага в комнате"
+                "↓ -0.5 Задержки Выстрела за каждого врага в комнате"
             }
         },
         [mod.Items.UltraSecretMap] = {
             en_us = { 
-                "Reveals the {{UltraSecretRoom}}Ultra Secret Room on the map",
-                "Drops a {{Card78}}Cracked Key in the {{SecretRoom}}Secret Room"
+                "{{UltraSecretRoom}} Reveals ultra secret room locations on the map",
+                "{{Card78}} Spawns a cracked key in the secret room"
             },
             ru = { 
-                "Показывает {{UltraSecretRoom}}Ультра Секретную Комнату на карте",
-                "Создаёт {{Card78}}Треснувший Ключ в {{SecretRoom}}Секретной Комнате"
+                "{{UltraSecretRoom}} Показывает Ультра Секретную Комнату на карте",
+                "{{Card78}} Создаёт Треснувший Ключ в Секретной Комнате"
             }
         },
         [mod.Items.RedCompass] = {
             en_us = { 
-                "Has a chance to open a nearby red room on room clear"
+                "Chance to open an adjacent red room on room clear"
             },
             ru = { 
                 "Имеет шанс открыть красную комнату рядом при зачистке комнаты"
@@ -297,42 +297,43 @@ mod.EIDescs = {
         },
         [mod.Items.LastResort] = {
             en_us = { 
-                "Clearing a hostile room while at half a heart grants a random permanent stat boost from below:",
-                "↑ +0.3 {{Damage}}Damage",
-                "↑ +0.1 {{Speed}}Speed",
-                "↑ -0.3 {{Tears}}Tear Delay"
+				"Grants a permanent stat change upon clearing a room with half a heart"
+                "↑ +0.3 Damage",
+                "↑ +0.1 Speed",
+                "↓ -0.3 Tears"
             },
             ru = { 
                 "Зачистка комнаты на половине сердца даёт случайное повышение характеристики ниже:",
-                "↑ +0.3 {{Damage}}Урона",
-                "↑ +0.1 {{Speed}}Скорости",
-                "↑ -0.3 {{Tears}}Задержки Выстрела"
+                "↑ +0.3 Урона",
+                "↑ +0.1 Скорости",
+                "↓ -0.3 Задержки Выстрела"
             }
         },
         [mod.Items.CreatineOverdose] = {
             en_us = { 
-                "↑ +0.2 {{Damage}}Damage",
-                "↑ 1.2x {{Damage}}Damage multiplier"
+                "↑ +0.2 Damage",
+                "↑ 1.2x Damage multiplier"
             },
             ru = { 
-                "↑ +0.2 {{Damage}}Урона",
-                "↑ 1.2x {{Damage}}Множитель Урона"
+                "↑ +0.2 Урона",
+                "↑ 1.2x Множитель Урона"
             }
         },
         [mod.Items.FragileEgo] = {
             en_us = { 
-                "↑ Clearing a room grants a random minor stat up",
-                "↓ Taking damage removes all boosts and may add a {{BrokenHeart}}Broken Heart"
+                "Grants a stat up upon clearing a room",
+				"Taking damage resets the effect",
+				"{{BrokenHeart}} Taking damage has a chance to grant a Broken Heart"
             },
             ru = { 
-                "↑ При зачистке комнаты даёт случайное меленькое повышение характеристики",
-                "↓ При получении урона убирает все повышения характеристик и может добавить {{BrokenHeart}}Разбитое Сердце"
+                "При зачистке комнаты даёт случайное меленькое повышение характеристики",
+                "При получении урона убирает все повышения характеристик и может добавить {{BrokenHeart}}Разбитое Сердце"
             }
         },
         [mod.Items.BeggarsTear] = {
             en_us = { 
-                "Tears can collect pickups",
-                "Consumables are pulled towards Isaac, while other pickups are collected instantly"
+                "Tears collect pickups",
+				"Tears push consumables towards isaac"
             },
             ru = { 
                 "Слёзы могут подбирать предметы",
@@ -341,8 +342,8 @@ mod.EIDescs = {
         },
         [mod.Items.KoRn] = {
             en_us = { 
-                "10% chance to shoot a random colored tear",
-                "Colored tears create matching clouds on impact that apply status effects"
+                "10% chance to shoot a colored tear",
+				"Colored tears create status effects inflicting mist"
             },
             ru = { 
                 "10% шанс выстрелить случайной цветной слезой",
@@ -351,49 +352,48 @@ mod.EIDescs = {
         },
         [mod.Items.BackInAnger] = {
             en_us = { 
-                "Isaac shoots from behind",
-                "↑ +4 {{Damage}}Damage"
+                "Tears are fired from your bag (based on moving)",
+                "↑ +4 Damage"
             },
             ru = { 
                 "Стрельба сзади",
-                "↑ +4 {{Damage}}Урона"
+                "↑ +4 Урона"
             }
         },
         [mod.Items.BigKahunaBurger] = {
             en_us = { 
-                "↑ +1-3 full {{Heart}}Red Heart Containers"
+                "↑ +1 to 3 Health"
             },
             ru = { 
-                "↑ +1-3 полных {{Heart}}Контейнеров Красных Сердец"
+                "↑ +1-3 полных Контейнеров Красных Сердец"
             }
         },
         [mod.Items.DadsEmptyWallet] = {
             en_us = { 
-                "↑ +1 {{Tears}}Tears if you have no coins",
-                "↓ -0.02 {{Tears}}Tears per coin"
+                "↑ +1 Tears",
+                "↓ -0.02 Tears for every {{coin}} coin Isaac has stopping at -1 Tears"
             },
             ru = { 
-                "↑ +1 {{Tears}}Слёзы если у Исаака нет монет",
-                "↓ -0.02 {{Tears}}Слёз за каждую монету"
+                "↑ +1 Слёзы если у Исаака нет монет",
+                "↓ -0.02 Слёз за каждую монету"
             },
         },
         [mod.Items.FiendDeal] = {
             en_us = { 
-                "Spawns Fiend Beggar on the first room on every floor",
-                "Leaving the room causes the Beggar to leave",
-                "Making a deal with the Beggar grants two {{DevilRoom}}devil deal items to choose from on the next floor",
-                "{{Warning}} Isaac dies on a single hit on the Beggar deal's floor"
+                "Spawns a fiend beggar in the first room on every floor who leaves if the player leaves the room",
+				"Interacting with the beggar spawns two devil items on the next floor",
+				"{{Warning}} Interacting with the beggar results in Isaac dying in one hit for the floor"
             },
             ru = { 
                 "Создаёт Попрошайку-Изверга в первой комнате каждого этажа",
                 "При выходе из комнаты Попрошайка исчезнет",
-                "Совершая сделку с Попрошайкой, гарантирует 2 {{DevilRoom}}Дьявольских предмета на выбор на следующем этаже",
+                "Совершая сделку с Попрошайкой, гарантирует 2 Дьявольских предмета на выбор на следующем этаже",
                 "{{Warning}} Исаак умирает от любого удара на этаже, где была совершена сделка"
             },
         },
         [mod.Items.Bloodline] = {
-            en_us = { 
-                "Every damage inflicted on an enemy, it hurts every enemy type in the room"
+            en_us = {
+				"Enemies mirror damage to enemies of the same type"
             },
             ru = { 
                 "Любой урон, нанесённый врагу, распространяется на всех врагов этого же типа в комнате"
@@ -401,64 +401,65 @@ mod.EIDescs = {
         },
         [mod.Items.BetrayalHeart] = {
             en_us = { 
-                "+1 {{BrokenHeart}} on pickup",
-                "{{Damage}}+1 damage up for every {{BrokenHeart}} broken heart"
+                "{{BrokenHeart}} +1 Broken Heart",
+                "↑ +1 damage up for every {{BrokenHeart}} Broken Heart"
             },
             ru = { 
                 "+1 {{BrokenHeart}} при подборе",
-                "{{Damage}}+1 Урон за каждое {{BrokenHeart}} разбитое сердце"
+                "↑ +1 Урон за каждое {{BrokenHeart}} разбитое сердце"
             },
         },
         [mod.Items.StillStanding] = {
             en_us = { 
-                "{{Damage}}Damage up as long as Isaac stand still",
+                "↑ While standing still damage keeps increasing",
+				"Caps at +4 damage"
             },
             ru = { 
-                "{{Damage}}↑ Урон пока Исаак стоит на месте",
+                "↑ Урон пока Исаак стоит на месте",
             },
         },
         [mod.Items.BossCompass] = {
             en_us = { 
-                "Reveals the {{BossRoom}}Boss and the {{MiniBoss}}Mini-boss rooms on the map",
-                "Grant a {{Damage}}damage up for killed bosses and mini bosses"
+                "Reveals the location of all Boss {{BossRoom}} and {{MiniBoss}} Mini-boss rooms",
+                "↑ Increases Damage for all Bosses defeated" --how much???
             },
             ru = { 
-                "Показывает комнаты {{BossRoom}}Босса и {{MiniBoss}}Мини-босса на карте",
-                "↑ {{Damage}}Урон за каждого убитого босса и мини-босса"
+                "{{BossRoom}} Показывает комнаты Босса и Мини-босса на карте",
+                "↑ Урон за каждого убитого босса и мини-босса"
             },
         },
         [mod.Items.DevilsMap] = {
             en_us = { 
-                "Reveals the {{SacrificeRoom}}Sacrifice and the {{CursedRoom}}Curse rooms on the map",
-                "Grant a {{Tears}}Tears up for entering those rooms and {{DevilRoom}}Devil deal room"
+				"Reveales the location of all {{SacrificeRoom}} Sacrifice and {{CursedRoom}} Curse rooms",
+				"↑ Increases Tears for all Sacrivice, Curse and Devil deal rooms"
             },
             ru = { 
-                "Показывает комнату {{SacrificeRoom}}Жертвоприношения и {{CursedRoom}}Проклятую комнату на карте",
-                "↑ {{Tears}}Слёзы за посещение этих комнат и комнаты {{DevilRoom}}Сделки с Дьяволом"
+                "Показывает комнату {{SacrificeRoom}} Жертвоприношения и {{CursedRoom}} Проклятую комнату на карте",
+                "↑ Слёзы за посещение этих комнат и комнаты Сделки с Дьяволом"
             },
         },
         [mod.Items.BorrowedStrength] = {
             en_us = { 
-                "↑ +2 {{Damage}}Damage",
-                "{{Warning}} Isaac loses half of his hearts when entering a new floor"
+                "↑ +2 Damage",
+                "{{Warning}} Lose half your health upon entering a new floor"
             },
             ru = { 
-                "↑ +2 {{Damage}}Урона",
+                "↑ +2 Урона",
                 "{{Warning}} Исаак теряет половину своих сердец при переходе на новый этаж"
             },
         },
-        [mod.Items.SymphonyOfDestr] = {
+        [mod.Items.SymphonyOfDestruction] = {
             en_us = { 
-                "Every {{Card}}card turns to {{Card17}} The Tower when spawned"
+				"{{Card}} Turns all Cards into {{Card17}} The Tower"
             },
             ru = { 
-                "Все {{Card}}карты превращаются в {{Card17}}Башню"
+                "{{Card}} Все карты превращаются в {{Card17}} Башню"
             },
         },
         [mod.Items.SweetCaffeine] = {
             en_us = { 
-                "Drop Energy Drink",
-                "Higher chance to find Energy Drink"
+				"Spawns Energy Drink",
+                "Increase chance for Energy Drink to spawn"
             },
             ru = { 
                 "Создаёт Энергетик",
@@ -467,18 +468,15 @@ mod.EIDescs = {
         },
         [mod.Items.PTSD] = {
             en_us = { 
-                "{{BossRoom}} Boss room only: {{Tears}} +0.2 tears for each time this boss killed Isaac before"
+				"{{BossRoom}} Entering a boss room grants +0.2 tears for each time the boss killed the player before"
             },
             ru = { 
-                "{{BossRoom}} Только в комнате Босса: {{Tears}} +0.2 слёз за каждую смерть от этого босса"
+                "{{BossRoom}} Только в комнате Босса: +0.2 слёз за каждую смерть от этого босса"
             },
         },
         [mod.Items.FloweringSkull] = {
             en_us = { 
-                "Revives Isaac upon death",
-                "{{Heart}} ­ Revives with 2 red heart containers (or 2 {{SoulHeart}} soul hearts)",
-                "{{ArrowUp}} ­ Upon revival, deal 40 damage to all enemies in the room",
-                "{{Warning}} ­ Also rerolls all of your passive items into random new passives"
+				"Revives Isaac with 2 heart containers in the same room dealing 40 damage to all enemies and rerolling all passive items"
             },
             ru = { 
                 "Возрождает Исаака при смерти",
@@ -489,85 +487,83 @@ mod.EIDescs = {
         },
         [mod.Items.RewrappingPaper] = {
             en_us = { 
-                "Every {{TreasureRoom}} Treasure room pedestal will become {{Collectible515}} Mystery Gift.",
-                "If there're two pedestals, at least one of them will be {{Collectible515}} Mystery Gift."
+				"{{TreasureRoom}} All Treasure Room items are replaced with {{Collectible515}} Mystery gift"
             },
             ru = { 
-                "Все пьедесталы в {{TreasureRoom}} Сокровищнице станут {{Collectible515}} Загадочным Подарком",
-                "Если в ней 2 пьедестала, по крайней мере один из них станет {{Collectible515}} Загадочным Подарком"
+                "{{TreasureRoom}} Все пьедесталы в Сокровищнице станут {{Collectible515}} Загадочным Подарком",
             },
         },
         [mod.Items.FilthyRich] = {
             en_us = { 
-                "The more {{Coin}} coins Isaac have, the higher the chance for {{Poison}} poison tears and {{Poison}} poison clouds to spawn.",
+				"{{Poison}} Chance to shoot poison tears and to spawn poison mist",
+				"{{coin}} Holding coins increases the chance"
             },
             ru = { 
-                "Чем больше {{Coin}} монет есть у Исаака, тем больше шанс на {{Poison}} отравляющие слёзы и создание {{Poison}} отравляющих облаков",
+                "{{Poison}} Чем больше {{Coin}} монет есть у Исаака, тем больше шанс на отравляющие слёзы и создание отравляющих облаков",
             },
         },
         [mod.Items.CoolStick] = {
             en_us = { 
-                "{{Damage}} +0.4 Damage up",
-                "{{Luck}} +1 Luck up",
-                "{{Chest}} 15% chance for spawned chests to turn into {{WoodenChestRoomIcon}} Wooden Chests",
+                "↑ +0.4 Damage",
+                "↑ +1 Luck",
+                "{{WoodenChest}} 15% chance to turn chests into wooden chests",
             },
             ru = { 
-                "{{Damage}} +0.4 Урона",
-                "{{Luck}} +1 Удача",
-                "{{Chest}} 15% шанс заменить сундук на {{WoodenChestRoomIcon}} Деревянный Сундук",
+                "↑ +0.4 Урона",
+                "↑ +1 Удача",
+                "{{WoodenChest}} 15% шанс заменить сундук на Деревянный Сундук",
             },
         },
         [mod.Items.Grudge] = {
             en_us = { 
-                "When you take damage from an enemy, that enemy type becomes marked",
-                "Enemies of that type take double damage for the rest of the run"
+				"{{DeathMark}} Taking damage markes the responsible enemy type",
+				"Marked enemies take double damage"
             },
             ru = { 
-                "При получении урона от врага, этот тип врагов помечается",
+                "{{DeathMark}} При получении урона от врага, этот тип врагов помечается",
                 "Враги этого типа получают двойной урон весь забег"
             },
         },
         [mod.Items.BloodBattery] = {
             en_us = { 
-                "Taking damage has a chance to drop a {{Battery}} battery"
+                "{{Battery}} Taking damage has a chance to spawn a battery"
             },
             ru = { 
-                "Шанс создать {{Battery}} батарейку при получении урона"
+                "{{Battery}} Шанс создать батарейку при получении урона"
             },
         },
         [mod.Items.DeliriousMind] = {
             en_us = { 
-                "Isaac gets +0.15 {{Damage}} damage up and {{Tears}} +0.15 tears up for every modded item"
+				"↑ Increase Damage and Tears by 0.15 for every modded item"
             },
             ru = { 
-                "+0.15 {{Damage}} Урона и {{Tears}} +0.15 Слёз за каждый предмет из модов"
+                "↑ +0.15 Урона и +0.15 Слёз за каждый предмет из модов"
             },
         },
         [mod.Items.CorruptedMantle] = {
             en_us = { 
-                "{{ArrowUp}}Neglect the first hit in a room",
-                "{{ArrowUp}}+0.1 {{Speed}}speed",
-                "{{ArrowUp}}+3 {{Luck}}luck",
-                "{{ArrowUp}}x1.5 {{Damage}}damage multiplier",
-                "Losing the shield, will lose the x1.5 damage multiplier",
-                "{{Warning}}Taking damage after losing the shield:",
-                "{{ArrowDown}}x0.3 damage multiplier",
-                "{{ArrowDown}}-5 luck",
-                "{{ArrowDown}} Adds 2 {{BrokenHeart}}broken hearts",
-                "The damage multiplier will be reset to x1.5 upon entering a new room"
+				"{{HolyMantle}} Grants Holy Mantle",
+				"↑ +0.1 Speed",
+				"↑ +3 Luck",
+				"↑ x1.5 damage multiplier",
+				"{{Warning}} Losing Holy Mantle removes the damage multiplier for the room",
+				"{{Warning}} Taking damage results in:",
+				"↓ x0.3 damage multiplier",
+				"↓ -5 luck",
+				"{{BrokenHeart}} +2 Broken Hearts"
             },
             ru = { 
-                "{{ArrowUp}}Защищает от 1 попадания в комнате",
-                "{{ArrowUp}}+0.1 {{Speed}}скорости",
-                "{{ArrowUp}}+3 {{Luck}}удачи",
-                "{{ArrowUp}}x1.5 {{Damage}}множитель урона",
-                "При потере щита x1.5 множитель урона пропадёт",
-                "{{Warning}}Получение урона после потери щита:",
-                "{{ArrowDown}}x0.3 множитель урона",
-                "{{ArrowDown}}-5 удачи",
-                "{{ArrowDown}} Даёт 2 {{BrokenHeart}}разбитых сердца",
+                "{{HolyMantle}} Защищает от 1 попадания в комнате",
+                "↑ +0.1 скорости",
+                "↑ +3 удачи",
+                "↑ x1.5 множитель урона",
+                "{{Warning}} При потере щита x1.5 множитель урона пропадёт",
+                "{{Warning}} Получение урона после потери щита:",
+                "↓ x0.3 множитель урона",
+                "↓ -5 удачи",
+                "{{BrokenHeart}} Даёт 2 разбитых сердца",
                 "Множитель урона будет сброшен до x1.5 при заходе в новую комнату"
-            },
+            }
         },
 --------------------------------------------------------
 --Familiars
@@ -883,9 +879,9 @@ mod.EIDescs = {
         [mod.Cards.Locacaca] = {
             en_us = {
                 "{{Heart}}Heal Isaac red hearts",
-                "If there's a {{BrokenHeart}} broken heart(s) it will heal them also",
+                "If there's a {{BrokenHeart}} Broken Heart(s) it will heal them also",
                 "{{Warning}}Healing a heart container cost stats decrease",
-                "{{Warning}}Healing a {{BrokenHeart}} broken heart(s) will costs collectibles"
+                "{{Warning}}Healing a {{BrokenHeart}} Broken Heart(s) will costs collectibles"
             },
             ru = {
                 "{{Heart}}Лечит красные сердца",
@@ -897,7 +893,7 @@ mod.EIDescs = {
         [mod.Cards.alpoh] = {
             en_us = {
                 "Gives a random {{AngelRoom}} angel room item",
-                "Cost 2 {{BrokenHeart}} broken hearts"
+                "Cost 2 {{BrokenHeart}} Broken Hearts"
             },
             ru = {
                 "Даёт случайный {{AngelRoom}} ангельский предмет",
@@ -988,7 +984,7 @@ mod.EIDescs = {
 		},
         [mod.Pills.HEARTBREAK] = {
 			en_us = {
-                "Adds a {{BrokenHeart}}broken heart"
+                "Adds a {{BrokenHeart}}Broken Heart"
             },
             ru = {
                 "Даёт {{BrokenHeart}}разбитое сердце"
@@ -1021,4 +1017,4 @@ mod.EIDescs = {
             },
 		}
 	}
-}
+u
