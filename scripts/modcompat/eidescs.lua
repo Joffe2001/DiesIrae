@@ -570,31 +570,24 @@ mod.EIDescs = {
 --------------------------------------------------------    
 		[mod.Items.ParanoidAndroid] = {
             en_us = { 
-                "Creates laser ring around itself",
-                function(_, player)
-                    local dmg = player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) and "{{ColorGold}}6{{ColorText}}" or 3
-                    return "The ring deals " .. dmg .. " damage 6 times per second"
-                end
+                "Shoots a static laser around itself",
             },
             ru = { 
                 "Создаёт лазерное кольцо вокруг себя",
-                function(_, player)
-                    local dmg = player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) and "{{ColorGold}}6{{ColorText}}" or 3
-                    return "Кольцо наносит " .. dmg .. " урона 6 раз в секунду"
-                end
             }
         },
         [mod.Items.KillerQueen] = {
 			en_us = { 
-                "Shoots rockets at enemies similar to {{Collectible168}}Epic Fetus"
+				"Fires rockets at enemies"
             },
             ru = { 
-                "Стреляет ракетами во врагов, похожими на ракеты от {{Collectible168}}Эпичного Зародыша"
+                "Стреляет ракетами во врагов, похожими на ракеты от Эпичного Зародыша"
             }
 		},
         [mod.Items.RedBum] = {
 			en_us = { 
-                "Takes {{Key}}keys and has a chance to spawn red key"
+                "{{Key}} Picks up nearby Keys",
+				"{{Collectible580}} has a low chance to spawn Red Key"
             },
 		},
 --------------------------------------------------------
