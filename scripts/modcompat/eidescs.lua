@@ -299,7 +299,7 @@ mod.EIDescs = {
         },
         [mod.Items.LastResort] = {
             en_us = { 
-				"Grants a permanent stat change upon clearing a room with half a heart"
+				"Grants a permanent stat change upon clearing a room with half a heart",
                 "↑ +0.3 Damage",
                 "↑ +0.1 Speed",
                 "↓ -0.3 Tears"
@@ -775,13 +775,13 @@ mod.EIDescs = {
 
 		[mod.Trinkets.BabyBlue] = {
 			en_us = {
-                "All {{Heart}}Red Heart pickups become {{SoulHeart}}Soul Hearts",
+				"{{SoulHeart}} All Read Heart pickups turn into Soul Hearts"
                 {
                     function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
                     end,
                     function()
-                        return "{{ColorGold}}5% chance for {{Heart}}Red Hearts to become {{BlackHeart}}Black Hearts"
+                        return "{{BlackHeart}} {{ColorGold}} 5% chance to turn them into Black Hearts"
                     end
                 }
             },
@@ -789,17 +789,17 @@ mod.EIDescs = {
                 "Все подбираемые {{Heart}}Красные Сердца становятся {{SoulHeart}}Сердцами Душ",
                 {
                     function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
                     end,
                     function()
-                        return "{{ColorGold}}5% шанс для {{Heart}}Красных Сердец стать {{BlackHeart}}Чёрными Сердцами"
+                        return "{{BlackHeart}} {{ColorGold}} 5% шанс для Красных Сердец стать Чёрными Сердцами"
                     end
                 }
             }
 		},
         [mod.Trinkets.Gaga] = {
             en_us = {
-                "Increased chance to transform regular Bombs, Keys and Coins into their golden variants"
+				"Increase spawn-chance for golden pickups"
             },
             ru = {
                 "Увеличенный шанс превратить обычные Бомбы, Ключи и Монеты в их золотые вариации"
@@ -807,13 +807,13 @@ mod.EIDescs = {
         },
         [mod.Trinkets.WonderOfYou] = {
             en_us = {
-                "Taking damage has a 5% chance to instantly kill all non-boss enemies in the room",
+                "Taking damage has a 5% chance to kill all non-boss enemies",
                 {
                     function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                        return descObj.ObjSubType == mod.Trinkets.WonderOfYou + TrinketType.TRINKET_GOLDEN_FLAG
                     end,
                     function()
-                        return "{{ColorGold}}Taking damage has a 10% chance to instantly kill all non-boss enemies in the room"
+                        return "Taking damage has a {{ColorGold}}10%{{ColorReset}} chance to kill all non-boss enemies"
                     end
                 }
             },
@@ -821,25 +821,25 @@ mod.EIDescs = {
                 "При получении урона 5% шанс мгновенно убить всех врагов не боссов в комнате",
                 {
                     function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + (1 << 15)
+                        return descObj.ObjSubType == mod.Trinkets.WonderOfYou + TrinketType.TRINKET_GOLDEN_FLAG
                     end,
                     function()
-                        return "{{ColorGold}}При получении урона 10% шанс мгновенно убить всех врагов не боссов в комнате"
+                        return "При получении урона {{ColorGold}}10%{{CR}} шанс мгновенно убить всех врагов не боссов в комнате"
                     end
                 }
             }
         },
         [mod.Trinkets.RottenFood] = {
             en_us = {
-                "All {{Heart}}heart pickups will be {{RottenHeart}}rotten hearts"
+				"{{RottenHeart}} All Read Heart pickups turn into Rotten Hearts"
             },
             ru = {
-                "Все {{Heart}}сердца будут {{RottenHeart}}гнилыми сердцами"
+                "{{RottenHeart}} Все сердца будут гнилыми сердцами"
             },
         },
         [mod.Trinkets.SecondBreakfast] = {
             en_us = {
-                "When collecting a food item, spawns a second one"
+				"Spawns a food item upon collecting a food item"
             },
             ru = {
                 "При получении предмета еды создаёт ещё один"
@@ -847,15 +847,15 @@ mod.EIDescs = {
         },
         [mod.Trinkets.Papercut] = {
             en_us = {
-                "Using a card causes all enemies to bleed"
+                "{{BleedingOut}} Using a card causes all enemies to bleed"
             },
             ru = {
-                "При использовании карты накладывает кровотечение на врагов"
+                "{{BleedingOut}} При использовании карты накладывает кровотечение на врагов"
             },
         },
         [mod.Trinkets.TarotBattery] = {
             en_us = {
-                "Using a card adds +1 charge to the active item"
+                "Using a card adds 1 charge to held active item"
             },
             ru = {
                 "При использовании карты даёт +1 заряд к активному предмету"
