@@ -90,7 +90,7 @@ mod.Items = {
     MomsDiary             = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium         = Isaac.GetItemIdByName("Another Medium"),
     LittleLies            = Isaac.GetItemIdByName("Little Lies"),
-    BigShot               = Isaac.GetItemIdByName("Big Shot"),
+    SlingShot             = Isaac.GetItemIdByName("Sling Shot"),
     KingsHeart            = Isaac.GetItemIdByName("King's Heart"),
     BreakStuff            = Isaac.GetItemIdByName("Break Stuff"),
     PersonalBeggar        = Isaac.GetItemIdByName("Personal Beggar"),
@@ -113,6 +113,8 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
+    HarpString            = Isaac.GetItemIdByName("Harp String"),
+    Harp                  = Isaac.GetItemIdByName("The Harp"),
 }
 
 mod.Wisps = {

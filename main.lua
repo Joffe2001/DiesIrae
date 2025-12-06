@@ -31,7 +31,7 @@ include("scripts.characters.elijah")
 ---------------------------------------------------
 --  Active items
 ----------------------------------------------------
-include("scripts.items.active.bigShot")
+include("scripts.items.active.SlingShot")
 include("scripts.items.active.armyOfLovers")
 include("scripts.items.active.guppysSoul")
 include("scripts.items.active.shBoom")
@@ -191,6 +191,7 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.closecall")
 --include("scripts.items.passive.TGS")
 --include("scripts.items.passive.deliriousmind")
+include("scripts.items.passive.harpString")
 --include("scripts.items.passive.corona")
 --include("scripts.npcs.JunkYardSeller")
 --include("scripts.items.familiars.tarotBum")

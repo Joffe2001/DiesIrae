@@ -592,7 +592,7 @@ mod.EIDescs = {
                 "Создаёт 2 Мини-Исааков"
             }
 		},
-		[mod.Items.BigShot] = {
+		[mod.Items.SlingShot] = {
 			en_us = {
                 "Fires a massive slow piercing tear that destroys rocks and opens secret room doors",
                 "Tear explodes on wall impact",
