@@ -69,6 +69,8 @@ mod.Items = {
     BloodBattery          = Isaac.GetItemIdByName("Blood Battery"),
     CorruptedMantle       = Isaac.GetItemIdByName("Corrupted Mantle"),
     DeliriousMind         = Isaac.GetItemIdByName("Delirious Mind"),
+    HarpString            = Isaac.GetItemIdByName("Harp String"),
+    Harp                  = Isaac.GetItemIdByName("The Harp"),
 
     -- Familiars
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
@@ -113,8 +115,6 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
-    HarpString            = Isaac.GetItemIdByName("Harp String"),
-    Harp                  = Isaac.GetItemIdByName("The Harp"),
 }
 
 mod.Wisps = {
@@ -156,7 +156,16 @@ mod.Pills = {
 mod.Sounds = {
     JEVIL_CHAOS           = Isaac.GetSoundIdByName("Chaos chaos"),
     KILLER_QUEEN_DETONATE = Isaac.GetSoundIdByName("Killer Queen Detonate"),
-    KINGS_FART            = Isaac.GetSoundIdByName("King's Heart Fart")
+    KINGS_FART            = Isaac.GetSoundIdByName("King's Heart Fart"),
+
+    --Pills
+    CURSED            = Isaac.GetSoundIdByName("Cursed Pill"),
+    BLESSED           = Isaac.GetSoundIdByName("Blessed Pill"),
+    HEARTBREAK        = Isaac.GetSoundIdByName("Heartbreak Pill"),
+    POWER_DRAIN       = Isaac.GetSoundIdByName("Power Drain Pill"),
+    VOMIT             = Isaac.GetSoundIdByName("Vomit Pill"),
+    SOMETHING_CHANGED = Isaac.GetSoundIdByName("Something Changed Pill"),
+    EQUAL             = Isaac.GetSoundIdByName("Equilibrium Pill")
 }
 
 mod.Music = {

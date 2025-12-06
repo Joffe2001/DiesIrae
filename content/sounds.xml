@@ -10,4 +10,32 @@
     <sound name="King's Heart Fart">
         <sample weight="1" path="clubpenguinfart.wav" />
     </sound>
+<!--PILLS-->
+    <sound name="Blessed Pill">
+        <sample weight="1" path="blessed.wav" />
+    </sound>
+
+    <sound name="Cursed Pill">
+        <sample weight="1" path="cursed.wav" />
+    </sound>
+
+    <sound name="Equilibrium Pill">
+        <sample weight="1" path="Equilibrium.wav" />
+    </sound>
+
+    <sound name="Heartbreak Pill">
+        <sample weight="1" path="heartbreak.wav" />
+    </sound>
+
+    <sound name="Power Drain Pill">
+        <sample weight="1" path="power_drain.wav" />
+    </sound>
+
+    <sound name="Something Changed Pill">
+        <sample weight="1" path="something_changed.wav" />
+    </sound>
+
+    <sound name="Vomit Pill">
+        <sample weight="1" path="blehhh.wav" />
+    </sound>
 </sounds>

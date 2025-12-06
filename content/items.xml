@@ -48,11 +48,13 @@
     <passive id="46" name="Blood Battery"              gfx="blood_battery.png"             description="Blood is fuel"                               quality="2" tags="nolostbr"/>
     <passive id="47" name="Corrupted Mantle"           gfx="item_placeholder.png"          description="Holy shield..at a cost"                      quality="3"/>
     <passive id="48" name="Delirious Mind"             gfx="delirious_mind.png"            description="Why is this exist?"                          quality="2"/>
+    <passive id="49" name="Harp String"                gfx="harpstring.png"                description="It's starting to sound like a melody"        quality="4" tags="noeden quest"/>
+    <passive id="50" name="The Harp"                   gfx="theharp.png"                   description="The harp gently weeps"                       quality="4" tags="noeden quest"/>
     <!-- Familiars -->
-    <familiar id="49" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="50" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="51" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="52" name="Scammer Bum"               gfx="item_placeholder.png"          description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="51" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="52" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="53" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="54" name="Scammer Bum"               gfx="item_placeholder.png"          description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
@@ -93,11 +95,9 @@
     <passive id="313" name="Photon Link"               gfx="item_placeholder.png"          description="Zap!!"                                      quality="2"/>
     <passive id="314" name="Close Call!"               gfx="item_placeholder.png"          description="Oh man, that was close!"                    quality="2"/>
     <passive id="315" name="Hit List"                  gfx="item_placeholder.png"          description="Need to grind"                              quality="2"/>
-    <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"               quality="2"/>
+    <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"                  quality="2"/>
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
-    <passive id="320" name="Harp String"               gfx="harpstring.png"                description="It's starting to sound like a melody"     quality="4" tags="noeden quest"/>
-    <passive id="321" name="The Harp"                  gfx="theharp.png"                   description="It's starting to sound like a melody"     quality="4" tags="noeden quest"/>
 
 
     <trinket id="400" name="Money for nothing"         gfx="trinket_placeholder.png"       description="You don't need money no more"        />

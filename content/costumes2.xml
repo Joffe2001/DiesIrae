@@ -7,6 +7,7 @@
     <costume id="7"   name="Mom's Dress"       anm2path="momsdress.anm2"        type="passive" priority="50" />
     <costume id="10"  name="Echo"              anm2path="echo.anm2"             type="passive" priority="50" />
     <costume id="11"  name="Engel"             anm2path="engel.anm2"            type="passive" priority="20" />
+    <costume id="13" name="Devil's Luck"       anm2path="devils_luck.anm2"      type="passive" priority="20" skinColor="black"/>
     <costume id="16"  name="Protein Powder"    anm2path="proteinpowder.anm2"    type="passive" priority="50" hasSkinAlt="true"/>
     <costume id="19"  name="Thought Contagion" anm2path="thoughtcontagion.anm2" type="passive" priority="20" hasSkinAlt="true" />
     <costume id="30"  name="Rainbow KoRn"      anm2path="KoRn.anm2"             type="passive" priority="600" />
