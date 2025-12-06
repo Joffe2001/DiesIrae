@@ -21,6 +21,8 @@
 ---don't talk directly to the reader ("holding the fire button" instead of "hold the fire button to")
 ---try to not use words like "is", "are", "will"
 ---look at the descriptions found in the folders of the External Item Description mod!
+---icons schould be surounded by a space character if in text
+---icons are not often needed! only use them if fitting
 --------------------------------------------------------
 
 
@@ -595,7 +597,8 @@ mod.EIDescs = {
 --------------------------------------------------------    
 		[mod.Items.AnotherMedium] = { 
 			en_us = { 
-                "Once per floor randomizes one random passive or familiar item"
+				"Rerolls one passive item",
+				"Can only be used once per floor"
             },
             ru = { 
                 "Один раз за этаж рандомизирует один случайный пассивный или предмет спутника"
@@ -603,62 +606,61 @@ mod.EIDescs = {
 		},
 		[mod.Items.ArmyOfLovers] = {
 			en_us = {   
-                "Spawns 2 Mini Isaacs"
+                "Spawns 2 Minisaacs"
             },
             ru = {   
                 "Создаёт 2 Мини-Исааков"
             }
 		},
-		[mod.Items.BigShot] = {
+		[mod.Items.SlingShot] = {
 			en_us = {
-                "Fires a massive slow piercing tear that destroys rocks and opens secret room doors",
+                "Shoots a large piercing tear which destroys rocks",
                 "Tear explodes on wall impact",
-                "4 second cooldown"
             },
             ru = {
                 "Выстреливает огромную медленную пронзающую слезу, уничтожающую камни и открывающую проходы в секретную комнату",
                 "Слеза взрывается при столкновении со стеной",
-                "4 секунды перезарядка"
             }
 		},
         [mod.Items.GuppysSoul] = {
             en_us = {
-                "Grants {{Guppy}}Guppy transformation for the room"
+                "{{Guppy}} Grants Guppy transformation for the room"
             },
             ru = {
-                "Даёт превращение {{Guppy}}Гаппи на комнату"
+                "{{Guppy}} Даёт превращение Гаппи на комнату"
             }
         },
     
         [mod.Items.ShBoom] = {
             en_us = {
-                "Triggers {{Collectible483}}Mama Mega! effect",
-                "↓ +1 {{BrokenHeart}}Broken Heart",
-                "Only once per floor",
+                "{{Collectible483}} Activates Mama Mega!",
+                "{{BrokenHeart}} +1 Broken Heart",
+				"Can only be used once per floor"
             },
             ru = {
-                "Вызывает эффект {{Collectible483}}Мама Мега!",
-                "↓ +1 {{BrokenHeart}}Разбитое Сердце",
+                "{{Collectible483}} Вызывает эффект Мама Мега!",
+                "{{BrokenHeart}} +1 Разбитое Сердце",
                 "Только один раз за этаж",
             }
         },
     
         [mod.Items.HypaHypa] = {
             en_us = {
-                "30% chance to spawn a quality {{Quality4}} item",
-                "70% chance to spawn {{Collectible36}}The Poop",
-                "Single-use"
+				"{{Warning}} SINGLE USE {{Warning}}"
+                "{{Quality4}} 30% chance to spawn a Quality 4",
+                "{{Collectible36}} 70% chance to spawn The Poop",
             },
             ru = {
-                "30% шанс создать предмет {{Quality4}} качества",
-                "70% шанс создать {{Collectible36}}Какашку",
-                "Одноразовый"
+                "{{Warning}} Одноразовый {{Warning}}",
+                "{{Quality4}} 30% шанс создать предмет качества",
+                "{{Collectible36}} 70% шанс создать Какашку",
+
             }
         },
     
         [mod.Items.HelterSkelter] = {
             en_us = {
-                "25% chance to turn each enemy into a friendly Bony"
+                "25% chance for each enemy to turn into a friendly Bony"
             },
             ru = {
                 "25% шанс превратить каждого врага в дружественного Костяшку"
@@ -667,16 +669,16 @@ mod.EIDescs = {
     
         [mod.Items.HolyWood] = {
             en_us = {
-                "Grants {{Collectible313}}Holy Mantle for the current room"
+                "{{HolyMantle}} Grants Holy Mantle for the current room"
             },
             ru = {
-                "Даёт {{Collectible313}}Святую Мантию на комнату"
+                "{{HolyMantle}} Даёт Святую Мантию на комнату"
             }
         },
     
         [mod.Items.DiaryOfAMadman] = {
             en_us = {
-                "Randomizes stats for the current room"
+                "Randomizes all stats for the current room"
             },
             ru = {
                 "Рандомизирует характеристики на комнату"
@@ -685,33 +687,32 @@ mod.EIDescs = {
     
         [mod.Items.ComaWhite] = {
             en_us = {
-                "↑ +1 {{EternalHeart}}Eternal Heart",
-                "Removes boss item reward on this floor"
+                "{{EternalHeart}} +1 Eternal Heart",
+                "Removes the boss reward for this floor"
             },
             ru = {
-                "↑ +1 {{EternalHeart}}Вечное Сердце",
+                "{{EternalHeart}} +1 Вечное Сердце",
                 "Убирает предмет в награду за босса на этом этаже"
             }
         },
     
         [mod.Items.GoodVibes] = {
             en_us = {
-                "Transforms all {{Heart}}Red Hearts in the room into {{SoulHeart}}Soul Hearts"
+				"{{BlendedHeart}} Converts all Red Hearts into Soul Hearts for the room"
             },
             ru = {
-                "Превращает все {{Heart}}Красные Сердца на полу в {{SoulHeart}}Сердца Душ"
+                "{{BlendedHeart}} Превращает все Красные Сердца на полу в Сердца Душ"
             }
         },
 
         [mod.Items.DevilsHeart] = {
             en_us = {
-                "50% chance for a {{Heart}}Red Heart Container",
-                "50% chance for a {{BrokenHeart}}Broken Heart ",
-                "All items on the floor costs hearts"
+				"Grants either +1 Health or +1 Broken Heart"
+				"All items cost hearts for the floor"
             },
             ru = {
-                "50% шанс на {{Heart}}Контейнер Красного Сердца",
-                "50% шанс на {{BrokenHeart}}Разбитое Сердце",
+                "{{Heart}} 50% шанс на Контейнер Красного Сердца",
+                "{{BrokenHeart}} 50% шанс на Разбитое Сердце",
                 "Все предметы на этаже стоят сердца"
             }
         },
@@ -719,7 +720,7 @@ mod.EIDescs = {
         [mod.Items.MomsDiary] = {
             en_us = {
                 "Spawns a random item",
-                "Charges when taking damage"
+                "Taking damage adds 1 charge"
             },
             ru = {
                 "Создаёт случайный предмет",
@@ -729,29 +730,27 @@ mod.EIDescs = {
     
         [mod.Items.LittleLies] = {
             en_us = {
-                "Shrinks Isaac for the room",
-                "↑ +2 {{Tears}}Tears for the room"
+				"Size down for the room"
+                "↑ +2 Tears for the room"
             },
             ru = {
                 "Уменьшает Исаака на комнату",
-                "↑ +2 {{Tears}}Слёз на комнату"
+                "↑ +2 Слёз на комнату"
             }
         },
         [mod.Items.KingsHeart] = {
             en_us = {
-                "Give Isaac a random {{UnknownHeart}} heart",
-                "Costs 10 {{Coin}}pennies"
+                "{{Timer}} Pay 10 {{Coin}} coins to receive a {{UnknownHeart}} random heart"
             },
             ru = {
                 "Дает Исааку случайное {{UnknownHeart}} сердце",
-                "Стоит 10 {{Coin}} монет"
+                "{{Timer}} Стоит 10 {{Coin}} монет"
             }
         },
         [mod.Items.BreakStuff] = {
             en_us = {
                 "Deals 100 damage to all enemies in the room",
-                "Opens every door",
-                "Destroy all rocks"
+				"Can open secret rooms and break rocks"
             },
             ru = {
                 "Наносит 100 урона всем врагам в комнате",
@@ -761,10 +760,10 @@ mod.EIDescs = {
         },
         [mod.Items.PersonalBeggar] = {
             en_us = {
-                "Spawns a random Beggar",
+                "{{Beggar}} Spawns a random Beggar",
             },
             ru = {
-                "Создаёт случайного попрошайку",
+                "{{Beggar}} Создаёт случайного попрошайку",
             },
         },
 	},
