@@ -450,7 +450,7 @@ mod.EIDescs = {
                 "{{Warning}} Исаак теряет половину своих сердец при переходе на новый этаж"
             },
         },
-        [mod.Items.SymphonyOfDestruction] = {
+        [mod.Items.SymphonyOfDestr] = {
             en_us = { 
 				"{{Card}} Turns all Cards into {{Card17}} The Tower"
             },
@@ -612,7 +612,7 @@ mod.EIDescs = {
                 "Создаёт 2 Мини-Исааков"
             }
 		},
-		[mod.Items.SlingShot] = {
+		[mod.Items.BigShot] = {
 			en_us = {
                 "Shoots a large piercing tear which destroys rocks",
                 "Tear explodes on wall impact",
@@ -707,7 +707,7 @@ mod.EIDescs = {
 
         [mod.Items.DevilsHeart] = {
             en_us = {
-				"Grants either +1 Health or +1 Broken Heart"
+				"Grants either +1 Health or +1 Broken Heart",
 				"All items cost hearts for the floor"
             },
             ru = {
@@ -730,7 +730,7 @@ mod.EIDescs = {
     
         [mod.Items.LittleLies] = {
             en_us = {
-				"Size down for the room"
+				"Size down for the room",
                 "↑ +2 Tears for the room"
             },
             ru = {
@@ -775,7 +775,7 @@ mod.EIDescs = {
 
 		[mod.Trinkets.BabyBlue] = {
 			en_us = {
-				"{{SoulHeart}} All Read Heart pickups turn into Soul Hearts"
+				"{{SoulHeart}} All Read Heart pickups turn into Soul Hearts",
                 {
                     function(descObj)
                         return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
@@ -871,7 +871,7 @@ mod.EIDescs = {
         [mod.Cards.Locacaca] = {
             en_us = {
                 "{{HealingRed}} Full health",
-				"{{BrokenHeart}} Heals all Broken hearts"
+				"{{BrokenHeart}} Heals all Broken hearts",
                 "{{Warning}} stat decrease for each healed heart container",
                 "{{Warning}} lose 1 passive item for each healed Broken heart"
             },
@@ -894,7 +894,7 @@ mod.EIDescs = {
         },
         [mod.Cards.StarShard] = {
             en_us = {
-				"{{Planetarium}} Reroll one pedestal into a star item"
+				"{{Planetarium}} Reroll one pedestal into a star item",
 				"{{SoulHeart}} Grants 1 Soul Heart if there's no item in the room"
             },
             ru = {
@@ -919,53 +919,17 @@ mod.EIDescs = {
             },
         },
         [mod.Cards.DadsLottoTicket] = {
-            en_us = { ---which chance gets decreased by 1% with lucky foot????? -missing
-				--- unknown if works correctly
-                "Spawns: ",
-                "Nothing (25%)",
-                "{{Coin}} (60%)",
-                "{{Coin}} {{Coin}} (9%)",
-                "{{Nickel}} (5%)",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.2%", 2, "{{ColorYellow}}0.4%{{CR}}")
-                },
-                "{{Dime}} ({2})",
-                "{{Crafting26}} ({2})",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.1%", 3, "{{ColorYellow}}0.2%{{CR}}")
-                },
-                "{{Crafting11}} ({3})",
-                "3 {{Nickel}} ({3})",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.05%", 4, "{{ColorYellow}}0.1%{{CR}}")
-                },
-                "10 {{Coin}} ({4})",
-                "10 {{Nickel}} ({4})",
-                "{{Dime}} {{Crafting11}} {{Crafting26}} ({4})",
-                "2 {{Dime}} 2 {{Crafting11}} 2 {{Crafting26}} ({4})",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.04%", 5, "{{ColorYellow}}0.08%{{CR}}")
-                },
-                "6 {{Dime}} ({5})",
-                "4 {{Crafting26}} ({5})",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.03%", 6, "{{ColorYellow}}0.06%{{CR}}")
-                },
-                "2 {{Dime}} 5 {{Crafting26}} ({6})",
-                "3 {{Crafting11}} 2 {{Coin}} {{Nickel}} {{Dime}} ({6})",
-                {
-                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					EID:ReplaceVariableStr("0.02%", 7, "{{ColorYellow}}0.04%{{CR}}")
-                },
-                "5 {{Crafting11}} ({7})",
-                "2 {{Crafting26}} 3{{Crafting11}} ({7})",
-                "6 {{Nickel}} 6 {{Nickel}} ({7})"
-            },
+            en_us = {
+				"{{coin}} 75% chance to spawn coins",
+				{
+					function()
+                		return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					end,
+					function()
+						return "{{Collectible46}} Increased chance for rare coins"
+					end
+				}
+			},
             ru = {
                 "Шанс создать Монету, Пятак или Гривенник",
                 "Есть шанс не создать ничего",
@@ -1030,4 +994,4 @@ mod.EIDescs = {
             },
 		}
 	}
-u
+}
