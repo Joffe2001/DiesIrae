@@ -945,7 +945,7 @@ mod.EIDescs = {
 
 		[mod.Pills.CURSED] = {
 			en_us = {
-                "Applies a random curse"
+                "Grants a curse"
             },
             ru = {
                 "Даёт случайное проклятие"
@@ -953,7 +953,7 @@ mod.EIDescs = {
 		},
         [mod.Pills.BLESSED] = {
 			en_us = {
-                "Removes current curses"
+                "Removes all curses"
             },
             ru = {
                 "Убирает текущие проклятия"
@@ -961,28 +961,28 @@ mod.EIDescs = {
 		},
         [mod.Pills.HEARTBREAK] = {
 			en_us = {
-                "Adds a {{BrokenHeart}}Broken Heart"
+                "{{BrokenHeart}} +1 Broken Heart"
             },
             ru = {
-                "Даёт {{BrokenHeart}}разбитое сердце"
+                "{{BrokenHeart}} Даёт разбитое сердце"
             },
 		},
         [mod.Pills.POWER_DRAIN] = {
 			en_us = {
-                "Empties active item charge"
+                "{{Timer}} Empties held active item"
             },
             ru = {
-                "Опустошает заряд активного предмета"
+                "{{Timer}} Опустошает заряд активного предмета"
             },
 		},
         [mod.Pills.VOMIT] = {
 			en_us = {
-                "Spawn a random {{Trinket}} trinket"
+                "{{Trinket}} Spawn a random Trinket"
             },
 		},
         [mod.Pills.SOMETHING_CHANGED] = {
 			en_us = {
-                "Change held {{Trinket}} trinket(s)"
+                "{{Trinket}} Reroll held trinkets"
             },
 		},
         [mod.Pills.EQUAL] = {
