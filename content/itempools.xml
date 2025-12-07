@@ -66,6 +66,7 @@
         <Item Name="Blood Battery" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
+    <!-->
     <Pool Name="dungeon">
         <Item Name="Mutter" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Psychosocial" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -76,6 +77,7 @@
         <Item Name="Still Standing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
+    <-->
 
 <!-- Special rooms-->
     <Pool Name="angel">
@@ -125,6 +127,7 @@
         <Item Name="Mom's Diary" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
+    <!-->
     <Pool Name="bossrush">
         <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Good Vibes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -137,6 +140,7 @@
         <Item Name="Big Shot" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Rainbow KoRn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
+    <-->
 
     <Pool Name="ultraSecret">
         <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -219,7 +223,7 @@
         <Item Name="Bloodline" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
-    <Pool Name="KeyMaster">
+    <Pool Name="keyMaster">
     </Pool>
 
 	<Pool Name="bombBum">

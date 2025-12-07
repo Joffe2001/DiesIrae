@@ -31,7 +31,7 @@ include("scripts.characters.elijah")
 ---------------------------------------------------
 --  Active items
 ----------------------------------------------------
-include("scripts.items.active.bigShot")
+include("scripts.items.active.SlingShot")
 include("scripts.items.active.armyOfLovers")
 include("scripts.items.active.guppysSoul")
 include("scripts.items.active.shBoom")
@@ -98,12 +98,15 @@ include("scripts.items.passive.grudge")
 include("scripts.items.passive.coolStick")
 include("scripts.items.passive.bloodBattery")
 include("scripts.items.passive.corruptedMantle")
+include("scripts.items.passive.harpString")
+include("scripts.items.passive.Harp")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
 include("scripts.items.familiars.paranoidAndroid")
 include("scripts.items.familiars.killerQueen")
 include("scripts.items.familiars.RedBum")
+include("scripts.items.familiars.ScammerBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -191,9 +194,8 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.TGS")
 --include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
---include("scripts.items.passive.BackPain")
+--include("scripts.npcs.JunkYardSeller")
 --include("scripts.items.familiars.tarotBum")
-include("scripts.items.familiars.ScammerBum")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")
 --include("scripts.Challenges.sound_of_silence")

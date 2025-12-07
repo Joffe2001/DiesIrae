@@ -7,6 +7,7 @@
     <costume id="7"   name="Mom's Dress"       anm2path="momsdress.anm2"        type="passive" priority="50" />
     <costume id="10"  name="Echo"              anm2path="echo.anm2"             type="passive" priority="50" />
     <costume id="11"  name="Engel"             anm2path="engel.anm2"            type="passive" priority="20" />
+    <costume id="13" name="Devil's Luck"       anm2path="devils_luck.anm2"      type="passive" priority="20" skinColor="black"/>
     <costume id="16"  name="Protein Powder"    anm2path="proteinpowder.anm2"    type="passive" priority="50" hasSkinAlt="true"/>
     <costume id="19"  name="Thought Contagion" anm2path="thoughtcontagion.anm2" type="passive" priority="20" hasSkinAlt="true" />
     <costume id="30"  name="Rainbow KoRn"      anm2path="KoRn.anm2"             type="passive" priority="600" />
@@ -20,14 +21,14 @@
     <costume id="316" name="Triple Gooberberry Sunrise" anm2path="TGS.anm2"   type="passive"  priority="200" />
 
     <!--Characters costumes-->
-    <costume id="1000" anm2path="david_hair.anm2" type="none" priority="800"/>
-    <costume id="1001" anm2path="tdavid_hair.anm2" type="none" priority="800"/>
-    <costume id="1002" anm2path="elijah_hair.anm2" type="none" priority="800"/>
+    <costume id="1000" anm2path="david_hair.anm2"     type="none" priority="800"/>
+    <costume id="1001" anm2path="tdavid_hair.anm2"    type="none" priority="800"/>
+    <costume id="1002" anm2path="elijah_hair.anm2"    type="none" priority="800"/>
     <!--Transformations-->
-    <costume id="2000" anm2path="dads_playlist.anm2" type="none" priority="700" />
+    <costume id="2000" anm2path="dads_playlist.anm2"  type="none" priority="700" />
     <costume id="2001" anm2path="isaac_playlist.anm2" type="none" priority="700" />
     <!--Extra-->
     <costume id="3004" anm2path="universal_head.anm2" type="none"  priority="700" />
     <costume id="3005" anm2path="brokenholywood.anm2" type="none"  priority="700" />
-    <costume id="3006" anm2path="holywood.anm2"        type="none" priority="200" />
+    <costume id="3006" anm2path="holywood.anm2"       type="none" priority="200" />
 </costumes>

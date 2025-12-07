@@ -80,4 +80,32 @@ function utils.HasBirthright(player)
     return player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 end
 
+
+---@param soundId integer
+---@param flags integer
+function utils.PlayVoiceline(soundId, flags, player)
+    if flags & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then
+        return
+    end
+
+    local rng = player:GetCollectibleRNG(1)
+    local randNum = rng:RandomInt(2)
+
+    -- AnnouncerVoiceMode:
+    -- 0 = random
+    -- 1 = off
+    -- 2 = always on
+    if Options.AnnouncerVoiceMode == 2
+        or (Options.AnnouncerVoiceMode == 0 and randNum == 0)
+    then
+        sfx:Play(soundId)
+    end
+end
+
+
+---@param id number
+function utils.IsGoldTrinket(id)
+    return id & TrinketType.TRINKET_GOLDEN_FLAG ~= 0
+end
+
 return utils

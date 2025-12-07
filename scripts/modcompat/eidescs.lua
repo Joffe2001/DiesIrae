@@ -28,6 +28,28 @@
 
 local mod = DiesIraeMod
 
+----------------------------------------------------------------------------------------------------------
+--How to do descs
+
+--Firstly, you don't need to place "#" symbol at the start of each string, eid.lua does that automatically
+
+--You can put in the description table either a string or a table
+
+--String - will be inserted into the in-game description no matter what
+
+--Table - can contain 1 or 2 functions with DescObject and ClosestPlayer args passed to them:
+
+--  1 function(return string) - will be called each frame on description rendering, 
+--  returned string will be inserted into the in-game description no matter what
+
+--  2 functions:
+--  First(return boolean) - will be called each frame on description rendering, returned bool will
+--  determine if the second function will be called
+
+--  Second(return string) - will be called on description rendering if the first function returns true,
+--  returned string will be inserted into the in-game description
+----------------------------------------------------------------------------------------------------------
+
 mod.EIDescs = {
 	Collectible = {
 		EIDadd = function(...) EID:addCollectible(...) end,
@@ -612,7 +634,7 @@ mod.EIDescs = {
                 "Создаёт 2 Мини-Исааков"
             }
 		},
-		[mod.Items.BigShot] = {
+		[mod.Items.SlingShot] = {
 			en_us = {
                 "Shoots a large piercing tear which destroys rocks",
                 "Tear explodes on wall impact",

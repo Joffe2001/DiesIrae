@@ -1,11 +1,10 @@
-
 local mod = DiesIraeMod
 local game = Game()
 
-local MAX_DAMAGE_BONUS = 4.0
-local DAMAGE_STEP = 0.1
+local DAMAGE_STEP = 0.2
 local STAND_INTERVAL = 30
 local DECAY_RATE = 0.5
+
 function mod:StillStanding_Update(player)
     if not player:HasCollectible(mod.Items.StillStanding) then return end
 
@@ -14,13 +13,18 @@ function mod:StillStanding_Update(player)
     data.lastPos = data.lastPos or player.Position
     data.damageBonus = data.damageBonus or 0
 
+    local baseDamage = player.Damage - data.damageBonus
+    local maxBonus = baseDamage 
+
     if player.Position:DistanceSquared(data.lastPos) < 0.01 then
         data.standTimer = data.standTimer + 1
 
-        if data.standTimer % STAND_INTERVAL == 0 and data.damageBonus < MAX_DAMAGE_BONUS then
-            data.damageBonus = math.min(data.damageBonus + DAMAGE_STEP, MAX_DAMAGE_BONUS)
-            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-            player:EvaluateItems()
+        if data.standTimer % STAND_INTERVAL == 0 then
+            if data.damageBonus < maxBonus then
+                data.damageBonus = math.min(data.damageBonus + DAMAGE_STEP, maxBonus)
+                player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+                player:EvaluateItems()
+            end
         end
     else
         if data.damageBonus > 0 then

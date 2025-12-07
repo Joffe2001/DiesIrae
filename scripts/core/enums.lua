@@ -69,11 +69,14 @@ mod.Items = {
     BloodBattery          = Isaac.GetItemIdByName("Blood Battery"),
     CorruptedMantle       = Isaac.GetItemIdByName("Corrupted Mantle"),
     DeliriousMind         = Isaac.GetItemIdByName("Delirious Mind"),
+    HarpString            = Isaac.GetItemIdByName("Harp String"),
+    Harp                  = Isaac.GetItemIdByName("The Harp"),
 
     -- Familiars
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
     KillerQueen           = Isaac.GetItemIdByName("Killer Queen"),
     RedBum                = Isaac.GetItemIdByName("Red Bum"),
+    ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -89,7 +92,7 @@ mod.Items = {
     MomsDiary             = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium         = Isaac.GetItemIdByName("Another Medium"),
     LittleLies            = Isaac.GetItemIdByName("Little Lies"),
-    BigShot               = Isaac.GetItemIdByName("Big Shot"),
+    SlingShot             = Isaac.GetItemIdByName("Sling Shot"),
     KingsHeart            = Isaac.GetItemIdByName("King's Heart"),
     BreakStuff            = Isaac.GetItemIdByName("Break Stuff"),
     PersonalBeggar        = Isaac.GetItemIdByName("Personal Beggar"),
@@ -112,8 +115,6 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
-    BackPain              = Isaac.GetItemIdByName("Back Pain"),
-    ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
 }
 
 mod.Wisps = {
@@ -155,7 +156,16 @@ mod.Pills = {
 mod.Sounds = {
     JEVIL_CHAOS           = Isaac.GetSoundIdByName("Chaos chaos"),
     KILLER_QUEEN_DETONATE = Isaac.GetSoundIdByName("Killer Queen Detonate"),
-    KINGS_FART            = Isaac.GetSoundIdByName("King's Heart Fart")
+    KINGS_FART            = Isaac.GetSoundIdByName("King's Heart Fart"),
+
+    --Pills
+    CURSED            = Isaac.GetSoundIdByName("Cursed Pill"),
+    BLESSED           = Isaac.GetSoundIdByName("Blessed Pill"),
+    HEARTBREAK        = Isaac.GetSoundIdByName("Heartbreak Pill"),
+    POWER_DRAIN       = Isaac.GetSoundIdByName("Power Drain Pill"),
+    VOMIT             = Isaac.GetSoundIdByName("Vomit Pill"),
+    SOMETHING_CHANGED = Isaac.GetSoundIdByName("Something Changed Pill"),
+    EQUAL             = Isaac.GetSoundIdByName("Equilibrium Pill")
 }
 
 mod.Music = {
@@ -183,6 +193,7 @@ mod.Entities = {
     BEGGAR_Fiend             = MakeEntityTable("Fiend Beggar"),
     BEGGAR_Tech              = MakeEntityTable("Tech Beggar"),
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
+    BEGGAR_JYS               = MakeEntityTable("Junk Yard Seller"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),

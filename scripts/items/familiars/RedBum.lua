@@ -2,7 +2,7 @@ local mod = DiesIraeMod
 local bumUtils = include("scripts.items.familiars.bumUtils")
 
 local RED_BUM = mod.Entities.FAMILIAR_RedBum.Var
-local CRACKED_KEY_CHANCE = 0.30
+local CRACKED_KEY_CHANCE = 0.10
 
 ---@class RedBum
 local redBum = {}

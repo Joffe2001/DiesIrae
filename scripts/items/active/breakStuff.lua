@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local BreakStuff = {}
 
-local ENEMY_DAMAGE = 100
+local ENEMY_DAMAGE = 40
 
 function BreakStuff:UseBreakStuff(_, _, player, _, _)
     local room = Game():GetRoom()

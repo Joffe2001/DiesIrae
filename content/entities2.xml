@@ -50,8 +50,8 @@
     <entity id="6" variant="122" name="Guppy Beggar" anm2path="npc/guppy_beggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="122" name="Junk Yard Seller" anm2path="npc/junkyardseller.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="24" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0">
-	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
+    <entity id="6" variant="123" name="Junk Yard Seller" anm2path="npc/junkyardseller.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="48" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0">
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
 <!--Elijah's Beggars-->
     <entity id="6" variant="221" name="Tech Beggar Elijah" anm2path="npc/Elijahnpc/techbeggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
