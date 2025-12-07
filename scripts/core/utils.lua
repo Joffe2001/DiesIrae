@@ -102,4 +102,10 @@ function utils.PlayVoiceline(soundId, flags, player)
     end
 end
 
+
+---@param id number
+function utils.IsGoldTrinket(id)
+    return id & TrinketType.TRINKET_GOLDEN_FLAG ~= 0
+end
+
 return utils
