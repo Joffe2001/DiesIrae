@@ -1,6 +1,6 @@
 --------------------------------------------------------
 ----Syntax----
----
+---https://github.com/wofsauge/External-Item-Descriptions/wiki/Markup
 ---
 ---stat changes are always indicated by ↑ or ↓
 ---!make sure to know the difference between Tears up and Fire rate up!
@@ -646,7 +646,7 @@ mod.EIDescs = {
     
         [mod.Items.HypaHypa] = {
             en_us = {
-				"{{Warning}} SINGLE USE {{Warning}}"
+				"{{Warning}} SINGLE USE {{Warning}}",
                 "{{Quality4}} 30% chance to spawn a Quality 4",
                 "{{Collectible36}} 70% chance to spawn The Poop",
             },
@@ -870,80 +870,101 @@ mod.EIDescs = {
 
         [mod.Cards.Locacaca] = {
             en_us = {
-                "{{Heart}}Heal Isaac red hearts",
-                "If there's a {{BrokenHeart}} Broken Heart(s) it will heal them also",
-                "{{Warning}}Healing a heart container cost stats decrease",
-                "{{Warning}}Healing a {{BrokenHeart}} Broken Heart(s) will costs collectibles"
+                "{{HealingRed}} Full health",
+				"{{BrokenHeart}} Heals all Broken hearts"
+                "{{Warning}} stat decrease for each healed heart container",
+                "{{Warning}} lose 1 passive item for each healed Broken heart"
             },
             ru = {
-                "{{Heart}}Лечит красные сердца",
-                "Если есть {{BrokenHeart}} разбитые сердца, это также излечит их",
+                "{{HealingRed}} Лечит красные сердца",
+                "{{BrokenHeart}} Если есть разбитые сердца, это также излечит их",
                 "{{Warning}}Лечение контейнера сердца стоит понижение характеристик",
-                "{{Warning}}Лечение {{BrokenHeart}} разбитых сердец стоит предметы"
+                "{{Warning}}Лечение разбитых сердец стоит предметы"
             },
         },
         [mod.Cards.alpoh] = {
             en_us = {
-                "Gives a random {{AngelRoom}} angel room item",
-                "Cost 2 {{BrokenHeart}} Broken Hearts"
+                "{{AngelRoom}} Grants a random angel room item",
+                "{{BrokenHeart}} Grands 2 Broken Hearts"
             },
             ru = {
-                "Даёт случайный {{AngelRoom}} ангельский предмет",
-                "Стоит 2 {{BrokenHeart}} разбитых сердца"
+                "{{AngelRoom}} Даёт случайный ангельский предмет",
+                "{{BrokenHeart}} Стоит 2 разбитых сердца"
             },
         },
         [mod.Cards.StarShard] = {
             en_us = {
-                "Change a pedestal into a Planetarium or Planetarium related item",
-                "If there's no pedestal in the room it will give one soul heart instead"
+				"{{Planetarium}} Reroll one pedestal into a star item"
+				"{{SoulHeart}} Grants 1 Soul Heart if there's no item in the room"
             },
             ru = {
-                "Меняет предмет на предмет из Планетария",
-                "Если предметов нет, даст 1 сердца души"
+                "{{Planetarium}} Меняет предмет на предмет из Планетария",
+                "{{SoulHeart}} Если предметов нет, даст 1 сердца души"
             },
         },
         [mod.Cards.EnergyDrink] = {
             en_us = {
-                "{{ArrowUp}}Gives +0.5 to all the stats for the room",
-                "{{Warning}}After 15 seconds Isaac gets {{ArrowDown}}-0.1 stats penalty for the room"
+				"{{Timer}} Receive for the room:",
+				"↑ +0.5 speed",
+				"↑ +0.5 damage",
+				"↑ +0.5 fire rate",
+				"↑ +0.5 range",
+				"↑ +0.5 shot speed",
+				"↑ +0.5 luck",
+				"↓ -0.1 to all stats after 15 seconds"
             },
             ru = {
-                "{{ArrowUp}}Даёт +0.5 ко всем характеристикам на комнату",
-                "{{Warning}}После 15 секунд Исаак получает штрафное {{ArrowDown}}-0.1 к характеристикам на комнату"
+                "↑ Даёт +0.5 ко всем характеристикам на комнату",
+                "↓ После 15 секунд Исаак получает штрафное -0.1 к характеристикам на комнату"
             },
         },
         [mod.Cards.DadsLottoTicket] = {
-            en_us = {
-                "Has a chance to spawn a combination of coins.",
-                "Nothing: 25%",
-                "{{Blank}}{{Coin}}: 60",
-                "{{Coin}}{{Coin}}: 9%",
-                "{{Nickel}}: 5%",
-                "{{ColorGold}}A prize: 1%",
+            en_us = { ---which chance gets decreased by 1% with lucky foot????? -missing
+				--- unknown if works correctly
+                "Spawns: ",
+                "Nothing (25%)",
+                "{{Coin}} (60%)",
+                "{{Coin}} {{Coin}} (9%)",
+                "{{Nickel}} (5%)",
                 {
-                    function(_, player)
-                        return player:HasCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-                    end,
-                    function()
-                        return "{{Collectible46}}: Increases the chance of {{ColorGold}}the prize{{CR}} to 2%"
-                    end
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.2%", 2, "{{ColorYellow}}0.4%{{CR}}")
                 },
-                "Possible Prizes:",
-                "{{Dime}}: 0.2%",
-                "{{Crafting26}}: 0.2%",
-                "{{Crafting11}}: 0.1%",
-                "3{{ColorGray}}_{{Nickel}}_{{CR}}: 0.1%",
-                "10{{Coin}}{{Coin}}: 0.05%",
-                "10{{ColorGray}}_{{Nickel}}_{{CR}}: 0.05%",
-                "{{Dime}}, {{Crafting11}}, {{Crafting26}}: 0.05%",
-                "2{{Dime}}, 2{{Crafting11}}, 2{{Crafting26}}: 0.05%",
-                "6{{Dime}}: 0.04%",
-                "4{{Crafting26}}: 0.04%",
-                "5{{Crafting11}}: 0.02%",
-                "2{{Dime}}, 5{{Crafting26}}: 0.03%",
-                "3{{Crafting11}}, {{Coin}}{{Coin}}, {{Nickel}}, {{Dime}}: 0.03%",
-                "2{{Crafting26}}, 3{{Crafting11}}: 0.02%",
-                "6{{Nickel}}, 6{{ColorGray}}_{{Nickel}}_{{CR}}: 0.02%"
+                "{{Dime}} ({2})",
+                "{{Crafting26}} ({2})",
+                {
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.1%", 3, "{{ColorYellow}}0.2%{{CR}}")
+                },
+                "{{Crafting11}} ({3})",
+                "3 {{Nickel}} ({3})",
+                {
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.05%", 4, "{{ColorYellow}}0.1%{{CR}}")
+                },
+                "10 {{Coin}} ({4})",
+                "10 {{Nickel}} ({4})",
+                "{{Dime}} {{Crafting11}} {{Crafting26}} ({4})",
+                "2 {{Dime}} 2 {{Crafting11}} 2 {{Crafting26}} ({4})",
+                {
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.04%", 5, "{{ColorYellow}}0.08%{{CR}}")
+                },
+                "6 {{Dime}} ({5})",
+                "4 {{Crafting26}} ({5})",
+                {
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.03%", 6, "{{ColorYellow}}0.06%{{CR}}")
+                },
+                "2 {{Dime}} 5 {{Crafting26}} ({6})",
+                "3 {{Crafting11}} 2 {{Coin}} {{Nickel}} {{Dime}} ({6})",
+                {
+                	EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+					EID:ReplaceVariableStr("0.02%", 7, "{{ColorYellow}}0.04%{{CR}}")
+                },
+                "5 {{Crafting11}} ({7})",
+                "2 {{Crafting26}} 3{{Crafting11}} ({7})",
+                "6 {{Nickel}} 6 {{Nickel}} ({7})"
             },
             ru = {
                 "Шанс создать Монету, Пятак или Гривенник",
