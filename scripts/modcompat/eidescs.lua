@@ -597,441 +597,452 @@ mod.EIDescs = {
                 "{{BrokenHeart}} +2 Разбитых Сердца"
             }
         },
+        [mod.Items.HarpString] = {
+            en_us = { 
+				"↑ +1 Item pedestal in the Treasure room"
+            },
+        },
+        [mod.Items.Harp] = {
+            en_us = { 
+				"↑ +0.15 damage multiplier for every passive item",
+                "Not including the Harp or Harp strings"
+            },
+        },
 --------------------------------------------------------
 --Familiars
 --------------------------------------------------------    
-		[mod.Items.ParanoidAndroid] = {
-            en_us = { 
-                "Shoots a static laser around itself",
-            },
-            ru = { 
-                "Создаёт статический лазер вокруг себя",
-            }
-        },
-        [mod.Items.KillerQueen] = {
-			en_us = { 
-				"Fires rockets at enemies"
-            },
-            ru = { 
-                "Стреляет ракетами во врагов"
-            }
-		},
-        [mod.Items.RedBum] = {
-			en_us = { 
-                "{{Key}} Picks up nearby Keys",
-				"{{Collectible580}} has a low chance to spawn Red Key"
-            },
-            ru = { 
-                "{{Key}} Подбирает ключи вокруг",
-                "{{Collectible580}} Небольшой шанс создать Красный Ключ"
-            },
-		},
+[mod.Items.ParanoidAndroid] = {
+    en_us = { 
+        "Shoots a static laser around itself",
+    },
+    ru = { 
+        "Создаёт статический лазер вокруг себя",
+    }
+},
+[mod.Items.KillerQueen] = {
+    en_us = { 
+        "Fires rockets at enemies"
+    },
+    ru = { 
+        "Стреляет ракетами во врагов"
+    }
+},
+[mod.Items.RedBum] = {
+    en_us = { 
+        "{{Key}} Picks up nearby Keys",
+        "{{Collectible580}} has a low chance to spawn Red Key"
+    },
+    ru = { 
+        "{{Key}} Подбирает ключи вокруг",
+        "{{Collectible580}} Небольшой шанс создать Красный Ключ"
+    },
+},
 --------------------------------------------------------
 --Active items
 --------------------------------------------------------    
-		[mod.Items.AnotherMedium] = { 
-			en_us = { 
-				"Rerolls one passive item",
-				"Can only be used once per floor"
-            },
-            ru = { 
-                "Меняет один пассивный предмет",
-                "Только раз за этаж"
-            }
-		},
-		[mod.Items.ArmyOfLovers] = {
-			en_us = {   
-                "Spawns 2 Minisaacs"
-            },
-            ru = {   
-                "Создаёт 2 Мини-Исааков"
-            }
-		},
-		[mod.Items.SlingShot] = {
-			en_us = {
-                "Shoots a large piercing tear which destroys rocks",
-                "Tear explodes on wall impact",
-            },
-            ru = {
-                "Стреляет огромной пронзающей слезой, ломающей камни",
-                "Слеза взрывается при столкновении со стеной",
-            }
-		},
-        [mod.Items.GuppysSoul] = {
-            en_us = {
-                "{{Guppy}} Grants Guppy transformation for the room"
-            },
-            ru = {
-                "{{Guppy}} Даёт превращение Гаппи на комнату"
-            }
-        },
-    
-        [mod.Items.ShBoom] = {
-            en_us = {
-                "{{Collectible483}} Activates Mama Mega!",
-                "{{BrokenHeart}} +1 Broken Heart",
-				"Can only be used once per floor"
-            },
-            ru = {
-                "{{Collectible483}} Активирует Мама Мега!",
-                "{{BrokenHeart}} +1 Разбитое Сердце",
-                "Только раз за этаж",
-            }
-        },
-    
-        [mod.Items.HypaHypa] = {
-            en_us = {
-				"{{Warning}} SINGLE USE {{Warning}}",
-                "{{Quality4}} 30% chance to spawn a Quality 4",
-                "{{Collectible36}} 70% chance to spawn The Poop",
-            },
-            ru = {
-                "{{Warning}} ОДНОРАЗОВЫЙ {{Warning}}",
-                "{{Quality4}} 30% шанс создать предмет 4-го качества",
-                "{{Collectible36}} 70% шанс создать Какашку",
+[mod.Items.AnotherMedium] = { 
+    en_us = { 
+        "Rerolls one passive item",
+        "Can only be used once per floor"
+    },
+    ru = { 
+        "Меняет один пассивный предмет",
+        "Только раз за этаж"
+    }
+},
+[mod.Items.ArmyOfLovers] = {
+    en_us = {   
+        "Spawns 2 Minisaacs"
+    },
+    ru = {   
+        "Создаёт 2 Мини-Исааков"
+    }
+},
+[mod.Items.SlingShot] = {
+    en_us = {
+        "Shoots a large piercing tear which destroys rocks",
+        "Tear explodes on wall impact",
+    },
+    ru = {
+        "Стреляет огромной пронзающей слезой, ломающей камни",
+        "Слеза взрывается при столкновении со стеной",
+    }
+},
+[mod.Items.GuppysSoul] = {
+    en_us = {
+        "{{Guppy}} Grants Guppy transformation for the room"
+    },
+    ru = {
+        "{{Guppy}} Даёт превращение Гаппи на комнату"
+    }
+},
 
-            }
-        },
-    
-        [mod.Items.HelterSkelter] = {
-            en_us = {
-                "25% chance for each enemy to turn into a friendly Bony"
-            },
-            ru = {
-                "25% шанс превратить каждого врага в дружественного Костяшку"
-            }
-        },
-    
-        [mod.Items.HolyWood] = {
-            en_us = {
-                "{{HolyMantle}} Grants Holy Mantle for the current room"
-            },
-            ru = {
-                "{{HolyMantle}} Даёт Святую Мантию на комнату"
-            }
-        },
-    
-        [mod.Items.DiaryOfAMadman] = {
-            en_us = {
-                "Randomizes all stats for the current room"
-            },
-            ru = {
-                "Рандомизирует характеристики на комнату"
-            }
-        },
-    
-        [mod.Items.ComaWhite] = {
-            en_us = {
-                "{{EternalHeart}} +1 Eternal Heart",
-                "Removes the boss reward for this floor"
-            },
-            ru = {
-                "{{EternalHeart}} +1 Вечное Сердце",
-                "Убирает предмет в награду за босса на этом этаже"
-            }
-        },
-    
-        [mod.Items.GoodVibes] = {
-            en_us = {
-				"{{BlendedHeart}} Converts all Red Hearts into Soul Hearts in the room"
-            },
-            ru = {
-                "{{BlendedHeart}} Превращает все Красные Сердца в Сердца Душ в комнате"
-            }
-        },
+[mod.Items.ShBoom] = {
+    en_us = {
+        "{{Collectible483}} Activates Mama Mega!",
+        "{{BrokenHeart}} +1 Broken Heart",
+        "Can only be used once per floor"
+    },
+    ru = {
+        "{{Collectible483}} Активирует Мама Мега!",
+        "{{BrokenHeart}} +1 Разбитое Сердце",
+        "Только раз за этаж",
+    }
+},
 
-        [mod.Items.DevilsHeart] = {
-            en_us = {
-				"Grants either +1 Health or +1 Broken Heart",
-				"All items cost hearts for the floor"
-            },
-            ru = {
-                "Даёт либо +1 Здоровье, либо +1 Разбитое Сердце",
-                "Все предметы на этаже стоят сердца"
-            }
-        },
-    
-        [mod.Items.MomsDiary] = {
-            en_us = {
-                "Spawns a random item",
-                "Taking damage adds 1 charge"
-            },
-            ru = {
-                "Создаёт случайный предмет",
-                "Получение урона даёт 1 заряд"
-            }
-        },
-    
-        [mod.Items.LittleLies] = {
-            en_us = {
-				"Size down for the room",
-                "↑ +2 Tears for the room"
-            },
-            ru = {
-                "Уменьшает размер на комнату",
-                "↑ +2 Слёзы на комнату"
-            }
-        },
-        [mod.Items.KingsHeart] = {
-            en_us = {
-                "{{Timer}} Pay 10 {{Coin}} coins to receive a {{UnknownHeart}} random heart"
-            },
-            ru = {
-                "{{Timer}} Заплати 10 {{Coin}} монет за {{UnknownHeart}} случайное сердце"
-            }
-        },
-        [mod.Items.BreakStuff] = {
-            en_us = {
-                "Deals 100 damage to all enemies in the room",
-				"Opens secret rooms and breaks rocks"
-            },
-            ru = {
-                "Наносит 100 урона всем врагам в комнате",
-                "Открывает секретные комнаты и ломает камни"
-            }
-        },
-        [mod.Items.PersonalBeggar] = {
-            en_us = {
-                "{{Beggar}} Spawns a random Beggar",
-            },
-            ru = {
-                "{{Beggar}} Создаёт случайного попрошайку",
-            },
-        },
-	},
+[mod.Items.HypaHypa] = {
+    en_us = {
+        "{{Warning}} SINGLE USE {{Warning}}",
+        "{{Quality4}} 30% chance to spawn a Quality 4",
+        "{{Collectible36}} 70% chance to spawn The Poop",
+    },
+    ru = {
+        "{{Warning}} ОДНОРАЗОВЫЙ {{Warning}}",
+        "{{Quality4}} 30% шанс создать предмет 4-го качества",
+        "{{Collectible36}} 70% шанс создать Какашку",
+
+    }
+},
+
+[mod.Items.HelterSkelter] = {
+    en_us = {
+        "25% chance for each enemy to turn into a friendly Bony"
+    },
+    ru = {
+        "25% шанс превратить каждого врага в дружественного Костяшку"
+    }
+},
+
+[mod.Items.HolyWood] = {
+    en_us = {
+        "{{HolyMantle}} Grants Holy Mantle for the current room"
+    },
+    ru = {
+        "{{HolyMantle}} Даёт Святую Мантию на комнату"
+    }
+},
+
+[mod.Items.DiaryOfAMadman] = {
+    en_us = {
+        "Randomizes all stats for the current room"
+    },
+    ru = {
+        "Рандомизирует характеристики на комнату"
+    }
+},
+
+[mod.Items.ComaWhite] = {
+    en_us = {
+        "{{EternalHeart}} +1 Eternal Heart",
+        "Removes the boss reward for this floor"
+    },
+    ru = {
+        "{{EternalHeart}} +1 Вечное Сердце",
+        "Убирает предмет в награду за босса на этом этаже"
+    }
+},
+
+[mod.Items.GoodVibes] = {
+    en_us = {
+        "{{BlendedHeart}} Converts all Red Hearts into Soul Hearts in the room"
+    },
+    ru = {
+        "{{BlendedHeart}} Превращает все Красные Сердца в Сердца Душ в комнате"
+    }
+},
+
+[mod.Items.DevilsHeart] = {
+    en_us = {
+        "Grants either +1 Health or +1 Broken Heart",
+        "All items cost hearts for the floor"
+    },
+    ru = {
+        "Даёт либо +1 Здоровье, либо +1 Разбитое Сердце",
+        "Все предметы на этаже стоят сердца"
+    }
+},
+
+[mod.Items.MomsDiary] = {
+    en_us = {
+        "Spawns a random item",
+        "Taking damage adds 1 charge"
+    },
+    ru = {
+        "Создаёт случайный предмет",
+        "Получение урона даёт 1 заряд"
+    }
+},
+
+[mod.Items.LittleLies] = {
+    en_us = {
+        "Size down for the room",
+        "↑ +2 Tears for the room"
+    },
+    ru = {
+        "Уменьшает размер на комнату",
+        "↑ +2 Слёзы на комнату"
+    }
+},
+[mod.Items.KingsHeart] = {
+    en_us = {
+        "{{Timer}} Pay 10 {{Coin}} coins to receive a {{UnknownHeart}} random heart"
+    },
+    ru = {
+        "{{Timer}} Заплати 10 {{Coin}} монет за {{UnknownHeart}} случайное сердце"
+    }
+},
+[mod.Items.BreakStuff] = {
+    en_us = {
+        "Deals 100 damage to all enemies in the room",
+        "Opens secret rooms and breaks rocks"
+    },
+    ru = {
+        "Наносит 100 урона всем врагам в комнате",
+        "Открывает секретные комнаты и ломает камни"
+    }
+},
+[mod.Items.PersonalBeggar] = {
+    en_us = {
+        "{{Beggar}} Spawns a random Beggar",
+    },
+    ru = {
+        "{{Beggar}} Создаёт случайного попрошайку",
+    },
+},
+},
 --------------------------------------------------------
 --Trinkets
 --------------------------------------------------------    
-	Trinket = {
-		EIDadd = function(...) EID:addTrinket(...) end,
+Trinket = {
+EIDadd = function(...) EID:addTrinket(...) end,
 
-		[mod.Trinkets.BabyBlue] = {
-			en_us = {
-				"{{SoulHeart}} All Red Heart pickups turn into Soul Hearts",
-                {
-                    function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
-                    end,
-                    function()
-                        return "{{BlackHeart}} {{ColorGold}} 5% chance to turn them into Black Hearts"
-                    end
-                }
-            },
-            ru = {
-                "{{SoulHeart}} Все подбираемые Красные Сердца становятся Сердцами Душ",
-                {
-                    function(descObj)
-                        return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
-                    end,
-                    function()
-                        return "{{BlackHeart}} {{ColorGold}} 5% шанс превратить их в Чёрные Сердца"
-                    end
-                }
-            }
-		},
-        [mod.Trinkets.Gaga] = {
-            en_us = {
-				"Increase spawn-chance for golden pickups"
-            },
-            ru = {
-                "Увеличенный шанс появления золотых подбираемых предметов"
-            }
-        },
-        [mod.Trinkets.WonderOfYou] = {
-            en_us = {
-                function(descObj)
-                    local chance = mod.Utils.IsGoldTrinket(descObj.ObjSubType) and "{{ColorGold}}10%{{ColorReset}}" or "5%"
-                    return "Taking damage has a " .. chance .. " chance to kill all non-boss enemies"
-                end
-            },
-            ru = {
-                function(descObj)
-                    local chance = mod.Utils.IsGoldTrinket(descObj.ObjSubType) and "{{ColorGold}}10%{{ColorReset}}" or "5%"
-                    return "При получении урона " .. chance .. " шанс убить всех врагов не-боссов"
-                end
-            }
-        },
-        [mod.Trinkets.RottenFood] = {
-            en_us = {
-				"{{RottenHeart}} All Red Heart pickups turn into Rotten Hearts"
-            },
-            ru = {
-                "{{RottenHeart}} Все Красные Сердца станут Гнилыми Сердцами"
-            },
-        },
-        [mod.Trinkets.SecondBreakfast] = {
-            en_us = {
-				"Spawns a food item upon collecting a food item"
-            },
-            ru = {
-                "Создает предмет-еду при подборе предмета-еды"
-            },
-        },
-        [mod.Trinkets.Papercut] = {
-            en_us = {
-                "{{BleedingOut}} Using a card causes all enemies to bleed"
-            },
-            ru = {
-                "{{BleedingOut}} При использовании карты накладывает кровотечение на врагов"
-            },
-        },
-        [mod.Trinkets.TarotBattery] = {
-            en_us = {
-                "Using a card adds 1 charge to held active item"
-            },
-            ru = {
-                "При использовании карты даёт 1 заряд к активному предмету"
-            },
-        },
-	},
+[mod.Trinkets.BabyBlue] = {
+    en_us = {
+        "{{SoulHeart}} All Red Heart pickups turn into Soul Hearts",
+        {
+            function(descObj)
+                return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
+            end,
+            function()
+                return "{{BlackHeart}} {{ColorGold}} 5% chance to turn them into Black Hearts"
+            end
+        }
+    },
+    ru = {
+        "{{SoulHeart}} Все подбираемые Красные Сердца становятся Сердцами Душ",
+        {
+            function(descObj)
+                return descObj.ObjSubType == mod.Trinkets.BabyBlue + TrinketType.TRINKET_GOLDEN_FLAG
+            end,
+            function()
+                return "{{BlackHeart}} {{ColorGold}} 5% шанс превратить их в Чёрные Сердца"
+            end
+        }
+    }
+},
+[mod.Trinkets.Gaga] = {
+    en_us = {
+        "Increase spawn-chance for golden pickups"
+    },
+    ru = {
+        "Увеличенный шанс появления золотых подбираемых предметов"
+    }
+},
+[mod.Trinkets.WonderOfYou] = {
+    en_us = {
+        function(descObj)
+            local chance = mod.Utils.IsGoldTrinket(descObj.ObjSubType) and "{{ColorGold}}10%{{ColorReset}}" or "5%"
+            return "Taking damage has a " .. chance .. " chance to kill all non-boss enemies"
+        end
+    },
+    ru = {
+        function(descObj)
+            local chance = mod.Utils.IsGoldTrinket(descObj.ObjSubType) and "{{ColorGold}}10%{{ColorReset}}" or "5%"
+            return "При получении урона " .. chance .. " шанс убить всех врагов не-боссов"
+        end
+    }
+},
+[mod.Trinkets.RottenFood] = {
+    en_us = {
+        "{{RottenHeart}} All Red Heart pickups turn into Rotten Hearts"
+    },
+    ru = {
+        "{{RottenHeart}} Все Красные Сердца станут Гнилыми Сердцами"
+    },
+},
+[mod.Trinkets.SecondBreakfast] = {
+    en_us = {
+        "Spawns a food item upon collecting a food item"
+    },
+    ru = {
+        "Создает предмет-еду при подборе предмета-еды"
+    },
+},
+[mod.Trinkets.Papercut] = {
+    en_us = {
+        "{{BleedingOut}} Using a card causes all enemies to bleed"
+    },
+    ru = {
+        "{{BleedingOut}} При использовании карты накладывает кровотечение на врагов"
+    },
+},
+[mod.Trinkets.TarotBattery] = {
+    en_us = {
+        "Using a card adds 1 charge to held active item"
+    },
+    ru = {
+        "При использовании карты даёт 1 заряд к активному предмету"
+    },
+},
+},
 --------------------------------------------------------
 --Cards/Runes
 --------------------------------------------------------    
-	Card = {
-		EIDadd = function(...) EID:addCard(...) end,
+Card = {
+EIDadd = function(...) EID:addCard(...) end,
 
-        [mod.Cards.Locacaca] = {
-            en_us = {
-                "{{HealingRed}} Full health",
-				"{{BrokenHeart}} Heals all Broken hearts",
-                "{{Warning}} stat decrease for each healed heart container",
-                "{{Warning}} lose 1 passive item for each healed Broken heart"
-            },
-            ru = {
-                "{{HealingRed}} Полное здоровье",
-                "{{BrokenHeart}} Исцеляет все Разбитые Сердца",
-                "{{Warning}} понижение характеристики за каждый вылеченный контейнер сердца",
-                "{{Warning}} потеря 1 пассивного предмета за каждое исцелённое Разбитое Сердце"
-            },
-        },
-        [mod.Cards.alpoh] = {
-            en_us = {
-                "{{AngelRoom}} Grants a random angel room item",
-                "{{BrokenHeart}} Grants 2 Broken Hearts"
-            },
-            ru = {
-                "{{AngelRoom}} Даёт случайный ангельский предмет",
-                "{{BrokenHeart}} Даёт 2 разбитых сердца"
-            },
-        },
-        [mod.Cards.StarShard] = {
-            en_us = {
-				"{{Planetarium}} Reroll one pedestal into a star item",
-				"{{SoulHeart}} Grants 1 Soul Heart if there's no item in the room"
-            },
-            ru = {
-                "{{Planetarium}} Меняет один артефакт на звёздный артефакт",
-                "{{SoulHeart}} Даёт 1 Сердце Души если в комнате нет артефактов"
-            },
-        },
-        [mod.Cards.EnergyDrink] = {
-            en_us = {
-				"{{Timer}} Receive for the room:",
-				"↑ +0.5 speed",
-				"↑ +0.5 damage",
-				"↑ +0.5 fire rate",
-				"↑ +0.5 range",
-				"↑ +0.5 shot speed",
-				"↑ +0.5 luck",
-				"↓ -0.1 to all stats after 15 seconds"
-            },
-            ru = {
-                "{{Timer}} Даёт на комнату:",
-                "↑ +0.5 Скорости",
-                "↑ +0.5 Урона",
-                "↑ +0.5 Скорострельности",
-                "↑ +0.5 Дальности",
-                "↑ +0.5 Скорости Слезы",
-                "↑ +0.5 Удачи",
-                "↓ -0.1 всем характеристикам через 15 секунд"
-            },
-        },
-        [mod.Cards.DadsLottoTicket] = {
-            en_us = {
-				"{{coin}} 75% chance to spawn coins",
-				{
-					function()
-                		return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-					end,
-					function()
-						return "{{Collectible46}} Increased chance for rare coins"
-					end
-				}
-			},
-            ru = {
-                "{{coin}} 75% шанс создать монеты",
-                {
-                    function()
-                        return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-                    end,
-                    function()
-                        return "{{Collectible46}} Увеличенный шанс на редкие монеты"
-                    end
-                }
-            },
+[mod.Cards.Locacaca] = {
+    en_us = {
+        "{{HealingRed}} Full health",
+        "{{BrokenHeart}} Heals all Broken hearts",
+        "{{Warning}} stat decrease for each healed heart container",
+        "{{Warning}} lose 1 passive item for each healed Broken heart"
+    },
+    ru = {
+        "{{HealingRed}} Полное здоровье",
+        "{{BrokenHeart}} Исцеляет все Разбитые Сердца",
+        "{{Warning}} понижение характеристики за каждый вылеченный контейнер сердца",
+        "{{Warning}} потеря 1 пассивного предмета за каждое исцелённое Разбитое Сердце"
+    },
+},
+[mod.Cards.alpoh] = {
+    en_us = {
+        "{{AngelRoom}} Grants a random angel room item",
+        "{{BrokenHeart}} Grants 2 Broken Hearts"
+    },
+    ru = {
+        "{{AngelRoom}} Даёт случайный ангельский предмет",
+        "{{BrokenHeart}} Даёт 2 разбитых сердца"
+    },
+},
+[mod.Cards.StarShard] = {
+    en_us = {
+        "{{Planetarium}} Reroll one pedestal into a star item",
+        "{{SoulHeart}} Grants 1 Soul Heart if there's no item in the room"
+    },
+    ru = {
+        "{{Planetarium}} Меняет один артефакт на звёздный артефакт",
+        "{{SoulHeart}} Даёт 1 Сердце Души если в комнате нет артефактов"
+    },
+},
+[mod.Cards.EnergyDrink] = {
+    en_us = {
+        "{{Timer}} Receive for the room:",
+        "↑ +0.5 speed",
+        "↑ +0.5 damage",
+        "↑ +0.5 fire rate",
+        "↑ +0.5 range",
+        "↑ +0.5 shot speed",
+        "↑ +0.5 luck",
+        "↓ -0.1 to all stats after 15 seconds"
+    },
+    ru = {
+        "{{Timer}} Даёт на комнату:",
+        "↑ +0.5 Скорости",
+        "↑ +0.5 Урона",
+        "↑ +0.5 Скорострельности",
+        "↑ +0.5 Дальности",
+        "↑ +0.5 Скорости Слезы",
+        "↑ +0.5 Удачи",
+        "↓ -0.1 всем характеристикам через 15 секунд"
+    },
+},
+[mod.Cards.DadsLottoTicket] = {
+    en_us = {
+        "{{coin}} 75% chance to spawn coins",
+        {
+            function()
+                return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+            end,
+            function()
+                return "{{Collectible46}} Increased chance for rare coins"
+            end
         }
-	},
+    },
+    ru = {
+        "{{coin}} 75% шанс создать монеты",
+        {
+            function()
+                return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
+            end,
+            function()
+                return "{{Collectible46}} Увеличенный шанс на редкие монеты"
+            end
+        }
+    },
+}
+},
 --------------------------------------------------------
 --Pills
 --------------------------------------------------------    
-	Pill = {
-		EIDadd = function(...) EID:addPill(...) end,
+Pill = {
+EIDadd = function(...) EID:addPill(...) end,
 
-		[mod.Pills.CURSED] = {
-			en_us = {
-                "Grants a curse"
-            },
-            ru = {
-                "Даёт проклятие"
-            },
-		},
-        [mod.Pills.BLESSED] = {
-			en_us = {
-                "Removes all curses"
-            },
-            ru = {
-                "Убирает все проклятия"
-            },
-		},
-        [mod.Pills.HEARTBREAK] = {
-			en_us = {
-                "{{BrokenHeart}} +1 Broken Heart"
-            },
-            ru = {
-                "{{BrokenHeart}} +1 Разбитое Сердце"
-            },
-		},
-        [mod.Pills.POWER_DRAIN] = {
-			en_us = {
-                "{{Timer}} Empties held active item"
-            },
-            ru = {
-                "{{Timer}} Разряжает активный предмет"
-            },
-		},
-        [mod.Pills.VOMIT] = {
-			en_us = {
-                "{{Trinket}} Spawns a random trinket"
-            },
-            ru = {
-                "{{Trinket}} Создаёт случайный брелок"
-            },
-		},
-        [mod.Pills.SOMETHING_CHANGED] = {
-			en_us = {
-                "{{Trinket}} Reroll held trinkets"
-            },
-            ru = {
-                "{{Trinket}} Меняет имеющиеся брелки"
-            },
-		},
-        [mod.Pills.EQUAL] = {
-			en_us = {
-                "Equalizes your coins, bombs and keys"
-            },
-            ru = {
-                "Уравнивает монеты, бомбы и ключи"
-            },
-		}
-	}
+[mod.Pills.CURSED] = {
+    en_us = {
+        "Grants a curse"
+    },
+    ru = {
+        "Даёт проклятие"
+    },
+},
+[mod.Pills.BLESSED] = {
+    en_us = {
+        "Removes all curses"
+    },
+    ru = {
+        "Убирает все проклятия"
+    },
+},
+[mod.Pills.HEARTBREAK] = {
+    en_us = {
+        "{{BrokenHeart}} +1 Broken Heart"
+    },
+    ru = {
+        "{{BrokenHeart}} +1 Разбитое Сердце"
+    },
+},
+[mod.Pills.POWER_DRAIN] = {
+    en_us = {
+        "{{Timer}} Empties held active item"
+    },
+    ru = {
+        "{{Timer}} Разряжает активный предмет"
+    },
+},
+[mod.Pills.VOMIT] = {
+    en_us = {
+        "{{Trinket}} Spawns a random trinket"
+    },
+    ru = {
+        "{{Trinket}} Создаёт случайный брелок"
+    },
+},
+[mod.Pills.SOMETHING_CHANGED] = {
+    en_us = {
+        "{{Trinket}} Reroll held trinkets"
+    },
+    ru = {
+        "{{Trinket}} Меняет имеющиеся брелки"
+    },
+},
+[mod.Pills.EQUAL] = {
+    en_us = {
+        "Equalizes your coins, bombs and keys"
+    },
+    ru = {
+        "Уравнивает монеты, бомбы и ключи"
+    },
+}
+}
 }

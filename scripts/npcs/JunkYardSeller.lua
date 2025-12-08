@@ -5,9 +5,9 @@ local sfx = SFXManager()
 local JYS = mod.Entities.BEGGAR_JYS.Var
 
 local COST = 10
+local MAX_PAYS = 4
 local PAY_SFX = SoundEffect.SOUND_SCAMPER
 local PRIZE_SFX = SoundEffect.SOUND_SLOTSPAWN
-
 
 local Quality0Items = {}
 local itemConfig = Isaac.GetItemConfig()
@@ -19,7 +19,6 @@ for id = 1, itemConfig:GetCollectibles().Size - 1 do
     end
 end
 
-
 local function JYS_Collision(beggar, collider)
     local player = collider:ToPlayer()
     if not player then return end
@@ -27,7 +26,9 @@ local function JYS_Collision(beggar, collider)
     local sprite = beggar:GetSprite()
     local data = beggar:GetData()
 
-    if not sprite:IsPlaying("Idle") then
+    if not data.Initialized then return end
+
+    if not sprite:IsPlaying("Idle" .. (data.Pays > 0 and data.Pays or "")) then
         return
     end
 
@@ -37,29 +38,31 @@ local function JYS_Collision(beggar, collider)
 
     player:AddCoins(-COST)
     data.LastPayer = player
+    data.Pays = math.min(data.Pays + 1, MAX_PAYS)
 
     sfx:Play(PAY_SFX, 1.0)
-    sprite:Play("PayPrize", true)
+
+    local anim = "PayPrize" .. (data.Pays > 1 and data.Pays or "")
+    sprite:Play(anim, true)
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, JYS_Collision, JYS)
-
 
 local function JYS_Update(beggar)
     if beggar.Variant ~= JYS then return end
 
     local data = beggar:GetData()
-    if not data.Initialized then
-        data.Initialized = true
-        data.HasPaid = false
-        data.LastPayer = nil
-    end
-
     local sprite = beggar:GetSprite()
     local rng = beggar:GetDropRNG()
 
-    if sprite:IsFinished("Prize") then
-        sfx:Play(PRIZE_SFX, 1.0)
+    if not data.Initialized then
+        data.Initialized = true
+        data.Pays = 0 -- 0 to 4
+        sprite:Play("Idle", true)
+        return
+    end
 
+    if sprite:IsFinished("Prize" .. (data.Pays > 1 and data.Pays or "")) then
+        
         if #Quality0Items > 0 then
             local item = Quality0Items[rng:RandomInt(#Quality0Items) + 1]
             Isaac.Spawn(
@@ -71,16 +74,31 @@ local function JYS_Update(beggar)
                 beggar
             )
         end
+        sfx:Play(PRIZE_SFX, 1.0)
 
-        sprite:Play("Teleport", true)
+        if data.Pays >= MAX_PAYS then
+            sprite:Play("Teleport", true)
+        else
+            local anim = "Idle" .. (data.Pays > 0 and data.Pays or "")
+            sprite:Play(anim, true)
+        end
+
+        return
+    end
+
+    if sprite:IsFinished("PayPrize" .. (data.Pays > 1 and data.Pays or "")) then
+        local anim = "Prize" .. (data.Pays > 1 and data.Pays or "")
+        sprite:Play(anim, true)
         return
     end
 
     if sprite:IsFinished("Teleport") then
         beggar:Remove()
+        return
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, JYS_Update, JYS)
+
 
 local function JYS_Exploded(beggar)
     sfx:Play(SoundEffect.SOUND_MEATY_DEATHS)
