@@ -38,7 +38,15 @@ function PersonalBeggar:UseItem(_, rng, player)
     end
 
     local room = game:GetRoom()
-    local spawnPos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
+
+    local distance = 90
+    local direction = Vector.FromAngle(player:GetMovementDirection() * 90)
+    
+    if direction:Length() == 0 then
+        direction = Vector(1, 0)
+    end
+
+    local spawnPos = room:FindFreePickupSpawnPosition(player.Position + direction:Resized(distance), 0, true)
 
     local index = rng:RandomInt(#beggarTypes) + 1
     local beggar = beggarTypes[index]

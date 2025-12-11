@@ -134,7 +134,7 @@ include("scripts.items.trinkets.tarotBattery")
 --  Curses
 ----------------------------------------------------
 include("scripts.curses.curse_eval")
-include("scripts.curses.unloved")
+--include("scripts.curses.unloved")
 ---------------------------------------------------
 --  Effects
 ----------------------------------------------------
@@ -194,7 +194,7 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.TGS")
 --include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
-include("scripts.npcs.JunkYardSeller")
+include("scripts.npcs.jys")
 --include("scripts.items.familiars.tarotBum")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")

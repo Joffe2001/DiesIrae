@@ -107,7 +107,26 @@ mod.Pools ={
         LevelCurse.CURSE_OF_BLIND,
         LevelCurse.CURSE_OF_MAZE
     },
-    HeadMonsters = {
+    Elijah_blacklist = {
+        CollectibleType.COLLECTIBLE_DOLLAR,
+        CollectibleType.COLLECTIBLE_QUARTER,
+        CollectibleType.COLLECTIBLE_SACK_OF_PENNIES,
+        CollectibleType.COLLECTIBLE_PAGEANT_BOY,
+        CollectibleType.COLLECTIBLE_BUM_FRIEND,
+        CollectibleType.COLLECTIBLE_PORTABLE_SLOT,
+        CollectibleType.COLLECTIBLE_PIGGY_BANK,
+        CollectibleType.COLLECTIBLE_MYSTERY_SACK,
+        CollectibleType.COLLECTIBLE_BLUE_BOX,
+        CollectibleType.COLLECTIBLE_WOODEN_NICKEL,
+        CollectibleType.COLLECTIBLE_RESTOCK,
+        CollectibleType.COLLECTIBLE_BUMBO,
+        CollectibleType.COLLECTIBLE_SACK_HEAD,
+        CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER,
+        CollectibleType.COLLECTIBLE_EYE_OF_GREED,
+        CollectibleType.COLLECTIBLE_DADS_LOST_COIN,
+        CollectibleType.COLLECTIBLE_GREEDS_GULLET,
+        CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
+        CollectibleType.COLLECTIBLE_KEEPERS_SACK,
         
     }
 }

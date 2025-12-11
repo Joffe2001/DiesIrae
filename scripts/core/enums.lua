@@ -232,6 +232,10 @@ mod.Curses = {
     Unloved = Isaac.GetCurseIdByName("Curse of the Unloved!")
 }
 
+mod.Grid = {
+    DavidPlate = MakeEntityTable("David Plate"),
+}
+
 mod.Challenges = {
     SoundOfSilence = Isaac.GetChallengeIdByName("The Worst Touch")
 }
