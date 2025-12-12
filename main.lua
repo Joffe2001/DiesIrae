@@ -107,6 +107,7 @@ include("scripts.items.familiars.paranoidAndroid")
 include("scripts.items.familiars.killerQueen")
 include("scripts.items.familiars.RedBum")
 include("scripts.items.familiars.ScammerBum")
+include("scripts.items.familiars.runeBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------

@@ -638,7 +638,12 @@ mod.EIDescs = {
         "{{Coin}} Picks up nearby pennies",
         "Has a chance to spawn a purchable item"
     },
-
+},
+[mod.Items.RuneBum] = {
+    en_us = { 
+        "{{Rune}} Picks up nearby runes",
+        "Has a chance to spawn a Q 0-2 pedestal"
+    },
 },
 --------------------------------------------------------
 --Active items

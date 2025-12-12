@@ -55,6 +55,7 @@
     <familiar id="52" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
     <familiar id="53" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <familiar id="54" name="Scammer Bum"               gfx="item_placeholder.png"          description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="55" name="Rune Bum"                  gfx="item_placeholder.png"          description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
@@ -65,7 +66,7 @@
     <active id="106" name="Diary of a Madman"          gfx="diaryofamadman.png"            description="Anything can happen!"                        quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
     <active id="107" name="Coma White"                 gfx="active_placeholder.png"        description="A special heart, but with a price"           quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
     <active id="108" name="Good Vibes"                 gfx="active_placeholder.png"        description="It's good man"                               quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
-    <active id="109" name="Sling Shot"                 gfx="big_shot.png"                  description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240" />
+    <active id="109" name="Sling Shot"                 gfx="sling_shot.png"                description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240" />
     <active id="110" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr"              achievement="Devil's Heart"/>
     <active id="111" name="Mom's Diary"                gfx="momsdiary2.png"                description="Is that what she thinks of me?"              quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
     <active id="112" name="Another Medium"             gfx="active_placeholder.png"        description="Things will not be the same"                 quality="1" maxcharges="1" chargetype="normal" />
