@@ -630,12 +630,15 @@ mod.EIDescs = {
 [mod.Items.RedBum] = {
     en_us = { 
         "{{Key}} Picks up nearby Keys",
-        "{{Collectible580}} has a low chance to spawn Red Key"
+        "Has a chance to spawn Cracked Key"
     },
-    ru = { 
-        "{{Key}} Подбирает ключи вокруг",
-        "{{Collectible580}} Небольшой шанс создать Красный Ключ"
+},
+[mod.Items.ScammerBum] = {
+    en_us = { 
+        "{{Coin}} Picks up nearby pennies",
+        "Has a chance to spawn a purchable item"
     },
+
 },
 --------------------------------------------------------
 --Active items
@@ -805,11 +808,11 @@ mod.EIDescs = {
 },
 [mod.Items.BreakStuff] = {
     en_us = {
-        "Deals 100 damage to all enemies in the room",
+        "Deals 40 damage to all enemies in the room",
         "Opens secret rooms and breaks rocks"
     },
     ru = {
-        "Наносит 100 урона всем врагам в комнате",
+        "Наносит 40 урона всем врагам в комнате",
         "Открывает секретные комнаты и ломает камни"
     }
 },

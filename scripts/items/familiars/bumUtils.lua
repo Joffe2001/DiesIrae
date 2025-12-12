@@ -1,82 +1,122 @@
+
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
----@class BumUtils
 local bumUtils = {}
 
-local CHASE_SPEED = 3.5  
-local PICKUP_REACH = 20 
 
-bumUtils.BUM_TYPES = {}
+local DEFAULT_SPEED_FOLLOW_PLAYER  = 3.5
+local DEFAULT_SPEED_CHASE_PICKUP   = 2.0
+local COLLISION_RADIUS             = 18
+local PICKUP_REACH                 = 22
+local TARGET_RECALC_INTERVAL       = 10
+
+---@class BumDefinition
+--- @field Item? integer                   -- Item that spawns this familiar
+--- @field Accepts? table<integer, boolean> -- Allowed pickup variants
+--- @field Reward fun(fam):boolean         -- Should the bum reward?
+--- @field DoReward? fun(fam)              -- Reward spawn callback
+--- @field OnUpdate? fun(fam)              -- Optional extra logic
+
+bumUtils.BUM_DEFS = {} -- variant → BumDefinition
 
 function bumUtils.RegisterBum(variant, def)
-    bumUtils.BUM_TYPES[variant] = def
+    bumUtils.BUM_DEFS[variant] = def
 end
 
-function bumUtils.FindPickupAnywhere(fam, acceptsTable)
-    local best, bestDist = nil, math.huge
+function bumUtils.FindNearestPickup(fam, accepts)
     local pos = fam.Position
+    local best, bestDist
 
     for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP)) do
         local p = ent:ToPickup()
-        if p and acceptsTable[p.Variant] then
-            local dist = pos:Distance(p.Position)
-            if dist < bestDist then
+        if p and accepts[p.Variant] then
+            local d = pos:Distance(p.Position)
+            if not bestDist or d < bestDist then
                 best = p
-                bestDist = dist
+                bestDist = d
             end
         end
     end
-
-    return best, bestDist
+    return best
 end
 
-function bumUtils.UpdateMovement(fam)
-    local data = fam:GetData()
-    local def = bumUtils.BUM_TYPES[fam.Variant]
-    if not def then return end
 
-    if data.RewardActive then
-        fam.Velocity = Vector.Zero
-        return
+local function AvoidBumCollision(fam)
+    local pos = fam.Position
+    for _, e in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
+        if e.Index ~= fam.Index and e.Variant ~= fam.Variant then
+            local dist = pos:Distance(e.Position)
+            if dist < COLLISION_RADIUS then
+                local push = (pos - e.Position):Normalized() * 0.8
+                fam.Velocity = fam.Velocity + push
+            end
+        end
     end
+end
 
-    if def.Accepts then
-        if (not data.TargetPickup) or not data.TargetPickup:Exists() then
-            local pickup = bumUtils.FindPickupAnywhere(fam, def.Accepts)
-            data.TargetPickup = pickup
+
+function bumUtils.UpdateAI(fam, def)
+    local data = fam:GetData()
+    local player = fam.Player
+
+    if data.RewardActive then return end
+
+    data.TargetTimer = (data.TargetTimer or 0) - 1
+    if data.TargetTimer <= 0 then
+        data.TargetTimer = TARGET_RECALC_INTERVAL
+        data.TargetPickup = nil
+
+        if def.Accepts then
+            data.TargetPickup = bumUtils.FindNearestPickup(fam, def.Accepts)
         end
     end
 
-    local speed
     local targetPos
+    local speed
 
     if data.TargetPickup and data.TargetPickup:Exists() then
         targetPos = data.TargetPickup.Position
-        speed = 2
+        speed = DEFAULT_SPEED_CHASE_PICKUP
     else
-        local player = fam.Player
-        targetPos = player and player.Position or fam.Position
-        speed = 3.5 
-        data.TargetPickup = nil
+        local followDist = def.FollowDistance or 40
+        local dist = fam.Position:Distance(player.Position)
+    
+        if dist > followDist then
+            targetPos = player.Position
+            speed = DEFAULT_SPEED_FOLLOW_PLAYER
+        else
+            targetPos = fam.Position
+            speed = 0
+            fam.Velocity = fam.Velocity * 0.7
+        end
     end
 
-    local offset = Vector(math.random(-40, 40), math.random(-40, 40))
-    targetPos = targetPos + offset
+    local dir = (targetPos - fam.Position):Normalized()
+    local desired = dir * speed
+    fam.Velocity = fam.Velocity + (desired - fam.Velocity) * 0.25
 
-    local direction = (targetPos - fam.Position):Normalized()
-    local desiredVelocity = direction * speed
-    fam.Velocity = fam.Velocity + (desiredVelocity - fam.Velocity) * 0.25
+    AvoidBumCollision(fam)
 
-    if fam.Velocity:Length() > speed then
-        fam.Velocity = fam.Velocity:Resized(speed)
+    if data.TargetPickup and fam.Position:Distance(data.TargetPickup.Position) <= PICKUP_REACH then
+        local pickup = data.TargetPickup
+        pickup:Remove()
+
+        if def.Reward and def.Reward(fam) then
+            if def.DoReward then
+                bumUtils.DoRewardAnimation(fam, def.DoReward)
+            end
+        end
+
+        data.TargetPickup = nil
     end
 end
 
-function bumUtils.PlayGenericAnimations(fam)
+
+function bumUtils.PlayAnimations(fam)
     local sprite = fam:GetSprite()
-    local data = fam:GetData()
+    local data   = fam:GetData()
 
     if data.RewardActive then return end
 
@@ -91,17 +131,17 @@ function bumUtils.PlayGenericAnimations(fam)
     end
 end
 
-function bumUtils.DoRewardAnimation(fam, rewardCallback)
+function bumUtils.DoRewardAnimation(fam, callback)
     local sprite = fam:GetSprite()
-    local data = fam:GetData()
+    local data   = fam:GetData()
 
     fam.Velocity = Vector.Zero
     data.RewardActive = true
-    data.RewardCallback = rewardCallback
+    data.RewardCallback = callback
 
     if not data.PlayedPreSpawn then
         sprite:Play("PreSpawn", true)
-        data.PlayedPreSpawn = true 
+        data.PlayedPreSpawn = true
         return
     end
 
@@ -115,7 +155,7 @@ function bumUtils.DoRewardAnimation(fam, rewardCallback)
             data.RewardCallback(fam)
         end
 
-        data.RewardActive = nil
+        data.RewardActive   = nil
         data.RewardCallback = nil
         data.PlayedPreSpawn = nil
 
@@ -123,34 +163,17 @@ function bumUtils.DoRewardAnimation(fam, rewardCallback)
     end
 end
 
-function bumUtils.CheckPickup(fam)
-    local def = bumUtils.BUM_TYPES[fam.Variant]
-    if not def or not def.Accepts then return end
+function bumUtils:OnInit(fam)
+    local def = bumUtils.BUM_DEFS[fam.Variant]
 
-    local data = fam:GetData()
-    local pickup = data.TargetPickup
-    if not pickup or not pickup:Exists() then return end
-
-    if fam.Position:Distance(pickup.Position) <= PICKUP_REACH then
-        pickup:Remove()
-        data.TargetPickup = nil
-
-        local wantsReward = def.Reward(fam)
-
-        if wantsReward then
-            if def.DoReward then
-                bumUtils.DoRewardAnimation(fam, def.DoReward)
-            end
-        end
+    fam:GetSprite():Play("IdleDown", true)
+    
+    if def and def.OnInit then
+        def.OnInit(fam)
     end
 end
-
-function bumUtils:OnInit(fam)
-    fam:GetSprite():Play("IdleDown", true)
-end
-
 function bumUtils:OnUpdate(fam)
-    local def = bumUtils.BUM_TYPES[fam.Variant]
+    local def = bumUtils.BUM_DEFS[fam.Variant]
     if not def then return end
 
     local data = fam:GetData()
@@ -160,9 +183,8 @@ function bumUtils:OnUpdate(fam)
         return
     end
 
-    bumUtils.UpdateMovement(fam)
-    bumUtils.CheckPickup(fam)
-    bumUtils.PlayGenericAnimations(fam)
+    bumUtils.UpdateAI(fam, def)
+    bumUtils.PlayAnimations(fam)
 
     if def.OnUpdate then
         def.OnUpdate(fam)
@@ -171,7 +193,7 @@ end
 
 function bumUtils:OnCache(player, cache)
     if cache == CacheFlag.CACHE_FAMILIARS then
-        for variant, def in pairs(bumUtils.BUM_TYPES) do
+        for variant, def in pairs(bumUtils.BUM_DEFS) do
             if def.Item and player:HasCollectible(def.Item) then
                 player:CheckFamiliar(variant, 1, player:GetCollectibleRNG(def.Item))
             end
@@ -179,8 +201,8 @@ function bumUtils:OnCache(player, cache)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, function(_, fam) bumUtils:OnInit(fam) end)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,   function(_, fam) bumUtils:OnInit(fam) end)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam) bumUtils:OnUpdate(fam) end)
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cache) bumUtils:OnCache(player, cache) end)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,  function(_, player, cache) bumUtils:OnCache(player, cache) end)
 
 return bumUtils

@@ -69,10 +69,6 @@ end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, ArmyOfLovers.UseItem, mod.Items.ArmyOfLovers)
 
-if EID then
-    EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")
-end
-
 function ArmyOfLovers:GetNumCurses()
 	local curses = Game():GetLevel():GetCurses()
     local cnt = 0
@@ -121,4 +117,8 @@ function ArmyOfLovers:SpawnHeart(player, rng)
         HeartSubType.HEART_FULL,
         rng:GetSeed()
     )
+end
+
+if EID then
+    EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")
 end
