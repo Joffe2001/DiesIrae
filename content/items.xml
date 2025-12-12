@@ -17,7 +17,7 @@
     <passive id="15" name="Bloodline"                  gfx="item_placeholder.png"          description="It runs in the family"                       quality="3" tags="offensive" />  
     <passive id="16" name="Protein Powder"             gfx="item_placeholder.png"          description="STRENGTH!!!!"                                quality="3" tags="offensive food" />
     <passive id="17" name="Hysteria"                   gfx="item_placeholder.png"          description="Last chance to lose control"                 quality="2" tags="nolostbr" />
-    <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive"         achievement="Stab Wound"/>
+    <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive"         achievement="Stab Wound" damage="1" flattears="0.5"/>
     <passive id="19" name="Thought Contagion"          gfx="Thought_Contagion.png"         description="The modder really wanted crowd controller"   quality="4" tags="offensive" />
     <passive id="20" name="Boss Compass"               gfx="bosscompass.png"               description="Where is he???"                              quality="1" />      
     <passive id="21" name="Golden Day"                 gfx="item_placeholder.png"          description="As long its not green..."                    quality="0" tags="nolostbr nogreed"  achievement="Golden Day" />
