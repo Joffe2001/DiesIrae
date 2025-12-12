@@ -652,10 +652,22 @@ mod.EIDescs = {
 },
 [mod.Items.ArmyOfLovers] = {
     en_us = {   
-        "Spawns 2 Minisaacs"
+        "Spawns 2 Minisaacs",
+        "{{Heart}} 12% chance to spawn 5 rewards",
+        "{{Luck}} +0.5% chance per Luck: Minimum chance at 8% and maximum chance at 20%",
+        "For each reward:",
+        "{{Heart}} 50% for full red heart",
+        "{{Card}} 50% for Lovers Card",
+        "{{Player1}} {{Player22}} 75% for Lovers Card",
+        "{{BrokenHeart}} Each Lovers Card has a  1% chance to transform into Reversed Lovers:",
+        "{{CurseDarkness}} Curse: +10%",
+        "{{Collectible316}} Cursed Eye: +15%",
+        "{{CursedRoom}} In Cursed Room: +10%",
+        "{{Collectible260}} Black Candle: -100%"
     },
     ru = {   
-        "Создаёт 2 Мини-Исааков"
+        "Создаёт 2 Мини-Исааков",
+        "!!! outdated description"
     }
 },
 [mod.Items.SlingShot] = {
