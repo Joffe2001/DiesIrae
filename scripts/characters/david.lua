@@ -20,9 +20,9 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
 
 
-local DAMAGE_MODIFIER = 0.3
-local SPEED_MODIFIER = 0.1
-local TEAR_DELAY_MODIFIER = 0.2
+local DAMAGE_MODIFIER = 1
+local SPEED_MODIFIER = 0.2
+local TEAR_DELAY_MODIFIER = 0.3
 local LUCK_MODIFIER = 1
 
 function David:OnEvaluateCache(player, flag)

@@ -37,7 +37,7 @@
     <passive id="35" name="Sweet Caffeine"             gfx="item_placeholder.png"          description="I NEED IT"                                   quality="1"/>
     <passive id="36" name="Big Kahuna Burger"          gfx="item_placeholder.png"          description="It is a tasty burger!"                       quality="3" tags="nolostbr food" />
     <passive id="37" name="Dad's Empty Wallet"         gfx="item_placeholder.png"          description="Money?"                                      quality="2" />
-    <passive id="38" name="Fiend Deal"                 gfx="item_placeholder.png"          description="I feel... Weak"                              quality="3" />
+    <passive id="38" name="Fiend Deal"                 gfx="fiend_deal.png"                description="He's behind me isn't he?"                    quality="3" />
     <passive id="39" name="Betrayal Heart"             gfx="betrayal_heart.png"            description="Nearly forgot it..."                         quality="2" tags="nolostbr"/>
     <passive id="40" name="PTSD"                       gfx="ptsd.png"                      description="Not again..."                                quality="3" tags="nolostbr"          achievement="PTSD" />
     <passive id="41" name="Flowering Skull"            gfx="floweringskull.png"            description="Is this the real life?"                      quality="2" customtags="revive"/>
