@@ -59,7 +59,7 @@ function SlingShot:onTearUpdate(tear)
             local doorPos = room:GetDoorSlotPosition(i)
             if tear.Position:Distance(doorPos) < 30 then
                 if door.TargetRoomType == RoomType.ROOM_SECRET or door.TargetRoomType == RoomType.ROOM_SUPERSECRET then
-                    door:TryOpen(true)
+                    door:TryBlowOpen(true, tear)
                 else
                     door:Open()
                 end
