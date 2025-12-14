@@ -296,6 +296,10 @@ mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
 function elijahFuncs:PostNewRoom()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
+    local roomData = mod.SaveManager.GetRoomSave(nil)
+    if roomData.beggarSwap then return end
+    roomData.beggarSwap = true
+
     local roomType = game:GetRoom():GetType()
     local beggar = ItemRoomBeggar[roomType]
     if beggar == nil then return end
