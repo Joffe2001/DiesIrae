@@ -17,7 +17,7 @@ function Unsainted:onGetCollectible(pool, decrease, seed)
     end
 
     if devilItem == CollectibleType.COLLECTIBLE_NULL then
-        devilItem = itemPool:GetCollectible(ItemPoolType.POOL_ALL, decrease, seed, CollectibleType.COLLECTIBLE_NULL)
+        devilItem = itemPool:GetCollectible(ItemPoolType.POOL_NULL, decrease, seed, CollectibleType.COLLECTIBLE_NULL)
     end
 
     return devilItem
@@ -49,7 +49,7 @@ end
 
 mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Unsainted.onGetCollectible)
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Unsainted.onPickupInit, PickupVariant.PICKUP_COLLECTIBLE)
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLECT, Unsainted.onPickup)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLISION, Unsainted.onPickup)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.Unsainted, "Isaac's sinful Playlist")
