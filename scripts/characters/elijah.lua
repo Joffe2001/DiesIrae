@@ -318,7 +318,6 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
 
 ---Replace shop with beggars
-local lastShopRoomIndex = nil
 function elijahFuncs:PostNewRoomShop()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
@@ -329,17 +328,17 @@ function elijahFuncs:PostNewRoomShop()
         return
     end
 
+    local roomData = mod.SaveManager.GetRoomSave(nil)
+    print(roomData.ShopBeggarSwap)
+    if roomData.ShopBeggarSwap then return end
+    roomData.ShopBeggarSwap = true
 
-    local roomIndex = level:GetCurrentRoomIndex()
-    if lastShopRoomIndex == roomIndex then
-        return
-    end
-    lastShopRoomIndex = roomIndex
+    print("Swapping shop with beggars!")
 
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent.Type == EntityType.ENTITY_PICKUP
-        or ent.Type == EntityType.ENTITY_SHOPKEEPER
-        or ent.Type == EntityType.ENTITY_SLOT then
+            or ent.Type == EntityType.ENTITY_SHOPKEEPER
+            or ent.Type == EntityType.ENTITY_SLOT then
             ent:Remove()
         end
     end
@@ -347,7 +346,7 @@ function elijahFuncs:PostNewRoomShop()
     local numShopBeggars = math.random(AMOUNT_SHOP_BEGGAR_PER_SHOP[1], AMOUNT_SHOP_BEGGAR_PER_SHOP[2])
     local extraBeggars   = math.random(AMOUNT_PICKUP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
 
-    local randomPool = {
+    local randomPool     = {
         mod.Entities.BEGGAR_BatteryElijah.Var,
         mod.Entities.BEGGAR_KeyElijah.Var,
         mod.Entities.BEGGAR_BombElijah.Var
