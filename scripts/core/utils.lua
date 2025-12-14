@@ -4,8 +4,6 @@
 ---@class Utils
 local utils = {}
 
-local mod = DiesIraeMod
-local obj_data = {}
 
 
 --- Functions
@@ -74,12 +72,10 @@ function utils.GetRandomFromTable(table, rng)
     return table[idx]
 end
 
-
 ---@param player EntityPlayer
 function utils.HasBirthright(player)
     return player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 end
-
 
 ---@param soundId integer
 ---@param flags integer
@@ -98,10 +94,9 @@ function utils.PlayVoiceline(soundId, flags, player)
     if Options.AnnouncerVoiceMode == 2
         or (Options.AnnouncerVoiceMode == 0 and randNum == 0)
     then
-        sfx:Play(soundId)
+        SFXManager():Play(soundId)
     end
 end
-
 
 ---@param id number
 function utils.IsGoldTrinket(id)
