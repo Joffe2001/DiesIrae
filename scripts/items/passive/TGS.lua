@@ -16,7 +16,7 @@ function TGS:onUpdate(player)
     local enemyCount = Isaac.CountEnemies()
     if enemyCount ~= (player:GetData().TGS_LastEnemyCount or 0) then
         player:GetData().TGS_LastEnemyCount = enemyCount
-        player:AddCacheFlags(CacheFlag.CACHE_HEALTH)
+        player:AddCacheFlags(CacheFlag.CACHE_HEALTH) -- this does not exist
         player:EvaluateItems()
     end
 end
@@ -24,7 +24,7 @@ end
 function TGS:onCache(player, cacheFlag)
     if not player:HasCollectible(self.COLLECTIBLE_ID) then return end
 
-    if cacheFlag == CacheFlag.CACHE_HEALTH then
+    if cacheFlag == CacheFlag.CACHE_HEALTH then -- this does not exist
         player:AddMaxHearts(2)
         player:AddHearts(2)
     end
