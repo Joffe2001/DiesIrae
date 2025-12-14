@@ -1,14 +1,16 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
-mod.Items.SlaughterToPrevail = Isaac.GetItemIdByName("Slaughter to Prevail")
+-- not needed
+-- mod.Items.SlaughterToPrevail = Isaac.GetItemIdByName("Slaughter to Prevail")
 
 local KILL_THRESHOLD = 20
 local ANGEL_CHANCE_MIN = 0.05
 local ANGEL_CHANCE_MAX = 0.2
 
-mod.SlaughterData = {} 
+mod.SlaughterData = {} -- use the save manager instead
 
 mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_, entity)
     if not entity:IsEnemy() or entity:IsBoss() then return end

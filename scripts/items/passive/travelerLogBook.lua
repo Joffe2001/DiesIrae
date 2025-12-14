@@ -90,6 +90,7 @@ function TravelerLogbook:OnNewLevel()
         local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
         ResetTempStats(index)
         player:AddCacheFlags(
+            ---@diagnostic disable-next-line: param-type-mismatch
             CacheFlag.CACHE_DAMAGE |
             CacheFlag.CACHE_SPEED |
             CacheFlag.CACHE_FIREDELAY |

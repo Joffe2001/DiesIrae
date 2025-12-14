@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local HereToStay = {}
 local game = Game()
@@ -45,6 +46,7 @@ function HereToStay:PostPlayerUpdate(player)
                 Vector.Zero,
                 player
             ):ToEffect()
+            if creep == nil then return end
 
             creep:SetTimeout(-1)
 

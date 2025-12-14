@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 
 local FragileEgo = {}
@@ -67,7 +68,7 @@ function FragileEgo:onPlayerDamage(entity, amount, flags, source, countdown)
         if math.random() < 0.33 then
             player:AddBrokenHearts(1)
             Game():ShakeScreen(10)
-            SFXManager():Play(SoundEffect.SOUND_SAD_TROMBONE, 1.0, 0, false, 1.0)
+            SFXManager():Play(SoundEffect.SOUND_SAD_TROMBONE, 1.0, 0, false, 1.0) -- I do not think this sound exist ?
         end
     end
 end

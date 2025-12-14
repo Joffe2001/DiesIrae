@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
@@ -28,6 +29,7 @@ function mod:OnNewRoom()
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.OnNewRoom)
 
+-- duplicate in mod
 function mod:OnCache(player, cacheFlag)
     local data = player:GetData()
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then

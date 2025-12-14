@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
@@ -9,4 +10,4 @@ function mod:EyeSacrifice_PreTear(player)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_PRE_FIRE_TEAR, mod.EyeSacrifice_PreTear)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, mod.EyeSacrifice_PreTear)

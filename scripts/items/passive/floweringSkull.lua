@@ -1,8 +1,9 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 local SFX = SFXManager()
 local itemConfig = Isaac.GetItemConfig()
-local MAX_ITEM_ID = itemConfig:GetCollectibles().Size - 1
+local MAX_ITEM_ID = itemConfig:GetCollectibles().Size - 1 -- huh ?
 
 local SkullLives = {}
 

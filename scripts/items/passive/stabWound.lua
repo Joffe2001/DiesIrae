@@ -21,6 +21,7 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, stabWound.onCache)
 
 ---@param player EntityPlayer
 function stabWound:onPostAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
+    ---@diagnostic disable-next-line: param-type-mismatch
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_FIREDELAY, true)
     player:AddCollectible(CollectibleType.COLLECTIBLE_STEVEN, 0, false)
 end

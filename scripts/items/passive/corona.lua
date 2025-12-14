@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 
 local BURST_CHANCE = 0.2
@@ -11,6 +12,7 @@ function mod:OnCoronaEvaluateCache(player, cacheFlag)
         end
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnCoronaEvaluateCache)
 
 function mod:OnCoronaCreepUpdate(entity)
@@ -28,6 +30,7 @@ function mod:OnCoronaCreepUpdate(entity)
         end
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.OnCoronaCreepUpdate)
 
 function mod:OnCoronaTearCollision(_, tear, collider)
@@ -35,20 +38,25 @@ function mod:OnCoronaTearCollision(_, tear, collider)
     if not player or not player:HasCollectible(mod.Items.Corona) then return end
 
     if math.random() < BURST_CHANCE then
-        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, tear.Position, Vector.Zero, player):ToEffect()
+        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, tear.Position, Vector
+        .Zero, player):ToEffect()
+        if creep == nil then return end
         creep.Timeout = CREEP_LIFETIME
-        creep.Color = Color(1.4, 0.7, 0.2, 1, 0.3, 0, 0) 
+        creep.Color = Color(1.4, 0.7, 0.2, 1, 0.3, 0, 0)
         creep:GetData().IsCoronaCreep = true
         creep.SpriteScale = Vector(1.2, 1.2)
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, mod.OnCoronaTearCollision)
 
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_, tear)
     if tear:IsDead() then
         local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
         if player and player:HasCollectible(mod.Items.Corona) and math.random() < BURST_CHANCE then
-            local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, tear.Position, Vector.Zero, player):ToEffect()
+            local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, tear.Position,
+                Vector.Zero, player):ToEffect()
+            if creep == nil then return end
             creep.Timeout = CREEP_LIFETIME
             creep.Color = Color(1.4, 0.7, 0.2, 1, 0.3, 0, 0)
             creep:GetData().IsCoronaCreep = true

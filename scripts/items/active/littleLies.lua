@@ -8,9 +8,10 @@ function LittleLies:UseItem(_, _, player)
     local data = player:GetData()
     if not data.LittleLiesActive then
         data.LittleLiesActive = true
+        ---@diagnostic disable-next-line: param-type-mismatch
         player:AddCacheFlags(CacheFlag.CACHE_SIZE | CacheFlag.CACHE_FIREDELAY)
         player:EvaluateItems()
-        
+
         -- Reset on new room
         LittleLies:AddRoomReset(player)
     end
@@ -43,6 +44,7 @@ function LittleLies:AddRoomReset(player)
     mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
         if player:GetData().LittleLiesActive then
             player:GetData().LittleLiesActive = false
+            ---@diagnostic disable-next-line: param-type-mismatch
             player:AddCacheFlags(CacheFlag.CACHE_SIZE | CacheFlag.CACHE_FIREDELAY)
             player:EvaluateItems()
         end

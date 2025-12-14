@@ -39,6 +39,7 @@ function ScaredShoes:OnPlayerUpdate(player)
                     Vector(0, 0),
                     player
                 ):ToEffect()
+                if creep== nil then return end
 
                 creep.Scale = PEECREEP_SCALE
                 creep.Timeout = PEECREEP_TIMEOUT

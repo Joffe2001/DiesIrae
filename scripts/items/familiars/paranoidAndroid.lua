@@ -57,6 +57,7 @@ function ParanoidAndroid:onFamiliarUpdate(familiar)
                 Vector.Zero,
                 familiar
             ):ToEffect()
+            if ring == nil then return end
 
             ring:GetSprite():Play("Idle", true)
             ring:GetSprite().Scale = Vector(2.0, 2.0)

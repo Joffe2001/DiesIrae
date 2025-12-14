@@ -57,7 +57,7 @@ function Grudge:OnEnemyDamage(npcEntity, amount, flags, source, countdown)
 
     return nil
 end
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Grudge.OnEnemyDamage, EntityType.ENTITY_NPC)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Grudge.OnEnemyDamage)
 
 function Grudge:OnNewRun(isContinued)
     GrudgeEnemies = {}

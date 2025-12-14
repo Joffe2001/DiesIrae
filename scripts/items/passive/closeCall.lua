@@ -1,3 +1,5 @@
+-- is this like chatGPT code ???
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
@@ -14,8 +16,8 @@ function mod:CloseCall_OnProjectileNear(player)
     local projectiles = Isaac.FindInRadius(player.Position, radius, EntityPartition.PROJECTILE)
 
     for _, entity in ipairs(projectiles) do
-        if entity:ToProjectile() then
-            local projectile = entity:ToProjectile()
+        local projectile = entity:ToProjectile()
+        if projectile then
 
             -- Check if the projectile is colliding with Isaac
             if not projectile:CollidesWithPlayer(player) then

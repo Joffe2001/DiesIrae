@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 local Symphony = mod.Items.SymphonyOfDestr
@@ -6,6 +7,7 @@ local TOWER_CARD = Card.CARD_TOWER
 local function ConvertAllCardsOnFloor()
     for _, entity in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -1, false, false)) do
         local pickup = entity:ToPickup()
+        if pickup == nil then return end
         if pickup.SubType ~= TOWER_CARD then
             pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, TOWER_CARD, true, true)
         end

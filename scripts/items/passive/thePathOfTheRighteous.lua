@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
@@ -19,6 +20,7 @@ function mod:ForceAngelOverDevil(_, angelChance, devilChance)
 end
 mod:AddCallback(ModCallbacks.MC_POST_DEVIL_CALCULATE, mod.ForceAngelOverDevil)
 
+-- duplicate in mod ref
 function mod:OnNewLevel()
     if PlayerHasRighteous() then
         local level = game:GetLevel()

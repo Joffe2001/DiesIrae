@@ -36,6 +36,7 @@ function U2:onUpdate()
         and not player:GetData().U2CacheApplied then
 
             player:AddCacheFlags(
+                ---@diagnostic disable-next-line: param-type-mismatch
                 CacheFlag.CACHE_DAMAGE
                 | CacheFlag.CACHE_FIREDELAY
                 | CacheFlag.CACHE_SPEED

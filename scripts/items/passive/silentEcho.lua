@@ -27,7 +27,7 @@ function SilentEcho:OnUpdate()
         local player = Isaac.GetPlayer(i)
         local data = player:GetData()
 
-        if not player:IsFrameDelayed() then
+        if not player:IsFrameDelayed() then -- this does not exist
             data.SilentEchoUsedThisRoom = nil
         end
     end

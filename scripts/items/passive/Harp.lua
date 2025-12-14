@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 
 local function GetTotalValidCollectibles(player)

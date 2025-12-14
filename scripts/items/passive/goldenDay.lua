@@ -28,7 +28,7 @@ function GoldenDay:OnNewLevel()
                 for i = 0, rooms.Size - 1 do
                     local roomDesc = rooms:Get(i)
                     if roomDesc and roomDesc.Data and roomDesc.Data.Type == RoomType.ROOM_SECRET then
-                        local pos = roomDesc.Data.Position
+                        local pos = roomDesc.Data.Position -- are we sure about that ?
                         local choice = rng:RandomInt(3) + 1
 
                         if choice == 1 then

@@ -1,3 +1,4 @@
+---@diagnostic disable: inject-field
 local mod = DiesIraeMod
 
 ------------------------------------------------------
@@ -425,6 +426,8 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent:IsActiveEnemy() then
             if ent.Type == EntityType.ENTITY_MOMS_HEART
+            -- we sure about this one ?
+            ---@diagnostic disable-next-line: undefined-field
             or ent.Type == EntityType.ENTITY_IT_LIVES then
 
                 inHeartFight = true
