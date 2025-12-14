@@ -96,7 +96,7 @@ function beggarFuncs.OnBeggarCollision(beggar, player, rewardChance)
         (utils.HasBirthright(player) and 10 or 0) +
         player.Luck / 100
 
-    print("Rolled " .. roll .. " against " .. chance)
+    -- print("Rolled " .. roll .. " against " .. chance)
     if roll < chance then
         sprite:Play("PayPrize")
     else
