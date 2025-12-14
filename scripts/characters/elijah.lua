@@ -230,7 +230,7 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 
     player:PlayExtraAnimation("Happy")
-    sfx:Play(SoundEffect.SOUND_POWERUP1)
+    -- sfx:Play(SoundEffect.SOUND_POWERUP1)
     pickup:Remove()
 end
 
