@@ -1,11 +1,12 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
 local SKULL_ENEMIES = {
     [EntityType.ENTITY_HOST] = true,
-    [EntityType.ENTITY_HARD_HOST] = true,
+    [EntityType.ENTITY_FLESH_MOBILE_HOST] = true,
     [EntityType.ENTITY_MOBILE_HOST] = true,
-    [EntityType.ENTITY_FLOAST] = true
+    [EntityType.ENTITY_FLOATING_HOST] = true
 }
 
 function mod:OnEntityTakeDamage(entity, amount, flags, source, countdown)
@@ -14,7 +15,7 @@ function mod:OnEntityTakeDamage(entity, amount, flags, source, countdown)
 
     local hasSkullCrasher = false
     for i = 0, game:GetNumPlayers() - 1 do
-        if Isaac.GetPlayer(i):HasCollectible(mod.Collectibles.SkullCrasher) then
+        if Isaac.GetPlayer(i):HasCollectible(mod.Items.SkullCrasher) then
             hasSkullCrasher = true
             break
         end
