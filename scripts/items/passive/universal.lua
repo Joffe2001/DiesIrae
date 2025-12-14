@@ -7,7 +7,7 @@ local CHARGE_TIME = 40
 local ACTIVE_DURATION = 60
 
 local function getState(player)
-    local data = mod:GetData(player)
+    local data = mod:GetData(player) -- mod ref should NOT store data use mod.SaveManager
 
     if not data.universal_state then
         data.universal_state = {
