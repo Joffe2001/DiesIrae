@@ -69,4 +69,4 @@ function mod:HorfUpdate(MamaHorf)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.MamaHorfUpdate, mod.Entities.NPC_MamaHorf.Type)
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.HorfUpdate, mod.Entities.NPC_MamaHorf.Var)
