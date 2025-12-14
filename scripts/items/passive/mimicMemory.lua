@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 
@@ -16,9 +17,12 @@ function mod:PostPlayerUpdate_MimicMemory(player)
             local itemConfig = Isaac.GetItemConfig():GetCollectible(itemID)
             if itemConfig then
                 local itemPool = game:GetItemPool()
+                ---@diagnostic disable-next-line: undefined-field
                 local poolType = itemPool:GetPoolForRoom(itemConfig.RoomPool or ItemPoolType.POOL_TREASURE, game:GetLevel():GetCurrentRoom():GetSpawnSeed())
 
                 if poolType ~= ItemPoolType.POOL_NULL then
+                    -- You sure about this line ?
+                    ---@diagnostic disable-next-line: param-type-mismatch, redundant-parameter
                     itemPool:AddCollectible(itemID, 0, poolType)
                 end
             end

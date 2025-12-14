@@ -60,6 +60,7 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 					descObj.Description = add .. old_desc
 				else
 					for i = 1, idx do
+						---@diagnostic disable-next-line: unbalanced-assignments
 						start, _ = old_desc:find("#", start + 1) or 0
 					end
 
