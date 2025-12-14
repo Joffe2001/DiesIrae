@@ -12,7 +12,7 @@ local PRIZE_SFX = SoundEffect.SOUND_SLOTSPAWN
 local Quality0Items = {}
 local itemConfig = Isaac.GetItemConfig()
 
-for id = 1, itemConfig:GetCollectibles().Size - 1 do
+for id = 1, itemConfig:GetCollectibles().Size - 1 do -- ItemConfigItem does not have a Size field I think ?
     local info = itemConfig:GetCollectible(id)
     if info and info.Quality == 0 then
         table.insert(Quality0Items, id)
