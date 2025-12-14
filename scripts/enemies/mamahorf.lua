@@ -1,14 +1,16 @@
+---@class ModReference
 local mod = DiesIraeMod
-local game = Game()
 
 local BULLET_SPEED = 6
 local ATTACK_RANGE = 200
 
 ---@param MamaHorf EntityNPC
 function mod:MamaHorfInit(MamaHorf)
+    ---@diagnostic disable-next-line: param-type-mismatch
     MamaHorf:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
 end
-mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.MamaHorfInit, mod.enemies.MamaHorf)
+
+mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.MamaHorfInit, mod.Entities.NPC_MamaHorf.Var)
 
 ---@param MamaHorf EntityNPC
 function mod:MamaHorfUpdate(MamaHorf)
@@ -41,9 +43,10 @@ function mod:MamaHorfUpdate(MamaHorf)
         end
 
         if sprite:IsFinished("Attack") then
-            MamaHorf.State = NpcState.STATE_IDLE 
+            MamaHorf.State = NpcState.STATE_IDLE
             sprite:Play("Shake")
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.MamaHorfUpdate, mod.enemies.MamaHorf)
+
+mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, mod.MamaHorfUpdate, mod.Entities.NPC_MamaHorf.Var)
