@@ -10,11 +10,10 @@ local MAX_PAYS = 4
 local PAY_SFX = SoundEffect.SOUND_SCAMPER
 local PRIZE_SFX = SoundEffect.SOUND_SLOTSPAWN
 
-
 local Quality0Items = {}
 local itemConfig = Isaac.GetItemConfig()
 
-for id = 1, itemConfig:GetCollectibles().Size - 1 do -- ItemConfigItem does not have a Size field I think ?
+for id = 1, CollectibleType.NUM_COLLECTIBLES - 1 do
     local info = itemConfig:GetCollectible(id)
     if info and info.Quality == 0 then
         table.insert(Quality0Items, id)
@@ -22,26 +21,24 @@ for id = 1, itemConfig:GetCollectibles().Size - 1 do -- ItemConfigItem does not 
 end
 
 local function JYS_Collision(beggar, collider)
+    if beggar.Variant ~= JYS then return end
     local player = collider:ToPlayer()
     if not player then return end
 
-    local sprite = beggar:GetSprite()
     local data = beggar:GetData()
+    local sprite = beggar:GetSprite()
 
     if not data.Initialized then return end
 
-    if not sprite:IsPlaying("Idle" .. (data.Pays > 0 and data.Pays or "")) then
+    if sprite:IsPlaying("Teleport") or sprite:IsPlaying("Prize" .. (data.Pays > 1 and data.Pays or "")) then
         return
     end
 
-    if player:GetNumCoins() < COST then
-        return
-    end
+    if player:GetNumCoins() < COST then return end
 
     player:AddCoins(-COST)
     data.LastPayer = player
-    data.Pays = math.min(data.Pays + 1, MAX_PAYS)
-
+    data.Pays = math.min((data.Pays or 0) + 1, MAX_PAYS)
     sfx:Play(PAY_SFX, 1.0)
 
     local anim = "PayPrize" .. (data.Pays > 1 and data.Pays or "")
@@ -58,13 +55,12 @@ local function JYS_Update(beggar)
 
     if not data.Initialized then
         data.Initialized = true
-        data.Pays = 0 -- 0 to 4
+        data.Pays = 0
         sprite:Play("Idle", true)
         return
     end
 
     if sprite:IsFinished("Prize" .. (data.Pays > 1 and data.Pays or "")) then
-        
         if #Quality0Items > 0 then
             local item = Quality0Items[rng:RandomInt(#Quality0Items) + 1]
             Isaac.Spawn(
@@ -84,7 +80,6 @@ local function JYS_Update(beggar)
             local anim = "Idle" .. (data.Pays > 0 and data.Pays or "")
             sprite:Play(anim, true)
         end
-
         return
     end
 
@@ -93,7 +88,6 @@ local function JYS_Update(beggar)
         sprite:Play(anim, true)
         return
     end
-
     if sprite:IsFinished("Teleport") then
         beggar:Remove()
         return
@@ -101,8 +95,9 @@ local function JYS_Update(beggar)
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, JYS_Update, JYS)
 
-
 local function JYS_Exploded(beggar)
+    if beggar.Variant ~= JYS then return end
+
     sfx:Play(SoundEffect.SOUND_MEATY_DEATHS)
     game:SpawnParticles(beggar.Position, EffectVariant.BLOOD_EXPLOSION, 1, 3, Color.Default)
 
@@ -118,6 +113,5 @@ local function JYS_Exploded(beggar)
     end
 
     beggar:Remove()
-    return false
 end
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, JYS_Exploded, JYS)

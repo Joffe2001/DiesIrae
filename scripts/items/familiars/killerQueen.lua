@@ -79,7 +79,7 @@ function KillerQueen:onFamiliarUpdate(familiar)
                     Color(1, 1, 1, 1),
                     familiar,
                     0.8,   
-                    true,
+                    false,
                     false
                 )
                 SFXManager():Play(SoundEffect.SOUND_EXPLOSION_WEAK, 1.2, 0, false, 1)

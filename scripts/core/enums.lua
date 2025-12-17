@@ -116,6 +116,7 @@ mod.Items = {
     Corona                = Isaac.GetItemIdByName("Corona"),
     TGS                   = Isaac.GetItemIdByName("Triple Gooberberry Sunrise"),
     ChallengerMap         = Isaac.GetItemIdByName("Challenger Map"),
+    FairBum               = Isaac.GetItemIdByName("Fair Bum"),
 }
 
 mod.Wisps = {
