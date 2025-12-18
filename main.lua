@@ -108,6 +108,7 @@ include("scripts.items.familiars.killerQueen")
 include("scripts.items.familiars.RedBum")
 include("scripts.items.familiars.ScammerBum")
 include("scripts.items.familiars.runeBum")
+include("scripts.items.familiars.fairBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -196,7 +197,6 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
 include("scripts.npcs.jys")
-include("scripts.items.familiars.fairBum")
 --include("scripts.items.familiars.tarotBum")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")

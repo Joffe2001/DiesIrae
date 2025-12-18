@@ -1696,7 +1696,7 @@
 			<entity type="5" variant="100" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1001" name="Muse_shop1" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T18:52+00:00">
+	<room variant="1001" name="Muse_shop1" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T18:52+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -1768,7 +1768,7 @@
 			<entity type="0" variant="30" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1002" name="Muse_shop2" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T18:55+00:00">
+	<room variant="1002" name="Muse_shop2" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T18:55+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -1867,7 +1867,7 @@
 			<entity type="5" variant="20" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1003" name="Muse_shop3" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1003" name="Muse_shop3" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -1912,7 +1912,7 @@
 			<entity type="17" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1004" name="Muse_shop4" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T19:00+00:00">
+	<room variant="1004" name="Muse_shop4" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T19:00+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -1966,7 +1966,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1005" name="Muse_shop5" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1005" name="Muse_shop5" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2017,7 +2017,7 @@
 			<entity type="6" variant="8" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1006" name="Muse_shop6" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1006" name="Muse_shop6" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -2155,7 +2155,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1007" name="Muse_shop7" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1007" name="Muse_shop7" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2272,7 +2272,7 @@
 			<entity type="5" variant="300" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1008" name="Muse_shop8" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1008" name="Muse_shop8" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2323,7 +2323,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1009" name="Muse_shop9" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1009" name="Muse_shop9" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2406,7 +2406,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1010" name="Muse_shop10" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1010" name="Muse_shop10" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2502,7 +2502,7 @@
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1011" name="Muse_curse1" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1011" name="Muse_curse1" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2551,7 +2551,7 @@
 			<entity type="5" variant="10" subtype="3" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1012" name="Muse_curse2" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1012" name="Muse_curse2" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2734,7 +2734,7 @@
 			<entity type="1930" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1013" name="Muse_curse3" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1013" name="Muse_curse3" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2803,7 +2803,7 @@
 			<entity type="5" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1014" name="Muse_curse4" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1014" name="Muse_curse4" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -2986,7 +2986,7 @@
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1015" name="Muse_curse5" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1015" name="Muse_curse5" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -3163,7 +3163,7 @@
 			<entity type="236" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1006" name="Muse_curse6" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T19:17+00:00">
+	<room variant="1006" name="Muse_curse6" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T19:17+00:00">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -3427,7 +3427,7 @@
 			<entity type="3009" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1007" name="Muse_curse7" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1007" name="Muse_curse7" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -3526,7 +3526,7 @@
 			<entity type="5" variant="360" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1008" name="Muse_curse8" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T19:22+00:00">
+	<room variant="1008" name="Muse_curse8" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T19:22+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -3682,7 +3682,7 @@
 			<entity type="85" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1009" name="Muse_curse9" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T19:23+00:00">
+	<room variant="1009" name="Muse_curse9" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T19:23+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -3835,7 +3835,7 @@
 			<entity type="0" variant="20" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1010" name="Muse_curse10" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1010" name="Muse_curse10" type="10" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4060,7 +4060,7 @@
 			<entity type="33" variant="2" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1021" name="Muse_isaac1" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-11T19:29+00:00">
+	<room variant="1021" name="Muse_isaac1" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-11T19:29+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4081,7 +4081,7 @@
 			<entity type="5" variant="100" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1022" name="Muse_isaac2" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1022" name="Muse_isaac2" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4105,7 +4105,7 @@
 			<entity type="5" variant="100" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1023" name="Muse_isaac3" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1023" name="Muse_isaac3" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4150,7 +4150,7 @@
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1024" name="Muse_isaac4" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2025-12-12T20:53+00:00">
+	<room variant="1024" name="Muse_isaac4" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0" lastTestTime="2025-12-12T20:53+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4180,7 +4180,7 @@
 			<entity type="5" variant="57" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1025" name="Muse_isaac5" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1025" name="Muse_isaac5" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4204,7 +4204,7 @@
 			<entity type="5" variant="60" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1026" name="Muse_isaac6" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1026" name="Muse_isaac6" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4225,7 +4225,7 @@
 			<entity type="5" variant="301" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1027" name="Muse_isaac7" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1027" name="Muse_isaac7" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4276,7 +4276,7 @@
 			<entity type="1930" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1028" name="Muse_isaac8" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1028" name="Muse_isaac8" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4297,7 +4297,7 @@
 			<entity type="5" variant="53" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1029" name="Muse_isaac9" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1029" name="Muse_isaac9" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4324,7 +4324,7 @@
 			<entity type="5" variant="51" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1030" name="Muse_isaac10" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1030" name="Muse_isaac10" type="18" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4390,7 +4390,7 @@
 			<entity type="1930" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1031" name="Muse_library1" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1031" name="Muse_library1" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4495,7 +4495,7 @@
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1032" name="Muse_library2" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1032" name="Muse_library2" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4516,7 +4516,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1033" name="Muse_library3" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1033" name="Muse_library3" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -4576,7 +4576,7 @@
 			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1034" name="Muse_library4" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1034" name="Muse_library4" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4708,7 +4708,7 @@
 			<entity type="1009" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1035" name="Muse_library5" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1035" name="Muse_library5" type="12" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="False" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -4858,7 +4858,7 @@
 			<entity type="3009" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1036" name="Muse_chest1" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1036" name="Muse_chest1" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -4939,7 +4939,7 @@
 			<entity type="5" variant="60" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1037" name="Muse_chest2" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1037" name="Muse_chest2" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>
@@ -5095,7 +5095,7 @@
 			<entity type="5" variant="54" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1038" name="Muse_chest3" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1038" name="Muse_chest3" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -5110,7 +5110,7 @@
 			<entity type="5" variant="40" subtype="4" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1039" name="Muse_chest4" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1039" name="Muse_chest4" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -5173,7 +5173,7 @@
 			<entity type="4000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1040" name="Muse_chest5" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1040" name="Muse_chest5" type="20" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>

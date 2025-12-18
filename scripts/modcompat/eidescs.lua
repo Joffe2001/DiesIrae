@@ -645,6 +645,12 @@ mod.EIDescs = {
         "Has a chance to spawn a Q 0-2 pedestal"
     },
 },
+[mod.Items.FairBum] = {
+    en_us = { 
+        "Takes the pickup Isaac has the most of",
+        "Has a chance to drop the pickup Isaac has the least of"
+    },
+},
 --------------------------------------------------------
 --Active items
 --------------------------------------------------------    
