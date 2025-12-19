@@ -51,7 +51,6 @@ include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
-include("scripts.items.passive.redbulb.main")
 include("scripts.items.passive.u2")
 include("scripts.items.passive.echo")
 include("scripts.items.passive.theBadTouch")
@@ -111,6 +110,7 @@ include("scripts.items.familiars.RedBum")
 include("scripts.items.familiars.ScammerBum")
 include("scripts.items.familiars.runeBum")
 include("scripts.items.familiars.fairBum")
+include("scripts.items.familiars.tarotBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -197,8 +197,8 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.closecall")
 --include("scripts.items.passive.TGS")
 --include("scripts.items.passive.corona")
+--include("scripts.items.passive.redbulb.main")
 include("scripts.npcs.jys")
---include("scripts.items.familiars.tarotBum")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")
 --include("scripts.Challenges.sound_of_silence")

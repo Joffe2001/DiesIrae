@@ -32,7 +32,7 @@ function bumUtils.FindNearestPickup(fam, accepts)
     for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP)) do
         local p = ent:ToPickup()
         if p and accepts[p.Variant] then
-            if p.Price and p.Price > 0 then
+            if not p.Price or p.Price <= 0 then
                 local d = pos:Distance(p.Position)
                 if not bestDist or d < bestDist then
                     best = p
@@ -43,7 +43,6 @@ function bumUtils.FindNearestPickup(fam, accepts)
     end
     return best
 end
-
 
 local function AvoidBumCollision(fam)
     local pos = fam.Position
