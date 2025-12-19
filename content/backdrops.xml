@@ -1,0 +1,34 @@
+<backdrops gfxroot="gfx/backdrop/" gridgfxroot="gfx/grid/" effectsgfxroot="gfx/effects/">
+	<backdrop name="angelic Devil" gfx="angelicDevil.png" walls="1" wallvariants="3" floors="5" floorvariants="1"
+		lfloorgfx	= "angelicDevil_LFloor.png"
+		nfloorgfx	= "angelicDevil_nfloor.png"
+		props		= "angelicDevil_props.anm2"
+		rocks		= "angelicDevil_rocks.png"
+		pit			= "angelicDevil_grid_pit.png"
+		bridge		= "angelicDevil_grid_bridge.png"
+		door		= "angelicDevil_door.png"
+		holeinwall	= "angelicDevil_door_holeinwall.png"
+	/>
+
+	<backdrop name="demonic Angel" gfx="demonicAngel.png" walls="1" wallvariants="3" floors="1" floorvariants="6"
+		lfloorgfx	= "demonicAngel_LFloor.png"
+		nfloorgfx	= "demonicAngel_nfloor.png"
+		props		= "demonicAngel_props.anm2"
+		rocks		= "demonicAngel_rocks.png"
+		pit			= "demonicAngel_grid_pit.png"
+		bridge		= "demonicAngel_grid_bridge.png"
+		door		= "demonicAngel_door.png"
+		holeinwall	= "demonicAngel_door_holeinwall.png"
+	/>
+
+	<backdrop name="demonic Angel Stairway" gfx="demonicAngelStairway.png" walls="1" wallvariants="3" floors="1" floorvariants="6"
+		lfloorgfx	= "demonicAngelStairway_LFloor.png"
+		nfloorgfx	= "demonicAngelStairway_nfloor.png"
+		props		= "demonicAngelStairway_props.anm2"
+		rocks		= "demonicAngelStairway_rocks.png"
+		pit			= "demonicAngelStairway_grid_pit.png"
+		bridge		= "demonicAngelStairway_grid_bridge.png"
+		door		= "demonicAngelStairway_door.png"
+		holeinwall	= "demonicAngelStairway_door_holeinwall.png"
+	/>
+</backdrops>
