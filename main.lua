@@ -51,6 +51,7 @@ include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
+include("scripts.items.passive.redbulb.main")
 include("scripts.items.passive.u2")
 include("scripts.items.passive.echo")
 include("scripts.items.passive.theBadTouch")
