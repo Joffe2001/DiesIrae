@@ -84,6 +84,7 @@
         <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Holy Wood" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Engel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="devil">
@@ -96,7 +97,8 @@
         <Item Name="Enjoyment of the Unlucky" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Killer Queen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Betrayal Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
-        <Item Name="Bloodline" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Bloodline" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="curse">
@@ -120,6 +122,7 @@
         <Item Name="Bloodline" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="PTSD" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="library">
@@ -147,6 +150,7 @@
         <Item Name="Sh-boom!!" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Ultra Secret Map" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Red Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="planetarium">
@@ -295,6 +299,7 @@
     <Pool Name="greedAngel">
         <Item Name="Muse" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Engel" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedDevil">
@@ -307,6 +312,7 @@
         <Item Name="Killer Queen" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Betrayal Heart" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Bloodline" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedCurse">
@@ -322,6 +328,7 @@
         <Item Name="Guppy's soul" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Hysteria" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Fragile Ego" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+		<Item Name="Red Bulb" Weight="1" DecreaseBy="0.5" RemoveOn="0.1" />
     </Pool>
 
 </ItemPools>
