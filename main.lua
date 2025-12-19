@@ -100,6 +100,7 @@ include("scripts.items.passive.bloodBattery")
 include("scripts.items.passive.corruptedMantle")
 include("scripts.items.passive.harpString")
 include("scripts.items.passive.Harp")
+include("scripts.items.passive.deliriousmind")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
@@ -194,7 +195,6 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.challengemap")
 --include("scripts.items.passive.closecall")
 --include("scripts.items.passive.TGS")
---include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
 include("scripts.npcs.jys")
 --include("scripts.items.familiars.tarotBum")

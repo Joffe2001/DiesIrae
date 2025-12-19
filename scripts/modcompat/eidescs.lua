@@ -75,19 +75,9 @@ mod.EIDescs = {
 		},
 		[mod.Items.Muse] = {
 			en_us = { 
-                "Taking damage has a chance to spawn:",
-                "{{Card}} a Tarot card (20%)",
-                "{{Rune}} a Rune (10%)",
-                "a random pickup (20%)",
-                "an item from the current room pool (1%)"
+                "Taking a pickup has a chance to spawn another",
+                "Taking a collectible has a chnce to spawn the same one",
             },
-            ru = { 
-                "При получении урона шанс создать:",
-                "{{Card}} Карту Таро (20%)",
-                "{{Rune}} Руну (10%)",
-                "случайный подбираемый предмет (20%)",
-                "предмет из пула текущей комнаты (1%)"
-            }
 		},
 		[mod.Items.TheBadTouch] = {
 			en_us = { 
