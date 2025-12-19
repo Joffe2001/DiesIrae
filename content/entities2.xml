@@ -89,25 +89,25 @@
     <entity id="6" variant="229" name="Shop Beggar Elijah" anm2path="npc/Elijahnpc/shop_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Angel Beggar Elijah" anm2path="npc/Elijahnpc/angel_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="230" name="Angel Beggar Elijah" anm2path="npc/Elijahnpc/angel_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Devil Beggar Elijah" anm2path="npc/Elijahnpc/devil_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="231" name="Devil Beggar Elijah" anm2path="npc/Elijahnpc/devil_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Secret Beggar Elijah" anm2path="npc/Elijahnpc/secret_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="232" name="Secret Beggar Elijah" anm2path="npc/Elijahnpc/secret_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Planetarium Beggar Elijah" anm2path="npc/Elijahnpc/planetarium_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="233" name="Planetarium Beggar Elijah" anm2path="npc/Elijahnpc/planetarium_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="ERROR Beggar Elijah" anm2path="npc/Elijahnpc/error_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="234" name="ERROR Beggar Elijah" anm2path="npc/Elijahnpc/error_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Ultra Secret Beggar Elijah" anm2path="npc/Elijahnpc/ultra_secret_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="235" name="Ultra Secret Beggar Elijah" anm2path="npc/Elijahnpc/ultra_secret_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="229" name="Library Beggar Elijah" anm2path="npc/Elijahnpc/book_beggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="236" name="Library Beggar Elijah" anm2path="npc/Elijahnpc/book_beggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
 <!--CONSUMABLES-->
