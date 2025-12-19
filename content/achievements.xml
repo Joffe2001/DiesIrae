@@ -1,3 +1,5 @@
+<!--gfx is without "achievement_" if it is a placeholder!-->
+
 <achievements gfxroot="gfx/ui/achievements/">
 
 <!--Characters-->
@@ -29,6 +31,7 @@
 	<achievement name="Creatine Overdose" text=''         gfx="creatingoverdose.png"               gfxback="paper.png"/>
 	<achievement name="PTSD" text=''                      gfx="PTSD.png"                           gfxback="paper.png"/>
 	<achievement name="Stab Wound" text=''                gfx="StabWound.png"                      gfxback="paper.png"/>
+	<achievement name="Red Bulb" text='' gfx="" gfxback="paper.png"
 <!--Trinkets Unlocks-->
 	<achievement name="Gaga" text=''                      gfx="gaga.png"                           gfxback="paper_music.png"/>
 <!--Secret Unlocks-->
