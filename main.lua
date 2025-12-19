@@ -101,6 +101,7 @@ include("scripts.items.passive.bloodBattery")
 include("scripts.items.passive.corruptedMantle")
 include("scripts.items.passive.harpString")
 include("scripts.items.passive.Harp")
+include("scripts.items.passive.deliriousmind")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
@@ -109,6 +110,7 @@ include("scripts.items.familiars.killerQueen")
 include("scripts.items.familiars.RedBum")
 include("scripts.items.familiars.ScammerBum")
 include("scripts.items.familiars.runeBum")
+include("scripts.items.familiars.fairBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -194,7 +196,6 @@ include("scripts.core.voidlost")
 --include("scripts.items.passive.challengemap")
 --include("scripts.items.passive.closecall")
 --include("scripts.items.passive.TGS")
---include("scripts.items.passive.deliriousmind")
 --include("scripts.items.passive.corona")
 include("scripts.npcs.jys")
 --include("scripts.items.familiars.tarotBum")

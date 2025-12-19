@@ -1,68 +1,50 @@
 local mod = DiesIraeMod
 local game = Game()
 local EverybodysChanging = {}
-local itemConfig = Isaac.GetItemConfig()
 local SFX = SFXManager()
-local MAX_ITEM_ID = itemConfig:GetCollectibles().Size - 1
 
-local roomCleared = false
-
-local function IsValidCandidate(id) 
-    if type(id) ~= "number" then return false end 
-    local cfg = itemConfig:GetCollectible(id) 
-    return cfg 
-        and cfg:IsAvailable() 
-        and not cfg:HasTags(ItemConfig.TAG_QUEST) and (cfg.Type == ItemType.ITEM_PASSIVE or cfg.Type == ItemType.ITEM_FAMILIAR) 
-        and id ~= mod.Items.EverybodysChanging 
-end
+local wasCombatRoom = false
+local triggeredThisRoom = false
 
 function EverybodysChanging:OnUpdate()
     local room = game:GetRoom()
-    if room:IsClear() then
-        if not roomCleared then
-            roomCleared = true
+    local enemyCount = room:GetAliveEnemiesCount()
 
-            for i = 0, game:GetNumPlayers() - 1 do
-                local player = Isaac.GetPlayer(i)
+    if enemyCount > 0 then
+        wasCombatRoom = true
+    end
 
-                if player:HasCollectible(mod.Items.EverybodysChanging) then
-                    local toShuffle = {}
-                    for id = 1, MAX_ITEM_ID do
-                        local count = player:GetCollectibleNum(id)
-                        if count > 0 and IsValidCandidate(id) then
-                            for j = 1, count do
-                                table.insert(toShuffle, id)
-                            end
-                        end
-                    end
+    if wasCombatRoom and enemyCount == 0 and not triggeredThisRoom then
+        triggeredThisRoom = true
 
-                    for _, id in ipairs(toShuffle) do
-                        player:RemoveCollectible(id)
-                    end
-                    player:EvaluateItems()
+        for i = 0, game:GetNumPlayers() - 1 do
+            local player = Isaac.GetPlayer(i)
 
-                    for _, oldID in ipairs(toShuffle) do
-                        local newID
-                        local tries = 0
-                        repeat
-                            newID = math.random(1, MAX_ITEM_ID)
-                            tries = tries + 1
-                        until (newID and IsValidCandidate(newID)) or tries > 100
+            if player:HasCollectible(mod.Items.EverybodysChanging) then
+                player:RemoveCollectible(mod.Items.EverybodysChanging)
+                player:EvaluateItems()
 
-                        if newID and IsValidCandidate(newID) then
-                            player:AddCollectible(newID, 0, true)
-                        end
-                    end
+                player:UseActiveItem(
+                    CollectibleType.COLLECTIBLE_D4,
+                    UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_NOHUD,
+                    -1
+                )
 
-                    player:EvaluateItems()
-                    player:AnimateCollectible(mod.Items.EverybodysChanging)
-                    SFX:Play(SoundEffect.SOUND_EDEN_GLITCH, 1.0, 0, false, 1.0)
-                    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, player)
-                end
+                player:AddCollectible(mod.Items.EverybodysChanging, 0, true)
+                player:EvaluateItems()
+
+                player:AnimateCollectible(mod.Items.EverybodysChanging)
+                SFX:Play(SoundEffect.SOUND_EDEN_GLITCH, 1.0, 0, false, 1.0)
+                Isaac.Spawn(
+                    EntityType.ENTITY_EFFECT,
+                    EffectVariant.POOF01,
+                    0,
+                    player.Position,
+                    Vector.Zero,
+                    player
+                )
             end
         end
-    else
-        roomCleared = false
     end
 end
 
@@ -78,6 +60,11 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
             player:FlushQueueItem()
         end
     end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    wasCombatRoom = false
+    triggeredThisRoom = false
 end)
 
 if EID then

@@ -8,7 +8,7 @@
     <passive id="6"  name="Still Standing"             gfx="item_placeholder.png"          description="Feelin' like a true survivor"                quality="1" tags="nolostbr" />    
     <passive id="7"  name="Mom's Dress"                gfx="momsdress.png"                 description="It's like her hug!"                          quality="2" tags="nolostbr mom" />
     <passive id="8"  name="Enjoyment of the Unlucky"   gfx="item_placeholder.png"          description="Bad luck is a good luck!"                    quality="2" />
-    <passive id="9"  name="Everybody's Changing"       gfx="everybodychanging.png"         description="I don't feel the same"                       quality="2"                          achievement="Everybody's Changing" />
+    <passive id="9"  name="Everybody's Changing"       gfx="everybodychanging.png"         description="I don't feel the same"                       quality="0"                          achievement="Everybody's Changing" />
     <passive id="10" name="Echo"                       gfx="echo.png"                      description="I see a sky full of stars"                   quality="2" tags="nogreed" />
     <passive id="11" name="Engel"                      gfx="item_placeholder.png"          description="It sounds like angel"                        quality="3" tags="nolostbr" />
     <passive id="12" name="Scared Shoes"               gfx="item_placeholder.png"          description="Why are you running?"                        quality="0" />
@@ -55,8 +55,10 @@
     <familiar id="51" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
     <familiar id="52" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
     <familiar id="53" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="54" name="Scammer Bum"               gfx="item_placeholder.png"          description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="55" name="Rune Bum"                  gfx="item_placeholder.png"          description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="54" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="55" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="56" name="Fair Bum"                  gfx="item_placeholder.png"          description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="57" name="Pill Bum"                  gfx="item_placeholder.png"          description="Yum!"                                        quality="0" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
@@ -96,7 +98,7 @@
     <passive id="312" name="Silent Echo"               gfx="item_placeholder.png"          description="Sometimes I full powerful"                  quality="2"/>
     <passive id="313" name="Photon Link"               gfx="item_placeholder.png"          description="Zap!!"                                      quality="2"/>
     <passive id="314" name="Close Call!"               gfx="item_placeholder.png"          description="Oh man, that was close!"                    quality="2"/>
-    <passive id="315" name="Hit List"                  gfx="item_placeholder.png"          description="Need to grind"                              quality="2"/>
+    <passive id="315" name="Hit List"                  gfx="hitlist.png"                   description="Need to grind"                              quality="2"/>
     <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"                  quality="2"/>
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>

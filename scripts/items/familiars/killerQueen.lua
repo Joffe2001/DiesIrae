@@ -41,9 +41,14 @@ function KillerQueen:onFamiliarUpdate(familiar)
             sprite:Play("Float", true)
         end
 
-        if not room:IsClear() and math.random(200) == 1 then
+        local explosionChance = 200 
+        if player:HasTrinket(TrinketType.TRINKET_FORGOTTEN_LULLABY) then
+            explosionChance = 150
+        end
+
+        if not room:IsClear() and math.random(explosionChance) == 1 then
             data.State = "ATTACK"
-            data.AttackTimer = 90 
+            data.AttackTimer = 90
             data.HasExploded = false
             sprite:Play("Float_attack", true)
         end
@@ -70,6 +75,11 @@ function KillerQueen:onFamiliarUpdate(familiar)
             if #validEnemies > 0 then
                 local target = validEnemies[math.random(#validEnemies)]
                 local damage = player.Damage * 20
+
+                if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+                    damage = player.Damage * 30
+                end
+
                 local pos = target.Position
 
                 Game():BombExplosionEffects(
@@ -79,7 +89,7 @@ function KillerQueen:onFamiliarUpdate(familiar)
                     Color(1, 1, 1, 1),
                     familiar,
                     0.8,   
-                    true,
+                    false,
                     false
                 )
                 SFXManager():Play(SoundEffect.SOUND_EXPLOSION_WEAK, 1.2, 0, false, 1)

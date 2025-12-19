@@ -78,6 +78,7 @@ mod.Items = {
     RedBum                = Isaac.GetItemIdByName("Red Bum"),
     ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
     RuneBum               = Isaac.GetItemIdByName("Rune Bum"),
+    FairBum               = Isaac.GetItemIdByName("Fair Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -228,6 +229,7 @@ mod.Entities = {
     FAMILIAR_RedBum          = MakeEntityTable("Red Bum"),
     FAMILIAR_ScammerBum      = MakeEntityTable("Scammer Bum"),
     FAMILIAR_RuneBum         = MakeEntityTable("Rune Bum"),
+    FAMILIAR_FairBum         = MakeEntityTable("Fair Bum"),
 }
 
 mod.Curses = {

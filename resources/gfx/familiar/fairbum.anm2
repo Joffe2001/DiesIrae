@@ -2,7 +2,7 @@
 	<Info CreatedBy="robot" CreatedOn="07.02.2014 00:02:46" Fps="30" Version="104" />
 	<Content>
 		<Spritesheets>
-			<Spritesheet Id="0" Path="runebum.png" />
+			<Spritesheet Id="0" Path="fairbum.png" />
 		</Spritesheets>
 		<Layers>
 			<Layer Id="0" Name="body" SpritesheetId="0" />

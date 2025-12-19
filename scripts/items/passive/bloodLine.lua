@@ -3,24 +3,30 @@ local game = Game()
 
 mod._BloodlineActive = false
 
+local function GetPlayerFromDamageSource(entity)
+    local current = entity
+
+    while current do
+        if current:ToPlayer() then
+            return current:ToPlayer()
+        end
+        current = current.SpawnerEntity
+    end
+
+    return nil
+end
+
 function mod:OnEnemyTakeDamage_bloodline(entity, damageAmount, damageFlags, damageSource, damageCountdown)
     if mod._BloodlineActive then
         return
     end
 
     local source = damageSource.Entity
-    if not source then
-        return
-    end
+    if not source then return end
 
-    local player
-    if source:ToPlayer() then
-        player = source:ToPlayer()
-    elseif source.SpawnerEntity and source.SpawnerEntity:ToPlayer() then
-        player = source.SpawnerEntity:ToPlayer()
-    end
-
-    if not player or not player:HasCollectible(mod.Items.Bloodline) then
+    local ownerPlayer = GetPlayerFromDamageSource(source)
+    if not ownerPlayer then return end
+    if not ownerPlayer:HasCollectible(mod.Items.Bloodline) then
         return
     end
 
@@ -32,8 +38,9 @@ function mod:OnEnemyTakeDamage_bloodline(entity, damageAmount, damageFlags, dama
 
     for _, e in ipairs(Isaac.GetRoomEntities()) do
         if e:IsActiveEnemy(false) and not e:IsDead() then
-            local enemyHash = GetPtrHash(e)
-            if enemyHash ~= targetHash and e.Type == targetType and e.Variant == targetVariant then
+            if GetPtrHash(e) ~= targetHash
+            and e.Type == targetType
+            and e.Variant == targetVariant then
                 e:TakeDamage(damageAmount, damageFlags, damageSource, damageCountdown)
             end
         end
@@ -41,4 +48,5 @@ function mod:OnEnemyTakeDamage_bloodline(entity, damageAmount, damageFlags, dama
 
     mod._BloodlineActive = false
 end
+
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.OnEnemyTakeDamage_bloodline)

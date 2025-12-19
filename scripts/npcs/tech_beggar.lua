@@ -113,7 +113,7 @@ function mod:GiveTemporaryTechX(player)
     if not player or not player:ToPlayer() then return end
 
     sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
-    player:AddCollectible(CollectibleType.COLLECTIBLE_TECH_X, 0, false)
+    player:AddNullItemEffect(CollectibleType.COLLECTIBLE_TECH_X)
     player:GetData().TechX_Timer = TECHX_DURATION
 
     print("[Tech Beggar] Gave temporary Tech X for 30 seconds!")
