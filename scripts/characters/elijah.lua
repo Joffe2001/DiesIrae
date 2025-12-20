@@ -19,9 +19,6 @@ local STARTING_WILL_VELOCITY = 4
 
 local STARTING_GULPED_TRINKET = TrinketType.TRINKET_STORE_KEY
 
-local AMOUNT_SHOP_BEGGAR_PER_SHOP = { 1, 3 }
-local AMOUNT_PICKUP_BEGGAR_PER_SHOP = { 2, 3 }
-
 WILL_SPEED_UP = 0.1
 WILL_TEARS_UP = 0.2
 WILL_DAMAGE_UP = 0.2
@@ -52,6 +49,7 @@ local customBeggar = {
     [SlotVariant.DONATION_MACHINE] = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.GREED_DONATION_MACHINE] = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.SHELL_GAME] = mod.Entities.BEGGAR_Elijah.Var,
+    [mod.Entities.BEGGAR_JYS.Var] = mod.Entities.BEGGAR_JYS_Elijah.Var,
 }
 
 local spawnElijahWill = {
@@ -317,6 +315,15 @@ function elijahFuncs:PostNewRoom()
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
+
+---Sync Will amount with the coins of Elijah
+---@param player EntityPlayer
+function elijahFuncs:PostPlayerUpdate(player)
+    if player:GetPlayerType() ~= elijah then return end
+    local amount = math.floor(GetTotalWillStats(player))
+    player:AddCoins(amount - player:GetNumCoins())
+end
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, elijahFuncs.PostPlayerUpdate)
 
 local function ForceElijahShopRooms(_, roomDesc)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
