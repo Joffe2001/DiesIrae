@@ -214,6 +214,7 @@ mod.Entities = {
     BEGGAR_UltraSecretElijah = MakeEntityTable("Ultra Secret Beggar Elijah"),
     BEGGAR_PlanetariumElijah = MakeEntityTable("Planetarium Beggar Elijah"),
     BEGGAR_ERROR_Elijah      = MakeEntityTable("ERROR Beggar Elijah"),
+    BEGGAR_JYS_Elijah        = MakeEntityTable("Junk Yard Seller Elijah"),
 
     FAMILIAR_ParanoidAndroid = MakeEntityTable("Paranoid Android"),
     FAMILIAR_KillerQueen     = MakeEntityTable("Killer Queen"),
