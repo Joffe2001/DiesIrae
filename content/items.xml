@@ -111,11 +111,11 @@
     <trinket id="404" name="Trinket Collector"         gfx="trinket_placeholder.png"       description="I will catch them all"               />
     <trinket id="405" name="Clear Vase"                gfx="trinket_placeholder.png"       description="I don't see anything here"           />
 
-    <!-- Wisps -->
+    <!-- Wisps  
     <passive id="1001" name="Wisp Ring of Fire 1"       gfx="item_placeholder.png"/>
     <passive id="1002" name="Wisp Ring of Fire 2"       gfx="item_placeholder.png"/>
     <passive id="1003" name="Wisp Ring of Fire 3"       gfx="item_placeholder.png"/>
     <passive id="1004" name="Wisp Ring of Fire 4"       gfx="item_placeholder.png"/>
     <passive id="1005" name="Wisp Ring of Fire 5"       gfx="item_placeholder.png"/>
-
+    -->
 </items>

@@ -17,4 +17,5 @@
     <entity Image="icons/Enemies/horfling1.png" Name="Horfling 1" ID="400" Subtype="1" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
     <entity Image="icons/Enemies/horfling2.png" Name="Horfling 2" ID="400" Subtype="2" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
     <entity Image="icons/Enemies/horfling3.png" Name="Horfling 3" ID="400" Subtype="3" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
+<!--Grid-->
 </data> 

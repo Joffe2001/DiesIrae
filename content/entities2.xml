@@ -155,4 +155,17 @@
         <preload-snd id="146" /> 
     </entity>
 
+<!--GRID-->
+    <entity type="4500" name="DavidPlate" sprite="gfx/grid/David_challenges/challengebutton.anm2">
+        <variant type="20" name="Loser" />
+        <variant type="21" name="Event1" />
+        <variant type="22" name="Event2" />
+        <variant type="23" name="Event3" />
+        <variant type="24" name="Event4" />
+        <variant type="25" name="Event5" />
+        <variant type="26" name="Event6" />
+        <variant type="27" name="Event7" />
+        <variant type="28" name="Event8" />
+        <variant type="29" name="Event9" />
+    </entity>
 </entities>

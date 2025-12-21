@@ -14,34 +14,22 @@ local PRIZE_SFX = SoundEffect.SOUND_SLOTSPAWN
 local Quality0Items = {}
 local itemConfig = Isaac.GetItemConfig()
 
-local excludedItems = {
-    CollectibleType.COLLECTIBLE_KNIFE_PIECE_1,
-    CollectibleType.COLLECTIBLE_KNIFE_PIECE_2,
-    CollectibleType.COLLECTIBLE_KEY_PIECE_1,
-    CollectibleType.COLLECTIBLE_KEY_PIECE_2,
-    CollectibleType.COLLECTIBLE_DADS_NOTE,
-    CollectibleType.COLLECTIBLE_RECALL,
-    CollectibleType.COLLECTIBLE_HOLD,
-    CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON
-}
-
 local function GetFilteredItemPool()
     local pool = {}
-    for id = 1, CollectibleType.NUM_COLLECTIBLES - 1 do
-        local info = itemConfig:GetCollectible(id)
-        if info and info.Quality == 0 then
-            local isExcluded = false
-            for _, excludedItem in ipairs(excludedItems) do
-                if id == excludedItem then
-                    isExcluded = true
-                    break
-                end
-            end
-            if not isExcluded then
-                table.insert(pool, id)
-            end
+    local collectibles = itemConfig:GetCollectibles()
+
+    for id = 1, collectibles.Size - 1 do
+        local item = itemConfig:GetCollectible(id)
+        if item
+            and item.Quality == 0
+            and item:IsAvailable()
+            and not item.Hidden
+            and not item:HasTags(ItemConfig.TAG_QUEST)
+        then
+            table.insert(pool, id)
         end
     end
+
     return pool
 end
 
