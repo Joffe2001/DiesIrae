@@ -1,6 +1,6 @@
-<!--gfx is without "achievement_" if it is a placeholder!-->
-
 <achievements gfxroot="gfx/ui/achievements/">
+
+<!--gfx is without "achievement_" if it is a placeholder!-->
 
 <!--Characters-->
 	<achievement name="David" text=''                     gfx="achievement_david.png"              gfxback="paper_music.png"/>

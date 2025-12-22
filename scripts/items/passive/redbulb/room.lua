@@ -1,6 +1,6 @@
 local room = {}
-local data = require("scripts.data")
-local dataHolder = require("scripts.dataHolder")
+local data = require("scripts.items.passive.redbulb.data")
+local dataHolder = require("scripts.items.passive.redbulb.dataHolder")
 local game = Game()
 local level = game:GetLevel()
 

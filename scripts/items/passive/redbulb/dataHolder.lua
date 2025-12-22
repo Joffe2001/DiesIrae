@@ -3,7 +3,7 @@
 local dataHolder = {}
 dataHolder.Data = {}
 
-local data = require("scripts.data")
+local data = require("scripts.items.passive.redbulb.data")
 local level = Game():GetLevel()
 
 
@@ -38,9 +38,7 @@ function dataHolder:GetEntityData_demonicAngel()
 		collectiblesLength = collectiblesLength + 1
 	end
 
-	print(collectiblesLength)
 	if collectiblesLength == 0 or roomDesc.VisitedCount == 1 then
-		print("collectiblesLength == 0 or roomDesc.VisitedCount == 1")
 		dataHolder.RoomData.collectibles = {}
 		for _, entity in ipairs(Isaac.GetRoomEntities()) do
 			if entity.Type == 5 and entity.Variant == 100 then

@@ -1,5 +1,5 @@
 local stairway = {}
-local data = require("scripts.data")
+local data = require("scripts.items.passive.redbulb.data")
 local level = Game():GetLevel()
 
 
