@@ -13,5 +13,4 @@ function mod:OnCardUse_Papercut(card, player, useFlags)
         end
     end
 end
-
 mod:AddCallback(ModCallbacks.MC_USE_CARD, mod.OnCardUse_Papercut)

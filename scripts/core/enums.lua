@@ -71,6 +71,7 @@ mod.Items = {
     DeliriousMind         = Isaac.GetItemIdByName("Delirious Mind"),
     HarpString            = Isaac.GetItemIdByName("Harp String"),
     Harp                  = Isaac.GetItemIdByName("The Harp"),
+    MichelinStar          = Isaac.GetItemIdByName("Michelin Star Reward"),
 
     -- Familiars
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
@@ -205,6 +206,7 @@ mod.Entities = {
     BEGGAR_Tech              = MakeEntityTable("Tech Beggar"),
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
     BEGGAR_JYS               = MakeEntityTable("Junk Yard Seller"),
+    BEGGAR_Goldsmith         = MakeEntityTable("Goldsmith Beggar"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
@@ -223,6 +225,7 @@ mod.Entities = {
     BEGGAR_PlanetariumElijah = MakeEntityTable("Planetarium Beggar Elijah"),
     BEGGAR_ERROR_Elijah      = MakeEntityTable("ERROR Beggar Elijah"),
     BEGGAR_JYS_Elijah        = MakeEntityTable("Junk Yard Seller Elijah"),
+    BEGGAR_Goldsmith_Elijah  = MakeEntityTable("Goldsmith Beggar Elijah"),
 
     FAMILIAR_ParanoidAndroid = MakeEntityTable("Paranoid Android"),
     FAMILIAR_KillerQueen     = MakeEntityTable("Killer Queen"),

@@ -23,7 +23,7 @@
     <passive id="21" name="Golden Day"                 gfx="item_placeholder.png"          description="As long its not green..."                    quality="0" tags="nolostbr nogreed"  achievement="Golden Day" />
     <passive id="22" name="Mutter"                     gfx="item_placeholder.png"          description="Why is it in german?"                        quality="2" />
     <passive id="23" name="Solar Flare"                gfx="item_placeholder.png"          description="I will burn our horizons"                    quality="3" tags="offensive nogreed" />
-    <passive id="24" name="Devil's Map"                gfx="item_placeholder.png"          description="I don't like this place"                     quality="2"/>
+    <passive id="24" name="Devil's Map"                gfx="devils_map.png"                description="I don't like this place"                     quality="2"/>
     <passive id="25" name="Psychosocial"               gfx="item_placeholder.png"          description="You're on your own"                          quality="4" tags="offensive" />
     <passive id="26" name="Borrowed Strength"          gfx="borrowedstrength.png"          description="I’ll face the fire, I’ll bear the pain"      quality="2"/>
     <passive id="27" name="Ultra Secret Map"           gfx="ultrasecretmap2.png"           description="To find, you must seek."                     quality="4"                          achievement="Ultra Secret Map"/>
@@ -51,14 +51,15 @@
     <passive id="49" name="Harp String"                gfx="harpstring.png"                description="It's starting to sound like a melody"        quality="4" tags="noeden quest"/>
     <passive id="50" name="The Harp"                   gfx="theharp.png"                   description="The harp gently weeps"                       quality="4" tags="noeden quest"/>
     <passive id="51" name="Red Bulb"                   gfx="red_bulb.png"                  description="Inversion"                                   quality="3" achievment="Red Bulb Unlock"/>
+    <passive id="52" name="Michelin Star Reward"       gfx="michelin_star.png"             description="Yum!!"                                       quality="2" tags="nolostbr"/>
     <!-- Familiars -->
-    <familiar id="52" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="53" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="54" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="55" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="56" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="57" name="Fair Bum"                  gfx="item_placeholder.png"          description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="58" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="53" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="54" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="55" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="56" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="57" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="58" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="59" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />

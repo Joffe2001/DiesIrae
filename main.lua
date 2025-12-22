@@ -102,6 +102,7 @@ include("scripts.items.passive.corruptedMantle")
 include("scripts.items.passive.harpString")
 include("scripts.items.passive.Harp")
 include("scripts.items.passive.deliriousmind")
+include("scripts.items.passive.michelinstar")
 ---------------------------------------------------
 --  Familiars
 ----------------------------------------------------
@@ -161,6 +162,7 @@ include("scripts.npcs.fiend_beggar")
 include("scripts.npcs.tech_beggar")
 include("scripts.npcs.guppy_beggar")
 include("scripts.npcs.jys")
+include("scripts.npcs.goldsmith")
 --------Elijah's NPCs------------------------------
 include("scripts.npcs.elijah.elijah_tech_beggar")
 include("scripts.npcs.elijah.elijah_beggar")
@@ -177,6 +179,7 @@ include("scripts.npcs.elijah.elijah_secret_beggar")
 include("scripts.npcs.elijah.elijah_ultra_secret_beggar")
 include("scripts.npcs.elijah.elijah_error_beggar")
 include("scripts.npcs.elijah.elijah_book_beggar")
+include("scripts.npcs.elijah.elijah_goldsmith")
 include("scripts.npcs.elijah.elijah_jys") -- Doesn't work
 ---------------------------------------------------
 --  ENEMIES

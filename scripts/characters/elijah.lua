@@ -50,6 +50,7 @@ local customBeggar = {
     [SlotVariant.GREED_DONATION_MACHINE] = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.SHELL_GAME] = mod.Entities.BEGGAR_Elijah.Var,
     [mod.Entities.BEGGAR_JYS.Var] = mod.Entities.BEGGAR_JYS_Elijah.Var,
+    [mod.Entities.BEGGAR_Goldsmith.Var] = mod.Entities.BEGGAR_Goldsmith_Elijah.Var,
 }
 
 local spawnElijahWill = {
