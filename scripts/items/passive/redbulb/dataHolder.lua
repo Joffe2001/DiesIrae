@@ -33,12 +33,7 @@ function dataHolder:GetEntityData_demonicAngel()
 	if roomDesc.Data.Type ~= data.rooms.demonicAngelType or roomDesc.Data.Subtype ~= data.rooms.demonicAngelSubtype then
 	return end
 
-	local collectiblesLength = 0
-	for _, _ in pairs(dataHolder.RoomData.collectibles) do
-		collectiblesLength = collectiblesLength + 1
-	end
-
-	if collectiblesLength == 0 or roomDesc.VisitedCount == 1 then
+	if roomDesc.VisitedCount == 1 then
 		dataHolder.RoomData.collectibles = {}
 		for _, entity in ipairs(Isaac.GetRoomEntities()) do
 			if entity.Type == 5 and entity.Variant == 100 then
@@ -59,7 +54,7 @@ function dataHolder:GetEntityData_demonicAngel()
 					dataHolder.RoomData.collectibles[entity.SubType] = 1
 				else
 					dataHolder.RoomData.collectibles[entity.SubType] = dataHolder.RoomData.collectibles[entity.SubType] + 1
-				end
+			end
 		end end 
 	else
 		local collectiblesTmp = {}
