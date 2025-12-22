@@ -51,7 +51,7 @@ include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
-require("scripts.items.passive.redbulb.main")
+require("scripts.items.passive.redbulb.main") --needs require
 include("scripts.items.passive.u2")
 include("scripts.items.passive.echo")
 include("scripts.items.passive.theBadTouch")
