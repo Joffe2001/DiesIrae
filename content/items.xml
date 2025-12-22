@@ -50,15 +50,15 @@
     <passive id="48" name="Delirious Mind"             gfx="delirious_mind.png"            description="Why is this exist?"                          quality="2"/>
     <passive id="49" name="Harp String"                gfx="harpstring.png"                description="It's starting to sound like a melody"        quality="4" tags="noeden quest"/>
     <passive id="50" name="The Harp"                   gfx="theharp.png"                   description="The harp gently weeps"                       quality="4" tags="noeden quest"/>
-    <passive id="56" name="Red Bulb" gfx="red_bulb.png" description="Inversion" quality="3" achievment="Red Bulb Unlock"/>
+    <passive id="51" name="Red Bulb"                   gfx="red_bulb.png"                  description="Inversion"                                   quality="3" achievment="Red Bulb Unlock"/>
     <!-- Familiars -->
-    <familiar id="51" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="52" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="53" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="54" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="55" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="56" name="Fair Bum"                  gfx="item_placeholder.png"          description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="57" name="Pill Bum"                  gfx="item_placeholder.png"          description="Yum!"                                        quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="52" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="53" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="54" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="55" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="56" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="57" name="Fair Bum"                  gfx="item_placeholder.png"          description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="58" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
@@ -111,11 +111,11 @@
     <trinket id="404" name="Trinket Collector"         gfx="trinket_placeholder.png"       description="I will catch them all"               />
     <trinket id="405" name="Clear Vase"                gfx="trinket_placeholder.png"       description="I don't see anything here"           />
 
-    <!-- Wisps -->
+    <!-- Wisps  
     <passive id="1001" name="Wisp Ring of Fire 1"       gfx="item_placeholder.png"/>
     <passive id="1002" name="Wisp Ring of Fire 2"       gfx="item_placeholder.png"/>
     <passive id="1003" name="Wisp Ring of Fire 3"       gfx="item_placeholder.png"/>
     <passive id="1004" name="Wisp Ring of Fire 4"       gfx="item_placeholder.png"/>
     <passive id="1005" name="Wisp Ring of Fire 5"       gfx="item_placeholder.png"/>
-
+    -->
 </items>

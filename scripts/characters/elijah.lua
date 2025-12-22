@@ -19,9 +19,6 @@ local STARTING_WILL_VELOCITY = 4
 
 local STARTING_GULPED_TRINKET = TrinketType.TRINKET_STORE_KEY
 
-local AMOUNT_SHOP_BEGGAR_PER_SHOP = { 1, 3 }
-local AMOUNT_PICKUP_BEGGAR_PER_SHOP = { 2, 3 }
-
 WILL_SPEED_UP = 0.1
 WILL_TEARS_UP = 0.2
 WILL_DAMAGE_UP = 0.2
@@ -52,6 +49,7 @@ local customBeggar = {
     [SlotVariant.DONATION_MACHINE] = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.GREED_DONATION_MACHINE] = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.SHELL_GAME] = mod.Entities.BEGGAR_Elijah.Var,
+    [mod.Entities.BEGGAR_JYS.Var] = mod.Entities.BEGGAR_JYS_Elijah.Var,
 }
 
 local spawnElijahWill = {
@@ -296,88 +294,26 @@ mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
 function elijahFuncs:PostNewRoom()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
-    local roomData = mod.SaveManager.GetRoomSave(nil)
+    local room = game:GetRoom()
+    if room:GetType() == RoomType.ROOM_SHOP then return end
+
+    local roomData = save.GetRoomSave(nil)
     if roomData.beggarSwap then return end
     roomData.beggarSwap = true
 
-    local roomType = game:GetRoom():GetType()
-    local beggar = ItemRoomBeggar[roomType]
-    if beggar == nil then return end
+    local beggar = ItemRoomBeggar[room:GetType()]
+    if not beggar then return end
 
     for _, entity in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
         local ped = entity:ToPickup()
-        if not ped then return end
-
-        local pos = ped.Position
-        ped:Remove()
-        Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, Vector.Zero, nil)
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
-
-
----Replace shop with beggars
-function elijahFuncs:PostNewRoomShop()
-    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-
-    local room = game:GetRoom()
-    local level = game:GetLevel()
-
-    if room:GetType() ~= RoomType.ROOM_SHOP then
-        return
-    end
-
-    local roomData = mod.SaveManager.GetRoomSave(nil)
-    print(roomData.ShopBeggarSwap)
-    if roomData.ShopBeggarSwap then return end
-    roomData.ShopBeggarSwap = true
-
-    print("Swapping shop with beggars!")
-
-    for _, ent in ipairs(Isaac.GetRoomEntities()) do
-        if ent.Type == EntityType.ENTITY_PICKUP
-            or ent.Type == EntityType.ENTITY_SHOPKEEPER
-            or ent.Type == EntityType.ENTITY_SLOT then
-            ent:Remove()
+        if ped then
+            local pos = ped.Position
+            ped:Remove()
+            Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, Vector.Zero, nil)
         end
     end
-
-    local numShopBeggars = math.random(AMOUNT_SHOP_BEGGAR_PER_SHOP[1], AMOUNT_SHOP_BEGGAR_PER_SHOP[2])
-    local extraBeggars   = math.random(AMOUNT_PICKUP_BEGGAR_PER_SHOP[1], AMOUNT_PICKUP_BEGGAR_PER_SHOP[2])
-
-    local randomPool     = {
-        mod.Entities.BEGGAR_BatteryElijah.Var,
-        mod.Entities.BEGGAR_KeyElijah.Var,
-        mod.Entities.BEGGAR_BombElijah.Var
-    }
-
-    local function spawnBeggar(variant, pos)
-        local safePos = room:FindFreePickupSpawnPosition(pos, 40, true)
-        Isaac.Spawn(EntityType.ENTITY_SLOT, variant, 0, safePos, Vector.Zero, nil)
-    end
-
-    local center = room:GetCenterPos()
-    local radius = 90
-    local total = numShopBeggars + extraBeggars
-    local angleStep = 360 / total
-    local index = 0
-
-    for _ = 1, numShopBeggars do
-        local pos = center + Vector.FromAngle(index * angleStep) * radius
-        spawnBeggar(mod.Entities.BEGGAR_ShopElijah.Var, pos)
-        index = index + 1
-    end
-
-    for _ = 1, extraBeggars do
-        local var = randomPool[math.random(#randomPool)]
-        local pos = center + Vector.FromAngle(index * angleStep) * radius
-        spawnBeggar(var, pos)
-        index = index + 1
-    end
 end
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoomShop)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
 
 ---Sync Will amount with the coins of Elijah
@@ -387,5 +323,66 @@ function elijahFuncs:PostPlayerUpdate(player)
     local amount = math.floor(GetTotalWillStats(player))
     player:AddCoins(amount - player:GetNumCoins())
 end
-
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, elijahFuncs.PostPlayerUpdate)
+
+local function ForceElijahShopRooms(_, roomDesc)
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    if game:IsGreedMode() then return end
+    if not roomDesc or not roomDesc.Data then return end
+
+    if roomDesc.Data.Type ~= RoomType.ROOM_SHOP then return end
+
+    roomDesc.Data.Variant = math.random(1001, 1020)
+end
+mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_PLACE_ROOM, ForceElijahShopRooms)
+
+--Greed/ Greedier shops logic
+local function PostNewRoomGreedShop()
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    if not game:IsGreedMode() then return end
+
+    local room = game:GetRoom()
+    if room:GetType() ~= RoomType.ROOM_SHOP then return end
+
+    local roomData = save.GetRoomSave(nil)
+    if roomData.GreedShopDone then return end
+    roomData.GreedShopDone = true
+
+    -- Remove EVERYTHING
+    for _, ent in ipairs(Isaac.GetRoomEntities()) do
+        if ent.Type ~= EntityType.ENTITY_PLAYER then
+            ent:Remove()
+        end
+    end
+
+    local keyCount   = math.random(1, 2)
+    local bombCount  = math.random(1, 2)
+    local shopCount  = math.random(4, 5)
+
+    local center = room:GetCenterPos()
+    local total = keyCount + bombCount + shopCount
+    local radius = 80
+    local angleStep = 360 / total
+    local index = 0
+
+    local function spawnBeggar(variant)
+        local pos = center + Vector.FromAngle(index * angleStep) * radius
+        pos = room:FindFreePickupSpawnPosition(pos, 40, true)
+        Isaac.Spawn(EntityType.ENTITY_SLOT, variant, 0, pos, Vector.Zero, nil)
+        index = index + 1
+    end
+
+    for _ = 1, keyCount do
+        spawnBeggar(mod.Entities.BEGGAR_KeyElijah.Var)
+    end
+
+    for _ = 1, bombCount do
+        spawnBeggar(mod.Entities.BEGGAR_BombElijah.Var)
+    end
+
+    for _ = 1, shopCount do
+        spawnBeggar(mod.Entities.BEGGAR_ShopElijah.Var)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, PostNewRoomGreedShop)

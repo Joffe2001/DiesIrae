@@ -3,34 +3,69 @@ local game = Game()
 
 local HarpString = {}
 
+local HARP_COSTUMES = {
+    [1] = {
+        hair = mod.Costumes.Harpstring1_hair,
+        eyes = mod.Costumes.Harpstring1_eyes
+    },
+    [2] = {
+        hair = mod.Costumes.Harpstring2_hair,
+        eyes = mod.Costumes.Harpstring2_eyes
+    },
+    [3] = {
+        hair = mod.Costumes.Harpstring3_hair,
+        eyes = mod.Costumes.Harpstring3_eyes
+    },
+    [4] = {
+        hair = mod.Costumes.Harpstring4_hair,
+        eyes = mod.Costumes.Harpstring4_eyes
+    }
+}
+
+---@param player EntityPlayer
 function HarpString:TrackHarpString(player)
     if not player then return end
+
+    local pdata = player:GetData()
+
     if player:GetPlayerType() ~= mod.Players.David then
-        player:GetData().harpStringCount = nil
+        pdata.harpStringCount = nil
+        pdata.harpCostumeLevel = nil
+        for _, data in pairs(HARP_COSTUMES) do
+            player:TryRemoveNullCostume(data.hair)
+            player:TryRemoveNullCostume(data.eyes)
+        end
         return
     end
 
     local count = player:GetCollectibleNum(mod.Items.HarpString) or 0
-    local pdata = player:GetData()
+    local level = math.min(count, 4)
 
-    if pdata.harpStringCount == nil then
-        pdata.harpStringCount = count
-        return
+    if pdata.harpStringCount == count then return end
+    pdata.harpStringCount = count
+
+    for _, data in pairs(HARP_COSTUMES) do
+        player:TryRemoveNullCostume(data.hair)
+        player:TryRemoveNullCostume(data.eyes)
     end
 
-    if pdata.harpStringCount ~= count then
-        pdata.harpStringCount = count
-    
-        if count == 4 then
-            Isaac.Spawn(
-                EntityType.ENTITY_PICKUP,
-                PickupVariant.PICKUP_COLLECTIBLE,
-                mod.Items.Harp,
-                player.Position,
-                Vector(10, 0),
-                player
-            )
-        end
+    if level > 0 then
+        player:AddNullCostume(HARP_COSTUMES[level].hair)
+        player:AddNullCostume(HARP_COSTUMES[level].eyes)
+        pdata.harpCostumeLevel = level
+    else
+        pdata.harpCostumeLevel = nil
+    end
+
+    if count == 4 then
+        Isaac.Spawn(
+            EntityType.ENTITY_PICKUP,
+            PickupVariant.PICKUP_COLLECTIBLE,
+            mod.Items.Harp,
+            player.Position,
+            Vector(10, 0),
+            player
+        )
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, HarpString.TrackHarpString)

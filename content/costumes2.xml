@@ -12,6 +12,7 @@
     <costume id="16"  name="Protein Powder"       anm2path="proteinpowder.anm2"      type="passive" priority="50" hasSkinAlt="true"/>
     <costume id="19"  name="Thought Contagion"    anm2path="thoughtcontagion.anm2"   type="passive" priority="20" hasSkinAlt="true" />
     <costume id="30"  name="Rainbow KoRn"         anm2path="KoRn.anm2"               type="passive" priority="600" />
+    <costume id="31" name="Creatine Overdose"     anm2path="Creatine_overdose.anm2"  type="passive" priority="50" hasSkinAlt="true"/>
     <costume id="40"  name="PTSD"                 anm2path="ptsd.anm2"               type="passive" priority="20" hasSkinAlt="true" />
     <costume id="41"  name="Flowering Skull"      anm2path="floweringskull.anm2"     type="passive" priority="20" />
     <costume id="44"  name="Cool Stick"           anm2path="coolstick.anm2"          type="passive" priority="30" />
@@ -22,14 +23,24 @@
     <costume id="316" name="Triple Gooberberry Sunrise" anm2path="TGS.anm2"   type="passive"  priority="200" />
 
     <!--Characters costumes-->
-    <costume id="1000" anm2path="david_hair.anm2"     type="none" priority="800"/>
-    <costume id="1001" anm2path="tdavid_hair.anm2"    type="none" priority="800"/>
-    <costume id="1002" anm2path="elijah_hair.anm2"    type="none" priority="800"/>
+    <costume id="1000" anm2path="david_hair.anm2"     type="none" priority="600"/>
+    <costume id="1001" anm2path="tdavid_hair.anm2"    type="none" priority="600"/>
+    <costume id="1002" anm2path="elijah_hair.anm2"    type="none" priority="600"/>
     <!--Transformations-->
-    <costume id="2000" anm2path="dads_playlist.anm2"  type="none" priority="700" />
-    <costume id="2001" anm2path="isaac_playlist.anm2" type="none" priority="700" />
+    <costume id="2000" anm2path="dads_playlist.anm2"  type="none" priority="200" />
+    <costume id="2001" anm2path="isaac_playlist.anm2" type="none" priority="200" />
     <!--Extra-->
     <costume id="3004" anm2path="universal_head.anm2" type="none"  priority="700" />
     <costume id="3005" anm2path="brokenholywood.anm2" type="none"  priority="700" />
     <costume id="3006" anm2path="holywood.anm2"       type="none" priority="200" />
+    <!--David Exclusive-->
+    <costume id="4000" anm2path="harpstring1_hair.anm2" type="none" priority="601"/>
+    <costume id="4001" anm2path="harpstring2_hair.anm2" type="none" priority="601"/>
+    <costume id="4002" anm2path="harpstring3_hair.anm2" type="none" priority="601"/>
+    <costume id="4003" anm2path="harpstring4_hair.anm2" type="none" priority="601"/>
+    <costume id="4004" anm2path="harpstring1_eyes.anm2" type="none" priority="20"/>
+    <costume id="4005" anm2path="harpstring2_eyes.anm2" type="none" priority="20"/>
+    <costume id="4006" anm2path="harpstring3_eyes.anm2" type="none" priority="20"/>
+    <costume id="4007" anm2path="harpstring4_eyes.anm2" type="none" priority="20"/>
+    
 </costumes>

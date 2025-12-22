@@ -2,18 +2,20 @@
  <!--Beggars-->
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/tech_beggar.png" Name="Fiend Beggar" Subtype="0" Variant="121" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/guppy_beggar.png" Name="Guppy Beggar" Subtype="1" Variant="122" />
+    <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/jys.png" Name="Junk Yard Seller" Subtype="2" Variant="123" />
 <!--Elijah's Beggars-->
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/tech.png" Name="Tech Beggar Elijah" Subtype="0" variant="221" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/beggar.png" Name="Beggar Elijah" Subtype="0" variant="222" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/bomb.png" Name="Bomb Beggar Elijah" Subtype="0" variant="223" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/key.png" Name="Key Beggar Elijah" Subtype="0" variant="224" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/rotten.png" Name="Rotten Beggar Elijah" Subtype="0" variant="225" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/battery.png" Name="Battery Beggar Elijah" Subtype="0" variant="226" />
-    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/shop.png" Name="Shop Beggar Elijah" Subtype="0" variant="227" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/tech.png" Name="Tech Beggar Elijah" Subtype="0" Variant="221" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/beggar.png" Name="Beggar Elijah" Subtype="0" Variant="222" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/bomb.png" Name="Bomb Beggar Elijah" Subtype="0" Variant="223" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/key.png" Name="Key Beggar Elijah" Subtype="0" Variant="224" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/rotten.png" Name="Rotten Beggar Elijah" Subtype="0" Variant="225" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/battery.png" Name="Battery Beggar Elijah" Subtype="0" Variant="226" />
+    <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/shop.png" Name="Shop Beggar Elijah" Subtype="0" Variant="229" />
 <!--Enemies-->
     <entity Image="icons/Enemies/blinded_horf.png" Name="Blinded Horf" ID="400" Subtype="0" Variant="1" BaseHP="70" Group="Monsters" Kind="Dies Irae"/>
     <entity Image="icons/Enemies/horfling_rand.png" Name="Horfling(Random)" ID="400" Subtype="0" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
     <entity Image="icons/Enemies/horfling1.png" Name="Horfling 1" ID="400" Subtype="1" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
     <entity Image="icons/Enemies/horfling2.png" Name="Horfling 2" ID="400" Subtype="2" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
     <entity Image="icons/Enemies/horfling3.png" Name="Horfling 3" ID="400" Subtype="3" Variant="2" BaseHP="70" Group="Monsters" Kind="Dies Irae" />
+<!--Grid-->
 </data> 

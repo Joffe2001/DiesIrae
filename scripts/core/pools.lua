@@ -107,6 +107,56 @@ mod.Pools ={
         LevelCurse.CURSE_OF_BLIND,
         LevelCurse.CURSE_OF_MAZE
     },
+
+    TarotCards = {
+        Card.CARD_FOOL,
+        Card.CARD_MAGICIAN,
+        Card.CARD_HIGH_PRIESTESS,
+        Card.CARD_EMPRESS,
+        Card.CARD_EMPEROR,
+        Card.CARD_HIEROPHANT,
+        Card.CARD_LOVERS,
+        Card.CARD_CHARIOT,
+        Card.CARD_JUSTICE,
+        Card.CARD_HERMIT,
+        Card.CARD_WHEEL_OF_FORTUNE,
+        Card.CARD_STRENGTH,
+        Card.CARD_HANGED_MAN,
+        Card.CARD_DEATH,
+        Card.CARD_TEMPERANCE,
+        Card.CARD_DEVIL,
+        Card.CARD_TOWER,
+        Card.CARD_STARS,
+        Card.CARD_MOON,
+        Card.CARD_SUN,
+        Card.CARD_JUDGEMENT,
+        Card.CARD_WORLD
+    },
+    ReverseCards = {
+        Card.CARD_REVERSE_FOOL,
+        Card.CARD_REVERSE_MAGICIAN,
+        Card.CARD_REVERSE_HIGH_PRIESTESS,
+        Card.CARD_REVERSE_EMPRESS,
+        Card.CARD_REVERSE_EMPEROR,
+        Card.CARD_REVERSE_HIEROPHANT,
+        Card.CARD_REVERSE_LOVERS,
+        Card.CARD_REVERSE_CHARIOT,
+        Card.CARD_REVERSE_JUSTICE,
+        Card.CARD_REVERSE_HERMIT,
+        Card.CARD_REVERSE_WHEEL_OF_FORTUNE,
+        Card.CARD_REVERSE_STRENGTH,
+        Card.CARD_REVERSE_HANGED_MAN,
+        Card.CARD_REVERSE_DEATH,
+        Card.CARD_REVERSE_TEMPERANCE,
+        Card.CARD_REVERSE_DEVIL,
+        Card.CARD_REVERSE_TOWER,
+        Card.CARD_REVERSE_STARS,
+        Card.CARD_REVERSE_MOON,
+        Card.CARD_REVERSE_SUN,
+        Card.CARD_REVERSE_JUDGEMENT,
+        Card.CARD_REVERSE_WORLD
+    },
+
     Elijah_blacklist = {
         CollectibleType.COLLECTIBLE_DOLLAR,
         CollectibleType.COLLECTIBLE_QUARTER,
@@ -127,6 +177,5 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_GREEDS_GULLET,
         CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
         CollectibleType.COLLECTIBLE_KEEPERS_SACK,
-        
     }
 }

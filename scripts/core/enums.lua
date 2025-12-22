@@ -79,6 +79,7 @@ mod.Items = {
     ScammerBum            = Isaac.GetItemIdByName("Scammer Bum"),
     RuneBum               = Isaac.GetItemIdByName("Rune Bum"),
     FairBum               = Isaac.GetItemIdByName("Fair Bum"),
+    TarotBum              = Isaac.GetItemIdByName("Tarot Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -181,6 +182,14 @@ mod.Costumes = {
     Universal_active = Isaac.GetCostumeIdByPath("gfx/characters/universal_head.anm2"),
     Holywood         = Isaac.GetCostumeIdByPath("gfx/characters/holywood.anm2"),
     BrokenHolywood   = Isaac.GetCostumeIdByPath("gfx/characters/brokenholywood.anm2"),
+    Harpstring1_hair = Isaac.GetCostumeIdByPath("gfx/characters/harpstring1_hair.anm2"),
+    Harpstring2_hair = Isaac.GetCostumeIdByPath("gfx/characters/harpstring2_hair.anm2"),
+    Harpstring3_hair = Isaac.GetCostumeIdByPath("gfx/characters/harpstring3_hair.anm2"),
+    Harpstring4_hair = Isaac.GetCostumeIdByPath("gfx/characters/harpstring4_hair.anm2"),
+    Harpstring1_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring1_eyes.anm2"),
+    Harpstring2_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring2_eyes.anm2"),
+    Harpstring3_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring3_eyes.anm2"),
+    Harpstring4_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring4_eyes.anm2"),
 }
 
 mod.Cards = {
@@ -213,6 +222,7 @@ mod.Entities = {
     BEGGAR_UltraSecretElijah = MakeEntityTable("Ultra Secret Beggar Elijah"),
     BEGGAR_PlanetariumElijah = MakeEntityTable("Planetarium Beggar Elijah"),
     BEGGAR_ERROR_Elijah      = MakeEntityTable("ERROR Beggar Elijah"),
+    BEGGAR_JYS_Elijah        = MakeEntityTable("Junk Yard Seller Elijah"),
 
     FAMILIAR_ParanoidAndroid = MakeEntityTable("Paranoid Android"),
     FAMILIAR_KillerQueen     = MakeEntityTable("Killer Queen"),
@@ -230,6 +240,7 @@ mod.Entities = {
     FAMILIAR_ScammerBum      = MakeEntityTable("Scammer Bum"),
     FAMILIAR_RuneBum         = MakeEntityTable("Rune Bum"),
     FAMILIAR_FairBum         = MakeEntityTable("Fair Bum"),
+    FAMILIAR_TarotBum        = MakeEntityTable("Tarot Bum"),
 }
 
 mod.Curses = {

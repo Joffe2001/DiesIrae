@@ -1,50 +1,60 @@
 local mod = DiesIraeMod
-local DavidChallenges = {}
+local game = Game()
 
-local DavidPlateIndex = nil
-local DavidBackdropSpawned = false
-local DavidFloorID = nil
-local DavidFloorFrame = nil
-local UsedDavidFrames = {}
-local LeftRoomWithoutPress = false
-local GaveDavidPenalty = false
+---@type table
+local DavidPlates = {} -- table[floor][roomIndex] = {index, state, challengeVariant, backdrop}
+local UsedChallenges = {}
+local MissedPlatePenalty = {}
 
 ---@param player EntityPlayer
-function DavidChallenges.AddPressurePlateInStartRoom(player)
+local function SpawnDavidPlate(player)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local level = Game():GetLevel()
-    local room = Game():GetRoom()
+    local level = game:GetLevel()
+    local room = game:GetRoom()
+    local currentFloor = level:GetStage()
+    local roomIndex = level:GetCurrentRoomIndex()
 
-    if level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex() then return end
-    if level:GetStage() < 2 then return end
+    if not DavidPlates[currentFloor] then
+        DavidPlates[currentFloor] = {}
+    end
 
+    if roomIndex ~= level:GetStartingRoomIndex() or currentFloor < 2 then return end
 
-    for i = 0, room:GetGridSize() - 1 do
-        local grid = room:GetGridEntity(i)
-        if grid and grid:GetType() == GridEntityType.GRID_PRESSURE_PLATE then
-            return
+    if DavidPlates[currentFloor][roomIndex] then
+        local plateData = DavidPlates[currentFloor][roomIndex]
+        local grid = room:GetGridEntity(plateData.index)
+        if grid then
+            grid:GetSprite():Play(plateData.state, true)
         end
+
+        if plateData.backdrop and not plateData.backdrop:Exists() then
+            local effect = Isaac.Spawn(
+                EntityType.ENTITY_EFFECT,
+                0,
+                0,
+                room:GetCenterPos() + Vector(-15, -40),
+                Vector.Zero,
+                nil
+            )
+            effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+            local eSpr = effect:GetSprite()
+            eSpr:Load("gfx/grid/David_challenges/challenges.anm2", true)
+            eSpr:Play("Idle", true)
+            eSpr:SetFrame(plateData.challengeVariant or 0)
+            plateData.backdrop = effect
+        end
+        return
     end
 
     local GRID_WIDTH = 13
     local gridSize = room:GetGridSize()
     local roomHeight = math.floor(gridSize / GRID_WIDTH)
-
-    local targetIndex =
-        (math.floor(roomHeight / 2) + 2) * GRID_WIDTH +
-        math.floor(GRID_WIDTH / 2)
-
+    local targetIndex = (math.floor(roomHeight / 2) + 2) * GRID_WIDTH + math.floor(GRID_WIDTH / 2)
     if targetIndex < 0 or targetIndex >= gridSize then return end
 
     room:RemoveGridEntity(targetIndex, 0, false)
-    room:SpawnGridEntity(
-        targetIndex,
-        GridEntityType.GRID_PRESSURE_PLATE,
-        0,
-        0,
-        0
-    )
+    room:SpawnGridEntity(targetIndex, GridEntityType.GRID_DECORATION, 4500, Random(), 0)
 
     local grid = room:GetGridEntity(targetIndex)
     if grid then
@@ -53,148 +63,220 @@ function DavidChallenges.AddPressurePlateInStartRoom(player)
         spr:Play("Off", true)
     end
 
-    DavidPlateIndex = targetIndex
+    DavidPlates[currentFloor][roomIndex] = {
+        index = targetIndex,
+        state = "Off",
+        challengeVariant = nil,
+        backdrop = nil,
+        wasPressed = false
+    }
 end
 
----@return integer
-local function GetUniqueDavidFrame()
-    local frames = {1,2,3,4,5,6,7,8,9}
-
-    for _, used in ipairs(UsedDavidFrames) do
-        for i = #frames, 1, -1 do
-            if frames[i] == used then
-                table.remove(frames, i)
-            end
-        end
-    end
-
-    if #frames == 0 then
-        UsedDavidFrames = {}
-        frames = {1,2,3,4,5,6,7,8,9}
-    end
-
-    local choice = frames[math.random(#frames)]
-    table.insert(UsedDavidFrames, choice)
-    return choice
-end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    SpawnDavidPlate(Isaac.GetPlayer(0))
+end)
 
 ---@param player EntityPlayer
-function DavidChallenges.CheckDavidPlate(player)
-    local room = Game():GetRoom()
-    if not DavidPlateIndex then return end
-
-    local grid = room:GetGridEntity(DavidPlateIndex)
-    if not grid or grid:GetType() ~= GridEntityType.GRID_PRESSURE_PLATE then return end
-
-    if grid:GetSprite():GetAnimation() == "On"
-        and not DavidBackdropSpawned
-    then
-        if not DavidFloorFrame then
-            if LeftRoomWithoutPress then
-                DavidFloorFrame = 0
-            else
-                DavidFloorFrame = GetUniqueDavidFrame()
-            end
-        end
-
-        local effect = Isaac.Spawn(
-            EntityType.ENTITY_EFFECT,
-            0,
-            0,
-            room:GetCenterPos() + Vector(-15, -40),
-            Vector.Zero,
-            nil
-        )
-
-        effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
-
-        local eSpr = effect:GetSprite()
-        eSpr:Load("gfx/grid/David_challenges/challenges.anm2", true)
-        eSpr:Play("Idle", true)
-        eSpr:SetFrame(DavidFloorFrame)
-
-        DavidBackdropSpawned = true
-    end
-end
-
----@param player EntityPlayer
----@param cacheFlag CacheFlag
-function DavidChallenges.EvaluateDavidStats(player, cacheFlag)
-    local localPlayer = Isaac.GetPlayer(0)
-    if not localPlayer then return end
-    if localPlayer:GetPlayerType() ~= mod.Players.David then return end
-
-    if GaveDavidPenalty then return end
-
-    if LeftRoomWithoutPress then
-        GaveDavidPenalty = true
-        print("Applying penalty...")
-
-        localPlayer.Damage = localPlayer.Damage - 0.2
-        localPlayer.MaxFireDelay = localPlayer.MaxFireDelay + 0.2
-        localPlayer.TearRange = localPlayer.TearRange - 0.2 * 40
-        localPlayer.ShotSpeed = localPlayer.ShotSpeed - 0.2
-        localPlayer.Luck = localPlayer.Luck - 0.5
-        localPlayer.MoveSpeed = localPlayer.MoveSpeed - 0.05
-
-        localPlayer:AddCacheFlags(
-            CacheFlag.CACHE_DAMAGE
-            | CacheFlag.CACHE_FIREDELAY
-            | CacheFlag.CACHE_RANGE
-            | CacheFlag.CACHE_SHOTSPEED
-            | CacheFlag.CACHE_LUCK
-            | CacheFlag.CACHE_SPEED
-        )
-        localPlayer:EvaluateItems()
-
-        print("Stats evaluated after penalty.")
-    end
-end
-
-function DavidChallenges.OnNewRoom()
-    local level = Game():GetLevel()
-    local player = Isaac.GetPlayer(0)
-
+local function CheckDavidPlate(player)
+    local level = game:GetLevel()
     local currentFloor = level:GetStage()
-    local currentRoomIndex = level:GetCurrentRoomIndex()
+    local roomIndex = level:GetCurrentRoomIndex()
 
-    if DavidFloorID ~= currentFloor then
-        GaveDavidPenalty = false
-        DavidFloorID = currentFloor
-        DavidFloorFrame = nil
-        LeftRoomWithoutPress = false
-        DavidPlateIndex = nil
+    if not DavidPlates[currentFloor] or not DavidPlates[currentFloor][roomIndex] then return end
+    local plateData = DavidPlates[currentFloor][roomIndex]
 
-        print("OnNewRoom: Resetting penalty flags for new floor")
+    local room = game:GetRoom()
+    local grid = room:GetGridEntity(plateData.index)
+    if not grid then return end
+
+    local platePos = room:GetGridPosition(plateData.index)
+    local spr = grid:GetSprite()
+    local distance = player.Position:Distance(platePos)
+
+    if distance < 35 then
+        if plateData.state == "Off" then
+            plateData.state = "Switched"
+            spr:Play("Switched", true)
+            SFXManager():Play(SoundEffect.SOUND_BUTTON_PRESS)
+
+        elseif plateData.state == "Switched" and not spr:IsPlaying("Switched") then
+            plateData.state = "On"
+            plateData.wasPressed = true
+            spr:Play("On", true)
+
+            if not plateData.backdrop or not plateData.backdrop:Exists() then
+                if not plateData.challengeVariant then
+                    local available = {}
+                    for i = 1, 9 do
+                        if not UsedChallenges[i] then
+                            table.insert(available, i)
+                        end
+                    end
+                    if #available == 0 then return end
+                    plateData.challengeVariant = available[math.random(#available)]
+                    UsedChallenges[plateData.challengeVariant] = true
+                end
+
+                local effect = Isaac.Spawn(
+                    EntityType.ENTITY_EFFECT,
+                    0,
+                    0,
+                    room:GetCenterPos() + Vector(-15, -40),
+                    Vector.Zero,
+                    nil
+                )
+                effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+                local eSpr = effect:GetSprite()
+                eSpr:Load("gfx/grid/David_challenges/challenges.anm2", true)
+                eSpr:Play("Idle", true)
+                eSpr:SetFrame(plateData.challengeVariant)
+                plateData.backdrop = effect
+            end
+        end
     end
-
-    if DavidPlateIndex
-        and not DavidBackdropSpawned
-        and currentRoomIndex ~= level:GetStartingRoomIndex()
-        and not GaveDavidPenalty
-    then
-        LeftRoomWithoutPress = true
-
-        player:AddCacheFlags(
-            CacheFlag.CACHE_DAMAGE
-            | CacheFlag.CACHE_FIREDELAY
-            | CacheFlag.CACHE_RANGE
-            | CacheFlag.CACHE_SHOTSPEED
-            | CacheFlag.CACHE_LUCK
-            | CacheFlag.CACHE_SPEED
-        )
-        player:EvaluateItems()
-
-        GaveDavidPenalty = true
-        print("OnNewRoom: GaveDavidPenalty = " .. tostring(GaveDavidPenalty))
-    end
-
-    DavidBackdropSpawned = false
-    DavidChallenges.AddPressurePlateInStartRoom(player)
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, DavidChallenges.CheckDavidPlate)
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, DavidChallenges.OnNewRoom)
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, DavidChallenges.EvaluateDavidStats)
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+    CheckDavidPlate(Isaac.GetPlayer(0))
+end)
+
+-----------------------------------------------------------------
+---                       Small dick energy                  ----
+-----------------------------------------------------------------
+mod:AddCallback(ModCallbacks.MC_PRE_NEW_ROOM, function()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local level = game:GetLevel()
+    local currentFloor = level:GetStage()
+    local startRoom = level:GetStartingRoomIndex()
+    local roomIndex = level:GetCurrentRoomIndex()
+
+    local pdata = player:GetData()
+    if not pdata.LastRoomIndex then
+        pdata.LastRoomIndex = roomIndex
+        return
+    end
+
+    local lastRoomIndex = pdata.LastRoomIndex
+    pdata.LastRoomIndex = roomIndex
+
+    if lastRoomIndex ~= startRoom then return end
+
+    if DavidPlates[currentFloor] and DavidPlates[currentFloor][startRoom] then
+        local plateData = DavidPlates[currentFloor][startRoom]
+
+        if not plateData.wasPressed and not pdata.MissedPlateFloors then
+            pdata.MissedPlateFloors = {}
+        end
+
+        if not plateData.wasPressed and not pdata.MissedPlateFloors[currentFloor] then
+            pdata.MissedPlateFloors[currentFloor] = true
+            local room = game:GetRoom()
+            local effect = Isaac.Spawn(
+                EntityType.ENTITY_EFFECT,
+                0,
+                0,
+                room:GetCenterPos() + Vector(-15, -40),
+                Vector.Zero,
+                nil
+            )
+            effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+            local eSpr = effect:GetSprite()
+            eSpr:Load("gfx/grid/David_challenges/challenges.anm2", true)
+            eSpr:Play("Idle", true)
+            eSpr:SetFrame(0)
+            plateData.backdrop = effect
+
+            player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+            player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+            player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+            player:AddCacheFlags(CacheFlag.CACHE_SHOTSPEED)
+            player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+            player:AddCacheFlags(CacheFlag.CACHE_RANGE)
+            player:EvaluateItems()
+        end
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheFlag)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local pdata = player:GetData()
+    if not pdata.MissedPlateFloors then return end
+
+    local missedFloors = 0
+    for _ in pairs(pdata.MissedPlateFloors) do missedFloors = missedFloors + 1 end
+
+    if missedFloors == 0 then return end
+
+    if cacheFlag == CacheFlag.CACHE_SPEED then
+        player.MoveSpeed = player.MoveSpeed - 0.03 * missedFloors
+    elseif cacheFlag == CacheFlag.CACHE_DAMAGE then
+        player.Damage = player.Damage - 0.15 * missedFloors
+    elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
+        player.MaxFireDelay = player.MaxFireDelay + 0.2 * missedFloors
+    elseif cacheFlag == CacheFlag.CACHE_SHOTSPEED then
+        player.ShotSpeed = player.ShotSpeed - 0.1 * missedFloors
+    elseif cacheFlag == CacheFlag.CACHE_LUCK then
+        player.Luck = player.Luck - 0.2 * missedFloors
+    elseif cacheFlag == CacheFlag.CACHE_RANGE then
+        player.TearRange = player.TearRange - 0.15 * 40 * missedFloors
+    end
+end)
+
+-----------------------------------------------------------------
+---                       CHALLENGE 1                        ----
+-----------------------------------------------------------------
+-- Frame 1 = Variant 21
+
+-----------------------------------------------------------------
+---                       CHALLENGE 2                        ----
+-----------------------------------------------------------------
+-- Frame 2 = Variant 22
+
+-----------------------------------------------------------------
+---                       CHALLENGE 3                        ----
+-----------------------------------------------------------------
+-- Frame 3 = Variant 23
+
+-----------------------------------------------------------------
+---                       CHALLENGE 4                        ----
+-----------------------------------------------------------------
+-- Frame 4 = Variant 24
+
+-----------------------------------------------------------------
+---                       CHALLENGE 5                        ----
+-----------------------------------------------------------------
+-- Frame 5 = Variant 25
+
+-----------------------------------------------------------------
+---                       CHALLENGE 6                        ----
+-----------------------------------------------------------------
+-- Frame 6 = Variant 26
+
+-----------------------------------------------------------------
+---                       CHALLENGE 7                        ----
+-----------------------------------------------------------------
+-- Frame 7 = Variant 27
+
+-----------------------------------------------------------------
+---                       CHALLENGE 8                        ----
+-----------------------------------------------------------------
+-- Frame 8 = Variant 28
+
+-----------------------------------------------------------------
+---                       CHALLENGE 9                        ----
+-----------------------------------------------------------------
+-- Frame 9 = Variant 29
+
+-----------------------------------------------------------------
+---                       New run check                      ----
+-----------------------------------------------------------------
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    DavidPlates = {}
+    UsedChallenges = {}
+    MissedPlatePenalty = {}
+end)
 
 return DavidChallenges

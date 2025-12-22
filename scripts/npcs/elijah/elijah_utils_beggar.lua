@@ -165,6 +165,7 @@ function beggarFuncs.StateMachine(beggarEntity, pool)
     end
 end
 
+
 ---SFX BOOM then remove the beggar
 ---@param beggar EntityNPC
 function beggarFuncs.DoBeggarExplosion(beggar)

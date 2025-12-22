@@ -1,0 +1,102 @@
+local mod = DiesIraeMod
+local bumUtils = include("scripts.items.familiars.bumUtils")
+local sfx = SFXManager()
+
+local TAROT_BUM = mod.Entities.FAMILIAR_TarotBum.Var
+
+---@type TarotBum
+local tarotBum = {}
+
+tarotBum.Item = mod.Items.TarotBum
+
+tarotBum.Accepts = {
+    [PickupVariant.PICKUP_TAROTCARD] = true
+}
+
+tarotBum.FollowDistance = 40
+tarotBum.ReachDistance  = 20
+
+local function IsInPool(pool, card)
+    for _, c in ipairs(pool) do
+        if c == card then
+            return true
+        end
+    end
+    return false
+end
+
+function tarotBum.OnInit(fam)
+    local data = fam:GetData()
+    data.CardsCollected = 0
+end
+
+function tarotBum.OnUpdate(fam)
+    local player = fam.Player
+    if not player then return end
+
+    if player.Velocity:LengthSquared() < 0.1 then
+        local dist = fam.Position:Distance(player.Position)
+        if dist < tarotBum.FollowDistance then
+            local push = (fam.Position - player.Position):Normalized() * 0.4
+            fam.Velocity = fam.Velocity + push
+        end
+    end
+end
+
+function tarotBum.Reward(fam)
+    local data = fam:GetData()
+    local pickup = data.TargetPickup
+    if not pickup then return false end
+
+    if pickup.Price and pickup.Price > 0 then
+        return false
+    end
+
+    local rng = fam:GetDropRNG()
+    local subtype = pickup.SubType
+
+    local pos = Isaac.GetFreeNearPosition(fam.Position, 10)
+
+    if subtype == Card.CARD_JOKER then
+        local heartType = HeartSubType.HEART_RED
+        local rand = rng:RandomInt(4)
+        if rand == 0 then
+            heartType = HeartSubType.HEART_SOUL
+        elseif rand == 1 then
+            heartType = HeartSubType.HEART_ROTTEN
+        elseif rand == 2 then
+            heartType = HeartSubType.HEART_BLACK
+        elseif rand == 3 then
+            heartType = HeartSubType.HEART_ETERNAL
+        end
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartType, pos, Vector.Zero, fam)
+
+    elseif subtype == Card.CARD_HOLY then
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ETERNAL, pos, Vector.Zero, fam)
+
+    elseif IsInPool(mod.Pools.TarotCards, subtype) then
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_SOUL, pos, Vector.Zero, fam)
+
+    elseif IsInPool(mod.Pools.ReverseCards, subtype) then
+        local heartType = HeartSubType.HEART_ROTTEN
+        if rng:RandomFloat() < 0.3 then
+            heartType = HeartSubType.HEART_BLACK
+        end
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartType, pos, Vector.Zero, fam)
+    else
+        return false
+    end
+
+    data.CardsCollected = (data.CardsCollected or 0) + 1
+    return true
+end
+
+function tarotBum.DoReward(fam)
+    if tarotBum.Reward then
+        tarotBum.Reward(fam)
+    end
+end
+
+bumUtils.RegisterBum(TAROT_BUM, tarotBum)
+
+return tarotBum
