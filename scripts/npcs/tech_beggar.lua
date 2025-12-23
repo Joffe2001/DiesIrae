@@ -111,22 +111,38 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, myBeggar
 
 function mod:GiveTemporaryTechX(player)
     if not player or not player:ToPlayer() then return end
+    local data = player:GetData()
+
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then
+        return
+    end
 
     sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
-    player:AddNullItemEffect(CollectibleType.COLLECTIBLE_TECH_X)
-    player:GetData().TechX_Timer = TECHX_DURATION
 
-    print("[Tech Beggar] Gave temporary Tech X for 30 seconds!")
+    player:AddCollectible(CollectibleType.COLLECTIBLE_TECH_X, 0, false)
+    player:EvaluateItems()
+
+    data.TechX_Timer = TECHX_DURATION
+    data.TechX_Temporary = true
+
+    print("[Tech Beggar] Gave temporary Tech X.")
 end
 
 function mod:TechXTimerUpdate(player)
     local data = player:GetData()
-    if data.TechX_Timer then
-        data.TechX_Timer = data.TechX_Timer - 1
-        if data.TechX_Timer <= 0 then
-            data.TechX_Timer = nil
+
+    if not data.TechX_Timer then return end
+
+    data.TechX_Timer = data.TechX_Timer - 1
+    if data.TechX_Timer <= 0 then
+        data.TechX_Timer = nil
+
+        if data.TechX_Temporary then
             player:RemoveCollectible(CollectibleType.COLLECTIBLE_TECH_X)
-            print("[Tech Beggar] Tech X expired.")
+            player:EvaluateItems()
+            data.TechX_Temporary = nil
+
+            print("[Tech Beggar] Temporary Tech X expired.")
         end
     end
 end

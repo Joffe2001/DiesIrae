@@ -1,4 +1,5 @@
 <music root="sfx/music/">
 	<track name="Tech Beggar Waiting" path="bradbreeckUnicorn.ogg" loop="true" />
 	<track name="Oiiai" path="Oiiai.ogg" loop="false" />
+	<track name="GigaChad" path="GIGACHAD.ogg" loop="false" />
 </music>

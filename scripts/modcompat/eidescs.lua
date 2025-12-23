@@ -598,6 +598,12 @@ mod.EIDescs = {
                 "Not including the Harp or Harp strings"
             },
         },
+        [mod.Items.MichelinStar] = {
+            en_us = { 
+				"Spawn two golden hearts on pickup",
+                "Spawn two golden hearts when picking up food item"
+            },
+        },
 --------------------------------------------------------
 --Familiars
 --------------------------------------------------------    

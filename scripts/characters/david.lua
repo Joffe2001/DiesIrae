@@ -1,6 +1,9 @@
 local mod = DiesIraeMod
 local David = {}
-include("scripts/core/davidChallenges")
+
+include("scripts/core/david_challenges_utils")
+include("scripts/core/davidPlate")
+include("scripts/core/david_challenges")
 
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()

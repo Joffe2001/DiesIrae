@@ -50,6 +50,7 @@
         <Item Name="Rune Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Fair Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Tarot Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="shop">
@@ -72,6 +73,7 @@
         <Item Name="Rune Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Fair Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Tarot Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <!-->
@@ -178,6 +180,7 @@
         <Item Name="Scared Shoes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Paranoid Android" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Still Standing" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="redChest">
@@ -226,6 +229,7 @@
         <Item Name="Rune Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Fair Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Tarot Bum" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="demonBeggar">
@@ -277,6 +281,7 @@
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Filthy Rich" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedTreasure">
@@ -306,6 +311,7 @@
         <Item Name="Break Stuff" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Cool Stick" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Delirious Mind" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Michelin Star Reward" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 
     <Pool Name="greedAngel">
