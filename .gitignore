@@ -5,3 +5,4 @@ disable.it
 .vscode/
 
 .luarc.json
+resources/gfx/ui/main menu/logo.png

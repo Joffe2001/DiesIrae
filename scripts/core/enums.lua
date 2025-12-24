@@ -290,12 +290,14 @@ mod.Achievements = {
     --- Active items unlocks
     DevilsHeart        = Isaac.GetAchievementIdByName("Devil's Heart"),
     KingsHeart         = Isaac.GetAchievementIdByName("King's Heart"),
+    SlingShot          = Isaac.GetAchievementIdByName("Sling Shot"),
     --- Passive items unlocks
     GoldenDay          = Isaac.GetAchievementIdByName("Golden Day"),
     UltraSecretMap     = Isaac.GetAchievementIdByName("Ultra Secret Map"),
     CreatineOverdose   = Isaac.GetAchievementIdByName("Creatine Overdose"),
     PTSD               = Isaac.GetAchievementIdByName("PTSD"),
     StabWound          = Isaac.GetAchievementIdByName("Stab Wound"),
+    MichelinStar       = Isaac.GetAchievementIdByName("Michelin Star Reward"),
 
     --- Trinkets unlocks
     Gaga               = Isaac.GetAchievementIdByName("Gaga"),

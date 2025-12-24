@@ -4,6 +4,36 @@ local game = Game()
 DavidPlates = DavidPlates or {}
 UsedChallenges = UsedChallenges or {}
 
+local DavidChallengeFloorRules = {
+    [1] = {
+        { stage = LevelStage.STAGE3_1},
+        { stage = LevelStage.STAGE3_2},
+        { stage = LevelStage.STAGE4_1},
+        { stage = LevelStage.STAGE4_2},
+    },
+    [9] = {
+        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_ORIGINAL},
+        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE},
+        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE_B},
+    }
+}
+
+local function IsChallengeAllowedOnFloor(variant, stage, stageType)
+    local rules = DavidChallengeFloorRules[variant]
+    if not rules then
+        return true
+    end
+
+    for _, rule in ipairs(rules) do
+        if rule.stage == stage then
+            if not rule.stageType or rule.stageType == stageType then
+                return true
+            end
+        end
+    end
+
+    return false
+end
 
 local function RestoreBackdrop(plateData)
     if plateData.backdrop and plateData.backdrop:Exists() then
@@ -56,11 +86,27 @@ local function SpawnDavidPlate(player)
     if DavidPlates[currentFloor][roomIndex] then
         local plateData = DavidPlates[currentFloor][roomIndex]
         local grid = room:GetGridEntity(plateData.index)
-
-        if grid then
+    
+        if not grid then
+            room:RemoveGridEntity(plateData.index, 0, false)
+            room:SpawnGridEntity(
+                plateData.index,
+                GridEntityType.GRID_DECORATION,
+                4500,
+                Random(),
+                0
+            )
+    
+            grid = room:GetGridEntity(plateData.index)
+            if grid then
+                local spr = grid:GetSprite()
+                spr:Load("gfx/grid/David_challenges/challengebutton.anm2", true)
+                spr:Play(plateData.state, true)
+            end
+        else
             grid:GetSprite():Play(plateData.state, true)
         end
-
+    
         RestoreBackdrop(plateData)
         return
     end
@@ -140,15 +186,27 @@ local function CheckDavidPlate(player)
             spr:Play("On", true)
 
             if not plateData.challengeVariant then
+                local level = game:GetLevel()
+                local stage = level:GetStage()
+                local stageType = level:GetStageType()
+            
                 local available = {}
                 for i = 1, 9 do
-                    if not UsedChallenges[i] then
+                    if i == 9 and (level:GetCurses() & LevelCurse.CURSE_OF_LABYRINTH ~= 0) then
+                        goto continue
+                    end
+            
+                    if not UsedChallenges[i]
+                        and IsChallengeAllowedOnFloor(i, stage, stageType)
+                    then
                         available[#available + 1] = i
                     end
+
+                    ::continue::
                 end
-
+            
                 if #available == 0 then return end
-
+            
                 plateData.challengeVariant =
                     available[math.random(#available)]
                 UsedChallenges[plateData.challengeVariant] = true

@@ -24,10 +24,11 @@
 	<achievement name="Muse" text=''                      gfx="achievement_muse.png"               gfxback="paper_music.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="kingsheart.png"                     gfxback="paper_music.png"/>
+	<achievement name="Sling Shot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>
 	<achievement name="Devil's Heart" text=''             gfx="devilsheart.png"                    gfxback="paper.png"/>
-
 <!--Passive items Unlocks-->
 	<achievement name="Golden Day" text=''                gfx="goldenday.png"                      gfxback="paper_music.png"/>
+	<achievement name="Michelin Star Reward" text=''      gfx="michelinstar.png"                   gfxback="paper_music.png"/>
 	<achievement name="Ultra Secret Map" text=''          gfx="ultrasecretmap.png"                 gfxback="paper.png"/>
 	<achievement name="Creatine Overdose" text=''         gfx="creatingoverdose.png"               gfxback="paper.png"/>
 	<achievement name="PTSD" text=''                      gfx="PTSD.png"                           gfxback="paper.png"/>

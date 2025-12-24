@@ -12,6 +12,9 @@ include("scripts.core.pools")
 DiesIraeMod.Utils = include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
+include("scripts/core/david_challenges_utils")
+include("scripts/core/davidPlate")
+include("scripts/core/david_challenges")
 
 if EID then
 	include("scripts.modcompat.eidescs")

@@ -52,27 +52,34 @@ function mod:CompleteDavidChallenge(floor)
 
     state.completed = true
     state.active = false
+    state.pendingReward = true
 end
 
-local function TrySpawnHarpString(player)
+local function TrySpawnChallengeReward(player)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
     local level = game:GetLevel()
-    local room = game:GetRoom()
     local floor = level:GetStage()
-
-    if room:GetType() ~= RoomType.ROOM_DEFAULT then return end
+    local room = game:GetRoom()
+    if not room then return end
 
     local prevState = FloorChallengeState[floor - 1]
-    if not prevState or not prevState.completed or prevState.rewardSpawned then return end
+    if not prevState or not prevState.pendingReward then return end
 
+    if level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex() then
+        return
+    end
+
+    prevState.pendingReward = false
     prevState.rewardSpawned = true
+
+    local spawnPos = room:GetCenterPos() + Vector(0, 40)
 
     Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         mod.Items.HarpString,
-        room:GetCenterPos(),
+        spawnPos,
         Vector.Zero,
         player
     )
@@ -87,9 +94,8 @@ function mod:HasDavidChallenge(floor)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-    TrySpawnHarpString(Isaac.GetPlayer(0))
+    TrySpawnChallengeReward(Isaac.GetPlayer(0))
 end)
-
 
 function mod:IsDavidChallengeActive(floor)
     return FloorChallengeState[floor] and FloorChallengeState[floor].active
