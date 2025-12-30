@@ -604,6 +604,29 @@ mod.EIDescs = {
                 "Spawn two golden hearts when picking up food item"
             },
         },
+		[mod.Items.RedBulb] = {
+			en_us = {
+				"Inverts all Devil and Angel Rooms into angelic Devil and demonic Angel Rooms",
+				"{{DevilRoom}} Take only one item but for free",
+				"{{AngelRoom}} Take multiple items but cost Broken Hearts",
+				{
+					function()
+						return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_SANGUINE_BOND)
+					end,
+					function()
+						return "{{Collectible692}} Spawns a Confessional in demonic Angel Rooms"
+					end
+				},
+				{
+					function()
+						return EID:PlayersHaveCollectible(CollectibleType.COLLECTIBLE_STAIRWAY)
+					end,
+					function()
+						return "{{Collectible586}} Becomes a demonic Stairway"
+					end
+				},
+			},
+		},
 --------------------------------------------------------
 --Familiars
 --------------------------------------------------------    

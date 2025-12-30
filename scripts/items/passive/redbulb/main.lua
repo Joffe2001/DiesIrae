@@ -50,11 +50,3 @@ mod:AddCallback(ModCallbacks.MC_PRE_CHANGE_ROOM, sanguine.blockSanguineBond)
 mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, sanguine.checkForSanguine)
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, sanguine.checkForSanguine)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, sanguine.spawnConfessional)
-
-
---[[ Stuff ]]--
-
-local description = "Inverts all Devil and Angel Rooms#{{AngelRoom}} Take as many items as you want, but bear Broken Hearts #{{DevilRoom}} Released from the cost, only one item can be taken"
-if EID then
-	EID:addCollectible(data.redBulb, description)
-end

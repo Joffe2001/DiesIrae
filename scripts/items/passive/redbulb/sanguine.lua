@@ -40,11 +40,10 @@ function sanguine:spawnConfessional()
 	return end
 
 	local roomDesc = level:GetCurrentRoomDesc()
-	if roomDesc.GridIndex ~= GridRooms.ROOM_DEVIL_IDX then
+	if roomDesc.GridIndex ~= GridRooms.ROOM_DEVIL_IDX and roomDesc.GridIndex ~= GridRooms.ROOM_ANGEL_SHOP_IDX then
 	return end
-	if (roomDesc.Data.Type ~= data.rooms.angelicDevilType and roomDesc.Data.Subtype ~= data.rooms.angelicDevilSubtype) or 
-	(roomDesc.Data.Type ~= data.rooms.angelicDevilNumberMagnetType and roomDesc.Data.Subtype ~= data.rooms.angelicDevilNumberMagnetSubtype) or
-	roomDesc.Data.Variant == data.rooms.angelicDevilPortalVar then
+
+	if not ((roomDesc.Data.Type == data.rooms.demonicAngelType and roomDesc.Data.Subtype == data.rooms.demonicAngelSubtype) or (roomDesc.Data.Type == data.rooms.demonicAngelStairwayType and roomDesc.Data.Subtype == data.rooms.demonicAngelStairwaySubtype)) or roomDesc.Data.Variant == data.rooms.demonicAngelPortalVar then
 	return end
 
 	local room = game:GetRoom()

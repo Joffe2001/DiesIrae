@@ -1,6 +1,6 @@
 local data = {}
 data.functions = {}
-data.redBulb = Isaac.GetItemIdByName("Red Bulb")
+data.redBulb = DiesIraeMod.Items.RedBulb
 
 
 data.doInversion = nil

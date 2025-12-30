@@ -72,6 +72,7 @@ mod.Items = {
     HarpString            = Isaac.GetItemIdByName("Harp String"),
     Harp                  = Isaac.GetItemIdByName("The Harp"),
     MichelinStar          = Isaac.GetItemIdByName("Michelin Star Reward"),
+	RedBulb				  = Isaac.GetItemIdByName("Red Bulb"),
 
     -- Familiars
     ParanoidAndroid       = Isaac.GetItemIdByName("Paranoid Android"),
