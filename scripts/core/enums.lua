@@ -234,6 +234,7 @@ mod.Entities = {
     FAMILIAR_RighteousGhost  = MakeEntityTable("Righteous Ghost"),
     PICKUP_ElijahsWill       = MakeEntityTable("Elijah's Will"),
     PICKUP_BurningHeart      = MakeEntityTable("Burning Heart"),
+    PICKUP_DavidChord        = MakeEntityTable("David's Chord"),
     NPC_MamaHorf             = MakeEntityTable("Blinded Horf"),
     NPC_Horfling             = MakeEntityTable("Horfling"),
     EFFECT_AndroidLazerRing  = MakeEntityTable("Android Lazer Ring"),

@@ -75,34 +75,43 @@ function HarpString:SpawnTreasurePedestals()
     local player = Isaac.GetPlayer(0)
 
     if player:GetPlayerType() ~= mod.Players.David then return end
+    if room:GetType() ~= RoomType.ROOM_TREASURE then return end
 
     local pdata = player:GetData()
     local harpCount = pdata.harpStringCount or 0
     if harpCount <= 0 then return end
 
-    if room:GetType() ~= RoomType.ROOM_TREASURE then return end
-
     if pdata.harpPedestalsSpawned == room:GetDecorationSeed() then return end
     pdata.harpPedestalsSpawned = room:GetDecorationSeed()
 
-    local extra = harpCount
-    local basePos = room:GetCenterPos()
+    local basePos = nil
+    for _, ent in ipairs(Isaac.GetRoomEntities()) do
+        if ent.Type == EntityType.ENTITY_PICKUP
+        and ent.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+            basePos = ent.Position
+            break
+        end
+    end
 
-    for i = 1, extra do
-        local offset = Vector(100 * ((i - 1) - extra/2), 0)
-        local spawnPos = basePos + offset
+    if not basePos then return end
 
-        local pedestal = Isaac.Spawn(
+    local spacing = 80
+    local spawned = 0
+
+    for i = 1, harpCount do
+        local offsetIndex = i
+        local xOffset = spacing * offsetIndex
+
+        local spawnPos = basePos + Vector(xOffset, 0)
+
+        Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
             PickupVariant.PICKUP_COLLECTIBLE,
             0,
             spawnPos,
-            Vector(0, 0),
+            Vector.Zero,
             nil
-        )
-
-        pedestal:GetData().isHarpPedestal = true
-        pedestal:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+        ):ClearEntityFlags(EntityFlag.FLAG_APPEAR)
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, HarpString.SpawnTreasurePedestals)

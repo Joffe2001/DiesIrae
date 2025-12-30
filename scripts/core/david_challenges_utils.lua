@@ -3,31 +3,42 @@ local game = Game()
 
 ---@class DavidChallengeState
 ---@field active boolean
----@field variant integer?
+---@field variant integer
 ---@field failed boolean
 ---@field completed boolean
+---@field pendingReward boolean
 ---@field rewardSpawned boolean
+---@field blockBossReward boolean
 
 ---@type table<integer, DavidChallengeState>
 local FloorChallengeState = {}
 
----@param floor integer
----@param variant integer
+------------------------------------------------
+-- Start challenge
+------------------------------------------------
 function mod:StartDavidChallenge(floor, variant)
-    if FloorChallengeState[floor] or not variant then return end
+    if not variant then return end
+
+    if mod:GetCompletedDavidChallengeCount() >= 4 then
+        return
+    end
+
+    if FloorChallengeState[floor] then return end
 
     FloorChallengeState[floor] = {
         active = true,
         variant = variant,
         failed = false,
         completed = false,
+        pendingReward = false,
         rewardSpawned = false,
         blockBossReward = false
     }
 end
 
----@param player EntityPlayer
----@param floor integer
+------------------------------------------------
+-- Fail challenge
+------------------------------------------------
 function mod:FailDavidChallenge(player, floor)
     local state = FloorChallengeState[floor]
     if not state or state.failed or state.completed then return end
@@ -45,28 +56,50 @@ function mod:FailDavidChallenge(player, floor)
     player:AnimateSad()
 end
 
----@param floor integer
+------------------------------------------------
+-- Complete challenge
+------------------------------------------------
 function mod:CompleteDavidChallenge(floor)
     local state = FloorChallengeState[floor]
-    if not state or state.failed then return end
+    if not state or state.failed or state.completed then return end
 
     state.completed = true
     state.active = false
     state.pendingReward = true
 end
 
+function mod:GetCompletedDavidChallengeCount()
+    local count = 0
+    for _, state in pairs(FloorChallengeState) do
+        if state.completed then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+------------------------------------------------
+-- Spawn reward on start room
+------------------------------------------------
 local function TrySpawnChallengeReward(player)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
     local level = game:GetLevel()
     local floor = level:GetStage()
     local room = game:GetRoom()
+
     if not room then return end
+    if level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex() then return end
 
-    local prevState = FloorChallengeState[floor - 1]
-    if not prevState or not prevState.pendingReward then return end
-
-    if level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex() then
+    local prevState
+    for f, state in pairs(FloorChallengeState) do
+        if state.pendingReward and not state.rewardSpawned then
+            prevState = state
+            break
+        end
+    end
+    
+    if not prevState or not prevState.pendingReward or prevState.rewardSpawned then
         return
     end
 
@@ -75,6 +108,7 @@ local function TrySpawnChallengeReward(player)
 
     local spawnPos = room:GetCenterPos() + Vector(0, 40)
 
+    -- Spawn Harp String
     Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
@@ -89,27 +123,59 @@ local function TrySpawnChallengeReward(player)
     player:AnimateHappy()
 end
 
-function mod:HasDavidChallenge(floor)
-    return FloorChallengeState[floor] ~= nil
+------------------------------------------------
+-- Check if the boss was defeated
+------------------------------------------------
+local function WasBossDefeatedThisFloor()
+    local level = game:GetLevel()
+    local rooms = level:GetRooms()
+
+    for i = 0, rooms.Size - 1 do
+        local desc = rooms:Get(i)
+        if desc
+        and desc.Data
+        and desc.Data.Type == RoomType.ROOM_BOSS
+        and desc.Clear then
+            return true
+        end
+    end
+
+    return false
 end
+
+------------------------------------------------
+-- Cancel the challenge
+------------------------------------------------
+function mod:CancelDavidChallenge(floor)
+    local state = FloorChallengeState[floor]
+    if not state then return end
+    if state.failed or state.completed then return end
+
+    state.active = false
+end
+
+------------------------------------------------
+-- CALLBACKS
+------------------------------------------------
+mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
+    local floor = game:GetLevel():GetStage()
+    local state = FloorChallengeState[floor]
+
+    if not state or not state.active then return end
+    if state.failed then return end
+
+    if WasBossDefeatedThisFloor() then
+        mod:CompleteDavidChallenge(floor)
+    else
+        mod:CancelDavidChallenge(floor)
+    end
+end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     TrySpawnChallengeReward(Isaac.GetPlayer(0))
 end)
 
-function mod:IsDavidChallengeActive(floor)
-    return FloorChallengeState[floor] and FloorChallengeState[floor].active
-end
-
-function mod:GetDavidChallengeVariant(floor)
-    return FloorChallengeState[floor] and FloorChallengeState[floor].variant
-end
-
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-    FloorChallengeState = {}
-end)
-
+-- Remove boss reward 
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then return end
     if pickup.SubType <= 0 then return end
@@ -120,12 +186,30 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
 
     local floor = game:GetLevel():GetStage()
     local state = FloorChallengeState[floor]
-
     if not state or not state.blockBossReward then return end
 
     pickup:Remove()
     state.blockBossReward = false
 end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+    FloorChallengeState = {}
+end)
+
+------------------------------------------------
+-- API
+------------------------------------------------
+function mod:IsDavidChallengeActive(floor)
+    return FloorChallengeState[floor] and FloorChallengeState[floor].active
+end
+
+function mod:GetDavidChallengeVariant(floor)
+    return FloorChallengeState[floor] and FloorChallengeState[floor].variant
+end
+
+function mod:HasDavidChallenge(floor)
+    return FloorChallengeState[floor] ~= nil
+end
 
 return {
     StartChallenge    = function(floor, variant) mod:StartDavidChallenge(floor, variant) end,

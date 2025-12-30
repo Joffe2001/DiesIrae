@@ -262,6 +262,35 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_KingsHeart)
 
 ------------------------------------------------------
+---            Unlock SlingShot                   ---
+------------------------------------------------------
+local slingshotUnlocked = false
+
+local function CheckSlingShotUnlock(player)
+    if slingshotUnlocked then return end
+
+    local floorChallengeState = mod.FloorChallengeState or {}
+    for _, state in pairs(floorChallengeState) do
+        if state.completed then
+            TryUnlock(mod.Achievements.SlingShot)
+            slingshotUnlocked = true
+            break
+        end
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+    CheckSlingShotUnlock(player)
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    slingshotUnlocked = false
+end)
+
+
+------------------------------------------------------
 ---              Unlock Devil's Heart              ---
 ------------------------------------------------------
 local hasUnlockedDevilsHeart = false
@@ -296,6 +325,39 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
     if reenter then return end
     hasUnlockedDevilsHeart = false
     tookDevilDealFatal = false
+end)
+
+------------------------------------------------------
+---         Unlock Michelin Star                  ---
+------------------------------------------------------
+local michelinUnlocked = false
+
+local function CheckMichelinUnlock(player)
+    if michelinUnlocked then return end
+
+    local floorChallengeState = mod.FloorChallengeState or {}
+    local completedCount = 0
+
+    for _, state in pairs(floorChallengeState) do
+        if state.completed then
+            completedCount = completedCount + 1
+        end
+    end
+
+    if completedCount >= 4 then
+        TryUnlock(mod.Achievements.MichelinStar)
+        michelinUnlocked = true
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+    CheckMichelinUnlock(player)
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
+    if reenter then return end
+    michelinUnlocked = false
 end)
 
 ------------------------------------------------------

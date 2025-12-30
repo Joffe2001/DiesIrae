@@ -119,6 +119,9 @@
     <entity id="6" variant="238" name="Goldsmith Beggar Elijah" anm2path="npc/Elijahnpc/goldsmith.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
+    <entity id="6" variant="239" name="Restock Elijah" anm2path="npc/Elijahnpc/restock_will.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="33" stageHP="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
 <!--CONSUMABLES-->
 
 <!--Runes and such-->
@@ -147,7 +150,10 @@
 	<entity id="5" variant="302" subtype="0" name="Burning Heart" anm2path="items/pickups/burningheart.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
-
+<!--David's chord-->
+	<entity id="5" variant="303" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
+		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	</entity>
 <!--ENEMIES-->
     <entity id="400" variant="1" name="Blinded Horf" anm2path="enemies/mama_horf.anm2" reroll="true" baseHP="70" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="19" stageHP="0" portrait="0">
         <bestiary transform="0,0,1" anim="Shake" overlay="Head" />

@@ -13,8 +13,8 @@ DiesIraeMod.Utils = include("scripts.core.utils")
 include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 include("scripts/core/david_challenges_utils")
-include("scripts/core/davidPlate")
 include("scripts/core/david_challenges")
+include("scripts/core/davidPlate")
 
 if EID then
 	include("scripts.modcompat.eidescs")

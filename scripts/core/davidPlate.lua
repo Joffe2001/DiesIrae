@@ -9,7 +9,6 @@ local DavidChallengeFloorRules = {
         { stage = LevelStage.STAGE3_1},
         { stage = LevelStage.STAGE3_2},
         { stage = LevelStage.STAGE4_1},
-        { stage = LevelStage.STAGE4_2},
     },
     [9] = {
         { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_ORIGINAL},
@@ -74,9 +73,15 @@ local function SpawnDavidPlate(player)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
     local level = game:GetLevel()
+    local stage = level:GetStage()
     local room = game:GetRoom()
     local currentFloor = level:GetStage()
     local roomIndex = level:GetCurrentRoomIndex()
+
+    if mod:GetCompletedDavidChallengeCount() >= 4
+    or stage > LevelStage.STAGE4_2 then
+        return
+    end
 
     if currentFloor < 2 then return end
     if roomIndex ~= level:GetStartingRoomIndex() then return end
@@ -86,7 +91,7 @@ local function SpawnDavidPlate(player)
     if DavidPlates[currentFloor][roomIndex] then
         local plateData = DavidPlates[currentFloor][roomIndex]
         local grid = room:GetGridEntity(plateData.index)
-    
+
         if not grid then
             room:RemoveGridEntity(plateData.index, 0, false)
             room:SpawnGridEntity(
@@ -96,7 +101,7 @@ local function SpawnDavidPlate(player)
                 Random(),
                 0
             )
-    
+
             grid = room:GetGridEntity(plateData.index)
             if grid then
                 local spr = grid:GetSprite()
@@ -106,7 +111,7 @@ local function SpawnDavidPlate(player)
         else
             grid:GetSprite():Play(plateData.state, true)
         end
-    
+
         RestoreBackdrop(plateData)
         return
     end

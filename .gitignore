@@ -6,3 +6,4 @@ disable.it
 
 .luarc.json
 resources/gfx/ui/main menu/logo.png
+main.lua
