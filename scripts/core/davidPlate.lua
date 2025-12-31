@@ -7,13 +7,13 @@ UsedChallenges = UsedChallenges or {}
 local DavidChallengeFloorRules = {
     [1] = {
         { stage = LevelStage.STAGE3_1},
-        { stage = LevelStage.STAGE3_2},
         { stage = LevelStage.STAGE4_1},
     },
     [9] = {
         { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_ORIGINAL},
         { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE},
         { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE_B},
+        { stage = LevelStage.STAGE2_1, stageType = StageType.STAGETYPE_ORIGINAL},
     }
 }
 
@@ -144,7 +144,7 @@ local function SpawnDavidPlate(player)
     DavidPlates[currentFloor][roomIndex] = {
         index = targetIndex,
         state = "Off",
-        challengeVariant = nil, -- 1–9
+        challengeVariant = nil, -- 1–11
         wasPressed = false,
         missed = false,
         backdrop = nil
@@ -196,7 +196,7 @@ local function CheckDavidPlate(player)
                 local stageType = level:GetStageType()
             
                 local available = {}
-                for i = 1, 9 do
+                for i = 1, 11 do
                     if i == 9 and (level:GetCurses() & LevelCurse.CURSE_OF_LABYRINTH ~= 0) then
                         goto continue
                     end

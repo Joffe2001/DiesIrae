@@ -443,22 +443,21 @@ end)
 local CHALLENGE_COLLECT_CHORDS = 8
 local REQUIRED_CHORDS = 10
 local CHORD_DROP_CHANCE = 0.5
-
+local CHORD_LIFETIME = 12 
 
 local CollectedChords = {}
 
 local function GetFloorKey()
-    local level = game:GetLevel()
-    return level:GetAbsoluteStage()
+    return game:GetLevel():GetAbsoluteStage()
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    local floorKey = GetFloorKey()
+    local floor = GetFloorKey()
 
-    if not mod:IsDavidChallengeActive(floorKey) then return end
-    if mod:GetDavidChallengeVariant(floorKey) ~= CHALLENGE_COLLECT_CHORDS then return end
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
 
-    CollectedChords[floorKey] = 0
+    CollectedChords[floor] = 0
 end)
 
 
@@ -466,23 +465,43 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
     if not npc:IsActiveEnemy(false) then return end
     if npc:IsBoss() then return end
 
-    local floorKey = GetFloorKey()
-    if not mod:IsDavidChallengeActive(floorKey) then return end
-    if mod:GetDavidChallengeVariant(floorKey) ~= CHALLENGE_COLLECT_CHORDS then return end
+    local floor = GetFloorKey()
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
 
     local room = game:GetRoom()
     local rng = RNG()
     rng:SetSeed(room:GetDecorationSeed() + npc.InitSeed, 35)
 
-    if rng:RandomFloat() < CHORD_DROP_CHANCE then
-        Isaac.Spawn(
-            EntityType.ENTITY_PICKUP,
-            mod.Entities.PICKUP_DavidChord.Var,
-            0,
-            npc.Position,
-            Vector.Zero,
-            nil
-        )
+    if rng:RandomFloat() >= CHORD_DROP_CHANCE then return end
+
+    local pickup = Isaac.Spawn(
+        EntityType.ENTITY_PICKUP,
+        mod.Entities.PICKUP_DavidChord.Var,
+        0,
+        npc.Position,
+        Vector.Zero,
+        nil
+    )
+    pickup:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+    local sprite = pickup:GetSprite()
+    sprite:Play("Disappear", true)
+
+    local data = pickup:GetData()
+    data.ChordTimer = CHORD_LIFETIME
+    data.ChordActive = true
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
+    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
+
+    local data = pickup:GetData()
+    if not data.ChordActive then return end
+
+    data.ChordTimer = data.ChordTimer - 1
+
+    if data.ChordTimer <= 0 then
+        pickup:Remove()
     end
 end)
 
@@ -490,20 +509,18 @@ mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collid
     if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
 
     local player = collider:ToPlayer()
-    if not player then return end
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if not player or player:GetPlayerType() ~= mod.Players.David then
+        return true
+    end
 
-    local floorKey = GetFloorKey()
-    if not mod:IsDavidChallengeActive(floorKey) then return end
-    if mod:GetDavidChallengeVariant(floorKey) ~= CHALLENGE_COLLECT_CHORDS then return end
     pickup:Remove()
 
-    CollectedChords[floorKey] = (CollectedChords[floorKey] or 0) + 1
-
-    if CollectedChords[floorKey] >= REQUIRED_CHORDS then
-        mod:CompleteDavidChallenge(floorKey)
+    local floor = GetFloorKey()
+    CollectedChords[floor] = (CollectedChords[floor] or 0) + 1
+    if CollectedChords[floor] >= REQUIRED_CHORDS then
+        mod:CompleteDavidChallenge(floor)
     end
-    return true
+    return true 
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
@@ -578,3 +595,52 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
         mod:CompleteDavidChallenge(floor)
     end
 end)
+
+-------------------------------------------------
+-- CHALLENGE 10: Do not use active or consumables
+-------------------------------------------------
+
+local CHALLENGE_NO_USE = 10
+
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, _, _, _, _, _)
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_USE then return end
+
+    local player = PlayerManager.GetPlayers()[1]
+    if player then
+        mod:FailDavidChallenge(player, floor)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, _)
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_USE then return end
+
+    local player = PlayerManager.GetPlayers()[1]
+    if player then
+        mod:FailDavidChallenge(player, floor)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, _)
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_USE then return end
+
+    local player = PlayerManager.GetPlayers()[1]
+    if player then
+        mod:FailDavidChallenge(player, floor)
+    end
+end)
+
+-------------------------------------------------
+-- CHALLENGE 11: Kill 20 enemies while standing still
+-------------------------------------------------

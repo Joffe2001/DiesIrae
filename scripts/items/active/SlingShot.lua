@@ -44,7 +44,7 @@ function SlingShot:onUse(_, _, player, _, _)
         tear.Color = Color(1.8, 0.1, 0.1, 1, 0, 0, 0)
     end
 
-    sfx:Play(SoundEffect.SOUND_MEGA_BLAST_START, 1.0)
+    sfx:Play(mod.Sounds.Whoosh, 1.0)
     game:ShakeScreen(10)
 
     return true 

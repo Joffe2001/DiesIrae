@@ -10,6 +10,10 @@
     <sound name="King's Heart Fart">
         <sample weight="1" path="clubpenguinfart.wav" />
     </sound>
+
+    <sound name="Whoosh">
+        <sample weight="1" path="whoosh.wav" />
+    </sound>
 <!--PILLS-->
     <sound name="Blessed Pill">
         <sample weight="1" path="blessed.wav" />

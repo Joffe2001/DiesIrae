@@ -162,6 +162,7 @@ mod.Sounds = {
     JEVIL_CHAOS           = Isaac.GetSoundIdByName("Chaos chaos"),
     KILLER_QUEEN_DETONATE = Isaac.GetSoundIdByName("Killer Queen Detonate"),
     KINGS_FART            = Isaac.GetSoundIdByName("King's Heart Fart"),
+    Whoosh                = Isaac.GetSoundIdByName("Whoosh"),
 
     --Pills
     CURSED            = Isaac.GetSoundIdByName("Cursed Pill"),
