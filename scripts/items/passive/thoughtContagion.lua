@@ -48,6 +48,5 @@ function ThoughtContagion:OnEntityDamage(entity, amount, flags, source, countdow
         end
     end
 end
-
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, ThoughtContagion.OnEntityDamage)
 

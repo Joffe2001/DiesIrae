@@ -95,7 +95,20 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_PLACE_ROOM, function(_, roomDesc)
     return roomCfg
 end)
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity)
+    local player = entity:ToPlayer()
+    if not player or player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetAbsoluteStage()
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
+
+    if game:GetRoom():GetType() == RoomType.ROOM_BOSS then
+        mod:FailDavidChallenge(player, floor)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
@@ -103,45 +116,14 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     if not mod:IsDavidChallengeActive(floor) then return end
     if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
 
-    if game:GetRoom():GetType() == RoomType.ROOM_BOSS then
-        local pdata = player:GetData()
-        pdata.DavidBossStarted = pdata.DavidBossStarted or {}
-        pdata.DavidBossStarted[floor] = true
+    local room = game:GetRoom()
+    if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
+        mod:CompleteDavidChallenge(floor)
     end
 end)
 
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity)
-    local player = entity:ToPlayer()
-    if not player then return end
-    if player:GetPlayerType() ~= mod.Players.David then return end
-
-    local level = game:GetLevel()
-    local floor = level:GetAbsoluteStage()
-
-    if not mod:IsDavidChallengeActive(floor) then return end
-    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
-
-    local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_BOSS then return end
-
-    mod:FailDavidChallenge(player, floor)
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = Isaac.GetPlayer(0)
-    if player:GetPlayerType() ~= mod.Players.David then return end
-
-    local level = game:GetLevel()
-    local floor = level:GetAbsoluteStage()
-
-    if not mod:IsDavidChallengeActive(floor) then return end
-    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
-
-    local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_BOSS then return end
-    if not room:IsClear() then return end
-
-    mod:CompleteDavidChallenge(floor)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    ForcedBossRoom = {}
 end)
 
 -------------------------------------------------
@@ -161,9 +143,20 @@ local COUNTABLE_ROOMS = {
     [RoomType.ROOM_MINIBOSS]   = true
 }
 
-local SpawnedSpecialRooms = {}
 local VisitedSpecialRooms = {}
 local SpecialChallengeCompleted = {}
+
+local function UpdateSpawnedSpecialRooms(floor)
+    SpawnedSpecialRooms[floor] = {}
+    local rooms = game:GetLevel():GetRooms()
+
+    for i = 0, rooms.Size - 1 do
+        local desc = rooms:Get(i)
+        if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] then
+            SpawnedSpecialRooms[floor][desc.RoomIndex] = true
+        end
+    end
+end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     local floor = game:GetLevel():GetStage()
@@ -186,6 +179,9 @@ end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     local floor = game:GetLevel():GetStage()
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_ENTER_SPECIALS then return end
+
+    UpdateSpawnedSpecialRooms(floor)
 
     if not mod:IsDavidChallengeActive(floor) then return end
     if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_ENTER_SPECIALS then return end
@@ -340,78 +336,23 @@ end)
 local CHALLENGE_NO_MISS = 6
 local MAX_MISSES = 50
 
-local MissedShots = {}
+local ShotsThisFloor = {}
+local HitsThisFloor  = {}
 
-mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
-    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if not player then return end
-    if player:GetPlayerType() ~= mod.Players.David then return end
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source)
+    if not entity:IsVulnerableEnemy() then return end
+
+    local player = source.Entity and source.Entity:ToPlayer()
+    if not player or player:GetPlayerType() ~= mod.Players.David then return end
 
     local floor = game:GetLevel():GetStage()
     if not DavidUtils.IsActive(floor) then return end
     if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
 
-    local data = tear:GetData()
-    data.David_NoMiss_Tracked = true
-    data.David_NoMiss_Hit = false
+    HitsThisFloor[floor] = (HitsThisFloor[floor] or 0) + 1
 end)
 
-mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider)
-    local data = tear:GetData()
-    if not data.David_NoMiss_Tracked then return end
-    if data.David_NoMiss_Hit then return end 
-
-    local npc = collider:ToNPC()
-    if npc and npc:IsActiveEnemy(false) then
-        data.David_NoMiss_Hit = true
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_PRE_TEAR_UPDATE, function(_, tear)
-    local data = tear:GetData()
-    if not data.David_NoMiss_Tracked then return end
-    if data.David_NoMiss_Hit then return end
-
-    if tear:HasTearFlags(TearFlags.TEAR_EXPLOSIVE) then
-        data.David_NoMiss_Hit = true
-        return
-    end
-
-    local room = game:GetRoom()
-    local grid = room:GetGridEntityFromPos(tear.Position)
-    if not grid then return end
-
-    local gridType = grid:GetType()
-    if gridType == GridEntityType.GRID_POOP
-        or gridType == GridEntityType.GRID_FIREPLACE
-        or gridType == GridEntityType.GRID_TNT
-    then
-        data.David_NoMiss_Hit = true
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_, tear)
-    if not tear:IsDead() then return end
-
-    local data = tear:GetData()
-    if not data.David_NoMiss_Tracked then return end
-
-    if data.David_NoMiss_Hit then return end
-
-    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if not player then return end
-
-    local floor = game:GetLevel():GetStage()
-    MissedShots[floor] = (MissedShots[floor] or 0) + 1
-
-    if MissedShots[floor] > MAX_MISSES then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-    if not Debug then return end
-
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
@@ -419,116 +360,30 @@ mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     if not DavidUtils.IsActive(floor) then return end
     if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
 
-    local misses = MissedShots[floor] or 0
+    if player:GetFireDirection() ~= Direction.NO_DIRECTION then
+        ShotsThisFloor[floor] = (ShotsThisFloor[floor] or 0) + 1
+    end
 
-    Isaac.RenderText(
-        "No-Miss Challenge: " .. misses .. " / " .. MAX_MISSES,
-        60,
-        30,
-        1, 1, 1, 1
-    )
+    local shots = ShotsThisFloor[floor] or 0
+    local hits  = HitsThisFloor[floor]  or 0
+    local misses = shots - hits
+
+    if misses > MAX_MISSES then
+        mod:FailDavidChallenge(player, floor)
+    end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    MissedShots = {}
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-    MissedShots = {}
-end)
-
------------------------------------------------------------------
---- CHALLENGE 8: Collect 10 David's Chords
------------------------------------------------------------------
-local CHALLENGE_COLLECT_CHORDS = 8
-local REQUIRED_CHORDS = 10
-local CHORD_DROP_CHANCE = 0.5
-local CHORD_LIFETIME = 12 
-
-local CollectedChords = {}
-
-local function GetFloorKey()
-    return game:GetLevel():GetAbsoluteStage()
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    local floor = GetFloorKey()
-
-    if not mod:IsDavidChallengeActive(floor) then return end
-    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
-
-    CollectedChords[floor] = 0
-end)
-
-
-mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
-    if not npc:IsActiveEnemy(false) then return end
-    if npc:IsBoss() then return end
-
-    local floor = GetFloorKey()
-    if not mod:IsDavidChallengeActive(floor) then return end
-    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
-
-    local room = game:GetRoom()
-    local rng = RNG()
-    rng:SetSeed(room:GetDecorationSeed() + npc.InitSeed, 35)
-
-    if rng:RandomFloat() >= CHORD_DROP_CHANCE then return end
-
-    local pickup = Isaac.Spawn(
-        EntityType.ENTITY_PICKUP,
-        mod.Entities.PICKUP_DavidChord.Var,
-        0,
-        npc.Position,
-        Vector.Zero,
-        nil
-    )
-    pickup:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
-    local sprite = pickup:GetSprite()
-    sprite:Play("Disappear", true)
-
-    local data = pickup:GetData()
-    data.ChordTimer = CHORD_LIFETIME
-    data.ChordActive = true
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
-    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
-
-    local data = pickup:GetData()
-    if not data.ChordActive then return end
-
-    data.ChordTimer = data.ChordTimer - 1
-
-    if data.ChordTimer <= 0 then
-        pickup:Remove()
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
-    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
-
-    local player = collider:ToPlayer()
-    if not player or player:GetPlayerType() ~= mod.Players.David then
-        return true
-    end
-
-    pickup:Remove()
-
-    local floor = GetFloorKey()
-    CollectedChords[floor] = (CollectedChords[floor] or 0) + 1
-    if CollectedChords[floor] >= REQUIRED_CHORDS then
-        mod:CompleteDavidChallenge(floor)
-    end
-    return true 
+    ShotsThisFloor = {}
+    HitsThisFloor  = {}
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
     if not isContinued then
-        CollectedChords = {}
+        ShotsThisFloor = {}
+        HitsThisFloor  = {}
     end
 end)
-
 -------------------------------------------------
 -- CHALLENGE 7: NO HIT (CHAMPIONS)
 -------------------------------------------------
@@ -563,36 +418,180 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
     end
 end)
 
+-----------------------------------------------------------------
+--- CHALLENGE 8: Collect 10 David's Chords
+-----------------------------------------------------------------
+local CHALLENGE_COLLECT_CHORDS = 8
+local REQUIRED_CHORDS = 10
+local CHORD_DROP_CHANCE = 0.5
+local CHORD_LIFETIME = 12
+local CollectedChords = 0 
+
+
+local function IsChallengeActive()
+    local floor = game:GetLevel():GetStage()
+    return mod:IsDavidChallengeActive(floor)
+       and mod:GetDavidChallengeVariant(floor) == CHALLENGE_COLLECT_CHORDS
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        CollectedChords = 0
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    if IsChallengeActive() then
+        CollectedChords = 0
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
+    if not npc:IsActiveEnemy(false) or npc:IsBoss() then return end
+    if not IsChallengeActive() then return end
+
+    local rng = RNG()
+    rng:SetSeed(npc.InitSeed, 1)
+    if rng:RandomFloat() >= CHORD_DROP_CHANCE then return end
+
+    local pickup = Isaac.Spawn(
+        EntityType.ENTITY_PICKUP,
+        mod.Entities.PICKUP_DavidChord.Var,
+        0,
+        npc.Position,
+        Vector.Zero,
+        nil
+    )
+
+    local data = pickup:GetData()
+    data.ChordTimer = CHORD_LIFETIME
+    data.ChordActive = true
+    pickup:GetSprite():Play("Idle", true)
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
+    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
+
+    local data = pickup:GetData()
+    if not data.ChordActive then return end
+
+    data.ChordTimer = data.ChordTimer - 1
+    if data.ChordTimer <= 0 then
+        pickup:Remove()
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
+    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
+
+    local player = collider:ToPlayer()
+    if not player or player:GetPlayerType() ~= mod.Players.David then
+        return true
+    end
+
+    pickup:Remove()
+    CollectedChords = CollectedChords + 1
+
+    if CollectedChords >= REQUIRED_CHORDS then
+        mod:CompleteDavidChallenge()
+    end
+
+    return true
+end)
+
+
 -------------------------------------------------
 -- CHALLENGE 9: FAST BOSS
 -------------------------------------------------
 local CHALLENGE_FAST_BOSS = 9
 local FAST_BOSS_FRAMES = 30 * 180
 
+local MIND_STAGES = {
+    [LevelStage.STAGE2_1] = true,
+    [LevelStage.STAGE2_2] = true,
+    [LevelStage.STAGE3_1] = true,
+}
+
+local function GiveTemporaryMind(player)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_MIND) then
+        return
+    end
+
+    local pdata = player:GetData()
+    if pdata.TempMind then return end
+
+    player:AddCollectible(CollectibleType.COLLECTIBLE_MIND, 0, false)
+    pdata.TempMind = true
+end
+local function RemoveTemporaryMind(player)
+    local pdata = player:GetData()
+    if not pdata.TempMind then return end
+
+    player:RemoveCollectibleEffect(
+        CollectibleType.COLLECTIBLE_MIND,
+        1
+    )
+
+    pdata.TempMind = nil
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local level = game:GetLevel()
+    local stage = level:GetStage()
+
+    if not DavidUtils.IsActive(stage) then
+        RemoveTemporaryMind(player)
+        return
+    end
+
+    if DavidUtils.GetVariant(stage) ~= CHALLENGE_FAST_BOSS then
+        RemoveTemporaryMind(player)
+        return
+    end
+
+    local pdata = player:GetData()
+    pdata.FastBossTimer = FAST_BOSS_FRAMES
+
+    if MIND_STAGES[stage] then
+        GiveTemporaryMind(player)
+    else
+        RemoveTemporaryMind(player)
+    end
+end)
+
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = game:GetLevel():GetStage()
-    if DavidUtils.GetVariant(floor) ~= CHALLENGE_FAST_BOSS then return end
-    if not DavidUtils.IsActive(floor) then return end
+    local stage = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(stage) then return end
+    if DavidUtils.GetVariant(stage) ~= CHALLENGE_FAST_BOSS then return end
 
     local pdata = player:GetData()
-    if not pdata.FastBossTimer then
-        pdata.FastBossTimer = FAST_BOSS_FRAMES
-    end
+    if not pdata.FastBossTimer then return end
 
     pdata.FastBossTimer = pdata.FastBossTimer - 1
     if pdata.FastBossTimer <= 0 then
         pdata.FastBossTimer = nil
-        mod:FailDavidChallenge(player, floor)
+        RemoveTemporaryMind(player)
+        mod:FailDavidChallenge(player, stage)
         return
     end
 
     local room = game:GetRoom()
     if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
         pdata.FastBossTimer = nil
-        mod:CompleteDavidChallenge(floor)
+        RemoveTemporaryMind(player)
+        mod:CompleteDavidChallenge(stage)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        RemoveTemporaryMind(Isaac.GetPlayer(0))
     end
 end)
 
@@ -644,3 +643,56 @@ end)
 -------------------------------------------------
 -- CHALLENGE 11: Kill 20 enemies while standing still
 -------------------------------------------------
+local CHALLENGE_STILL_KILLS = 11
+local REQUIRED_STILL_KILLS = 20
+
+local StillKills = {}
+local LastPos = {}
+
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
+    if not npc:IsVulnerableEnemy() or npc:IsBoss() then return end
+
+    local player = Isaac.GetPlayer(0)
+    local floor = game:GetLevel():GetStage()
+
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_STILL_KILLS then return end
+
+    LastPos[floor] = LastPos[floor] or player.Position
+    local standingStill = player.Position:DistanceSquared(LastPos[floor]) < 1
+    LastPos[floor] = player.Position
+
+    if standingStill then
+        StillKills[floor] = (StillKills[floor] or 0) + 1
+    end
+
+    if (StillKills[floor] or 0) >= REQUIRED_STILL_KILLS then
+        mod:CompleteDavidChallenge(floor)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
+    if not npc:IsBoss() then return end
+
+    local player = Isaac.GetPlayer(0)
+    local floor = game:GetLevel():GetStage()
+
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_STILL_KILLS then return end
+
+    if (StillKills[floor] or 0) < REQUIRED_STILL_KILLS then
+        mod:FailDavidChallenge(player, floor)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    StillKills = {}
+    LastPos = {}
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        StillKills = {}
+        LastPos = {}
+    end
+end)

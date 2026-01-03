@@ -20,10 +20,7 @@ if EID then
 	include("scripts.modcompat.eidescs")
 	include("scripts.modcompat.eid")
 end
----------------------------------------------------
---  Dependencies
----------------------------------------------------
---include("scripts.dependencies.hud_helper")
+
 ---------------------------------------------------
 --  Characters
 ---------------------------------------------------
@@ -190,9 +187,11 @@ include("scripts.npcs.elijah.elijah_jys") -- Doesn't work
 include("scripts.enemies.blindedHorf")
 include("scripts.enemies.horfling")
 ---------------------------------------------------
---  Somethings that comes with the mod
+--  Extras
 ---------------------------------------------------
 include("scripts.core.voidlost")
+include("scripts.items.familiars.gellocostumes")
+
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------

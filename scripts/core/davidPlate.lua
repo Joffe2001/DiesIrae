@@ -10,10 +10,10 @@ local DavidChallengeFloorRules = {
         { stage = LevelStage.STAGE4_1},
     },
     [9] = {
-        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_ORIGINAL},
-        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE},
-        { stage = LevelStage.STAGE1_2, stageType = StageType.STAGETYPE_REPENTANCE_B},
-        { stage = LevelStage.STAGE2_1, stageType = StageType.STAGETYPE_ORIGINAL},
+        { stage = LevelStage.STAGE1_2},
+        { stage = LevelStage.STAGE2_1},
+        { stage = LevelStage.STAGE2_2},
+        { stage = LevelStage.STAGE3_1},
     }
 }
 
