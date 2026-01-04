@@ -19,14 +19,14 @@ pillBum.ReachDistance = 20
 
 function pillBum.OnInit(fam)
 	local data = fam:GetData()
-	local data.pillEffectSubClass = 0 --[[0 = neutral, 1 = positive, 2 = negative]]
-	local data.statChanges = {}
-	local data.statChanges.speed = 0
-	local data.statChanges.fireRate = 0
-	local data.statChanges.damage = 0
-	local data.statChanges.range = 0
-	local data.statChanges.shotSpeed = 0
-	local data.statChanges.luck = 0
+	data.pillEffectSubClass = 0 --[[0 = neutral, 1 = positive, 2 = negative]]
+	data.statChanges = {}
+	data.statChanges.speed = 0
+	data.statChanges.fireRate = 0
+	data.statChanges.damage = 0
+	data.statChanges.range = 0
+	data.statChanges.shotSpeed = 0
+	data.statChanges.luck = 0
 end
 
 function pillBum.OnUpdate(fam)
@@ -37,7 +37,7 @@ function pillBum.OnUpdate(fam)
 	if player.Velocity:LengthSquared() < 0.1 then
 		local distance = fam.Position:Distance(player.Position)
 
-		if distance < pillBum.FollowDisctance then
+		if distance < pillBum.FollowDistance then
 			local push = (fam.Position - player.Position):Normalized() * 0.4
 			fam.Velocity = fam.Velocity + push
 		end
@@ -55,28 +55,30 @@ function pillBum.Reward(fam)
 		return false end
 
 	local itemPool = Game():GetItemPool()
-	local pillEffect = itemPool:GetPIllEffect(pickup.Subtype, fam.Player)
+	local pillEffect = itemPool:GetPillEffect(pickup.SubType, fam.Player)
+	local itemConfig_pillEffect = Isaac.GetItemConfig():GetPillEffect(pillEffect)
 
-	data.pillEffectSubClass = pillEffect.EffectSubClass
+	data.pillEffectSubClass = itemConfig_pillEffect.EffectSubClass
+	print(data.pillEffectSubClass)
 	sfx:Play(SoundEffect.SOUND_SOUL_PICKUP, 1.0, 0, false, 1.0) --change sound effect?	
-	return true --100% drop chance
+	print("pre true")
+	return rng:RandomFloat() < DROP_CHANCE --[[ = true ]]
 end
 
 function pillBum.DoReward(fam)
+	print("test")
 	local data = fam.GetData()
 	local rng = fam.GetDropRNG()
 
 
+	print(data.pillEffectSubClass)
 	if data.pillEffectSubClass == 0 then --[[if neutral: activate a random pill effect]]
 		local pillEffectAmount = Isaac.GetItemconfig():GetPillEffects().Size
 		local randomPillEffect = rng:RandomInt(pillEffectAmount)
 
 		fam.Player:UsePill(randomPillEffect, 0 --[[pill color; has nothing to do with effect but needs to be passed]])
 
-	elseif data.pillEffectSubClass == 1 then --[[if good: random, minor stat up]]
-
-		--https://isaacblueprints.com/tutorials/basics/stats_cache/
-
+	elseif data.pillEffectSubClass == 1 then --[[if good: random minor stat up]]
 		local randomNumber = rng:RandomInt(6)
 		local doEvaluateItems = true
 
@@ -99,14 +101,14 @@ function pillBum.DoReward(fam)
 			data.statChanges.luck = data.statChanges.luck + 0.1
 			fam.Player:AddCacheFlags(CacheFlag.CACHE_LUCK, doEvaluateItems)
 		end
-		
+
 
 	elseif data.pillEffectSubClass == 2 then --[[if bad: poison all enemies in room]]
 		local entities = Isaa.GetRoomEntities()
 
 		for i, entity in ipairs(entities) do
 			if entity:IsVulnerableEnemy() then
-				entity:AddPoison(fam, 90 --[[5 damage ticks]], 1 --[[damage]])
+				entity:AddPoison(fam, 90 --[[= 5 damage ticks]], 1 --[[damage]])
 		end end
 	end
 
@@ -117,7 +119,7 @@ end
 
 
 function pillBum.EvaluateCache(player, cacheFlag)
-	--check for right player...
+	--!!check for right player; still needed
 	if not player:HasCollectible(mod.Items.PillBum) then
 	return end
 
@@ -138,6 +140,6 @@ function pillBum.EvaluateCache(player, cacheFlag)
 	end
 end
 
-bumUtils.Register(PILL_BUM, pillBum)
+bumUtils.RegisterBum(PILL_BUM, pillBum)
 
 return pillBum

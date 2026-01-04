@@ -53,17 +53,7 @@ function runeBum.OnInit(fam)
 end
 
 function runeBum.OnUpdate(fam)
-    local player = fam.Player
-    if not player then return end
-
-    if player.Velocity:LengthSquared() < 0.1 then
-        local dist = fam.Position:Distance(player.Position)
-
-        if dist < runeBum.FollowDistance then
-            local push = (fam.Position - player.Position):Normalized() * 0.4
-            fam.Velocity = fam.Velocity + push
-        end
-    end
+	fam:followParent()
 end
 
 function runeBum.Reward(fam)

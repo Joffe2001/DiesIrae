@@ -54,7 +54,6 @@ include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
-require("scripts.items.passive.redbulb.main") --needs require
 include("scripts.items.passive.u2")
 include("scripts.items.passive.echo")
 include("scripts.items.passive.theBadTouch")
@@ -196,6 +195,8 @@ include("scripts.core.voidlost")
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------
+--include("scripts.items.familiars.pillBum")
+--[[NEEDS REQUIRE!]] --require("scripts.items.passive.redbulb.main")
 --include("scripts.items.passive.hitlist")
 --include("scripts.items.passive.photonlink")
 --include("scripts.items.passive.silentEcho")
