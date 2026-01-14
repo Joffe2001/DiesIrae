@@ -4,7 +4,6 @@
     <pilleffect name="Cursed Pill"            description="I've been cursed!" class="-2" mimiccharge="2"/>
     <pilleffect name="Heartbreak Pill"        description="It hurts inside" class="-2" mimiccharge="2"/>
     <pilleffect name="Power Drain Pill"       description="I need more power" class="-2" mimiccharge="4"/>
-    <pilleffect name="Gulping Pill"           description="Tasty!" class="+2" mimiccharge="3"/>
     <pilleffect name="Equal Pill"             description="It can be good or bad" class="+1" mimiccharge="6"/>
     <pilleffect name="Something Changed Pill" description="Whatever" class="+1" mimiccharge="6"/>
 <!--Runes and such-->

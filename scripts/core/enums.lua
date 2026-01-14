@@ -178,6 +178,7 @@ mod.Sounds = {
 mod.Music = {
     TechBeggarWaiting = Isaac.GetMusicIdByName("Tech Beggar Waiting"),
     Oiiai             = Isaac.GetMusicIdByName("Oiiai"),
+    GigaChad          = Isaac.GetMusicIdByName("GigaChad"),
 }
 
 mod.Costumes = {

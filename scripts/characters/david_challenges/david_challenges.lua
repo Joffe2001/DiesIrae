@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local game = Game()
 
-local DavidUtils = include("scripts/core/david_challenges_utils")
+local DavidUtils = include("scripts/characters/david_challenges/david_challenges_utils")
 
 -------------------------------------------------
 -- MISSED PLATE PENALTY
@@ -76,7 +76,7 @@ local ForcedBossRoom = {}
 
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_PLACE_ROOM, function(_, roomDesc)
     local level = game:GetLevel()
-    local floor = level:GetAbsoluteStage()
+    local floor = level:GetStage()
 
     if ForcedBossRoom[floor] then return end
     if not mod:IsDavidChallengeActive(floor) then return end
@@ -145,11 +145,12 @@ local COUNTABLE_ROOMS = {
 
 local VisitedSpecialRooms = {}
 local SpecialChallengeCompleted = {}
+local SpawnedSpecialRooms = {}
 
 local function UpdateSpawnedSpecialRooms(floor)
-    SpawnedSpecialRooms[floor] = {}
-    local rooms = game:GetLevel():GetRooms()
+    SpawnedSpecialRooms[floor] = SpawnedSpecialRooms[floor] or {}
 
+    local rooms = game:GetLevel():GetRooms()
     for i = 0, rooms.Size - 1 do
         local desc = rooms:Get(i)
         if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] then
@@ -168,17 +169,12 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     VisitedSpecialRooms[floor] = {}
     SpecialChallengeCompleted[floor] = false
 
-    local rooms = game:GetLevel():GetRooms()
-    for i = 0, rooms.Size - 1 do
-        local desc = rooms:Get(i)
-        if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] then
-            SpawnedSpecialRooms[floor][desc.RoomIndex] = true
-        end
-    end
+    UpdateSpawnedSpecialRooms(floor)
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     local floor = game:GetLevel():GetStage()
+
     if DavidUtils.GetVariant(floor) ~= CHALLENGE_ENTER_SPECIALS then return end
 
     UpdateSpawnedSpecialRooms(floor)

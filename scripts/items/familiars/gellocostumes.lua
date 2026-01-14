@@ -198,3 +198,6 @@ mod.GelloCostumes:AddItemCostume(
 
 mod.GelloCostumes:AddItemCostume(
     mod.Items.CreatineOverdose, { Body = "gfx/familiar/gello/creatineoverdose_gello.png" }, { Body = 1 })
+
+    mod.GelloCostumes:AddItemCostume(
+        mod.Items.GoldenDay, { Body = "gfx/familiar/gello/goldenday_gello.png" }, { Body = 1 })
