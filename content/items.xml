@@ -15,7 +15,7 @@
     <passive id="13" name="Devil's Luck"               gfx="item_placeholder.png"          description="I don't feel the luck"                       quality="2" />
     <passive id="14" name="Here to Stay"               gfx="item_placeholder.png"          description="This is the place for me"                    quality="0" />
     <passive id="15" name="Bloodline"                  gfx="item_placeholder.png"          description="It runs in the family"                       quality="4" tags="offensive" />  
-    <passive id="16" name="Protein Powder"             gfx="item_placeholder.png"          description="STRENGTH!!!!"                                quality="3" tags="offensive food" />
+    <passive id="16" name="Protein Powder"             gfx="protein_powder.png"            description="STRENGTH!!!!"                                quality="3" tags="offensive food" />
     <passive id="17" name="Hysteria"                   gfx="item_placeholder.png"          description="Last chance to lose control"                 quality="2" tags="nolostbr" />
     <passive id="18" name="Stab Wound"                 gfx="item_placeholder.png"          description="Tis but a scratch!"                          quality="3" tags="offensive"         achievement="Stab Wound"/>
     <passive id="19" name="Thought Contagion"          gfx="Thought_Contagion.png"         description="The modder really wanted crowd controller"   quality="4" tags="offensive" />

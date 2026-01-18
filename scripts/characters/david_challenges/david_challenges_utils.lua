@@ -13,6 +13,13 @@ local game = Game()
 ---@type table<integer, DavidChallengeState>
 local FloorChallengeState = {}
 
+local function GetFloorChallengeState()
+    local save = mod.SaveManager.GetRunSave()
+    save.FloorChallengeState = save.FloorChallengeState or {}
+    return save.FloorChallengeState
+end
+
+
 ------------------------------------------------
 -- Start challenge
 ------------------------------------------------
@@ -22,6 +29,8 @@ function mod:StartDavidChallenge(floor, variant)
     if mod:GetCompletedDavidChallengeCount() >= 4 then
         return
     end
+
+    local FloorChallengeState = GetFloorChallengeState()
 
     if FloorChallengeState[floor] then return end
 
@@ -40,6 +49,7 @@ end
 -- Fail challenge
 ------------------------------------------------
 function mod:FailDavidChallenge(player, floor)
+    local FloorChallengeState = GetFloorChallengeState()
     local state = FloorChallengeState[floor]
     if not state or state.failed or state.completed then return end
 
@@ -60,6 +70,7 @@ end
 -- Complete challenge
 ------------------------------------------------
 function mod:CompleteDavidChallenge(floor)
+    local FloorChallengeState = GetFloorChallengeState()
     local state = FloorChallengeState[floor]
     if not state or state.failed or state.completed then return end
 
@@ -69,6 +80,7 @@ function mod:CompleteDavidChallenge(floor)
 end
 
 function mod:GetCompletedDavidChallengeCount()
+    local FloorChallengeState = GetFloorChallengeState()
     local count = 0
     for _, state in pairs(FloorChallengeState) do
         if state.completed then
@@ -91,6 +103,7 @@ local function TrySpawnChallengeReward(player)
     if not room then return end
     if level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex() then return end
 
+    local FloorChallengeState = GetFloorChallengeState()
     local prevState
     for f, state in pairs(FloorChallengeState) do
         if state.pendingReward and not state.rewardSpawned then
@@ -147,6 +160,7 @@ end
 -- Cancel the challenge
 ------------------------------------------------
 function mod:CancelDavidChallenge(floor)
+    local FloorChallengeState = GetFloorChallengeState()
     local state = FloorChallengeState[floor]
     if not state then return end
     if state.failed or state.completed then return end
@@ -158,6 +172,7 @@ end
 -- CALLBACKS
 ------------------------------------------------
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
+    local FloorChallengeState = GetFloorChallengeState()
     local floor = game:GetLevel():GetStage()
     local state = FloorChallengeState[floor]
 
@@ -184,6 +199,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
+    local FloorChallengeState = GetFloorChallengeState()
     local floor = game:GetLevel():GetStage()
     local state = FloorChallengeState[floor]
     if not state or not state.blockBossReward then return end
@@ -193,21 +209,25 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-    FloorChallengeState = {}
+    local save = mod.SaveManager.GetRunSave()
+    save.FloorChallengeState = {}
 end)
 
 ------------------------------------------------
 -- API
 ------------------------------------------------
 function mod:IsDavidChallengeActive(floor)
+    local FloorChallengeState = GetFloorChallengeState()
     return FloorChallengeState[floor] and FloorChallengeState[floor].active
 end
 
 function mod:GetDavidChallengeVariant(floor)
+    local FloorChallengeState = GetFloorChallengeState()
     return FloorChallengeState[floor] and FloorChallengeState[floor].variant
 end
 
 function mod:HasDavidChallenge(floor)
+    local FloorChallengeState = GetFloorChallengeState()
     return FloorChallengeState[floor] ~= nil
 end
 

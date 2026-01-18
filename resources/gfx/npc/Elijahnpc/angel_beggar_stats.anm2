@@ -2,7 +2,7 @@
 	<Info CreatedBy="Unknown" CreatedOn="17.04.2014 05:23:34" Version="5" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="beggar.png" Id="0"/>
+			<Spritesheet Path="angel_beggar.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="Sign" Id="0" SpritesheetId="0"/>

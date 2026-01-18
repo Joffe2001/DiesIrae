@@ -47,6 +47,9 @@ local function SpawnDavidPlateGreed(player)
     local stage = level:GetStage()
     if not stage then return end
     local room = game:GetRoom()
+    
+    if room:GetType() ~= RoomType.ROOM_TREASURE then return end
+    
     local roomIndex = level:GetCurrentRoomIndex()
     local currentFloor = stage
 
@@ -54,7 +57,6 @@ local function SpawnDavidPlateGreed(player)
 
     DavidPlatesGreed[currentFloor] = DavidPlatesGreed[currentFloor] or {}
 
-    -- Already exists
     if DavidPlatesGreed[currentFloor][roomIndex] then
         local plateData = DavidPlatesGreed[currentFloor][roomIndex]
         local grid = room:GetGridEntity(plateData.index)
@@ -156,6 +158,20 @@ local function CheckDavidPlateGreed(player)
     end
 end
 
+local function GetTreasureRoomIndex()
+    local level = game:GetLevel()
+    local rooms = level:GetRooms()
+    
+    for i = 0, rooms.Size - 1 do
+        local desc = rooms:Get(i)
+        if desc and desc.Data and desc.Data.Type == RoomType.ROOM_TREASURE then
+            return desc.SafeGridIndex
+        end
+    end
+    
+    return nil
+end
+
 mod:AddCallback(ModCallbacks.MC_PRE_NEW_ROOM, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
@@ -165,7 +181,7 @@ mod:AddCallback(ModCallbacks.MC_PRE_NEW_ROOM, function()
     local stage = level:GetStage()
     if not stage then return end
     local floor = stage
-    local startRoom = level:GetStartingRoomIndex()
+    local treasureRoom = GetTreasureRoomIndex()
     local roomIndex = level:GetCurrentRoomIndex()
 
     local pdata = player:GetData()
@@ -174,9 +190,9 @@ mod:AddCallback(ModCallbacks.MC_PRE_NEW_ROOM, function()
     local lastRoom = pdata.LastRoomIndexGreed
     pdata.LastRoomIndexGreed = roomIndex
 
-    if lastRoom ~= startRoom or roomIndex == startRoom then return end
+    if not treasureRoom or lastRoom ~= treasureRoom or roomIndex == treasureRoom then return end
 
-    local plateData = DavidPlatesGreed[floor] and DavidPlatesGreed[floor][startRoom]
+    local plateData = DavidPlatesGreed[floor] and DavidPlatesGreed[floor][treasureRoom]
     if not plateData or plateData.wasPressed then return end
 
     plateData.missed = true

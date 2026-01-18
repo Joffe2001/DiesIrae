@@ -327,10 +327,10 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 -----------------------------------------------------------------
---- CHALLENGE 6: Don’t miss more than 50 shots on the floor
+--- CHALLENGE 6: Don’t miss more than 100 shots on the floor
 -----------------------------------------------------------------
 local CHALLENGE_NO_MISS = 6
-local MAX_MISSES = 50
+local MAX_MISSES = 100
 
 local ShotsThisFloor = {}
 local HitsThisFloor  = {}
@@ -420,31 +420,38 @@ end)
 local CHALLENGE_COLLECT_CHORDS = 8
 local REQUIRED_CHORDS = 10
 local CHORD_DROP_CHANCE = 0.5
-local CHORD_LIFETIME = 12
-local CollectedChords = 0 
+local CHORD_LIFETIME = 12 * 30
 
+local function GetCollectedChords()
+    local save = mod.SaveManager.GetRunSave()
+    save.CollectedChords = save.CollectedChords or 0
+    return save.CollectedChords
+end
 
-local function IsChallengeActive()
-    local floor = game:GetLevel():GetStage()
-    return mod:IsDavidChallengeActive(floor)
-       and mod:GetDavidChallengeVariant(floor) == CHALLENGE_COLLECT_CHORDS
+local function SetCollectedChords(value)
+    local save = mod.SaveManager.GetRunSave()
+    save.CollectedChords = value
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
     if not isContinued then
-        CollectedChords = 0
+        SetCollectedChords(0)
     end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    if IsChallengeActive() then
-        CollectedChords = 0
+    local floor = game:GetLevel():GetStage()
+    if mod:IsDavidChallengeActive(floor) and mod:GetDavidChallengeVariant(floor) == CHALLENGE_COLLECT_CHORDS then
+        SetCollectedChords(0)
     end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
     if not npc:IsActiveEnemy(false) or npc:IsBoss() then return end
-    if not IsChallengeActive() then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
 
     local rng = RNG()
     rng:SetSeed(npc.InitSeed, 1)
@@ -457,23 +464,11 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
         npc.Position,
         Vector.Zero,
         nil
-    )
+    ):ToPickup()
 
-    local data = pickup:GetData()
-    data.ChordTimer = CHORD_LIFETIME
-    data.ChordActive = true
-    pickup:GetSprite():Play("Idle", true)
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
-    if pickup.Variant ~= mod.Entities.PICKUP_DavidChord.Var then return end
-
-    local data = pickup:GetData()
-    if not data.ChordActive then return end
-
-    data.ChordTimer = data.ChordTimer - 1
-    if data.ChordTimer <= 0 then
-        pickup:Remove()
+    if pickup then
+        pickup.Timeout = CHORD_LIFETIME
+        pickup:GetSprite():Play("Idle", true)
     end
 end)
 
@@ -485,16 +480,18 @@ mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collid
         return true
     end
 
+    local floor = game:GetLevel():GetStage()
+    
     pickup:Remove()
-    CollectedChords = CollectedChords + 1
+    
+    local newCount = GetCollectedChords() + 1
+    SetCollectedChords(newCount)
 
-    if CollectedChords >= REQUIRED_CHORDS then
-        mod:CompleteDavidChallenge()
+    if newCount >= REQUIRED_CHORDS then
+        mod:CompleteDavidChallenge(floor)
     end
-
     return true
 end)
-
 
 -------------------------------------------------
 -- CHALLENGE 9: FAST BOSS

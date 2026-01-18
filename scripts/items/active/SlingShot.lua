@@ -5,7 +5,7 @@ local SlingShot = {}
 local SPEED = 5.5
 local DAMAGE_MULT = 2.0
 local BASE_BONUS = 5
-local SCALE_MULT = 2.8
+local SCALE_MULT = 1.5
 
 local game = Game()
 local sfx = SFXManager()
@@ -23,7 +23,7 @@ function SlingShot:onUse(_, _, player, _, _)
 
     local tear = Isaac.Spawn(
         EntityType.ENTITY_TEAR,
-        TearVariant.BLUE,
+        TearVariant.ROCK,
         0,
         player.Position,
         dir * SPEED,
@@ -32,16 +32,13 @@ function SlingShot:onUse(_, _, player, _, _)
 
     if tear then
         tear:GetData().IsSlingShot = true
+        tear:GetData().InitialVelocity = dir * SPEED
         tear.CollisionDamage = (player.Damage * DAMAGE_MULT) + BASE_BONUS
         tear.Scale = SCALE_MULT
         tear.FallingSpeed = 0
         tear.FallingAcceleration = 0
-        tear.Height = -999
-        tear.TearFlags = tear.TearFlags
-            | TearFlags.TEAR_PIERCING
-            | TearFlags.TEAR_SPECTRAL
-            | TearFlags.TEAR_ROCK
-        tear.Color = Color(1.8, 0.1, 0.1, 1, 0, 0, 0)
+        tear.Height = -10
+        tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING
     end
 
     sfx:Play(mod.Sounds.Whoosh, 1.0)
@@ -52,7 +49,17 @@ end
 
 function SlingShot:onTearUpdate(tear)
     if not tear:GetData().IsSlingShot then return end
+    
+    if tear:GetData().InitialVelocity then
+        tear.Velocity = tear:GetData().InitialVelocity
+    end
+    
+    tear.FallingSpeed = 0
+    tear.FallingAcceleration = 0
+    tear.Height = -10
+    
     local room = game:GetRoom()
+    
     for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
         local door = room:GetDoor(i)
         if door and not door:IsOpen() then
@@ -66,8 +73,9 @@ function SlingShot:onTearUpdate(tear)
             end
         end
     end
+    
     local gridCollision = room:GetGridCollisionAtPos(tear.Position)
-    if gridCollision ~= GridCollisionClass.COLLISION_NONE then
+    if gridCollision == GridCollisionClass.COLLISION_WALL or gridCollision == GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER then
         Isaac.Explode(tear.Position, tear.SpawnerEntity, tear.CollisionDamage)
         tear:Remove()
     end
