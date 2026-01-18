@@ -195,6 +195,10 @@ mod.Costumes = {
     Harpstring2_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring2_eyes.anm2"),
     Harpstring3_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring3_eyes.anm2"),
     Harpstring4_eyes = Isaac.GetCostumeIdByPath("gfx/characters/harpstring4_eyes.anm2"),
+    Harpstring1_body = Isaac.GetCostumeIdByPath("gfx/characters/harpstring1_body.anm2"),
+    Harpstring2_body = Isaac.GetCostumeIdByPath("gfx/characters/harpstring2_body.anm2"),
+    Harpstring3_body = Isaac.GetCostumeIdByPath("gfx/characters/harpstring3_body.anm2"),
+    Harpstring4_body = Isaac.GetCostumeIdByPath("gfx/characters/harpstring4_body.anm2"),
 }
 
 mod.Cards = {
@@ -223,7 +227,7 @@ mod.Entities = {
     BEGGAR_ShopElijah        = MakeEntityTable("Shop Beggar Elijah"),
     BEGGAR_LibraryElijah     = MakeEntityTable("Library Beggar Elijah"),
     BEGGAR_AngelElijah       = MakeEntityTable("Angel Beggar Elijah"),
-    BEGGAR_DevilElijah       = MakeEntityTable("Devil Beggar Elijah"),
+    BEGGAR_DemonElijah       = MakeEntityTable("Demon Beggar Elijah"),
     BEGGAR_SecretElijah      = MakeEntityTable("Secret Beggar Elijah"),
     BEGGAR_UltraSecretElijah = MakeEntityTable("Ultra Secret Beggar Elijah"),
     BEGGAR_PlanetariumElijah = MakeEntityTable("Planetarium Beggar Elijah"),
@@ -236,6 +240,7 @@ mod.Entities = {
     FAMILIAR_BatKolGhost     = MakeEntityTable("Bat Kol's Ghosts"),
     FAMILIAR_RighteousGhost  = MakeEntityTable("Righteous Ghost"),
     PICKUP_ElijahsWill       = MakeEntityTable("Elijah's Will"),
+    PICKUP_ElijahsWillB      = MakeEntityTable("Elijah's Will Birthright"),
     PICKUP_BurningHeart      = MakeEntityTable("Burning Heart"),
     PICKUP_DavidChord        = MakeEntityTable("David's Chord"),
     NPC_MamaHorf             = MakeEntityTable("Blinded Horf"),

@@ -98,7 +98,7 @@
     <entity id="6" variant="230" name="Angel Beggar Elijah" anm2path="npc/Elijahnpc/angel_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="231" name="Devil Beggar Elijah" anm2path="npc/Elijahnpc/devil_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
+    <entity id="6" variant="231" name="Demon Beggar Elijah" anm2path="npc/Elijahnpc/demon_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
     <entity id="6" variant="232" name="Secret Beggar Elijah" anm2path="npc/Elijahnpc/secret_beggar_stats.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
@@ -149,12 +149,15 @@
     <entity id="5" variant="301" subtype="0" name="Elijah's Will" anm2path="items/pickups/elijah_will.anm2" baseHP="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="14" stageHP="0" boss="0" champion="0">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
     </entity>
+    <entity id="5" variant="302" subtype="0" name="Elijah's Will Birthright" anm2path="items/pickups/elijah_willb.anm2" baseHP="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="14" stageHP="0" boss="0" champion="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
 <!--Hearts-->
-	<entity id="5" variant="302" subtype="0" name="Burning Heart" anm2path="items/pickups/burningheart.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
+	<entity id="5" variant="303" subtype="0" name="Burning Heart" anm2path="items/pickups/burningheart.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
 <!--David's chord-->
-	<entity id="5" variant="303" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
+	<entity id="5" variant="304" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
 <!--ENEMIES-->

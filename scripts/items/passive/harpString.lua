@@ -6,19 +6,23 @@ local HarpString = {}
 local HARP_COSTUMES = {
     [1] = {
         hair = mod.Costumes.Harpstring1_hair,
-        eyes = mod.Costumes.Harpstring1_eyes
+        eyes = mod.Costumes.Harpstring1_eyes,
+        body = mod.Costumes.Harpstring1_body,
     },
     [2] = {
         hair = mod.Costumes.Harpstring2_hair,
-        eyes = mod.Costumes.Harpstring2_eyes
+        eyes = mod.Costumes.Harpstring2_eyes,
+        body = mod.Costumes.Harpstring2_body,
     },
     [3] = {
         hair = mod.Costumes.Harpstring3_hair,
-        eyes = mod.Costumes.Harpstring3_eyes
+        eyes = mod.Costumes.Harpstring3_eyes,
+        body = mod.Costumes.Harpstring3_body,
     },
     [4] = {
         hair = mod.Costumes.Harpstring4_hair,
-        eyes = mod.Costumes.Harpstring4_eyes
+        eyes = mod.Costumes.Harpstring4_eyes,
+        body = mod.Costumes.Harpstring4_body,
     }
 }
 
@@ -34,6 +38,7 @@ function HarpString:TrackHarpString(player)
         for _, data in pairs(HARP_COSTUMES) do
             player:TryRemoveNullCostume(data.hair)
             player:TryRemoveNullCostume(data.eyes)
+            player:TryRemoveNullCostume(data.body)
         end
         return
     end
@@ -47,23 +52,26 @@ function HarpString:TrackHarpString(player)
     for _, data in pairs(HARP_COSTUMES) do
         player:TryRemoveNullCostume(data.hair)
         player:TryRemoveNullCostume(data.eyes)
+        player:TryRemoveNullCostume(data.body)
     end
 
     if level > 0 then
         player:AddNullCostume(HARP_COSTUMES[level].hair)
         player:AddNullCostume(HARP_COSTUMES[level].eyes)
+        player:AddNullCostume(HARP_COSTUMES[level].body)
         pdata.harpCostumeLevel = level
     else
         pdata.harpCostumeLevel = nil
     end
 
     if count == 4 then
+        local spawnPos = Isaac.GetFreeNearPosition(player.Position, 40)
         Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
             PickupVariant.PICKUP_COLLECTIBLE,
             mod.Items.Harp,
-            player.Position,
-            Vector(10, 0),
+            spawnPos,
+            Vector.Zero,
             player
         )
     end
@@ -95,15 +103,9 @@ function HarpString:SpawnTreasurePedestals()
 
     if not basePos then return end
 
-    local spacing = 80
-    local spawned = 0
-
     for i = 1, harpCount do
-        local offsetIndex = i
-        local xOffset = spacing * offsetIndex
-
-        local spawnPos = basePos + Vector(xOffset, 0)
-
+        local spawnPos = Isaac.GetFreeNearPosition(basePos, 40)
+        
         Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
             PickupVariant.PICKUP_COLLECTIBLE,
@@ -112,6 +114,8 @@ function HarpString:SpawnTreasurePedestals()
             Vector.Zero,
             nil
         ):ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+        
+        basePos = spawnPos
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, HarpString.SpawnTreasurePedestals)

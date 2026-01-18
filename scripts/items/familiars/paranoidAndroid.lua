@@ -118,3 +118,26 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate
 if EID then
     EID:assignTransformation("collectible", mod.Items.ParanoidAndroid, "Dad's Playlist")
 end
+
+if EID then
+    EID:addDescriptionModifier(
+        "ParanoidAndroid_BFF",
+
+        function(descObj)
+            if descObj.ObjType ~= EntityType.ENTITY_PICKUP then return false end
+            if descObj.ObjVariant ~= PickupVariant.PICKUP_COLLECTIBLE then return false end
+            if descObj.ObjSubType ~= mod.Items.ParanoidAndroid then return false end
+
+            local player = EID:ClosestPlayerTo(descObj.Entity)
+            return player and player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS)
+        end,
+
+        function(descObj)
+            descObj.Description =
+                descObj.Description ..
+                "#{{Collectible" .. CollectibleType.COLLECTIBLE_BFFS .. "}}{{ColorRainbow}}Deals double damage{{CR}}"
+
+            return descObj
+        end
+    )
+end

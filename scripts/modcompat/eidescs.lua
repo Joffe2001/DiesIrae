@@ -518,11 +518,11 @@ mod.EIDescs = {
         [mod.Items.FilthyRich] = {
             en_us = { 
 				"{{Poison}} Chance to shoot poison tears and to spawn poison mist",
-				"{{coin}} Holding coins increases the chance"
+				"{{Coin}} Holding coins increases the chance"
             },
             ru = { 
                 "{{Poison}} Шанс выстрелить отравляющей слезой и создать отравляющее облако",
-                "{{coin}} Держа монеты шанс увеличивается"
+                "{{Coin}} Держа монеты шанс увеличивается"
             },
         },
         [mod.Items.CoolStick] = {

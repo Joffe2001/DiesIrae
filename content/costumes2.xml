@@ -43,5 +43,8 @@
     <costume id="4005" anm2path="harpstring2_eyes.anm2" type="none" priority="20"/>
     <costume id="4006" anm2path="harpstring3_eyes.anm2" type="none" priority="20"/>
     <costume id="4007" anm2path="harpstring4_eyes.anm2" type="none" priority="20"/>
-    
+    <costume id="4008" anm2path="harpstring1_body.anm2" type="none" priority="20"/>
+    <costume id="4009" anm2path="harpstring2_body.anm2" type="none" priority="20"/>
+    <costume id="4010" anm2path="harpstring3_body.anm2" type="none" priority="20"/>
+    <costume id="4011" anm2path="harpstring4_body.anm2" type="none" priority="20"/>
 </costumes>

@@ -34,6 +34,7 @@ local elijah = mod.Players.Elijah
 
 ---@type PickupVariant
 local elijahWill = mod.Entities.PICKUP_ElijahsWill.Var
+local elijahWillB = mod.Entities.PICKUP_ElijahsWillB.Var
 
 ---@type CollectibleType
 local elijahStartingItem = mod.Items.PersonalBeggar
@@ -62,13 +63,30 @@ local spawnElijahWill = {
 local ItemRoomBeggar = {
     [RoomType.ROOM_TREASURE]    = mod.Entities.BEGGAR_TreasureElijah.Var,
     [RoomType.ROOM_SHOP]        = mod.Entities.BEGGAR_ShopElijah.Var,
-    [RoomType.ROOM_DEVIL]       = mod.Entities.BEGGAR_DevilElijah.Var,
+    [RoomType.ROOM_DEVIL]       = mod.Entities.BEGGAR_DemonElijah.Var,
     [RoomType.ROOM_ANGEL]       = mod.Entities.BEGGAR_AngelElijah.Var,
     [RoomType.ROOM_SECRET]      = mod.Entities.BEGGAR_SecretElijah.Var,
     [RoomType.ROOM_ULTRASECRET] = mod.Entities.BEGGAR_UltraSecretElijah.Var,
     [RoomType.ROOM_PLANETARIUM] = mod.Entities.BEGGAR_PlanetariumElijah.Var,
     [RoomType.ROOM_LIBRARY]     = mod.Entities.BEGGAR_LibraryElijah.Var,
     [RoomType.ROOM_ERROR]       = mod.Entities.BEGGAR_ERROR_Elijah.Var
+}
+
+local CHAOS_ELIJAH_BEGGARS = {
+    mod.Entities.BEGGAR_TreasureElijah.Var,
+    mod.Entities.BEGGAR_ShopElijah.Var,
+    mod.Entities.BEGGAR_DemonElijah.Var,
+    mod.Entities.BEGGAR_AngelElijah.Var,
+    mod.Entities.BEGGAR_SecretElijah.Var,
+    mod.Entities.BEGGAR_UltraSecretElijah.Var,
+    mod.Entities.BEGGAR_PlanetariumElijah.Var,
+    mod.Entities.BEGGAR_LibraryElijah.Var,
+    mod.Entities.BEGGAR_ERROR_Elijah.Var,
+    mod.Entities.BEGGAR_Elijah.Var,
+    mod.Entities.BEGGAR_BombElijah.Var,
+    mod.Entities.BEGGAR_KeyElijah.Var,
+    mod.Entities.BEGGAR_RottenElijah.Var,
+    mod.Entities.BEGGAR_BatteryElijah.Var,
 }
 
 local Elijah_blacklist = {
@@ -91,6 +109,8 @@ local Elijah_blacklist = {
     CollectibleType.COLLECTIBLE_GREEDS_GULLET,
     CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
     CollectibleType.COLLECTIBLE_KEEPERS_SACK,
+    mod.Items.ScammerBum,
+    mod.Items.FilthyRich,
 }
 
 local Slot_blacklist = {
@@ -207,8 +227,9 @@ end
 
 --- Callbacks
 ---
-
+----------------------------------------------
 ---Add starting item to Elijah.
+----------------------------------------------
 ---@param player EntityPlayer
 function elijahFuncs:PlayerInit(player)
     if player:GetPlayerType() ~= elijah then return end
@@ -219,14 +240,14 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, elijahFuncs.PlayerInit)
 
-
+----------------------------------------------
 ---Spawn Elijah's Will when starting the game
+-------------------------------------------------
 ---@param continue boolean
 function elijahFuncs:PostGameStarted(continue)
-    if continue then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-
     SetupHUDPickup()
+    if continue then return end
 
     for _ = 1, STARTING_WILL_AMOUNT do
         local vec = RandomUnitCircle() * math.random(STARTING_WILL_VELOCITY)
@@ -234,11 +255,21 @@ function elijahFuncs:PostGameStarted(continue)
             game:GetRoom():GetCenterPos() + vec, vec, nil)
     end
 end
-
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, elijahFuncs.PostGameStarted)
 
+local hudFixed = false
 
+function elijahFuncs:PostRender()
+    if hudFixed then return end
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
+    SetupHUDPickup()
+    hudFixed = true
+end
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, elijahFuncs.PostRender)
+----------------------------------------------
 ---Delete Elijah's Will if not playing Elijah.
+----------------------------------------------
 ---@param pickup EntityPickup
 function elijahFuncs:OnPickupInit(pickup)
     if PlayerManager.AnyoneIsPlayerType(elijah) then return end
@@ -247,8 +278,9 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.OnPickupInit, elijahWill)
 
-
+----------------------------------------------
 ---Picking up a Elijah's Will
+----------------------------------------------
 ---@param pickup EntityPickup
 ---@param collider Entity
 ---@return boolean | nil
@@ -271,30 +303,69 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
     player:PlayExtraAnimation("Happy")
     pickup:Remove()
 end
-
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollision, elijahWill)
 
+function elijahFuncs:OnPickupCollisionWillB(pickup, collider)
+    local player = collider:ToPlayer()
+    if not player or player:GetPlayerType() ~= elijah then return false end
 
+    local data = save.GetRunSave(player)
+
+    data.WillBStats = data.WillBStats or {
+        WillSpeed = 0,
+        WillFireDelay = 0,
+        WillDamage = 0,
+        WillRange = 0,
+        WillShotSpeed = 0,
+        WillLuck = 0,
+    }
+
+    local stat = math.random(#statsUpFuncs)
+    local StatUp = statsUpFuncs[stat]
+
+    StatUp(data)
+    StatUp(data.WillBStats)
+
+    player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+    player:PlayExtraAnimation("Happy")
+    pickup:Remove()
+end
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollisionWillB, elijahWillB)
+
+----------------------------------------------
 ---Stats up by comparing with the number of Elijah's Will acquired.
+-------------------------------------------------
 ---@param player EntityPlayer
 ---@param cacheFlag CacheFlag
 function elijahFuncs:EvaluateCache(player, cacheFlag)
     if player:GetPlayerType() ~= elijah then return end
 
+    local runSave = save.GetRunSave(player)
     local CacheFunc = cacheFuncs[cacheFlag]
     if (not CacheFunc) then return end
     CacheFunc(player)
+
+    if runSave.WillBStats then
+        local temp = runSave
+        runSave = runSave.WillBStats
+        CacheFunc(player)
+        runSave = temp
+    end
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
-
+----------------------------------------------
 ---Replace base pickup with the Elijah's Will.
+----------------------------------------------
 ---@param type EntityType
 ---@param variant integer
 ---@param seed integer
 ---@param spawner Entity | nil
 ---@return table | nil
+
+local WILL_B_CHANCE = 0.15
+
 function elijahFuncs:PreEntitySpawnWill(type, variant, _, _, _, spawner, seed)
     if type ~= EntityType.ENTITY_PICKUP then return end
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
@@ -304,14 +375,25 @@ function elijahFuncs:PreEntitySpawnWill(type, variant, _, _, _, spawner, seed)
     end
     local will = spawnElijahWill[variant]
     if will then
-        return { type, will, 0, seed }
-    end
-end
+        local player = PlayerManager.FirstPlayerByType(elijah)
 
+        if player and utils.HasBirthright(player) then
+            local rng = RNG()
+            rng:SetSeed(seed, 35)
+
+            if rng:RandomFloat() < WILL_B_CHANCE then
+                return { type, elijahWillB, 0, seed }
+            end
+        end
+        return { type, elijahWill, 0, seed }
+    end
+
+end
 mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawnWill)
 
-
+----------------------------------------------
 ---Replace beggars with the custom beggars.
+----------------------------------------------
 ---@param type EntityType
 ---@param variant integer
 ---@param subtype integer
@@ -359,7 +441,9 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConv
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert, PickupVariant.PICKUP_KEY)
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert, PickupVariant.PICKUP_BOMB)
 
+----------------------------------------------
 ---Replace pedestals by the correct beggar
+----------------------------------------------
 function elijahFuncs:PostNewRoom()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
 
@@ -371,35 +455,40 @@ function elijahFuncs:PostNewRoom()
     roomData.beggarSwap = true
 
     local player = PlayerManager.FirstPlayerByType(elijah)
-    
----Chaos synergy
-    local beggar
-    if player and player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
-        local allBeggars = {}
-        for _, variant in pairs(ItemRoomBeggar) do
-            table.insert(allBeggars, variant)
-        end
-        local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_CHAOS)
-        beggar = allBeggars[rng:RandomInt(#allBeggars) + 1]
-    else
-        beggar = ItemRoomBeggar[room:GetType()]
-    end
-    
-    if not beggar then return end
+    if not player then return end
 
-    for _, entity in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
+----------------------------------------------
+---Chaos synergy
+----------------------------------------------
+    local hasChaos = player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS)
+    for _, entity in ipairs(
+        Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
+    ) do
         local ped = entity:ToPickup()
         if ped then
-            local pos = ped.Position
-            ped:Remove()
-            Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, Vector.Zero, nil)
+            local beggar
+
+            if hasChaos then
+                local rng = ped:GetDropRNG()
+                beggar = CHAOS_ELIJAH_BEGGARS[rng:RandomInt(#CHAOS_ELIJAH_BEGGARS) + 1]
+            else
+                beggar = ItemRoomBeggar[room:GetType()]
+            end
+
+            if beggar then
+                local pos = ped.Position
+                local vel = ped.Velocity
+                ped:Remove()
+                Isaac.Spawn(EntityType.ENTITY_SLOT, beggar, 0, pos, vel, nil)
+            end
         end
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
 
-
+----------------------------------------------
 ---Sync Will amount with the coins of Elijah
+----------------------------------------------
 ---@param player EntityPlayer
 function elijahFuncs:PostPlayerUpdate(player)
     if player:GetPlayerType() ~= elijah then return end
@@ -408,65 +497,46 @@ function elijahFuncs:PostPlayerUpdate(player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, elijahFuncs.PostPlayerUpdate)
 
----Change the shops
----Change the shops
-local function ForceElijahShopRooms(_, roomDesc)
+----------------------------------------------
+-- Shop change
+----------------------------------------------
+local function SwapElijahShops()
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-    if not roomDesc or not roomDesc.Data then return end
-    if roomDesc.Data.Type ~= RoomType.ROOM_SHOP then return end
 
-    local roomVariant = math.random(1001, 1020)
-    local newRoomData = nil
+    local level = Game():GetLevel()
+    local rooms = level:GetRooms()
 
-    if game:IsGreedMode() then
-        newRoomData = RoomConfigHolder.GetRandomRoom(
-            roomDesc.SpawnSeed,
-            false,
-            StbType.SPECIAL_ROOMS,
-            RoomType.ROOM_SHOP,
-            RoomShape.ROOMSHAPE_2x1,
-            roomVariant,
-            roomVariant,
-            0,
-            10,
-            1,
-            0
-        )
-    else
-        newRoomData = RoomConfigHolder.GetRandomRoom(
-            roomDesc.SpawnSeed,
-            false,
-            StbType.SPECIAL_ROOMS,
-            RoomType.ROOM_SHOP,
-            RoomShape.ROOMSHAPE_1x1,
-            roomVariant,
-            roomVariant,
-            0,
-            10,
-            0,
-            0
-        )
-    end
+    for i = 0, rooms.Size - 1 do
+        local roomDesc = rooms:Get(i)
+        local data = roomDesc.Data
 
-    if newRoomData then
-        roomDesc.Data = newRoomData
+        if data
+        and data.Type == RoomType.ROOM_SHOP
+        and (data.Shape == RoomShape.ROOMSHAPE_1x1
+             or data.Shape == RoomShape.ROOMSHAPE_2x1) then
+
+            local isGreed = data.Shape == RoomShape.ROOMSHAPE_2x1
+            local dimension = isGreed and 1 or 0
+
+            local newRoom = RoomConfigHolder.GetRandomRoom(
+                roomDesc.SpawnSeed,
+                false,
+                StbType.SPECIAL_ROOMS,
+                RoomType.ROOM_SHOP,
+                data.Shape,
+                1001, 1020,
+                0, 10,
+                dimension,
+                6
+            )
+
+            if newRoom then
+                roomDesc.Data = newRoom
+            end
+        end
     end
 end
-
-mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_PLACE_ROOM, ForceElijahShopRooms)
-
-local function PostNewRoomGreedShop()
-    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
-    if not game:IsGreedMode() then return end
-
-    local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_SHOP then return end
-
-    local roomData = save.GetRoomSave(nil)
-    if roomData.GreedShopDone then return end
-    roomData.GreedShopDone = true
-end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, PostNewRoomGreedShop)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, SwapElijahShops)
 
 function elijahFuncs:PostPickupUpdateBlacklist(pickup)
     if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then return end
@@ -489,7 +559,43 @@ function elijahFuncs:PostPickupUpdateBlacklist(pickup)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, elijahFuncs.PostPickupUpdateBlacklist, PickupVariant.PICKUP_COLLECTIBLE)
 
+----------------------------------------------
+-- Arcade change
+----------------------------------------------
+local function SwapElijahArcades()
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+
+    local level = game:GetLevel()
+    local rooms = level:GetRooms()
+
+    for i = 0, rooms.Size - 1 do
+        local roomDesc = rooms:Get(i)
+        local data = roomDesc.Data
+
+        if data and data.Type == RoomType.ROOM_ARCADE then
+            local newRoom = RoomConfigHolder.GetRandomRoom(
+                roomDesc.SpawnSeed,
+                false,
+                StbType.SPECIAL_ROOMS,
+                RoomType.ROOM_ARCADE,
+                RoomShape.ROOMSHAPE_1x1,
+                1001, 1010,
+                0, 10,
+                0,
+                6
+            )
+
+            if newRoom then
+                roomDesc.Data = newRoom
+            end
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, SwapElijahArcades)
+
+----------------------------------------------
 ---Slot blacklist
+----------------------------------------------
 function elijahFuncs:PostSlotInitBlacklist(slot)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
     
@@ -499,3 +605,39 @@ function elijahFuncs:PostSlotInitBlacklist(slot)
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, elijahFuncs.PostSlotInitBlacklist)
+
+
+----------------------------------------------
+---EID
+----------------------------------------------
+
+--Birthright
+if EID then
+    local icons = Sprite("gfx/ui/eid/icon_eid.anm2", true)
+    EID:addIcon("Player"..mod.Players.Elijah, "Elijah", 0, 16, 16, 0, 0, icons)
+    EID:addBirthright(mod.Players.Elijah, "Wills can become stronger.", "Elijah")
+end
+
+--Chaos
+if EID then
+    EID:addDescriptionModifier(
+        "Chaos_Elijah",
+
+        function(descObj)
+            if descObj.ObjType ~= EntityType.ENTITY_PICKUP then return false end
+            if descObj.ObjVariant ~= PickupVariant.PICKUP_COLLECTIBLE then return false end
+            if descObj.ObjSubType ~= CollectibleType.COLLECTIBLE_CHAOS then return false end
+
+            local player = EID:ClosestPlayerTo(descObj.Entity)
+            return player and player:GetPlayerType() == mod.Players.Elijah
+        end,
+
+        function(descObj)
+            descObj.Description =
+                descObj.Description ..
+                "#{{Player" .. mod.Players.Elijah .. "}}{{ColorRainbow}} Shuffle all beggars as well (Exept the beggars that are in the shop){{CR}}"
+
+            return descObj
+        end
+    )
+end

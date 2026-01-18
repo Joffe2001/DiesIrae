@@ -146,8 +146,7 @@ local function SpawnDavidPlate(player)
         state = "Off",
         challengeVariant = nil, -- 1–11
         wasPressed = false,
-        missed = false,
-        backdrop = nil
+        missed = false
     }
 end
 
@@ -270,7 +269,19 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     CheckDavidPlate(Isaac.GetPlayer(0))
 end)
 
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-    DavidPlates = {}
-    UsedChallenges = {}
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        DavidPlates = {}
+        UsedChallenges = {}
+    else
+        local save = mod.SaveManager.GetRunSave()
+        DavidPlates = save.DavidPlates or {}
+        UsedChallenges = save.UsedChallenges or {}
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
+    local save = mod.SaveManager.GetRunSave()
+    save.DavidPlates = DavidPlates
+    save.UsedChallenges = UsedChallenges
 end)

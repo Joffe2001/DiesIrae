@@ -65,7 +65,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, David.OnEntityTakeDamage)
 
 
 if EID then
-    local icons = Sprite("gfx/ui/eid/david_eid.anm2", true)
+    local icons = Sprite("gfx/ui/eid/icon_eid.anm2", true)
     EID:addIcon("Player"..mod.Players.David, "David", 0, 16, 16, 0, 0, icons)
     EID:addBirthright(mod.Players.David, "David deals double damage to bosses.", "David")
 end

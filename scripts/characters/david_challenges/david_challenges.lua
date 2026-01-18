@@ -70,36 +70,50 @@ end)
 -- CHALLENGE 1: NO HIT BOSS
 -------------------------------------------------
 local CHALLENGE_NO_HIT_BOSS = 1
-local BLOAT_BOSS_ROOMS = {1001,1002,1003,1004,1005,1006,1007,1008,1009}
 
-local ForcedBossRoom = {}
-
-mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_PLACE_ROOM, function(_, roomDesc)
+local function SwapChallengeBossRoom()
     local level = game:GetLevel()
     local floor = level:GetStage()
 
-    if ForcedBossRoom[floor] then return end
     if not mod:IsDavidChallengeActive(floor) then return end
     if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
-    if roomDesc.Data.Type ~= RoomType.ROOM_BOSS then return end
     if level:GetStage() < LevelStage.STAGE3_1 then return end
 
-    local rng = RNG()
-    rng:SetSeed(roomDesc.SpawnSeed, 35)
+    local rooms = level:GetRooms()
 
-    local targetRoomID = BLOAT_BOSS_ROOMS[rng:RandomInt(#BLOAT_BOSS_ROOMS) + 1]
-    local roomCfg = RoomConfig.GetRoomByID(targetRoomID)
-    if not roomCfg then return end
+    for i = 0, rooms.Size - 1 do
+        local roomDesc = rooms:Get(i)
+        local data = roomDesc.Data
 
-    ForcedBossRoom[floor] = true
-    return roomCfg
-end)
+        if data and data.Type == RoomType.ROOM_BOSS then
+            local newRoom = RoomConfigHolder.GetRandomRoom(
+                roomDesc.SpawnSeed,
+                false,
+                StbType.SPECIAL_ROOMS,
+                RoomType.ROOM_BOSS,
+                data.Shape,
+                0,
+                9999,
+                0,
+                10,
+                0,
+                7
+            )
+            
+            if newRoom then
+                roomDesc.Data = newRoom
+            end
+            break
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, SwapChallengeBossRoom)
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity)
     local player = entity:ToPlayer()
     if not player or player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = game:GetLevel():GetAbsoluteStage()
+    local floor = game:GetLevel():GetStage()
     if not mod:IsDavidChallengeActive(floor) then return end
     if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
 
@@ -112,7 +126,7 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = game:GetLevel():GetAbsoluteStage()
+    local floor = game:GetLevel():GetStage()
     if not mod:IsDavidChallengeActive(floor) then return end
     if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_NO_HIT_BOSS then return end
 
@@ -120,10 +134,6 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
         mod:CompleteDavidChallenge(floor)
     end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    ForcedBossRoom = {}
 end)
 
 -------------------------------------------------
@@ -153,7 +163,7 @@ local function UpdateSpawnedSpecialRooms(floor)
     local rooms = game:GetLevel():GetRooms()
     for i = 0, rooms.Size - 1 do
         local desc = rooms:Get(i)
-        if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] then
+        if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] and desc.RoomIndex and desc.RoomIndex >= 0 then
             SpawnedSpecialRooms[floor][desc.RoomIndex] = true
         end
     end
@@ -190,11 +200,13 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     if spawned[roomIndex] then
         VisitedSpecialRooms[floor][roomIndex] = true
     end
+    
     for idx, _ in pairs(spawned) do
         if not VisitedSpecialRooms[floor][idx] then
             return
         end
     end
+    
     SpecialChallengeCompleted[floor] = true
     mod:CompleteDavidChallenge(floor)
 end)
@@ -327,7 +339,7 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 -----------------------------------------------------------------
---- CHALLENGE 6: Don’t miss more than 100 shots on the floor
+--- CHALLENGE 6: Don't miss more than 100 shots on the floor
 -----------------------------------------------------------------
 local CHALLENGE_NO_MISS = 6
 local MAX_MISSES = 100
@@ -348,6 +360,47 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, fla
     HitsThisFloor[floor] = (HitsThisFloor[floor] or 0) + 1
 end)
 
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
+
+    ShotsThisFloor[floor] = (ShotsThisFloor[floor] or 0) + 1
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_LASER_INIT, function(_, laser)
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
+
+    local laserData = laser:GetData()
+    if not laserData.CountedShot then
+        ShotsThisFloor[floor] = (ShotsThisFloor[floor] or 0) + 1
+        laserData.CountedShot = true
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, function(_, knife)
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
+
+    local knifeData = knife:GetData()
+    if not knifeData.CountedShot then
+        ShotsThisFloor[floor] = (ShotsThisFloor[floor] or 0) + 1
+        knifeData.CountedShot = true
+    end
+end)
+
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
@@ -356,17 +409,29 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if not DavidUtils.IsActive(floor) then return end
     if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
 
-    if player:GetFireDirection() ~= Direction.NO_DIRECTION then
-        ShotsThisFloor[floor] = (ShotsThisFloor[floor] or 0) + 1
-    end
-
     local shots = ShotsThisFloor[floor] or 0
-    local hits  = HitsThisFloor[floor]  or 0
+    local hits = HitsThisFloor[floor] or 0
     local misses = shots - hits
 
     if misses > MAX_MISSES then
         mod:FailDavidChallenge(player, floor)
     end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= CHALLENGE_NO_MISS then return end
+
+    local shots = ShotsThisFloor[floor] or 0
+    local hits = HitsThisFloor[floor] or 0
+    local misses = shots - hits
+
+    local text = "Misses: " .. misses .. "/" .. MAX_MISSES
+    Isaac.RenderText(text, 60, 20, 1, 1, 1, 1)
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
@@ -380,6 +445,7 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         HitsThisFloor  = {}
     end
 end)
+
 -------------------------------------------------
 -- CHALLENGE 7: NO HIT (CHAMPIONS)
 -------------------------------------------------
@@ -490,7 +556,21 @@ mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collid
     if newCount >= REQUIRED_CHORDS then
         mod:CompleteDavidChallenge(floor)
     end
+    
     return true
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    if not mod:IsDavidChallengeActive(floor) then return end
+    if mod:GetDavidChallengeVariant(floor) ~= CHALLENGE_COLLECT_CHORDS then return end
+
+    local count = GetCollectedChords()
+    local text = "Chords: " .. count .. "/" .. REQUIRED_CHORDS
+    Isaac.RenderText(text, 60, 20, 1, 1, 1, 1)
 end)
 
 -------------------------------------------------
@@ -516,15 +596,12 @@ local function GiveTemporaryMind(player)
     player:AddCollectible(CollectibleType.COLLECTIBLE_MIND, 0, false)
     pdata.TempMind = true
 end
+
 local function RemoveTemporaryMind(player)
     local pdata = player:GetData()
     if not pdata.TempMind then return end
 
-    player:RemoveCollectibleEffect(
-        CollectibleType.COLLECTIBLE_MIND,
-        1
-    )
-
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_MIND)
     pdata.TempMind = nil
 end
 
@@ -582,16 +659,37 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     end
 end)
 
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
+
+    local stage = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(stage) then return end
+    if DavidUtils.GetVariant(stage) ~= CHALLENGE_FAST_BOSS then return end
+
+    local pdata = player:GetData()
+    if not pdata.FastBossTimer then return end
+
+    local seconds = math.floor(pdata.FastBossTimer / 30)
+    local minutes = math.floor(seconds / 60)
+    local remainingSeconds = seconds % 60
+
+    local text = string.format("Time: %d:%02d", minutes, remainingSeconds)
+    Isaac.RenderText(text, 60, 20, 1, 1, 1, 1)
+end)
+
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
     if not isContinued then
-        RemoveTemporaryMind(Isaac.GetPlayer(0))
+        local player = Isaac.GetPlayer(0)
+        if player then
+            RemoveTemporaryMind(player)
+        end
     end
 end)
 
 -------------------------------------------------
 -- CHALLENGE 10: Do not use active or consumables
 -------------------------------------------------
-
 local CHALLENGE_NO_USE = 10
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, _, _, _, _, _)
