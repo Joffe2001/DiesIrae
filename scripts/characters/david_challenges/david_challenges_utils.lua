@@ -15,6 +15,10 @@ local FloorChallengeState = {}
 
 local function GetFloorChallengeState()
     local save = mod.SaveManager.GetRunSave()
+    if not save then
+        print("WARNING: SaveManager.GetRunSave() returned nil!")
+        return {}
+    end
     save.FloorChallengeState = save.FloorChallengeState or {}
     return save.FloorChallengeState
 end

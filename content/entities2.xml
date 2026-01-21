@@ -49,6 +49,9 @@
     <entity id="3" variant="1305" name="Pill Bum" anm2path="familiar/pillbum.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="10" stageHP="0">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
+    <entity id="3" variant="1306" name="Pastor Bum" anm2path="familiar/pastorbum.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="10" stageHP="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
 <!--NPCS-->
 
 <!--Beggars-->
@@ -61,10 +64,13 @@
     <entity id="6" variant="122" name="Guppy Beggar" anm2path="npc/guppy_beggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0" subtype="1">
 	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="123" name="Junk Yard Seller" anm2path="npc/junkyardseller.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="48" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" subtype="2">
+    <entity id="6" variant="123" name="Junk Yard Seller" anm2path="npc/junkyardseller.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="36" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" subtype="2">
         <gibs amount="6" blood="2" bone="3" eye="0" gut="5" large="0" />
     </entity>
     <entity id="6" variant="124" name="Goldsmith Beggar" anm2path="npc/goldsmith.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0" subtype="1">
+	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
+    </entity>
+    <entity id="6" variant="125" name="Familiars Beggar" anm2path="npc/fambeggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="20" stageHP="0" subtype="1">
 	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
 <!--Elijah's Beggars-->
@@ -157,7 +163,7 @@
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
 <!--David's chord-->
-	<entity id="5" variant="304" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
+	<entity id="5" variant="305" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
 <!--ENEMIES-->

@@ -666,8 +666,24 @@ mod.EIDescs = {
 },
 [mod.Items.FairBum] = {
     en_us = { 
-        "Takes the pickup Isaac has the most of",
+        "Picks up the pickup Isaac has the most of",
         "Has a chance to drop the pickup Isaac has the least of"
+    },
+},
+[mod.Items.PastorBum] = {
+    en_us = { 
+        "{{SoulHeart}} Picks up soul hearts",
+        "{{AngelRoom}} Has a chance to drop angel room item",
+        "{{DevilRoom}} After droping the item he becomes corrupted with sin",
+        "{{BlackHeart}} Might reward with black hearts and devil items"
+    },
+},
+[mod.Items.PillBum] = {
+    en_us = { 
+        "{{Pill}} Picks up pills",
+        "{{ArrowUp}} Positive gives a minor stst boost",
+        "{{Poison}} Negative pills makes the bum poison all enemies in the room",
+        "Neutral pills gives Isaac a random pill effect"
     },
 },
 --------------------------------------------------------

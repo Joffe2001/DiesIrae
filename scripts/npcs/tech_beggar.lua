@@ -3,35 +3,24 @@ local mod = DiesIraeMod
 local music = MusicManager()
 local game = Game()
 local sfx = SFXManager()
-local myBeggar = mod.Entities.BEGGAR_Tech.Var
+local TechB = mod.Entities.BEGGAR_Tech.Var
 
 
-local payChance = 0.8
-local prizeChance = 0.2
+local basePrizeChance = 0.15
+local chanceIncrement = 0.05
 local TECHX_DURATION = 1800
 
-local techPool = {
-    Collectibles = {
-        CollectibleType.COLLECTIBLE_TECHNOLOGY,
-        CollectibleType.COLLECTIBLE_TECH_X,
-        CollectibleType.COLLECTIBLE_TECHNOLOGY_2,
-        CollectibleType.COLLECTIBLE_TRACTOR_BEAM,
-        CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,
-        CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
-        CollectibleType.COLLECTIBLE_ROBO_BABY,
-        CollectibleType.COLLECTIBLE_ROBO_BABY_2,
-        CollectibleType.COLLECTIBLE_TECH_5,
-        CollectibleType.COLLECTIBLE_SPIDER_MOD,
-        CollectibleType.COLLECTIBLE_JACOBS_LADDER,
-        CollectibleType.COLLECTIBLE_120_VOLT,
-        CollectibleType.COLLECTIBLE_BOT_FLY
-    }
-}
+function mod:TechBeggarInit(beggar)
+    local data = beggar:GetData()
+    data.PaymentCount = 0
+end
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, mod.TechBeggarInit, TechB)
 
 function mod:TechBeggarCollision(beggar, collider, low)
     if not collider:ToPlayer() then return end
     local player = collider:ToPlayer()
     local sprite = beggar:GetSprite()
+    local data = beggar:GetData()
 
     if sprite:IsPlaying("Idle") then
         local rng = beggar:GetDropRNG()
@@ -44,17 +33,23 @@ function mod:TechBeggarCollision(beggar, collider, low)
 
         if pay then
             sfx:Play(SoundEffect.SOUND_SCAMPER)
+            
+            data.PaymentCount = (data.PaymentCount or 0) + 1
+            local currentPrizeChance = basePrizeChance + (chanceIncrement * (data.PaymentCount - 1))
+            
+            print("[Tech Beggar] Payment #" .. data.PaymentCount .. " - Prize chance: " .. (currentPrizeChance * 100) .. "%")
 
-            if rng:RandomFloat() > payChance then
+            if rng:RandomFloat() < currentPrizeChance then
                 sprite:Play("PayPrize")
-                beggar:GetData().LastPayer = player
+                data.LastPayer = player
+                data.PaymentCount = 0
             else
                 sprite:Play("PayNothing")
             end
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.TechBeggarCollision, myBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.TechBeggarCollision, TechB)
 
 function mod:TechBeggarUpdate(beggar)
     local sprite = beggar:GetSprite()
@@ -96,16 +91,16 @@ function mod:TechBeggarUpdate(beggar)
             mod:GiveTemporaryTechX(player)
             sprite:Play("Idle")
         else
-            local collectible = techPool.Collectibles[rng:RandomInt(#techPool.Collectibles) + 1]
+            local collectible = mod.Pools.Tech[rng:RandomInt(#mod.Pools.Tech) + 1]
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, collectible,
                 Isaac.GetFreeNearPosition(beggar.Position, 40), Vector.Zero, nil)
-                sprite:Play("Teleport")
+            sprite:Play("Teleport")
         end
     elseif sprite:IsFinished("Teleport") then
         beggar:Remove()
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, myBeggar)
+mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.TechBeggarUpdate, TechB)
 
 
 
@@ -160,4 +155,4 @@ function mod:TechBeggarExploded(beggar)
     beggar:Remove()
     return false
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.TechBeggarExploded, myBeggar)
+mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.TechBeggarExploded, TechB)

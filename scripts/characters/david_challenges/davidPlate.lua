@@ -35,10 +35,6 @@ local function IsChallengeAllowedOnFloor(variant, stage, stageType)
 end
 
 local function RestoreBackdrop(plateData)
-    if plateData.backdrop and plateData.backdrop:Exists() then
-        return
-    end
-
     local room = game:GetRoom()
     local frame = nil
 
@@ -49,6 +45,7 @@ local function RestoreBackdrop(plateData)
     end
 
     if not frame then return end
+    if plateData.backdropSpawned then return end
 
     local effect = Isaac.Spawn(
         EntityType.ENTITY_EFFECT,
@@ -65,7 +62,7 @@ local function RestoreBackdrop(plateData)
     spr:Play("Idle", true)
     spr:SetFrame(frame)
 
-    plateData.backdrop = effect
+    plateData.backdropSpawned = true
 end
 
 ---@param player EntityPlayer
@@ -144,7 +141,7 @@ local function SpawnDavidPlate(player)
     DavidPlates[currentFloor][roomIndex] = {
         index = targetIndex,
         state = "Off",
-        challengeVariant = nil, -- 1–11
+        challengeVariant = nil,
         wasPressed = false,
         missed = false
     }
@@ -262,6 +259,14 @@ mod:AddCallback(ModCallbacks.MC_PRE_NEW_ROOM, function()
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    local level = game:GetLevel()
+    local floor = level:GetStage()
+    local roomIndex = level:GetCurrentRoomIndex()
+    
+    if DavidPlates[floor] and DavidPlates[floor][roomIndex] then
+        DavidPlates[floor][roomIndex].backdropSpawned = false
+    end
+    
     SpawnDavidPlate(Isaac.GetPlayer(0))
 end)
 
@@ -275,13 +280,42 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         UsedChallenges = {}
     else
         local save = mod.SaveManager.GetRunSave()
-        DavidPlates = save.DavidPlates or {}
-        UsedChallenges = save.UsedChallenges or {}
+        
+        DavidPlates = {}
+        if save.DavidPlates then
+            for key, data in pairs(save.DavidPlates) do
+                local floor = tonumber(key:match("floor_(%d+)"))
+                if floor then
+                    DavidPlates[floor] = data
+                end
+            end
+        end
+        
+        UsedChallenges = {}
+        if save.UsedChallenges then
+            for key, used in pairs(save.UsedChallenges) do
+                local challenge = tonumber(key:match("challenge_(%d+)"))
+                if challenge then
+                    UsedChallenges[challenge] = used
+                end
+            end
+        end
     end
 end)
 
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     local save = mod.SaveManager.GetRunSave()
-    save.DavidPlates = DavidPlates
-    save.UsedChallenges = UsedChallenges
+    
+    local platesCopy = {}
+    for floor, data in pairs(DavidPlates) do
+        platesCopy["floor_" .. tostring(floor)] = data
+    end
+    
+    local challengesCopy = {}
+    for challenge, used in pairs(UsedChallenges) do
+        challengesCopy["challenge_" .. tostring(challenge)] = used
+    end
+    
+    save.DavidPlates = platesCopy
+    save.UsedChallenges = challengesCopy
 end)

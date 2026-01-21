@@ -113,6 +113,8 @@ include("scripts.items.familiars.ScammerBum")
 include("scripts.items.familiars.runeBum")
 include("scripts.items.familiars.fairBum")
 include("scripts.items.familiars.tarotBum")
+include("scripts.items.familiars.pastorBum")
+include("scripts.items.familiars.pillBum")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -163,6 +165,7 @@ include("scripts.npcs.tech_beggar")
 include("scripts.npcs.guppy_beggar")
 include("scripts.npcs.jys")
 include("scripts.npcs.goldsmith")
+include("scripts.npcs.familiars_beggar")
 --------Elijah's NPCs------------------------------
 include("scripts.npcs.elijah.elijah_tech_beggar")
 include("scripts.npcs.elijah.elijah_beggar")

@@ -11,6 +11,10 @@ fairBum.Item = mod.Items.FairBum
 fairBum.FollowDistance = 40
 fairBum.PushFromIdlePlayer = true
 
+-- Stackable system
+fairBum.BaseRewardChance  = 0.25 -- default base
+fairBum.StackRewardChance = true
+
 fairBum.CoinChances = {
     [CoinSubType.COIN_PENNY]        = 0.10,
     [CoinSubType.COIN_NICKEL]       = 0.50,
@@ -47,12 +51,9 @@ end
 local function GetLeastTypes(player)
     local c = GetCounts(player)
     local min = math.min(c[PickupVariant.PICKUP_COIN], c[PickupVariant.PICKUP_KEY], c[PickupVariant.PICKUP_BOMB])
-
     local t = {}
     for k, v in pairs(c) do
-        if v == min then
-            table.insert(t, k)
-        end
+        if v == min then table.insert(t, k) end
     end
     return t
 end
@@ -62,15 +63,9 @@ function fairBum.OnUpdate(fam)
     if not player then return end
 
     local counts = GetCounts(player)
-    local max = math.max(
-        counts[PickupVariant.PICKUP_COIN],
-        counts[PickupVariant.PICKUP_KEY],
-        counts[PickupVariant.PICKUP_BOMB]
-    )
-    if
-        counts[PickupVariant.PICKUP_COIN] == counts[PickupVariant.PICKUP_KEY] and
-        counts[PickupVariant.PICKUP_KEY]  == counts[PickupVariant.PICKUP_BOMB]
-    then
+    local max = math.max(counts[PickupVariant.PICKUP_COIN], counts[PickupVariant.PICKUP_KEY], counts[PickupVariant.PICKUP_BOMB])
+
+    if counts[PickupVariant.PICKUP_COIN] == counts[PickupVariant.PICKUP_KEY] and counts[PickupVariant.PICKUP_KEY] == counts[PickupVariant.PICKUP_BOMB] then
         fairBum.Accepts = nil
         return
     end
@@ -94,17 +89,27 @@ function fairBum.Reward(fam)
 
     if pickup.Variant == PickupVariant.PICKUP_COIN then
         chance = fairBum.CoinChances[pickup.SubType] or 0.1
+        fam:GetData().PickupStack = (fam:GetData().PickupStack or 0) + 1
+        chance = bumUtils.GetCurrentRewardChance(fam, fairBum)
+
         sfx:Play(SoundEffect.SOUND_PENNYPICKUP)
 
     elseif pickup.Variant == PickupVariant.PICKUP_KEY then
         chance = fairBum.KeyChances[pickup.SubType] or 0.15
+        fam:GetData().PickupStack = (fam:GetData().PickupStack or 0) + 1
+        chance = bumUtils.GetCurrentRewardChance(fam, fairBum)
+
         sfx:Play(SoundEffect.SOUND_KEYPICKUP_GAUNTLET)
 
     elseif pickup.Variant == PickupVariant.PICKUP_BOMB then
         chance = fairBum.BombChances[pickup.SubType] or 0.15
+        fam:GetData().PickupStack = (fam:GetData().PickupStack or 0) + 1
+        chance = bumUtils.GetCurrentRewardChance(fam, fairBum)
+
         sfx:Play(SoundEffect.SOUND_FETUS_LAND)
     end
 
+    if chance > 1 then chance = 1 end
     return rng:RandomFloat() < chance
 end
 
@@ -128,8 +133,9 @@ function fairBum.DoReward(fam)
     elseif variant == PickupVariant.PICKUP_BOMB then
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_NORMAL, pos, Vector.Zero, fam)
     end
+
+    fam:GetData().PickupStack = 0
 end
 
 bumUtils.RegisterBum(FAIR_BUM, fairBum)
-
 return fairBum

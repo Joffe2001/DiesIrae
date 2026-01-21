@@ -14,25 +14,57 @@ local TARGET_RECALC_INTERVAL       = 10
 
 ---@class BumDefinition
 --- @field Item? integer                   -- Item that spawns this familiar
---- @field Accepts? table<integer, boolean> -- Allowed pickup variants
+--- @field Accepts? table<integer, boolean> | function -- Allowed pickup variants
 --- @field Reward fun(fam):boolean         -- Should the bum reward?
 --- @field DoReward? fun(fam)              -- Reward spawn callback
 --- @field OnUpdate? fun(fam)              -- Optional extra logic
+--- @field OnInit? fun(fam)                -- Optional init logic
+--- @field BaseRewardChance? number        -- Base chance per pickup (e.g., 0.02 for 2%)
+--- @field StackRewardChance? boolean      -- If true, chance stacks with each pickup
+
 
 bumUtils.BUM_DEFS = {} -- variant → BumDefinition
 
+----------------------------------
+---      Register the bums
+----------------------------------
 function bumUtils.RegisterBum(variant, def)
     bumUtils.BUM_DEFS[variant] = def
 end
 
+----------------------------------
+---What kind of pickup the bum should accept (And he won't take it from the shops!)
+----------------------------------
+function bumUtils.ShouldAcceptPickup(fam, pickup)
+    if not pickup or not pickup:Exists() then
+        return false
+    end
+
+    if pickup.Price and pickup.Price > 0 then
+        return false
+    end
+
+    return true
+end
+
+----------------------------------
+---      Pickup locate
+----------------------------------
 function bumUtils.FindNearestPickup(fam, accepts)
     local pos = fam.Position
     local best, bestDist
 
     for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP)) do
         local p = ent:ToPickup()
-        if p and accepts[p.Variant] then
-            if not p.Price or p.Price <= 0 then
+        if p then
+            local shouldAccept = false
+            if type(accepts) == "function" then
+                shouldAccept = accepts(fam, p)
+            elseif type(accepts) == "table" then
+                shouldAccept = accepts[p.Variant]
+            end
+            
+            if shouldAccept and (not p.Price or p.Price <= 0) then
                 local d = pos:Distance(p.Position)
                 if not bestDist or d < bestDist then
                     best = p
@@ -44,20 +76,9 @@ function bumUtils.FindNearestPickup(fam, accepts)
     return best
 end
 
-local function AvoidBumCollision(fam)
-    local pos = fam.Position
-    for _, e in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
-        if e.Index ~= fam.Index and e.Variant ~= fam.Variant then
-            local dist = pos:Distance(e.Position)
-            if dist < COLLISION_RADIUS then
-                local push = (pos - e.Position):Normalized() * 0.8
-                fam.Velocity = fam.Velocity + push
-            end
-        end
-    end
-end
-
-
+----------------------------------
+---     Familiar AI
+----------------------------------
 function bumUtils.UpdateAI(fam, def)
     local data = fam:GetData()
     local player = fam.Player
@@ -70,7 +91,12 @@ function bumUtils.UpdateAI(fam, def)
         data.TargetPickup = nil
 
         if def.Accepts then
-            data.TargetPickup = bumUtils.FindNearestPickup(fam, def.Accepts)
+            local pickup = bumUtils.FindNearestPickup(fam, def.Accepts)
+            if bumUtils.ShouldAcceptPickup(fam, pickup) then
+                data.TargetPickup = pickup
+            else
+                data.TargetPickup = nil
+            end
         end
     end
 
@@ -80,41 +106,86 @@ function bumUtils.UpdateAI(fam, def)
     if data.TargetPickup and data.TargetPickup:Exists() then
         targetPos = data.TargetPickup.Position
         speed = DEFAULT_SPEED_CHASE_PICKUP
-    else
-        local followDist = def.FollowDistance or 40
-        local dist = fam.Position:Distance(player.Position)
-    
-        if dist > followDist then
-            targetPos = player.Position
-            speed = DEFAULT_SPEED_FOLLOW_PLAYER
-        else
-            targetPos = fam.Position
-            speed = 0
-            fam.Velocity = fam.Velocity * 0.7
+    elseif data.ReturningToPlayer then
+        targetPos = player.Position
+        speed = DEFAULT_SPEED_FOLLOW_PLAYER * 0.6
+        
+        if fam.Position:Distance(player.Position) < 10 then
+            data.ReturningToPlayer = nil
+            fam:FollowParent()
         end
+    else
+        ---Follow parent
+        fam:FollowParent()
+        targetPos = nil
+    end
+    ---Go to the pickup
+    if targetPos then
+        local dir = (targetPos - fam.Position):Normalized()
+        local desired = dir * speed
+        fam.Velocity = fam.Velocity + (desired - fam.Velocity) * 0.25
     end
 
-    local dir = (targetPos - fam.Position):Normalized()
-    local desired = dir * speed
-    fam.Velocity = fam.Velocity + (desired - fam.Velocity) * 0.25
-
-    AvoidBumCollision(fam)
+    local pos = fam.Position
+    for _, e in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR)) do
+        if e.Index ~= fam.Index and e.Variant ~= fam.Variant then
+            local dist = pos:Distance(e.Position)
+            if dist < COLLISION_RADIUS then
+                local push = (pos - e.Position):Normalized() * 0.8
+                fam.Velocity = fam.Velocity + push
+            end
+        end
+    end
 
     if data.TargetPickup and fam.Position:Distance(data.TargetPickup.Position) <= PICKUP_REACH then
         local pickup = data.TargetPickup
         pickup:Remove()
 
-        if def.Reward and def.Reward(fam) then
+        if def.StackRewardChance then
+            data.PickupStack = (data.PickupStack or 0) + 1
+        end
+
+        local shouldReward = false
+        if def.Reward then
+            shouldReward = def.Reward(fam)
+        end
+
+        if shouldReward then
             if def.DoReward then
                 bumUtils.DoRewardAnimation(fam, def.DoReward)
+            end
+            
+            if def.StackRewardChance then
+                data.PickupStack = 0
             end
         end
 
         data.TargetPickup = nil
+        data.ReturningToPlayer = true
     end
 end
 
+----------------------------------
+---      What is the reward chance
+----------------------------------
+function bumUtils.GetCurrentRewardChance(fam, def)
+    if not def.BaseRewardChance then
+        return 0
+    end
+    
+    if not def.StackRewardChance then
+        return def.BaseRewardChance
+    end
+    
+    local data = fam:GetData()
+    local stack = data.PickupStack or 0
 
+    return def.BaseRewardChance * (stack + 1)
+end
+
+----------------------------------
+---         Animations
+----------------------------------
 function bumUtils.PlayAnimations(fam)
     local sprite = fam:GetSprite()
     local data   = fam:GetData()
@@ -165,10 +236,10 @@ function bumUtils.DoRewardAnimation(fam, callback)
 end
 
 function bumUtils:OnInit(fam)
-    local def = bumUtils.BUM_DEFS[fam.Variant]
-
+    fam:AddToFollowers()
     fam:GetSprite():Play("IdleDown", true)
     
+    local def = bumUtils.BUM_DEFS[fam.Variant]
     if def and def.OnInit then
         def.OnInit(fam)
     end

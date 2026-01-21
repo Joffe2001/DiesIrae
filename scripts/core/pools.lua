@@ -2,6 +2,9 @@
 local mod = DiesIraeMod
 
 mod.Pools ={
+    -------------------------------------
+    ---         TRANSFORMATIONS
+    -------------------------------------
     DadPlaylistItem = {
         mod.Items.TheBadTouch,
         mod.Items.ArmyOfLovers,
@@ -42,6 +45,9 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_RELIC,
         CollectibleType.COLLECTIBLE_HOLY_MANTLE
     },
+    -------------------------------------
+    ---             BEGGARS
+    -------------------------------------
     Tech = {
         CollectibleType.COLLECTIBLE_TECHNOLOGY,
         CollectibleType.COLLECTIBLE_TECH_X,
@@ -85,11 +91,6 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_E_COLI,
         CollectibleType.COLLECTIBLE_CAFFEINE_PILL,
     },
-    Uncertantity = {
-        CollectibleType.COLLECTIBLE_D_INFINITY,
-        CollectibleType.COLLECTIBLE_LIL_DELIRIUM,
-        CollectibleType.COLLECTIBLE_DELIRIOUS,
-    },
     LostAdventurer = {
         CollectibleType.COLLECTIBLE_COMPASS,
         CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS,
@@ -99,6 +100,41 @@ mod.Pools ={
         mod.Items.DevilsMap,
         mod.Items.BossCompass
     },
+    Familiar_Beggar_Trinkets ={
+        TrinketType.TRINKET_UMBILICAL_CORD,
+        TrinketType.TRINKET_ISAACS_HEAD,
+        TrinketType.TRINKET_SOUL,
+        TrinketType.TRINKET_EVES_BIRD_FOOT,
+        TrinketType.TRINKET_CHILD_LEASH,
+        TrinketType.TRINKET_DUCT_TAPE,
+        TrinketType.TRINKET_EXTENSION_CORD,
+        TrinketType.TRINKET_BABY_BENDER,
+        TrinketType.TRINKET_FORGOTTEN_LULLABY,
+        TrinketType.TRINKET_FRIENDSHIP_NECKLACE,
+        TrinketType.TRINKET_RC_REMOTE,
+        TrinketType.TRINKET_FOUND_SOUL,
+        TrinketType.TRINKET_THE_TWINS,
+    },
+    Familiar_Beggar_Items ={
+        ---Familiars related items
+        CollectibleType.COLLECTIBLE_MONSTER_MANUAL,
+        CollectibleType.COLLECTIBLE_BFFS,
+        CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS,
+        CollectibleType.COLLECTIBLE_CAMBION_CONCEPTION,
+        CollectibleType.COLLECTIBLE_IMMACULATE_CONCEPTION,
+        CollectibleType.COLLECTIBLE_SCOOPER,
+    },
+    -------------------------------------
+    ---             MINIBOSSES
+    -------------------------------------
+    Uncertantity = {
+        CollectibleType.COLLECTIBLE_D_INFINITY,
+        CollectibleType.COLLECTIBLE_LIL_DELIRIUM,
+        CollectibleType.COLLECTIBLE_DELIRIOUS,
+    },
+    -------------------------------------
+    ---             EXTRA
+    -------------------------------------
     curseList = {
         LevelCurse.CURSE_OF_DARKNESS,
         LevelCurse.CURSE_OF_LABYRINTH,
@@ -107,7 +143,6 @@ mod.Pools ={
         LevelCurse.CURSE_OF_BLIND,
         LevelCurse.CURSE_OF_MAZE
     },
-
     TarotCards = {
         Card.CARD_FOOL,
         Card.CARD_MAGICIAN,
@@ -156,7 +191,79 @@ mod.Pools ={
         Card.CARD_REVERSE_JUDGEMENT,
         Card.CARD_REVERSE_WORLD
     },
-
+    RuneOrSoul = {
+        [Card.RUNE_HAGALAZ]  = true,
+        [Card.RUNE_JERA]     = true,
+        [Card.RUNE_EHWAZ]    = true,
+        [Card.RUNE_DAGAZ]    = true,
+        [Card.RUNE_ANSUZ]    = true,
+        [Card.RUNE_PERTHRO]  = true,
+        [Card.RUNE_BERKANO]  = true,
+        [Card.RUNE_ALGIZ]    = true,
+        [Card.RUNE_BLACK]    = true,
+        [Card.CARD_SOUL_ISAAC]       = true,
+        [Card.CARD_SOUL_MAGDALENE]   = true,
+        [Card.CARD_SOUL_CAIN]        = true,
+        [Card.CARD_SOUL_JUDAS]       = true,
+        [Card.CARD_SOUL_BLUEBABY]    = true,
+        [Card.CARD_SOUL_EVE]         = true,
+        [Card.CARD_SOUL_SAMSON]      = true,
+        [Card.CARD_SOUL_AZAZEL]      = true,
+        [Card.CARD_SOUL_LAZARUS]     = true,
+        [Card.CARD_SOUL_EDEN]        = true,
+        [Card.CARD_SOUL_LOST]        = true,
+        [Card.CARD_SOUL_LILITH]      = true,
+        [Card.CARD_SOUL_KEEPER]      = true,
+        [Card.CARD_SOUL_APOLLYON]    = true,
+        [Card.CARD_SOUL_FORGOTTEN]   = true,
+        [Card.CARD_SOUL_BETHANY]     = true,
+        [Card.CARD_SOUL_JACOB]       = true,
+    },
+    GoodPills ={
+        PillEffect.PILLEFFECT_BALLS_OF_STEEL,
+        PillEffect.PILLEFFECT_FULL_HEALTH,
+        PillEffect.PILLEFFECT_HEALTH_UP,
+        PillEffect.PILLEFFECT_PRETTY_FLY,
+        PillEffect.PILLEFFECT_RANGE_UP,
+        PillEffect.PILLEFFECT_SPEED_UP,
+        PillEffect.PILLEFFECT_TEARS_UP,
+        PillEffect.PILLEFFECT_LUCK_UP,
+        PillEffect.PILLEFFECT_48HOUR_ENERGY,
+        PillEffect.PILLEFFECT_SEE_FOREVER,
+        PillEffect.PILLEFFECT_PHEROMONES,
+        PillEffect.PILLEFFECT_LEMON_PARTY,
+        PillEffect.PILLEFFECT_PERCS,
+        PillEffect.PILLEFFECT_INFESTED_EXCLAMATION,
+        PillEffect.PILLEFFECT_INFESTED_QUESTION,
+        PillEffect.PILLEFFECT_POWER,
+        PillEffect.PILLEFFECT_FRIENDS_TILL_THE_END,
+        PillEffect.PILLEFFECT_GULP,
+        PillEffect.PILLEFFECT_VURP,
+        PillEffect.PILLEFFECT_SUNSHINE,
+        PillEffect.PILLEFFECT_SHOT_SPEED_UP,
+        mod.Pills.VOMIT
+    },
+    BadPills ={
+        PillEffect.PILLEFFECT_BAD_TRIP,
+        PillEffect.PILLEFFECT_HEALTH_DOWN,
+        PillEffect.PILLEFFECT_RANGE_DOWN,
+        PillEffect.PILLEFFECT_SPEED_DOWN,
+        PillEffect.PILLEFFECT_TEARS_DOWN,
+        PillEffect.PILLEFFECT_LUCK_DOWN,
+        PillEffect.PILLEFFECT_PARALYSIS,
+        PillEffect.PILLEFFECT_AMNESIA,
+        PillEffect.PILLEFFECT_WIZARD,
+        PillEffect.PILLEFFECT_ADDICTED,
+        PillEffect.PILLEFFECT_QUESTIONMARK,
+        PillEffect.PILLEFFECT_RETRO_VISION,
+        PillEffect.PILLEFFECT_SHOT_SPEED_DOWN,
+        mod.Pills.CURSED,
+        mod.Pills.HEARTBREAK,
+        mod.Pills.POWER_DRAIN,
+    },
+    -------------------------------------
+    ---       ELIJAH BLACKLISTS
+    -------------------------------------
     Elijah_blacklist = {
         CollectibleType.COLLECTIBLE_DOLLAR,
         CollectibleType.COLLECTIBLE_QUARTER,
@@ -177,5 +284,14 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_GREEDS_GULLET,
         CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
         CollectibleType.COLLECTIBLE_KEEPERS_SACK,
-    }
+        mod.Items.ScammerBum,
+        mod.Items.FilthyRich,
+    },
+    Slot_blacklist = {
+        SlotVariant.SLOT_MACHINE,
+        SlotVariant.FORTUNE_TELLING_MACHINE,
+        SlotVariant.CRANE_GAME,
+        SlotVariant.CONFESSIONAL,
+        SlotVariant.HELL_GAME,
+    },
 }

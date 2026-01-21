@@ -60,7 +60,9 @@
     <familiar id="57" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
     <familiar id="58" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
 	<familiar id="59" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-	<familiar id="60" name="Pill Bum" 				   gfx="item_placeholder.png"		   description="placeholder"								 quality="1" cache="familiars" tags="baby summonable monstermanual"/>
+	<familiar id="60" name="Pill Bum" 				   gfx="item_placeholder.png"		   description="He can quit whenever he wants"				 quality="2" cache="familiars" tags="baby summonable monstermanual"/>
+    <familiar id="61" name="Pastor Bum" 			   gfx="pastorbum.png"	      	       description="God I think I've sinned"					 quality="3" cache="familiars" tags="baby summonable monstermanual"/>
+
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
     <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />

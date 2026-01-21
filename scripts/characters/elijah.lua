@@ -1,3 +1,4 @@
+---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
@@ -89,38 +90,6 @@ local CHAOS_ELIJAH_BEGGARS = {
     mod.Entities.BEGGAR_BatteryElijah.Var,
 }
 
-local Elijah_blacklist = {
-    CollectibleType.COLLECTIBLE_DOLLAR,
-    CollectibleType.COLLECTIBLE_QUARTER,
-    CollectibleType.COLLECTIBLE_SACK_OF_PENNIES,
-    CollectibleType.COLLECTIBLE_PAGEANT_BOY,
-    CollectibleType.COLLECTIBLE_BUM_FRIEND,
-    CollectibleType.COLLECTIBLE_PORTABLE_SLOT,
-    CollectibleType.COLLECTIBLE_PIGGY_BANK,
-    CollectibleType.COLLECTIBLE_MYSTERY_SACK,
-    CollectibleType.COLLECTIBLE_BLUE_BOX,
-    CollectibleType.COLLECTIBLE_WOODEN_NICKEL,
-    CollectibleType.COLLECTIBLE_RESTOCK,
-    CollectibleType.COLLECTIBLE_BUMBO,
-    CollectibleType.COLLECTIBLE_SACK_HEAD,
-    CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER,
-    CollectibleType.COLLECTIBLE_EYE_OF_GREED,
-    CollectibleType.COLLECTIBLE_DADS_LOST_COIN,
-    CollectibleType.COLLECTIBLE_GREEDS_GULLET,
-    CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
-    CollectibleType.COLLECTIBLE_KEEPERS_SACK,
-    mod.Items.ScammerBum,
-    mod.Items.FilthyRich,
-}
-
-local Slot_blacklist = {
-    SlotVariant.SLOT_MACHINE,
-    SlotVariant.FORTUNE_TELLING_MACHINE,
-    SlotVariant.CRANE_GAME,
-    SlotVariant.CONFESSIONAL,
-    SlotVariant.HELL_GAME,
-}
-
 ---@alias statUpFun fun(data: table)
 ---@type statUpFun[]
 local statsUpFuncs = {
@@ -184,7 +153,7 @@ local function IsWhitelist(npcVariant)
 end
 
 local function IsBlacklisted(itemID)
-    for _, id in ipairs(Elijah_blacklist) do
+    for _, id in ipairs(mod.Pools.Elijah_blacklist) do
         if id == itemID then
             return true
         end
@@ -193,7 +162,7 @@ local function IsBlacklisted(itemID)
 end
 
 local function IsSlotBlacklisted(variant)
-    for _, v in ipairs(Slot_blacklist) do
+    for _, v in ipairs(mod.Pools.Slot_blacklist) do
         if v == variant then
             return true
         end
@@ -292,12 +261,7 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
 
     local stat = math.random(#statsUpFuncs)
     StatUp = statsUpFuncs[stat]
-
     StatUp(data)
-    if utils.HasBirthright(player) then
-        StatUp(data)
-    end
-
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 
     player:PlayExtraAnimation("Happy")
@@ -345,14 +309,13 @@ function elijahFuncs:EvaluateCache(player, cacheFlag)
     if (not CacheFunc) then return end
     CacheFunc(player)
 
-    if runSave.WillBStats then
+    if utils.HasBirthright(player) and runSave.WillBStats then
         local temp = runSave
         runSave = runSave.WillBStats
         CacheFunc(player)
         runSave = temp
     end
 end
-
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
 ----------------------------------------------

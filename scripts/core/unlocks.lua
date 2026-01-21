@@ -574,6 +574,8 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, OnNewLevel_Speedrun1)
 local function OnNPCDeath_Speedrun1(_, npc)
     if hasUnlockedSpeedrun1 then return end
     if not npc:IsBoss() then return end
+    local room = Game():GetRoom()
+    if room:GetType() ~= RoomType.ROOM_BOSS then return end
     local level = Game():GetLevel()
     if level:GetStage() ~= LevelStage.STAGE1_1 then return end
 

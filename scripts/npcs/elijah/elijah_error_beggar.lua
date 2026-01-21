@@ -10,6 +10,8 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 
 local BASE_REWARD_CHANCES = 0.75
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_NULL
+local IDLE_CHANGE_CHANCE = 0.30
+local MIN_IDLE_FRAMES = 150
 
 --- Definitions
 ---
@@ -83,6 +85,36 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollisi
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
+    local sprite = beggarEntity:GetSprite()
+    local data = beggarEntity:GetData()
+    
+    data.IdleFrameCounter = data.IdleFrameCounter or 0
+    
+    local currentAnim = sprite:GetAnimation()
+    local isIdle = currentAnim == "Idle" or (currentAnim:match("^Idle%d+$") ~= nil)
+    
+    if isIdle then
+        data.IdleFrameCounter = data.IdleFrameCounter + 1
+        
+        if data.IdleFrameCounter >= MIN_IDLE_FRAMES then
+            local rng = beggarEntity:GetDropRNG()
+            if rng:RandomFloat() < IDLE_CHANGE_CHANCE then
+                local idleNum = rng:RandomInt(27) + 2
+                local newIdle = "Idle" .. idleNum
+                
+                sprite:Play(newIdle, true)
+                data.IdleFrameCounter = 0
+            end
+        end
+        
+        if currentAnim ~= "Idle" and sprite:IsFinished(currentAnim) then
+            sprite:Play("Idle", true)
+            data.IdleFrameCounter = 0
+        end
+    else
+        data.IdleFrameCounter = 0
+    end
+    
     beggarUtils.StateMachine(beggarEntity, beggarEvents)
 end
 

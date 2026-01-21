@@ -9,12 +9,33 @@ local tarotBum = {}
 
 tarotBum.Item = mod.Items.TarotBum
 
-tarotBum.Accepts = {
-    [PickupVariant.PICKUP_TAROTCARD] = true
-}
+tarotBum.Accepts = function(fam, pickup)
+
+    if pickup.Variant ~= PickupVariant.PICKUP_TAROTCARD then return false end
+    if pickup.Price and pickup.Price > 0 then return false end
+
+    local subtype = pickup.SubType
+
+    for _, card in ipairs(mod.Pools.TarotCards) do
+        if card == subtype then
+            return true
+        end
+    end
+    for _, card in ipairs(mod.Pools.ReverseCards) do
+        if card == subtype then
+            return true
+        end
+    end
+
+    return false
+end
 
 tarotBum.FollowDistance = 40
 tarotBum.ReachDistance  = 20
+
+
+tarotBum.BaseRewardChance  = 0.25
+tarotBum.StackRewardChance = true
 
 local function IsInPool(pool, card)
     for _, c in ipairs(pool) do
@@ -30,22 +51,21 @@ function tarotBum.OnInit(fam)
     data.CardsCollected = 0
 end
 
-function tarotBum.OnUpdate(fam)
-	fam:followParent()
-end
-
 function tarotBum.Reward(fam)
-    local data = fam:GetData()
+    local data   = fam:GetData()
     local pickup = data.TargetPickup
     if not pickup then return false end
 
-    if pickup.Price and pickup.Price > 0 then
+    data.PickupStack = (data.PickupStack or 0) + 1
+    local chance = bumUtils.GetCurrentRewardChance(fam, tarotBum)
+    if chance > 1 then chance = 1 end
+
+    if fam:GetDropRNG():RandomFloat() >= chance then
         return false
     end
 
     local rng = fam:GetDropRNG()
     local subtype = pickup.SubType
-
     local pos = Isaac.GetFreeNearPosition(fam.Position, 10)
 
     if subtype == Card.CARD_JOKER then
@@ -74,20 +94,19 @@ function tarotBum.Reward(fam)
             heartType = HeartSubType.HEART_BLACK
         end
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartType, pos, Vector.Zero, fam)
+
     else
         return false
     end
 
     data.CardsCollected = (data.CardsCollected or 0) + 1
+    data.PickupStack = 0
     return true
 end
 
 function tarotBum.DoReward(fam)
-    if tarotBum.Reward then
-        tarotBum.Reward(fam)
-    end
+    tarotBum.Reward(fam)
 end
 
 bumUtils.RegisterBum(TAROT_BUM, tarotBum)
-
 return tarotBum

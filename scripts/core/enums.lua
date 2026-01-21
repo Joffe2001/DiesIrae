@@ -83,6 +83,7 @@ mod.Items = {
     FairBum               = Isaac.GetItemIdByName("Fair Bum"),
     TarotBum              = Isaac.GetItemIdByName("Tarot Bum"),
 	PillBum				  = Isaac.GetItemIdByName("Pill Bum"),
+    PastorBum             = Isaac.GetItemIdByName("Pastor Bum"),
 
     -- Actives
     GuppysSoul            = Isaac.GetItemIdByName("Guppy's soul"),
@@ -215,6 +216,7 @@ mod.Entities = {
     BEGGAR_Guppy             = MakeEntityTable("Guppy Beggar"),
     BEGGAR_JYS               = MakeEntityTable("Junk Yard Seller"),
     BEGGAR_Goldsmith         = MakeEntityTable("Goldsmith Beggar"),
+    BEGGAR_Familiars         = MakeEntityTable("Familiars Beggar"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
@@ -255,6 +257,7 @@ mod.Entities = {
     FAMILIAR_FairBum         = MakeEntityTable("Fair Bum"),
     FAMILIAR_TarotBum        = MakeEntityTable("Tarot Bum"),
 	FAMILIAR_PillBum		 = MakeEntityTable("Pill Bum"),
+    FAMILIAR_PastorBum       = MakeEntityTable("Pastor Bum"),
 }
 
 mod.Curses = {

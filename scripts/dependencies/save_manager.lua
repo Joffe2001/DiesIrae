@@ -1537,12 +1537,33 @@ local function postNewRoom()
     roomSaveData.__SAVEMANAGER_ASCENT_INDEX = SaveManager.Utility.GetAscentSaveIndex()
 end
 
+local function sanitizeSaveData(data, path)
+    path = path or "root"
+    for key, value in pairs(data) do
+        local valueType = type(value)
+        local currentPath = path .. "." .. tostring(key)
+        
+        if valueType == "userdata" or valueType == "function" or valueType == "thread" then
+            print("WARNING: Removing invalid save data at " .. currentPath .. " (type: " .. valueType .. ")")
+            data[key] = nil
+        elseif valueType == "table" then
+            sanitizeSaveData(value, currentPath)
+        end
+    end
+end
+
 local function postNewLevel()
     SaveManager.Utility.DebugLog("new level")
     resetData("room")
     resetData("floor")
     checkForMyosotis()
     checkForAscentValidRooms()
+    
+    local runSave = SaveManager.GetRunSave()
+    if runSave then
+        sanitizeSaveData(runSave)
+    end
+    
     SaveManager.Save()
 end
 
