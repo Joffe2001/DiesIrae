@@ -75,6 +75,12 @@ local function SpawnDavidPlate(player)
     local currentFloor = level:GetStage()
     local roomIndex = level:GetCurrentRoomIndex()
 
+    if stage == LevelStage.STAGE8 
+    or level:IsAscent()
+    or level:GetStageType() == StageType.STAGETYPE_REPENTANCE_B then
+        return
+    end
+    
     if mod:GetCompletedDavidChallengeCount() >= 4
     or stage > LevelStage.STAGE4_2 then
         return

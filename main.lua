@@ -166,6 +166,7 @@ include("scripts.npcs.guppy_beggar")
 include("scripts.npcs.jys")
 include("scripts.npcs.goldsmith")
 include("scripts.npcs.familiars_beggar")
+include("scripts.npcs.sacrifice_table")
 --------Elijah's NPCs------------------------------
 include("scripts.npcs.elijah.elijah_tech_beggar")
 include("scripts.npcs.elijah.elijah_beggar")
@@ -184,6 +185,7 @@ include("scripts.npcs.elijah.elijah_error_beggar")
 include("scripts.npcs.elijah.elijah_book_beggar")
 include("scripts.npcs.elijah.elijah_goldsmith")
 include("scripts.npcs.elijah.elijah_jys")
+include("scripts.npcs.elijah_familiars_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------

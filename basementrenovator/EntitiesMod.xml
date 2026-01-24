@@ -5,6 +5,8 @@
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/jys.png" Name="Junk Yard Seller" Subtype="2" Variant="123" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/goldsmith.png" Name="Goldsmith Beggar" Subtype="1" Variant="124" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/fambeggar.png" Name="Familiars Beggar" Subtype="1" Variant="125" />
+    <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/sac_table.png" Name="Sacrifice Table" Subtype="1" Variant="126" />
+
 <!--Elijah's Beggars-->
     <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/tech.png" Name="Tech Beggar Elijah" Subtype="0" Variant="221" />
     <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/beggar.png" Name="Beggar Elijah" Subtype="0" Variant="222" />

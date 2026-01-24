@@ -70,7 +70,10 @@
     <entity id="6" variant="124" name="Goldsmith Beggar" anm2path="npc/goldsmith.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0" subtype="1">
 	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="125" name="Familiars Beggar" anm2path="npc/fambeggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="20" stageHP="0" subtype="1">
+    <entity id="6" variant="125" name="Familiars Beggar" anm2path="npc/fambeggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="25" stageHP="0" subtype="1">
+	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
+    </entity>
+    <entity id="6" variant="126" name="Sacrifice Table" anm2path="npc/sactable.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="25" stageHP="0" subtype="1">
 	    <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>
 <!--Elijah's Beggars-->
@@ -128,9 +131,13 @@
     <entity id="6" variant="238" name="Goldsmith Beggar Elijah" anm2path="npc/Elijahnpc/goldsmith.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="15" stageHP="0">
 	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
     </entity>
-    <entity id="6" variant="239" name="Restock Elijah" anm2path="npc/Elijahnpc/restock_will.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="33" stageHP="0">
+    <entity id="6" variant="239" name="Familiars Beggar Elijah" anm2path="npc/Elijahnpc/fambeggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="25" stageHP="0" subtype="0">
+	    <gibs amount="6" blood="1" bone="1" eye="2" gut="1" large="0" />
+    </entity>
+    <entity id="6" variant="240" name="Restock Elijah" anm2path="npc/Elijahnpc/restock_will.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="33" stageHP="0">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
+    
 <!--CONSUMABLES-->
 
 <!--Runes and such-->

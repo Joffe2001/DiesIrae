@@ -217,6 +217,7 @@ mod.Entities = {
     BEGGAR_JYS               = MakeEntityTable("Junk Yard Seller"),
     BEGGAR_Goldsmith         = MakeEntityTable("Goldsmith Beggar"),
     BEGGAR_Familiars         = MakeEntityTable("Familiars Beggar"),
+    BEGGAR_SacrificeTable    = MakeEntityTable("Sacrifice Table"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
@@ -236,6 +237,7 @@ mod.Entities = {
     BEGGAR_ERROR_Elijah      = MakeEntityTable("ERROR Beggar Elijah"),
     BEGGAR_JYS_Elijah        = MakeEntityTable("Junk Yard Seller Elijah"),
     BEGGAR_Goldsmith_Elijah  = MakeEntityTable("Goldsmith Beggar Elijah"),
+    BEGGAR_Familiars_Elijah  = MakeEntityTable("Familiars Beggar Elijah"),
 
     FAMILIAR_ParanoidAndroid = MakeEntityTable("Paranoid Android"),
     FAMILIAR_KillerQueen     = MakeEntityTable("Killer Queen"),
