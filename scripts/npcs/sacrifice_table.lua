@@ -97,11 +97,11 @@ function mod:SacrificeTableCollision(beggar, collider)
     local player = collider:ToPlayer()
     if not player then return end
 
-    local sprite = beggar:GetSprite()
-    local currentAnim = sprite:GetAnimation()
+    local beggarSprite = beggar:GetSprite()
+    local currentAnim = beggarSprite:GetAnimation()
     local isUsed = (currentAnim == "Blood_Idle")
 
-    if not(sprite:IsPlaying("Idle") or sprite:IsPlaying("Blood_Idle")) then
+    if not(beggarSprite:IsPlaying("Idle") or beggarSprite:IsPlaying("Blood_Idle")) then
         return
     end
 
@@ -130,13 +130,20 @@ function mod:SacrificeTableCollision(beggar, collider)
     data.LastPayer = player
     data.ChosenCollectibleID = collectibleID
 
+	-- Replace Spritesheet	
+	local familiarSpritesheet = familiar:GetSprite():GetLayer(0):GetSpritesheetPath()
+	beggar:Sprite:ReplaceSpritesheet(1, chosen_Spritesheet, true)
+
+
+
+
     chosen:Remove()
 
     -- Play animation
     if isUsed then
-        sprite:Play("place_Familiar2")
+        beggarSprite:Play("place_Familiar2")
     else
-        sprite:Play("place_Familiar")
+        beggarSprite:Play("place_Familiar")
     end
 
     sfx:Play(SoundEffect.SOUND_SCAMPER)
