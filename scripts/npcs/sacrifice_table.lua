@@ -132,7 +132,7 @@ function mod:SacrificeTableCollision(beggar, collider)
 
 	-- Replace Spritesheet	
 	local familiarSpritesheet = familiar:GetSprite():GetLayer(0):GetSpritesheetPath()
-	beggar:Sprite:ReplaceSpritesheet(1, chosen_Spritesheet, true)
+	beggarSprite:ReplaceSpritesheet(1, chosen_Spritesheet, true)
 
 
 
