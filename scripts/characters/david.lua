@@ -23,11 +23,11 @@ function David:OnPlayerInit(player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
 
-
-local DAMAGE_MODIFIER = 1
+--STRONG boiiii
+local DAMAGE_MODIFIER = 2
 local SPEED_MODIFIER = 0.2
-local TEAR_DELAY_MODIFIER = 0.3
-local LUCK_MODIFIER = 1
+local TEAR_DELAY_MODIFIER = 1.3
+local LUCK_MODIFIER = 3
 
 function David:OnEvaluateCache(player, flag)
     if player:GetPlayerType() ~= mod.Players.David then return end

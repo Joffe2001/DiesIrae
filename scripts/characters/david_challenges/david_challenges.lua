@@ -2,12 +2,12 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
-local DavidUtils = include("scripts/characters/david_challenges/david_challenges_utils")
+local DavidUtils = require("scripts.characters.david_challenges.david_challenges_utils")
 
 -------------------------------------------------
 -- CONSTANTS
 -------------------------------------------------
-local CHALLENGES = {
+mod.CHALLENGES = {
     NO_HIT_BOSS = 1,
     ENTER_SPECIALS = 2,
     NO_HEARTS = 3,
@@ -20,7 +20,6 @@ local CHALLENGES = {
     NO_USE = 10,
     STILL_KILLS = 11
 }
-
 
 local COUNTABLE_ROOMS = {
     [RoomType.ROOM_SHOP] = true,
@@ -35,38 +34,11 @@ local COUNTABLE_ROOMS = {
 }
 
 -------------------------------------------------
--- HELPER FUNCTIONS
--------------------------------------------------
-local function GetPlayer()
-    return Isaac.GetPlayer(0)
-end
-
-local function IsDavid(player)
-    return player and player:GetPlayerType() == mod.Players.David
-end
-
-local function GetCurrentFloor()
-    return game:GetLevel():GetStage()
-end
-
-local function GetFloorKey(floor)
-    return "floor_" .. tostring(floor)
-end
-
-local function GetCurrentRoom()
-    return game:GetRoom()
-end
-
-local function IsActiveChallenge(floor, variant)
-    return DavidUtils.IsActive(floor) and DavidUtils.GetVariant(floor) == variant
-end
-
--------------------------------------------------
--- MISSED PLATE PENALTY
+-- MISSED PLATE PENALTY (runs independently)
 -------------------------------------------------
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
 
     local level = game:GetLevel()
     local floor = level:GetStage()
@@ -97,7 +69,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
-    if not IsDavid(player) then return end
+    if player:GetPlayerType() ~= mod.Players.David then return end
     
     local pdata = player:GetData()
     if not pdata.MissedPlateFloors then return end
@@ -126,256 +98,232 @@ end)
 -------------------------------------------------
 -- CHALLENGE 1: NO HIT BOSS
 -------------------------------------------------
-local function SwapChallengeBossRoom()
-    local level = game:GetLevel()
-    local floor = level:GetStage()
+DavidUtils.Register(mod.CHALLENGES.NO_HIT_BOSS, {
+    OnStart = function(floor)
+        -- Swap boss room to custom Bloat room
+        if game:GetLevel():GetStage() < LevelStage.STAGE3_1 then return end
 
-    if not IsActiveChallenge(floor, CHALLENGES.NO_HIT_BOSS) then return end
-    if level:GetStage() < LevelStage.STAGE3_1 then return end
-
-    local rooms = level:GetRooms()
-    for i = 0, rooms.Size - 1 do
-        local roomDesc = rooms:Get(i)
-        if roomDesc.Data and roomDesc.Data.Type == RoomType.ROOM_BOSS then
-            local newRoom = RoomConfigHolder.GetRandomRoom(
-                roomDesc.SpawnSeed, false, StbType.SPECIAL_ROOMS,
-                RoomType.ROOM_BOSS, roomDesc.Data.Shape,
-                0, 9999, 0, 10, 0, 7
-            )
-            if newRoom then
-                roomDesc.Data = newRoom
+        local level = game:GetLevel()
+        local rooms = level:GetRooms()
+        for i = 0, rooms.Size - 1 do
+            local roomDesc = rooms:Get(i)
+            if roomDesc.Data and roomDesc.Data.Type == RoomType.ROOM_BOSS then
+                local newRoom = RoomConfigHolder.GetRandomRoom(
+                    roomDesc.SpawnSeed, false, StbType.SPECIAL_ROOMS,
+                    RoomType.ROOM_BOSS, roomDesc.Data.Shape,
+                    0, 9999, 0, 10, 0, 7
+                )
+                if newRoom then
+                    roomDesc.Data = newRoom
+                end
+                break
             end
-            break
         end
-    end
-end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, SwapChallengeBossRoom)
+    end,
 
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity)
-    local player = entity:ToPlayer()
-    if not IsDavid(player) then return end
+    OnPlayerDamage = function(player, floor, amount, flags, source)
+        if game:GetRoom():GetType() == RoomType.ROOM_BOSS then
+            DavidUtils.Fail(player, floor)
+        end
+    end,
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_HIT_BOSS) then return end
-
-    if GetCurrentRoom():GetType() == RoomType.ROOM_BOSS then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_HIT_BOSS) then return end
-
-    local room = GetCurrentRoom()
-    if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
-        mod:CompleteDavidChallenge(floor)
-    end
-end)
+    OnUpdate = function(player, floor)
+        local room = game:GetRoom()
+        if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
+            DavidUtils.Complete(floor)
+        end
+    end,
+})
 
 -------------------------------------------------
--- CHALLENGE 2: ENTER ALL SPECIAL ROOMS
+-- CHALLENGE 2: ENTER ALL SPECIAL ROOMS (FIXED)
 -------------------------------------------------
-local VisitedSpecialRooms = {}
-local SpecialChallengeCompleted = {}
-local SpawnedSpecialRooms = {}
-
-local function UpdateSpawnedSpecialRooms(floor)
-    local key = GetFloorKey(floor)
-    SpawnedSpecialRooms[key] = SpawnedSpecialRooms[key] or {}
-
-    local rooms = game:GetLevel():GetRooms()
-    for i = 0, rooms.Size - 1 do
-        local desc = rooms:Get(i)
-        if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] 
-           and desc.RoomIndex and desc.RoomIndex >= 0 then
-            SpawnedSpecialRooms[key][desc.RoomIndex] = true
+DavidUtils.Register(mod.CHALLENGES.ENTER_SPECIALS, {
+    OnStart = function(floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.ENTER_SPECIALS)
+        data.spawned = {}
+        data.visited = {}
+        data.completed = false
+        
+        -- Scan for special rooms at start
+        local rooms = game:GetLevel():GetRooms()
+        for i = 0, rooms.Size - 1 do
+            local desc = rooms:Get(i)
+            if desc and desc.Data and COUNTABLE_ROOMS[desc.Data.Type] 
+               and desc.RoomIndex and desc.RoomIndex >= 0 then
+                data.spawned[desc.RoomIndex] = true
+            end
         end
-    end
-end
+        
+        print("DEBUG [ENTER_SPECIALS]: Found " .. mod:CountKeys(data.spawned) .. " special rooms at start")
+    end,
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.ENTER_SPECIALS) then return end
+    OnNewRoom = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.ENTER_SPECIALS)
+        if data.completed then return end
+        
+        -- Mark current room as visited if it's a countable room
+        local roomIndex = game:GetLevel():GetCurrentRoomIndex()
+        if data.spawned[roomIndex] then
+            if not data.visited[roomIndex] then
+                data.visited[roomIndex] = true
+                print("DEBUG [ENTER_SPECIALS]: Visited room " .. roomIndex .. " (" .. mod:CountKeys(data.visited) .. "/" .. mod:CountKeys(data.spawned) .. ")")
+            end
+        end
+        
+        -- Check if all spawned rooms have been visited
+        for idx in pairs(data.spawned) do
+            if not data.visited[idx] then
+                return -- Still have rooms to visit
+            end
+        end
+        
+        -- All rooms visited!
+        data.completed = true
+        DavidUtils.Complete(floor)
+    end,
 
-    local key = GetFloorKey(floor)
-    SpawnedSpecialRooms[key] = {}
-    VisitedSpecialRooms[key] = {}
-    SpecialChallengeCompleted[key] = false
-
-    UpdateSpawnedSpecialRooms(floor)
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-    local floor = GetCurrentFloor()
-    UpdateSpawnedSpecialRooms(floor)
-
-    if not IsActiveChallenge(floor, CHALLENGES.ENTER_SPECIALS) then return end
+    OnLevelSelect = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.ENTER_SPECIALS)
+        if not data.completed then
+            DavidUtils.Fail(player, floor)
+        end
+    end,
     
-    local key = GetFloorKey(floor)
-    if SpecialChallengeCompleted[key] then return end
+    OnRender = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.ENTER_SPECIALS)
+        local visited = mod:CountKeys(data.visited or {})
+        local total = mod:CountKeys(data.spawned or {})
+        Isaac.RenderText(
+            "Special Rooms: " .. visited .. " / " .. total,
+            60, 20, 1, 1, 1, 1
+        )
+    end,
+})
 
-    local spawned = SpawnedSpecialRooms[key]
-    if not spawned then return end
+-------------------------------------------------
+-- CHALLENGE 3: NO HEARTS --WORKING
+-------------------------------------------------
+DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
+    OnPickupCollision = function(pickup, player, floor)
+        if pickup.Variant == PickupVariant.PICKUP_HEART then
+            DavidUtils.Fail(player, floor)
+            return true
+        end
+    end,
+})
 
-    local roomIndex = game:GetLevel():GetCurrentRoomIndex()
-    if spawned[roomIndex] then
-        VisitedSpecialRooms[key] = VisitedSpecialRooms[key] or {}
-        VisitedSpecialRooms[key][roomIndex] = true
-    end
-    
-    for idx in pairs(spawned) do
-        if not VisitedSpecialRooms[key][idx] then
+-------------------------------------------------
+-- CHALLENGE 4: NO FIRE DELAY --WORKING
+-------------------------------------------------
+DavidUtils.Register(mod.CHALLENGES.NO_FIRE_DELAY, {
+    OnNewRoom = function(player, floor)
+        local room = game:GetRoom()
+        if room:IsClear() then return end
+        
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_FIRE_DELAY)
+        data.noFireTimer = 120
+    end,
+
+    OnUpdate = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_FIRE_DELAY)
+        if not data.noFireTimer then return end
+
+        data.noFireTimer = data.noFireTimer - 1
+        
+        if data.noFireTimer <= 0 then
+            data.noFireTimer = nil
+            
+            local effect = Isaac.Spawn(
+                EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0,
+                player.Position, Vector.Zero, player
+            )
+            effect.SpriteScale = Vector(0.7, 0.7)
+            
+            game:GetHUD():ShowItemText("You may fire")
+            sfx:Play(SoundEffect.SOUND_UNLOCK00)
             return
         end
-    end
+
+        if player:GetFireDirection() ~= Direction.NO_DIRECTION then
+            DavidUtils.Fail(player, floor)
+            data.noFireTimer = nil
+        end
+    end,
+})
+
+-------------------------------------------------
+-- CHALLENGE 5: NO RESOURCES USE
+-------------------------------------------------
+DavidUtils.Register(mod.CHALLENGES.NO_RESOURCES, {
+    OnStart = function(floor)
+        local player = Isaac.GetPlayer(0)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+        data.lastCoins = player:GetNumCoins()
+        data.lastKeys = player:GetNumKeys()
+        data.lastBombs = player:GetNumBombs()
+    end,
+
+    OnUpdate = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+        
+        -- Check for regular resource usage
+        if player:GetNumCoins() < data.lastCoins or 
+           player:GetNumKeys() < data.lastKeys or 
+           player:GetNumBombs() < data.lastBombs then
+            DavidUtils.Fail(player, floor)
+            return
+        end
+
+        data.lastCoins = player:GetNumCoins()
+        data.lastKeys = player:GetNumKeys()
+        data.lastBombs = player:GetNumBombs()
+    end,
+})
+
+-- Detect golden bomb/key usage 
+mod:AddCallback(ModCallbacks.MC_POST_BOMB_INIT, function(_, bomb)
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
     
-    SpecialChallengeCompleted[key] = true
-    mod:CompleteDavidChallenge(floor)
-end)
-
-mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.ENTER_SPECIALS) then return end
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.NO_RESOURCES then return end
     
-    local key = GetFloorKey(floor)
-    if SpecialChallengeCompleted[key] then return end
-
-    mod:FailDavidChallenge(GetPlayer(), floor)
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        SpawnedSpecialRooms = {}
-        VisitedSpecialRooms = {}
-        SpecialChallengeCompleted = {}
+    -- Check if it's a golden bomb
+    if bomb.Variant == BombVariant.BOMB_GOLDEN then
+        DavidUtils.Fail(player, floor)
     end
-end)
-
--------------------------------------------------
--- CHALLENGE 3: NO HEARTS
--------------------------------------------------
-mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
-    if pickup.Variant ~= PickupVariant.PICKUP_HEART then
-        return
-    end
-    local player = collider:ToPlayer()
-    if not player then
-        return
-    end
-    if not IsDavid(player) then
-        return
-    end
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_HEARTS) then
-        return
-    end
-    mod:FailDavidChallenge(player, floor)
-    return true
-end)
-
--------------------------------------------------
--- CHALLENGE 4: NO FIRE DELAY
--------------------------------------------------
-local NO_FIRE_FRAMES = 120
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_FIRE_DELAY) then return end
-
-    local room = GetCurrentRoom()
-    if room:IsClear() then return end
-
-    player:GetData().NoFireTimer = NO_FIRE_FRAMES
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_FIRE_DELAY) then return end
-
-    local pdata = player:GetData()
-    if not pdata.NoFireTimer then return end
-
-    pdata.NoFireTimer = pdata.NoFireTimer - 1
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
     
-    if pdata.NoFireTimer <= 0 then
-        pdata.NoFireTimer = nil
-        
-        local effect = Isaac.Spawn(
-            EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0,
-            player.Position, Vector.Zero, player
-        )
-        effect.SpriteScale = Vector(0.7, 0.7)
-        
-        game:GetHUD():ShowItemText("You may fire")
-        sfx:Play(SoundEffect.SOUND_UNLOCK00)
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.NO_RESOURCES then return end
+    
+    local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+    
+    -- Store current key count
+    local currentKeys = player:GetNumKeys()
+    if not data.lastKeyCheck then
+        data.lastKeyCheck = currentKeys
         return
     end
-
-    if player:GetFireDirection() ~= Direction.NO_DIRECTION then
-        mod:FailDavidChallenge(player, floor)
-        pdata.NoFireTimer = nil
+    
+    if currentKeys == data.lastKeyCheck and player:GetNumKeys() < data.lastKeys then
+        -- Golden key was used
+        DavidUtils.Fail(player, floor)
     end
+    
+    data.lastKeyCheck = currentKeys
 end)
 
 -------------------------------------------------
--- CHALLENGE 5: NO RESOURCES
+-- CHALLENGE 6: DON'T MISS MORE THAN 200 SHOTS (Need further testing)
 -------------------------------------------------
-local LastResources = {}
-
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_RESOURCES) then return end
-
-    local key = GetFloorKey(floor)
-    LastResources[key] = LastResources[key] or {
-        coins = player:GetNumCoins(),
-        keys = player:GetNumKeys(),
-        bombs = player:GetNumBombs()
-    }
-
-    local last = LastResources[key]
-    if player:GetNumCoins() < last.coins or 
-       player:GetNumKeys() < last.keys or 
-       player:GetNumBombs() < last.bombs then
-        mod:FailDavidChallenge(player, floor)
-    end
-
-    last.coins = player:GetNumCoins()
-    last.keys = player:GetNumKeys()
-    last.bombs = player:GetNumBombs()
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    LastResources = {}
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        LastResources = {}
-    end
-end)
-
--------------------------------------------------
--- CHALLENGE 6: DON'T MISS MORE THAN 100 SHOTS
--------------------------------------------------
-local MAX_MISSES = 100
-local ShotsThisFloor = {}
-local MissesThisFloor = {}
-local PendingShots = {}
-
 local function IsValidTarget(entity, player)
     if not entity then return false end
     if entity:IsVulnerableEnemy() then return true end
@@ -403,174 +351,157 @@ local function RoomHasValidTargets(player)
     return false
 end
 
-local function RegisterShotAttempt(floor)
-    local key = GetFloorKey(floor)
-    ShotsThisFloor[key] = (ShotsThisFloor[key] or 0) + 1
-    table.insert(PendingShots, {floor = floor, frames = 0, hit = false})
-end
+DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
+    OnStart = function(floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+        data.shots = 0
+        data.misses = 0
+        data.pending = {}
+    end,
 
-local function OnWeaponFire()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_MISS) then return end
-
-    if RoomHasValidTargets(player) then
-        RegisterShotAttempt(floor)
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, OnWeaponFire)
-mod:AddCallback(ModCallbacks.MC_POST_LASER_INIT, OnWeaponFire)
-mod:AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, OnWeaponFire)
-
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, _, _, source)
-    if not source.Entity then return end
-
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_MISS) then return end
-    if not IsValidTarget(entity, player) then return end
-
-    local srcType = source.Entity.Type
-    if srcType ~= EntityType.ENTITY_TEAR and 
-       srcType ~= EntityType.ENTITY_LASER and 
-       srcType ~= EntityType.ENTITY_KNIFE then
-        return
-    end
-
-    for _, shot in ipairs(PendingShots) do
-        if not shot.hit and shot.floor == floor then
-            shot.hit = true
-            break
+    OnFireTear = function(player, tear, floor)
+        if RoomHasValidTargets(player) then
+            local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+            data.shots = data.shots + 1
+            table.insert(data.pending, {frames = 0, hit = false})
         end
-    end
-end)
+    end,
 
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+    OnInitLaser = function(player, laser, floor)
+        if RoomHasValidTargets(player) then
+            local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+            data.shots = data.shots + 1
+            table.insert(data.pending, {frames = 0, hit = false})
+        end
+    end,
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_MISS) then return end
+    OnInitKnife = function(player, knife, floor)
+        if RoomHasValidTargets(player) then
+            local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+            data.shots = data.shots + 1
+            table.insert(data.pending, {frames = 0, hit = false})
+        end
+    end,
 
-    local key = GetFloorKey(floor)
-    
-    for i = #PendingShots, 1, -1 do
-        local shot = PendingShots[i]
-        shot.frames = shot.frames + 1
+    OnEntityDamage = function(entity, amount, flags, source, player, floor)
+        if not source.Entity then return end
+        if not IsValidTarget(entity, player) then return end
 
-        if shot.frames > 15 then
+        local srcType = source.Entity.Type
+        if srcType ~= EntityType.ENTITY_TEAR and 
+           srcType ~= EntityType.ENTITY_LASER and 
+           srcType ~= EntityType.ENTITY_KNIFE then
+            return
+        end
+
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+        for _, shot in ipairs(data.pending) do
             if not shot.hit then
-                MissesThisFloor[key] = (MissesThisFloor[key] or 0) + 1
+                shot.hit = true
+                break
             end
-            table.remove(PendingShots, i)
         end
-    end
+    end,
 
-    if (MissesThisFloor[key] or 0) > MAX_MISSES then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
+    OnUpdate = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+        
+        for i = #data.pending, 1, -1 do
+            local shot = data.pending[i]
+            shot.frames = shot.frames + 1
 
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+            if shot.frames > 15 then
+                if not shot.hit then
+                    data.misses = data.misses + 1
+                end
+                table.remove(data.pending, i)
+            end
+        end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_MISS) then return end
+        if data.misses > 200 then
+            DavidUtils.Fail(player, floor)
+        end
+    end,
 
-    local key = GetFloorKey(floor)
-    local shots = ShotsThisFloor[key] or 0
-    local misses = MissesThisFloor[key] or 0
-
-    Isaac.RenderText(
-        "Shots: " .. shots .. " | Misses: " .. misses .. "/" .. MAX_MISSES,
-        60, 20, 1, 1, 1, 1
-    )
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    ShotsThisFloor = {}
-    MissesThisFloor = {}
-    PendingShots = {}
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        ShotsThisFloor = {}
-        MissesThisFloor = {}
-        PendingShots = {}
-    end
-end)
+    OnRender = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
+        Isaac.RenderText(
+            "Shots: " .. data.shots .. " | Misses: " .. data.misses .. "/200",
+            60, 20, 1, 1, 1, 1
+        )
+    end,
+})
 
 -------------------------------------------------
--- CHALLENGE 7: NO HIT (CHAMPIONS)
+-- CHALLENGE 7: NO HIT (CHAMPIONS) --WORKING
 -------------------------------------------------
-local EXTRA_CHAMPION_CHANCE = 0.30
+DavidUtils.Register(mod.CHALLENGES.NO_HIT, {
+    OnPlayerDamage = function(player, floor, amount, flags, source)
+        DavidUtils.Fail(player, floor)
+    end,
+})
 
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity)
-    local player = entity:ToPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if IsActiveChallenge(floor, CHALLENGES.NO_HIT) then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
-
+-- Champion spawning
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
     if not npc:IsActiveEnemy(false) or npc:IsBoss() then return end
-    if GetCurrentRoom():GetFrameCount() > 1 then return end
+    if game:GetRoom():GetFrameCount() > 1 then return end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_HIT) then return end
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.NO_HIT then return end
 
     local rng = npc:GetDropRNG()
-    if rng and rng:RandomFloat() < EXTRA_CHAMPION_CHANCE then
+    if rng and rng:RandomFloat() < 0.30 then
         npc:MakeChampion(rng:RandomInt(25), -1)
     end
 end)
 
 -------------------------------------------------
--- CHALLENGE 8: COLLECT 10 DAVID'S CHORDS
+-- CHALLENGE 8: COLLECT 10 DAVID'S CHORDS (FIXED)
 -------------------------------------------------
-local REQUIRED_CHORDS = 10
-local DROP_CHANCE = 0.15
-local ChordsCollected = {}
+DavidUtils.Register(mod.CHALLENGES.COLLECT_CHORDS, {
+    OnStart = function(floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+        data.collected = 0
+        print("DEBUG [COLLECT_CHORDS]: Challenge started on floor " .. floor)
+    end,
 
-mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
-    if not npc:IsVulnerableEnemy() or npc:IsBoss() then return end
+    OnNPCKill = function(npc, player, floor)
+        if npc:IsBoss() then return end -- Bosses don't drop chords
+        if not npc:IsVulnerableEnemy() then return end
 
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+        local rng = npc:GetDropRNG()
+        if rng:RandomFloat() < 0.15 then
+            print("DEBUG [COLLECT_CHORDS]: Spawning chord at " .. tostring(npc.Position))
+            local chord = Isaac.Spawn(
+                EntityType.ENTITY_PICKUP,
+                mod.Entities.PICKUP_DavidChord.Var,
+                mod.Entities.PICKUP_DavidChord.SubType or 0,
+                npc.Position, Vector.Zero, npc
+            ):ToPickup()
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.COLLECT_CHORDS) then return end
-
-    local rng = npc:GetDropRNG()
-    if rng:RandomFloat() < DROP_CHANCE then
-        local chord = Isaac.Spawn(
-            EntityType.ENTITY_PICKUP,
-            mod.Entities.PICKUP_DavidChord.Var,
-            mod.Entities.PICKUP_DavidChord.SubType or 0,
-            npc.Position, Vector.Zero, npc
-        ):ToPickup()
-
-        if chord then
-            chord:GetSprite():Play("Appear", true)
+            if chord then
+                chord:GetSprite():Play("Appear", true)
+            end
         end
-    end
-end)
+    end,
 
+    OnRender = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+        Isaac.RenderText(
+            "David's Chords: " .. data.collected .. " / 10",
+            60, 20, 1, 1, 1, 1
+        )
+    end,
+})
+
+-- Chord pickup logic
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     local sprite = pickup:GetSprite()
     if sprite and not sprite:IsPlaying("Appear") then
         sprite:Play("Appear", true)
     end
+    print("DEBUG [PICKUP_INIT]: David's Chord spawned")
 end, mod.Entities.PICKUP_DavidChord.Var)
 
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
@@ -581,22 +512,25 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
         sprite:Play("Idle", true)
     end
 
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.COLLECT_CHORDS) then return end
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.COLLECT_CHORDS then return end
 
     if pickup.Position:Distance(player.Position) < 20 then
         if not sprite:IsPlaying("Collect") then
             sprite:Play("Collect", true)
             sfx:Play(SoundEffect.SOUND_CHOIR_UNLOCK)
             
-            local key = GetFloorKey(floor)
-            ChordsCollected[key] = (ChordsCollected[key] or 0) + 1
+            local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+            data.collected = data.collected + 1
+            
+            print("DEBUG [COLLECT_CHORDS]: Collected chord #" .. data.collected)
 
-            if ChordsCollected[key] >= REQUIRED_CHORDS then
-                mod:CompleteDavidChallenge(floor)
+            if data.collected >= 10 then
+                DavidUtils.Complete(floor)
                 game:GetHUD():ShowItemText("All Chords Collected!")
             end
         end
@@ -612,55 +546,31 @@ end, mod.Entities.PICKUP_DavidChord.Var)
 
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
     local player = collider:ToPlayer()
-    if not player or not IsDavid(player) then
+    if not player or player:GetPlayerType() ~= mod.Players.David then
         return true
     end
 end, mod.Entities.PICKUP_DavidChord.Var)
 
+-- Fail if boss dies without enough chords
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
     if not npc:IsBoss() then return end
 
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.COLLECT_CHORDS) then return end
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.COLLECT_CHORDS then return end
 
-    local key = GetFloorKey(floor)
-    if (ChordsCollected[key] or 0) < REQUIRED_CHORDS then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.COLLECT_CHORDS) then return end
-
-    local key = GetFloorKey(floor)
-    local collected = ChordsCollected[key] or 0
-    Isaac.RenderText(
-        "David's Chords: " .. collected .. " / " .. REQUIRED_CHORDS,
-        60, 20, 1, 1, 1, 1
-    )
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    ChordsCollected = {}
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        ChordsCollected = {}
+    local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+    if data.collected < 10 then
+        DavidUtils.Fail(player, floor)
     end
 end)
 
 -------------------------------------------------
--- CHALLENGE 9: FAST BOSS
+-- CHALLENGE 9: FAST BOSS (BEAT UNDER 4 MINUTES) --WORKING
 -------------------------------------------------
-local FAST_BOSS_FRAMES = 30 * 180
 local MIND_STAGES = {
     [LevelStage.STAGE2_1] = true,
     [LevelStage.STAGE2_2] = true,
@@ -685,245 +595,174 @@ local function RemoveTemporaryMind(player)
     pdata.TempMind = nil
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local stage = GetCurrentFloor()
-    
-    if not IsActiveChallenge(stage, CHALLENGES.FAST_BOSS) then
-        RemoveTemporaryMind(player)
-        return
-    end
-
-    player:GetData().FastBossTimer = FAST_BOSS_FRAMES
-
-    if MIND_STAGES[stage] then
-        GiveTemporaryMind(player)
-    else
-        RemoveTemporaryMind(player)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local stage = GetCurrentFloor()
-    if not IsActiveChallenge(stage, CHALLENGES.FAST_BOSS) then return end
-
-    local pdata = player:GetData()
-    if not pdata.FastBossTimer then return end
-
-    pdata.FastBossTimer = pdata.FastBossTimer - 1
-    
-    if pdata.FastBossTimer <= 0 then
-        pdata.FastBossTimer = nil
-        RemoveTemporaryMind(player)
-        mod:FailDavidChallenge(player, stage)
-        return
-    end
-
-    local room = GetCurrentRoom()
-    if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
-        pdata.FastBossTimer = nil
-        RemoveTemporaryMind(player)
-        mod:CompleteDavidChallenge(stage)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-    local player = GetPlayer()
-    if not IsDavid(player) then return end
-
-    local stage = GetCurrentFloor()
-    if not IsActiveChallenge(stage, CHALLENGES.FAST_BOSS) then return end
-
-    local pdata = player:GetData()
-    if not pdata.FastBossTimer then return end
-
-    local seconds = math.floor(pdata.FastBossTimer / 30)
-    local minutes = math.floor(seconds / 60)
-    local remainingSeconds = seconds % 60
-
-    Isaac.RenderText(
-        string.format("Time: %d:%02d", minutes, remainingSeconds),
-        60, 20, 1, 1, 1, 1
-    )
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        local player = GetPlayer()
-        if player then
+DavidUtils.Register(mod.CHALLENGES.FAST_BOSS, {
+    OnStart = function(floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        data.timer = 30 * 240 -- 4 minutes at 30fps
+        
+        local player = Isaac.GetPlayer(0)
+        if MIND_STAGES[floor] then
+            GiveTemporaryMind(player)
+        else
             RemoveTemporaryMind(player)
         end
-    end
-end)
+    end,
 
--------------------------------------------------
--- CHALLENGE 10: DO NOT USE ACTIVE/CONSUMABLES
--------------------------------------------------
-local function FailOnUse()
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    OnUpdate = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        if not data.timer then return end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.NO_USE) then return end
-
-    local players = PlayerManager.GetPlayers()
-    if players and players[1] then
-        mod:FailDavidChallenge(players[1], floor)
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, FailOnUse)
-mod:AddCallback(ModCallbacks.MC_USE_CARD, FailOnUse)
-mod:AddCallback(ModCallbacks.MC_USE_PILL, FailOnUse)
-
--------------------------------------------------
--- CHALLENGE 11: KILL 20 ENEMIES WHILE STANDING STILL
--------------------------------------------------
-local REQUIRED_STILL_KILLS = 20
-local STILL_DURATION = 15 
-local STILL_THRESHOLD = 0.5
-
-local FloorData = {}
-
-local function GetFloorData(floor)
-    if not FloorData[floor] then
-        FloorData[floor] = {
-            isStill = false,
-            stillKills = 0,
-            lastPos = nil,
-            stillFrames = 0,
-            completed = false
-        }
-    end
-    return FloorData[floor]
-end
-
-local function IsDavid(player)
-    return player:GetPlayerType() == mod.Players.David
-end
-
-local function GetCurrentFloor()
-    return game:GetLevel():GetStage()
-end
-
-local function IsActiveChallenge(floor, challengeType)
-    return mod:IsDavidChallengeActive(floor) 
-        and mod:GetDavidChallengeVariant(floor) == challengeType
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.STILL_KILLS) then return end
-
-    local data = GetFloorData(floor)
-    
-    if data.completed then return end
-
-    if not data.lastPos then
-        data.lastPos = player.Position
-        return
-    end
-
-    local distSq = player.Position:DistanceSquared(data.lastPos)
-
-    if distSq <= STILL_THRESHOLD then
-        data.stillFrames = data.stillFrames + 1
+        data.timer = data.timer - 1
         
-        if data.stillFrames >= STILL_DURATION then
-            data.isStill = true
+        if data.timer <= 0 then
+            data.timer = nil
+            RemoveTemporaryMind(player)
+            DavidUtils.Fail(player, floor)
+            return
         end
-    else
-        data.stillFrames = 0
+
+        local room = game:GetRoom()
+        if room:GetType() == RoomType.ROOM_BOSS and room:IsClear() then
+            data.timer = nil
+            RemoveTemporaryMind(player)
+            DavidUtils.Complete(floor)
+        end
+    end,
+
+    OnRender = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        if not data.timer then return end
+
+        local seconds = math.floor(data.timer / 30)
+        local minutes = math.floor(seconds / 60)
+        local remainingSeconds = seconds % 60
+
+        Isaac.RenderText(
+            string.format("Time: %d:%02d", minutes, remainingSeconds),
+            60, 20, 1, 1, 1, 1
+        )
+    end,
+
+    OnCleanup = function(floor)
+        local player = Isaac.GetPlayer(0)
+        RemoveTemporaryMind(player)
+    end,
+})
+
+-------------------------------------------------
+-- CHALLENGE 10: DO NOT USE ACTIVE/CONSUMABLES --WORKING
+-------------------------------------------------
+DavidUtils.Register(mod.CHALLENGES.NO_USE, {
+    OnUseItem = function(player, floor, itemID)
+        DavidUtils.Fail(player, floor)
+    end,
+
+    OnUseCard = function(player, floor, cardID)
+        DavidUtils.Fail(player, floor)
+    end,
+
+    OnUsePill = function(player, floor, pillEffect)
+        DavidUtils.Fail(player, floor)
+    end,
+})
+
+-------------------------------------------------
+-- CHALLENGE 11: KILL 20 ENEMIES WHILE STANDING STILL (FIXED)
+-------------------------------------------------
+DavidUtils.Register(mod.CHALLENGES.STILL_KILLS, {
+    OnStart = function(floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
         data.isStill = false
-    end
+        data.stillKills = 0
+        data.lastPos = nil
+        data.stillFrames = 0
+        data.completed = false
+    end,
 
-    data.lastPos = player.Position
-end)
+    OnUpdate = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
+        if data.completed then return end
 
+        if not data.lastPos then
+            data.lastPos = player.Position
+            return
+        end
 
-mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
-    if not npc:IsVulnerableEnemy() then return end
+        local distSq = player.Position:DistanceSquared(data.lastPos)
 
-    local player = Isaac.GetPlayer(0)
-    if not IsDavid(player) then return end
+        if distSq <= 0.5 then
+            data.stillFrames = data.stillFrames + 1
+            
+            if data.stillFrames >= 15 then
+                data.isStill = true
+            end
+        else
+            data.stillFrames = 0
+            data.isStill = false
+        end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.STILL_KILLS) then return end
+        data.lastPos = player.Position
+    end,
 
-    local data = GetFloorData(floor)
+    OnNPCKill = function(npc, player, floor)
+        if not npc:IsVulnerableEnemy() then return end
+        if npc:IsBoss() then return end -- Don't count boss kills
 
-    if data.completed then return end
-    if not data.isStill then return end
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
+        if data.completed then return end
+        if not data.isStill then 
+            print("DEBUG [STILL_KILLS]: Enemy killed but player not standing still")
+            return 
+        end
 
-    data.stillKills = data.stillKills + 1
-    SFXManager():Play(SoundEffect.SOUND_POWERUP1)
+        data.stillKills = data.stillKills + 1
+        print("DEBUG [STILL_KILLS]: Still kill count: " .. data.stillKills)
+        sfx:Play(SoundEffect.SOUND_POWERUP1)
 
-    if data.stillKills >= REQUIRED_STILL_KILLS then
-        data.completed = true
-        mod:CompleteDavidChallenge(floor)
-        game:GetHUD():ShowItemText("Standing Still")
-    end
-end)
+        if data.stillKills >= 20 then
+            data.completed = true
+            DavidUtils.Complete(floor)
+            game:GetHUD():ShowItemText("Standing Still Complete!")
+        end
+    end,
 
+    OnRender = function(player, floor)
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
+
+        local kills = data.stillKills
+        local counterText = "Still Kills: " .. kills .. " / 20"
+        
+        local r, g, b = 1, 1, 1
+        if data.completed then
+            r, g, b = 0, 1, 0
+        end
+        
+        Isaac.RenderText(counterText, 60, 20, r, g, b, 1)
+
+        if data.completed then
+            Isaac.RenderText("COMPLETED", 60, 35, 0, 1, 0, 1)
+        elseif data.isStill then
+            Isaac.RenderText("STANDING STILL", 60, 35, 0, 1, 0, 1)
+        else
+            local progress = math.floor((data.stillFrames / 15) * 100)
+            Isaac.RenderText("Hold still: " .. progress .. "%", 60, 35, 1, 1, 0, 0.6)
+        end
+    end,
+})
+
+-- Fail if boss dies without enough kills
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
     if not npc:IsBoss() then return end
 
     local player = Isaac.GetPlayer(0)
-    if not IsDavid(player) then return end
+    if player:GetPlayerType() ~= mod.Players.David then return end
 
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.STILL_KILLS) then return end
+    local floor = game:GetLevel():GetStage()
+    if not DavidUtils.IsActive(floor) then return end
+    if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.STILL_KILLS then return end
 
-    local data = GetFloorData(floor)
-    
-    if data.stillKills < REQUIRED_STILL_KILLS then
-        mod:FailDavidChallenge(player, floor)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-    local player = Isaac.GetPlayer(0)
-    if not IsDavid(player) then return end
-
-    local floor = GetCurrentFloor()
-    if not IsActiveChallenge(floor, CHALLENGES.STILL_KILLS) then return end
-
-    local data = GetFloorData(floor)
-
-    -- Main counter
-    local kills = data.stillKills
-    local counterText = "Still Kills: " .. kills .. " / " .. REQUIRED_STILL_KILLS
-    
-    local r, g, b = 1, 1, 1
-    if data.completed then
-        r, g, b = 0, 1, 0
-    end
-    
-    Isaac.RenderText(counterText, 60, 20, r, g, b, 1)
-
-    -- Status indicator
-    if data.completed then
-        Isaac.RenderText("COMPLETED", 60, 35, 0, 1, 0, 1)
-    elseif data.isStill then
-        Isaac.RenderText("STANDING STILL", 60, 35, 0, 1, 0, 1)
-    else
-        local progress = math.floor((data.stillFrames / STILL_DURATION) * 100)
-        Isaac.RenderText("Hold still: " .. progress .. "%", 60, 35, 1, 1, 0, 0.6)
-    end
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-    FloorData = {}
-end)
-
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
-    if not isContinued then
-        FloorData = {}
+    local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
+    if data.stillKills < 20 then
+        DavidUtils.Fail(player, floor)
     end
 end)

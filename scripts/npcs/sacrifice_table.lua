@@ -130,13 +130,27 @@ function mod:SacrificeTableCollision(beggar, collider)
     data.LastPayer = player
     data.ChosenCollectibleID = collectibleID
 
-	-- Replace Spritesheet	
-	local familiarSpritesheet = familiar:GetSprite():GetLayer(0):GetSpritesheetPath()
-	beggarSprite:ReplaceSpritesheet(1, chosen_Spritesheet, true)
+    -- Replace Spritesheet with the familiar's sprite
+    local familiarSprite = chosen:GetSprite()
+    if familiarSprite then
+        local familiarSpritesheet = familiarSprite:GetLayer(0):GetSpritesheetPath()
+        print("DEBUG: Familiar spritesheet path: " .. familiarSpritesheet)
+        
+        local success = pcall(function()
+            beggarSprite:ReplaceSpritesheet(3, familiarSpritesheet)
+            beggarSprite:LoadGraphics()
+        end)
+        
+        if success then
+            print("DEBUG: Successfully replaced spritesheet 3 with familiar sprite")
+        else
+            print("ERROR: Failed to replace spritesheet with familiar sprite")
+        end
+    else
+        print("ERROR: Could not get familiar sprite")
+    end
 
-
-
-
+    -- Remove the familiar entity
     chosen:Remove()
 
     -- Play animation
