@@ -1,6 +1,6 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/anm2/death_items.anm2" version="1">
     <!-- Passive items -->
-    <passive id="1"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2" />
+    <passive id="1"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2"    flatdamage='0.2'    flattears='0.2'    speed='0.2'    luck='0.2'    range='8'    shotspeed='0.2'/>
     <passive id="2"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
     <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="2" tags="nolostbr"          achievement="The Bad Touch" />
     <passive id="4"  name="Universal"                  gfx="universal.png"                 description="Woo hoo!!"                                   quality="3"                          achievement="Universal" />
