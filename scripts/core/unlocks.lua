@@ -284,6 +284,30 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
     slingshotUnlocked = false
 end)
 
+---------------------------------------------------------
+--                   PERSONAL BEGGAR                 ---
+---------------------------------------------------------
+local personalBeggarTriggered = false
+
+local function CheckElijahWinOnGameEnd(_, gameOver)
+    if not gameOver then return end
+    if personalBeggarTriggered then return end
+
+    local player = Isaac.GetPlayer(0)
+    if not player then return end
+
+    if player:GetPlayerType() == mod.Players.Elijah then
+        TryUnlock(mod.Achievements.PersonalBeggar)
+        personalBeggarTriggered = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_END, CheckElijahWinOnGameEnd)
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinue)
+    if isContinue then return end
+    personalBeggarTriggered = false
+end)
+
 ------------------------------------------------------
 ---              Unlock Devil's Heart              ---
 ------------------------------------------------------
@@ -381,6 +405,20 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
     hasUnlockedPTSD = false
     lastBossDamage = false
 end)
+
+------------------------------------------------------
+---            Unlock Flowering Skull             ---
+------------------------------------------------------
+local function OnDeath_FloweringSkull(_, entity)
+    local player = entity:ToPlayer()
+    if not player then return end
+
+    if player:GetActiveItem() == mod.Items.HelterSkelter then
+        TryUnlock(mod.Achievements.FloweringSkull)
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, OnDeath_FloweringSkull, EntityType.ENTITY_PLAYER)
+
 ------------------------------------------------------
 ---            Unlock Ultra Secret Map             ---
 ------------------------------------------------------
@@ -471,11 +509,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent:IsActiveEnemy() then
-            if ent.Type == EntityType.ENTITY_MOMS_HEART
-            -- we sure about this one ?
-            ---@diagnostic disable-next-line: undefined-field
-            or ent.Type == EntityType.ENTITY_IT_LIVES then
-
+            if ent.Type == EntityType.ENTITY_MOMS_HEART then
                 inHeartFight = true
                 return
             end
@@ -497,20 +531,21 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 ------------------------------------------------------
----                 Unlock Cheater                 --- SECRET
+---         Unlock Cheater                     ---  Secret
 ------------------------------------------------------
+
 local CHEATER_BOSSES = {
     [EntityType.ENTITY_HUSH] = true,
     [EntityType.ENTITY_MEGA_SATAN] = true,
     [EntityType.ENTITY_DELIRIUM] = true,
 }
 
+local usedPlanC = false
 local cheaterStartFrame = nil
 local cheaterActive = false
 local cheaterUnlocked = false
 
 function mod:Cheater_OnNewRoom()
-    if Game():GetRoom():IsClear() then return end
     if cheaterUnlocked then return end
 
     local room = Game():GetRoom()
@@ -528,6 +563,11 @@ function mod:Cheater_OnNewRoom()
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.Cheater_OnNewRoom)
 
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, item)
+    if item == CollectibleType.COLLECTIBLE_PLAN_C then
+        usedPlanC = true
+    end
+end)
 
 function mod:Cheater_OnEntityKill(entity)
     if not cheaterActive or cheaterUnlocked then return end
@@ -537,7 +577,9 @@ function mod:Cheater_OnEntityKill(entity)
     local now = Game():GetFrameCount()
     local elapsed = now - (cheaterStartFrame or now)
 
-    if elapsed <= 60 * 30 then 
+    if elapsed <= 60 * 30 then
+        if usedPlanC then return end
+
         TryUnlock(mod.Achievements.Cheater)
         cheaterUnlocked = true
     end
@@ -550,6 +592,7 @@ function mod:Cheater_OnNewRun(_, reenter)
     cheaterStartFrame = nil
     cheaterActive = false
     cheaterUnlocked = false
+    usedPlanC = false
 end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.Cheater_OnNewRun)
 

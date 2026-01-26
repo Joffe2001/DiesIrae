@@ -48,10 +48,12 @@ function SlingShot:onUse(_, _, player, _, _)
 end
 
 function SlingShot:onTearUpdate(tear)
-    if not tear:GetData().IsSlingShot then return end
+    local data = tear:GetData()
+    if not data.IsSlingShot then return end
     
-    if tear:GetData().InitialVelocity then
-        tear.Velocity = tear:GetData().InitialVelocity
+
+    if data.InitialVelocity then
+        tear.Velocity = data.InitialVelocity
     end
     
     tear.FallingSpeed = 0
@@ -59,13 +61,34 @@ function SlingShot:onTearUpdate(tear)
     tear.Height = -10
     
     local room = game:GetRoom()
-    
+
+    local gridIndex = room:GetGridIndex(tear.Position)
+    local gridEntity = room:GetGridEntity(gridIndex)
+
+    if gridEntity and gridEntity.Damage then
+        local t = gridEntity:GetType()
+
+        if t == GridEntityType.GRID_POOP
+        or t == GridEntityType.GRID_TNT
+        or t == GridEntityType.GRID_ROCK
+        or t == GridEntityType.GRID_ROCK_ALT
+        or t == GridEntityType.GRID_ROCK_BOMB
+        or t == GridEntityType.GRID_ROCK_SPIKED
+        or t == GridEntityType.GRID_PILLAR
+        or t == GridEntityType.GRID_FORTRESS
+        or t == GridEntityType.GRID_MUSHROOM
+        or t == GridEntityType.GRID_SKULL then
+
+            gridEntity:Damage(tear.CollisionDamage)
+        end
+    end
     for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
         local door = room:GetDoor(i)
         if door and not door:IsOpen() then
             local doorPos = room:GetDoorSlotPosition(i)
             if tear.Position:Distance(doorPos) < 30 then
-                if door.TargetRoomType == RoomType.ROOM_SECRET or door.TargetRoomType == RoomType.ROOM_SUPERSECRET then
+                if door.TargetRoomType == RoomType.ROOM_SECRET
+                or door.TargetRoomType == RoomType.ROOM_SUPERSECRET then
                     door:TryBlowOpen(true, tear)
                 else
                     door:Open()
@@ -73,13 +96,15 @@ function SlingShot:onTearUpdate(tear)
             end
         end
     end
-    
     local gridCollision = room:GetGridCollisionAtPos(tear.Position)
-    if gridCollision == GridCollisionClass.COLLISION_WALL or gridCollision == GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER then
+    if gridCollision == GridCollisionClass.COLLISION_WALL
+    or gridCollision == GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER then
+
         Isaac.Explode(tear.Position, tear.SpawnerEntity, tear.CollisionDamage)
         tear:Remove()
     end
 end
+
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, SlingShot.onUse, mod.Items.SlingShot)
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, SlingShot.onTearUpdate)

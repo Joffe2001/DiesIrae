@@ -24,7 +24,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
 
 --STRONG boiiii
-local DAMAGE_MODIFIER = 2
+local DAMAGE_MODIFIER = 3
 local SPEED_MODIFIER = 0.2
 local TEAR_DELAY_MODIFIER = 1.3
 local LUCK_MODIFIER = 3

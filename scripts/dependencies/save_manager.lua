@@ -1589,11 +1589,6 @@ local function postSaveSlotLoad(_, _, isSlotSelected, _)
     if not isSlotSelected then
         return
     end
-    if saveFileWait < 3 then
-        saveFileWait = saveFileWait + 1
-    else
-        SaveManager.Load(false)
-    end
 end
 
 --#endregion

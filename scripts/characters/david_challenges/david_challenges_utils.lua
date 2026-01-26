@@ -2,7 +2,7 @@ local mod = DiesIraeMod
 local game = Game()
 
 ------------------------------------------------------------
--- INTERNAL DATA STORAGE (handled via SaveManager)
+-- INTERNAL DATA STORAGE
 ------------------------------------------------------------
 local function GetFloorChallengeState()
     local save = mod.SaveManager.GetRunSave()
@@ -23,8 +23,6 @@ local ChallengeHandlers = {
     OnFail           = {},
     OnComplete       = {},
     OnCleanup        = {},
-
-    -- New handler groups (for unified callback architecture)
     OnEntityDamage   = {},
     OnPlayerDamage   = {},
     OnNPCKill        = {},

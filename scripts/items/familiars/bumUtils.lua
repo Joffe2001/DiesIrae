@@ -273,8 +273,21 @@ function bumUtils:OnCache(player, cache)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,   function(_, fam) bumUtils:OnInit(fam) end)
-mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam) bumUtils:OnUpdate(fam) end)
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,  function(_, player, cache) bumUtils:OnCache(player, cache) end)
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, function(_, fam)
+    if bumUtils.BUM_DEFS[fam.Variant] then
+        bumUtils:OnInit(fam)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam)
+    if bumUtils.BUM_DEFS[fam.Variant] then
+        bumUtils:OnUpdate(fam)
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
+    bumUtils:OnCache(player, flag)
+end)
+
 
 return bumUtils

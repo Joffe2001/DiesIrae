@@ -40,7 +40,7 @@
     <passive id="38" name="Fiend Deal"                 gfx="fiend_deal.png"                description="He's behind me isn't he?"                    quality="3" />
     <passive id="39" name="Betrayal Heart"             gfx="betrayal_heart.png"            description="Nearly forgot it..."                         quality="2" tags="nolostbr"/>
     <passive id="40" name="PTSD"                       gfx="ptsd.png"                      description="Not again..."                                quality="3" tags="nolostbr"          achievement="PTSD" />
-    <passive id="41" name="Flowering Skull"            gfx="floweringskull.png"            description="Is this the real life?"                      quality="2" customtags="revive"/>
+    <passive id="41" name="Flowering Skull"            gfx="floweringskull.png"            description="Is this the real life?"                      quality="2" customtags="revive"      achievement="Flowering Skull"/>
     <passive id="42" name="Rewrapping Paper"           gfx="item_placeholder.png"          description="Christmas has come early this year!"         quality="3"/>
     <passive id="43" name="Filthy Rich"                gfx="filthy_rich.png"               description="Those coins aren't clean"                    quality="1" />
     <passive id="44" name="Cool Stick"                 gfx="coolstick.png"                 description="My only and true friend"                     quality="2" />
@@ -80,7 +80,7 @@
     <active id="113" name="Little Lies"                gfx="littlelies.png"                description="Tell me sweet little lies"                   quality="1" maxcharges="4" chargetype="normal" achievement="Little lies" />
     <active id="114" name="King's Heart"               gfx="kingsheart.png"                description="Buy his heart with riches"                   quality="3" chargetype="special" tags="nolostbr"                            achievement="King's Heart"/>
     <active id="115" name="Break Stuff"                gfx="active_placeholder.png"        description="It was an accident.."                        quality="2" maxcharges="8" chargetype="normal" />
-    <active id="116" name="Personal Beggar"            gfx="personal_beggar.png"           description="I just love to give and give!"               quality="1" maxcharges="6" chargetype="normal" />
+    <active id="116" name="Personal Beggar"            gfx="personal_beggar.png"           description="I just love to give and give!"               quality="1" maxcharges="6" chargetype="normal" achievement="Personal Beggar"/>
     <!-- Trinkets -->
     <trinket id="202" name="Gaga"                      gfx="gaga.png"                      description="Just dance, it’ll be okay"                achievement="Gaga" />
     <trinket id="204" name="Baby Blue"                 gfx="babyblue.png"                  description="Guess I got what I deserved"              achievement="Baby Blue" />
