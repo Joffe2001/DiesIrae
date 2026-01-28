@@ -712,7 +712,8 @@ mod.EIDescs = {
         "{{CurseDarkness}} Curse: +10%",
         "{{Collectible316}} Cursed Eye: +15%",
         "{{CursedRoom}} In Cursed Room: +10%",
-        "{{Collectible260}} Black Candle: -100%"
+        "{{Collectible260}} Black Candle: -100%",
+        "{{Collectible584}} Spawn 2 Minisaacs wisps"
     },
     ru = {   
         "Создаёт 2 Мини-Исааков",

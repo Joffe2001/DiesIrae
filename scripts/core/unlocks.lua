@@ -35,7 +35,23 @@ local UnlocksTable = {
         --[CompletionType.DELIRIUM] = mod.Achievements.HelterSkelter,
         --[CompletionType.BLUE_BABY] = mod.Achievements.BabyBlue,
         --[CompletionType.ULTRA_GREED] = mod.Achievements.WonderOfYou
-    --}
+    --},
+    [mod.Players.Elijah] = {
+        [CompletionType.MOMS_HEART] = mod.Achievements.RuneBum,
+        [CompletionType.ISAAC] = mod.Achievements.PastorBum,
+        [CompletionType.SATAN] = mod.Achievements.TarotBum,
+        [CompletionType.LAMB] = mod.Achievements.RedBum,
+        [CompletionType.MEGA_SATAN] = mod.Achievements.SacrificeTable,
+        [CompletionType.BOSS_RUSH] = mod.Achievements.PillBum,
+        [CompletionType.HUSH] = mod.Achievements.LostAdventurer,
+        [CompletionType.BEAST] = mod.Achievements.FamiliarsBeggar,
+        [CompletionType.MOTHER] = mod.Achievements.FiendDeal,
+        [CompletionType.ULTRA_GREEDIER] = mod.Achievements.JYS,
+        [CompletionType.DELIRIUM] = mod.Achievements.FairBum,
+        [CompletionType.BLUE_BABY] = mod.Achievements.Goldsmith,
+        [CompletionType.ULTRA_GREED] = mod.Achievements.ScammerBum,
+        AllHardMarks = mod.Achievements.ChaosBeggar
+    },
 }
 
 local function TryUnlock(ach)
@@ -459,6 +475,62 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnPostNewRoom_USR)
 
 ------------------------------------------------------
+---                 Unlock Echo                    ---
+------------------------------------------------------
+local enteredPlanetarium = false
+local tookPlanetariumItem = false
+local echoUnlocked = false
+
+local function OnNewRun_Echo(_, reenter)
+    if reenter then return end
+    enteredPlanetarium = false
+    tookPlanetariumItem = false
+    echoUnlocked = false
+end
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_Echo)
+
+local function OnPostNewRoom_Echo()
+    if echoUnlocked then return end
+
+    local room = Game():GetRoom()
+    if room:GetType() == RoomType.ROOM_PLANETARIUM then
+        enteredPlanetarium = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnPostNewRoom_Echo)
+
+function mod:OnPickup_Planetarium(pickup, collider, low)
+    if echoUnlocked then return end
+    
+    local player = collider:ToPlayer()
+    if not player then return end
+    
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+        local itemConfig = Isaac.GetItemConfig():GetCollectible(pickup.SubType)
+        if itemConfig then
+            local itemPool = Game():GetItemPool()
+            if itemPool:CanSpawnCollectible(pickup.SubType, true) then
+                local room = Game():GetRoom()
+                if room:GetType() == RoomType.ROOM_PLANETARIUM then
+                    tookPlanetariumItem = true
+                end
+            end
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.OnPickup_Planetarium, PickupVariant.PICKUP_COLLECTIBLE)
+
+local function OnPostNewLevel_Echo()
+    if echoUnlocked then return end
+
+    if enteredPlanetarium and not tookPlanetariumItem then
+        TryUnlock(mod.Achievements.Echo)
+        echoUnlocked = true
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, OnPostNewLevel_Echo)
+
+------------------------------------------------------
 ---         Unlock Creatine Overdose               ---
 ------------------------------------------------------
 local creatineUnlocked = false
@@ -531,6 +603,38 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 ------------------------------------------------------
+---                      Beggars Unlocks          ---  
+------------------------------------------------------
+local function IsUnlocked(ach)
+    return Isaac.GetPersistentGameData():Unlocked(ach)
+end
+
+mod.BeggarUnlocks = {
+    [mod.Entities.BEGGAR_Goldsmith.Var]         = mod.Achievements.Goldsmith,
+    [mod.Entities.BEGGAR_JYS.Var]               = mod.Achievements.JYS,
+    [mod.Entities.BEGGAR_Familiars.Var]         = mod.Achievements.FamiliarsBeggar,
+    [mod.Entities.BEGGAR_SacrificeTable.Var]    = mod.Achievements.RedBum,
+    [mod.Entities.BEGGAR_Chaos.Var]             = mod.Achievements.ChaosBeggar,
+    [mod.Entities.BEGGAR_Lost_Adventurer.Var]   = mod.Achievements.LostAdventurer,
+}
+
+function mod:PreventLockedBeggarSpawn(entityType, entityVariant, entitySubtype, gridIndex, seed)
+    if entityType ~= EntityType.ENTITY_SLOT then
+        return
+    end
+
+    local req = mod.BeggarUnlocks[entityVariant]
+    if not req then
+        return
+    end
+
+    if not IsUnlocked(req) then
+        return {0, 0, 0}
+    end
+end
+mod:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, mod.PreventLockedBeggarSpawn)
+
+------------------------------------------------------
 ---         Unlock Cheater                     ---  Secret
 ------------------------------------------------------
 
@@ -595,6 +699,11 @@ function mod:Cheater_OnNewRun(_, reenter)
     usedPlanC = false
 end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.Cheater_OnNewRun)
+
+------------------------------------------------------
+---             Win Streak <= -20                --- Secret
+------------------------------------------------------
+
 
 ------------------------------------------------------
 ---              Unlock Speedrun1                  --- SECRET

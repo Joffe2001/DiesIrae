@@ -18,10 +18,18 @@ local ArmyOfLovers = {
 function ArmyOfLovers:UseItem(_, _, player)
     local luck = player.Luck
 
-    for _ = 1, 2 do
-        player:AddMinisaac(player.Position)
-    end
+    local hasBookOfVirtues = player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
 
+    if hasBookOfVirtues then
+        local numWisps = math.random(1, 2)
+        for _ = 1, numWisps do
+            player:AddWisp(mod.Items.ArmyOfLovers, player.Position, true, false)
+        end
+    else
+        for _ = 1, 2 do
+            player:AddMinisaac(player.Position)
+        end
+    end
     local rng = player:GetCollectibleRNG(mod.Items.ArmyOfLovers)
 
     local rewardSpawnChance = ArmyOfLovers.REWARD_SPAWN_CHANCE_BASE
@@ -118,6 +126,25 @@ function ArmyOfLovers:SpawnHeart(player, rng)
         rng:GetSeed()
     )
 end
+
+--------------------------------------------------
+-- Book of Virtues Synergy
+--------------------------------------------------
+function ArmyOfLovers:OnWispDeath(entity)
+    if entity.Type ~= EntityType.ENTITY_FAMILIAR then return end
+    if entity.Variant ~= FamiliarVariant.ITEM_WISP then return end
+    
+    local familiar = entity:ToFamiliar()
+    if not familiar or familiar.SubType ~= mod.Items.ArmyOfLovers then return end
+    if not familiar.Player then return end
+    if familiar.HitPoints > 0 then return end
+
+    local numMinisaacs = math.random(1, 2)
+    for _ = 1, numMinisaacs do
+        familiar.Player:AddMinisaac(entity.Position)
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, ArmyOfLovers.OnWispDeath)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")

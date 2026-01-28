@@ -95,8 +95,12 @@ function mod:GetActiveChallengeState()
     return state, floor, variant, player
 end
 
+function mod:GetCurrentFloor()
+    return game:GetLevel():GetStage()
+end
+
 ------------------------------------------------------------
--- START A NEW CHALLENGE (called by plates!)
+-- START A NEW CHALLENGE 
 ------------------------------------------------------------
 function mod:StartDavidChallenge(floor, variant)
     if not variant then return end
@@ -116,8 +120,9 @@ function mod:StartDavidChallenge(floor, variant)
         data = {},
     }
 
+    local player = Isaac.GetPlayer(0)
     if ChallengeHandlers.OnStart[variant] then
-        ChallengeHandlers.OnStart[variant](floor)
+        ChallengeHandlers.OnStart[variant](player, floor)
     end
 end
 
@@ -142,6 +147,10 @@ function mod:FailDavidChallenge(player, floor)
     if ChallengeHandlers.OnFail[variant] then
         ChallengeHandlers.OnFail[variant](player, floor)
     end
+    
+    if ChallengeHandlers.OnCleanup[variant] then
+        ChallengeHandlers.OnCleanup[variant](player, floor)
+    end
 end
 
 ------------------------------------------------------------
@@ -156,9 +165,14 @@ function mod:CompleteDavidChallenge(floor)
     state.active = false
     state.pendingReward = true
 
+    local player = Isaac.GetPlayer(0)
     local variant = state.variant
     if ChallengeHandlers.OnComplete[variant] then
-        ChallengeHandlers.OnComplete[variant](floor)
+        ChallengeHandlers.OnComplete[variant](player, floor)
+    end
+    
+    if ChallengeHandlers.OnCleanup[variant] then
+        ChallengeHandlers.OnCleanup[variant](player, floor)
     end
 end
 
@@ -227,14 +241,14 @@ function mod:CancelDavidChallenge(floor)
     local state = all[floor]
     if not state or state.failed or state.completed then return end
 
+    local player = Isaac.GetPlayer(0)
     local variant = state.variant
     if ChallengeHandlers.OnCleanup[variant] then
-        ChallengeHandlers.OnCleanup[variant](floor)
+        ChallengeHandlers.OnCleanup[variant](player, floor)
     end
 
     state.active = false
 end
-
 
 ------------------------------------------------------------
 -- CORE CALLBACK DISPATCHER
@@ -287,7 +301,7 @@ mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
 end)
 
 ------------------------------------------------------------
--- SPECIAL EVENT DISPATCH (for complicated challenges)
+-- SPECIAL EVENT DISPATCH
 ------------------------------------------------------------
 
 -- PLAYER DAMAGE
@@ -295,14 +309,15 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, fla
     local player, floor = mod:GetActiveDavid()
     if not player then return end
 
-    -- If player takes damage
     if entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.Players.David then
         local variant = mod:GetDavidChallengeVariant(floor)
         local f = ChallengeHandlers.OnPlayerDamage[variant]
-        if f then f(entity:ToPlayer(), floor, amount, flags, source) end
+        if f then 
+            local result = f(entity:ToPlayer(), floor, amount, flags, source)
+            if result ~= nil then return result end -- Allow preventing damage
+        end
     end
 
-    -- If any entity takes damage (for hit/miss logic)
     local variant = mod:GetDavidChallengeVariant(floor)
     local f = ChallengeHandlers.OnEntityDamage[variant]
     if f then f(entity, amount, flags, source, player, floor) end
@@ -371,7 +386,10 @@ mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, _, player)
 
     local variant = mod:GetDavidChallengeVariant(floor)
     local f = ChallengeHandlers.OnUseItem[variant]
-    if f then f(player, floor, itemID) end
+    if f then 
+        local result = f(player, floor, itemID)
+        if result ~= nil then return result end -- Allow blocking items
+    end
 end)
 
 -- USE CARD
@@ -383,7 +401,10 @@ mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player)
 
     local variant = mod:GetDavidChallengeVariant(floor)
     local f = ChallengeHandlers.OnUseCard[variant]
-    if f then f(player, floor, cardID) end
+    if f then 
+        local result = f(player, floor, cardID)
+        if result ~= nil then return result end -- Allow blocking cards
+    end
 end)
 
 -- USE PILL
@@ -395,26 +416,36 @@ mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player)
 
     local variant = mod:GetDavidChallengeVariant(floor)
     local f = ChallengeHandlers.OnUsePill[variant]
-    if f then f(player, floor, pillEffect) end
+    if f then 
+        local result = f(player, floor, pillEffect)
+        if result ~= nil then return result end -- Allow blocking pills
+    end
 end)
 
 ------------------------------------------------------------
 -- RESET ON GAME START
 ------------------------------------------------------------
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-    local save = mod.SaveManager.GetRunSave()
-    save.FloorChallengeState = {}
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        local save = mod.SaveManager.GetRunSave()
+        save.FloorChallengeState = {}
+    end
 end)
 
 ------------------------------------------------------------
 -- API
 ------------------------------------------------------------
 return {
-    Register  = function(v, h) mod:RegisterDavidChallenge(v, h) end,
-    Start     = function(f, v) mod:StartDavidChallenge(f, v) end,
-    Fail      = function(p, f) mod:FailDavidChallenge(p, f) end,
-    Complete  = function(f) mod:CompleteDavidChallenge(f) end,
-    GetData   = function(f, v) return mod:GetChallengeData(f, v) end,
-    IsActive  = function(f) return mod:IsDavidChallengeActive(f) end,
-    GetVariant= function(f) return mod:GetDavidChallengeVariant(f) end,
+    Register        = function(v, h) mod:RegisterDavidChallenge(v, h) end,
+    Start           = function(f, v) mod:StartDavidChallenge(f, v) end,
+    Fail            = function(p, f) mod:FailDavidChallenge(p, f) end,
+    Complete        = function(f) mod:CompleteDavidChallenge(f) end,
+    Cancel          = function(f) mod:CancelDavidChallenge(f) end,
+    GetData         = function(f, v) return mod:GetChallengeData(f, v) end,
+    IsActive        = function(f) return mod:IsDavidChallengeActive(f) end,
+    GetVariant      = function(f) return mod:GetDavidChallengeVariant(f) end,
+    GetCompleted    = function() return mod:GetCompletedDavidChallengeCount() end,
+    GetFailed       = function() return mod:GetFailedDavidChallengeCount() end,
+    CanStart        = function() return mod:CanStartDavidChallenge() end,
+    GetCurrentFloor = function() return mod:GetCurrentFloor() end,
 }

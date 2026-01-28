@@ -63,15 +63,18 @@ local spawnElijahWill = {
 }
 
 local ItemRoomBeggar = {
-    [RoomType.ROOM_TREASURE]    = mod.Entities.BEGGAR_TreasureElijah.Var,
-    [RoomType.ROOM_SHOP]        = mod.Entities.BEGGAR_ShopElijah.Var,
-    [RoomType.ROOM_DEVIL]       = mod.Entities.BEGGAR_DemonElijah.Var,
-    [RoomType.ROOM_ANGEL]       = mod.Entities.BEGGAR_AngelElijah.Var,
-    [RoomType.ROOM_SECRET]      = mod.Entities.BEGGAR_SecretElijah.Var,
-    [RoomType.ROOM_ULTRASECRET] = mod.Entities.BEGGAR_UltraSecretElijah.Var,
-    [RoomType.ROOM_PLANETARIUM] = mod.Entities.BEGGAR_PlanetariumElijah.Var,
-    [RoomType.ROOM_LIBRARY]     = mod.Entities.BEGGAR_LibraryElijah.Var,
-    [RoomType.ROOM_ERROR]       = mod.Entities.BEGGAR_ERROR_Elijah.Var
+    [RoomType.ROOM_TREASURE]     = mod.Entities.BEGGAR_TreasureElijah.Var,
+    [RoomType.ROOM_SHOP]         = mod.Entities.BEGGAR_ShopElijah.Var,
+    [RoomType.ROOM_DEVIL]        = mod.Entities.BEGGAR_DemonElijah.Var,
+    [RoomType.ROOM_ANGEL]        = mod.Entities.BEGGAR_AngelElijah.Var,
+    [RoomType.ROOM_SECRET]       = mod.Entities.BEGGAR_SecretElijah.Var,
+    [RoomType.ROOM_SUPERSECRET]  = mod.Entities.BEGGAR_SecretElijah.Var,
+    [RoomType.ROOM_ULTRASECRET]  = mod.Entities.BEGGAR_UltraSecretElijah.Var,
+    [RoomType.ROOM_PLANETARIUM]  = mod.Entities.BEGGAR_PlanetariumElijah.Var,
+    [RoomType.ROOM_LIBRARY]      = mod.Entities.BEGGAR_LibraryElijah.Var,
+    [RoomType.ROOM_ERROR]        = mod.Entities.BEGGAR_ERROR_Elijah.Var,
+    [RoomType.ROOM_BLACK_MARKET] = mod.Entities.BEGGAR_ShopElijah.Var,
+    [RoomType.ROOM_DUNGEON]      = mod.Entities.BEGGAR_SecretElijah.Var,
 }
 
 local CHAOS_ELIJAH_BEGGARS = {
@@ -265,7 +268,6 @@ function elijahFuncs:OnPickupCollision(pickup, collider)
     StatUp(data)
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
 
-    player:PlayExtraAnimation("Happy")
     pickup:Remove()
 end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollision, elijahWill)
@@ -292,7 +294,6 @@ function elijahFuncs:OnPickupCollisionWillB(pickup, collider)
     StatUp(data.WillBStats)
 
     player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
-    player:PlayExtraAnimation("Happy")
     pickup:Remove()
 end
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, elijahFuncs.OnPickupCollisionWillB, elijahWillB)

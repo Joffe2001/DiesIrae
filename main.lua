@@ -115,6 +115,7 @@ include("scripts.items.familiars.fairBum")
 include("scripts.items.familiars.tarotBum")
 include("scripts.items.familiars.pastorBum")
 include("scripts.items.familiars.pillBum")
+include("scripts.items.familiars.wisps")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
@@ -185,7 +186,7 @@ include("scripts.npcs.elijah.elijah_error_beggar")
 include("scripts.npcs.elijah.elijah_book_beggar")
 include("scripts.npcs.elijah.elijah_goldsmith")
 include("scripts.npcs.elijah.elijah_jys")
-include("scripts.npcs.elijah_familiars_beggar")
+include("scripts.npcs.elijah.elijah_familiars_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------
@@ -200,7 +201,6 @@ include("scripts.items.familiars.gellocostumes")
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------
---include("scripts.items.familiars.pillBum")
 --[[NEEDS REQUIRE!]] --require("scripts.items.passive.redbulb.main")
 --include("scripts.items.passive.hitlist")
 --include("scripts.items.passive.photonlink")

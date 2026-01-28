@@ -16,9 +16,14 @@
 	<color name="flame_black" r="0" g="0" b="0"/>
 	<color name="core_black" r="89" g="89" b="89"/>
 
+	<color name="flame_pink" r="255" g="182" b="217"/>
+	<color name="core_pink" r="255" g="105" b="180"/>
+
 	<wisp id="1001" hp="1" damage="1" flameColor="flame_light_yellow" coreColor="core_light_yellow" canShoot="false"/>
 	<wisp id="1002" hp="1" damage="1" flameColor="flame_yellow" coreColor="core_yellow" canShoot="false"/>
 	<wisp id="1003" hp="1" damage="1" flameColor="flame_red" coreColor="core_red" canShoot="false"/>
 	<wisp id="1004" hp="1" damage="1" flameColor="flame_blue" coreColor="core_blue" canShoot="false"/>
 	<wisp id="1005" hp="1" damage="1" flameColor="flame_black" coreColor="core_black" canShoot="false"/>
+<!--Army of Lovers-->
+	<wisp id="101"  hp="2" damage="1" flameColor="flame_pink" coreColor="core_pink" coreGfx="minisaac.png" canShoot="false"/>
 </wisps>

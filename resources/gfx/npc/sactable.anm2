@@ -4,10 +4,10 @@
         <Spritesheets>
             <Spritesheet Id="0" Path="sac_alter.png"/>
             <Spritesheet Id="1" Path="poorfamiliar.png"/>
-            <Spritesheet Id="2" Path="poof_blood.png"/>
-            <Spritesheet Id="3" Path="bloodgibs.png"/>
-            <Spritesheet Id="4" Path="poof_blood2.png"/>
-            <Spritesheet Id="5" Path="bloodcloud.png"/>
+            <Spritesheet Id="2" Path="../effects/poof_blood.png"/>
+            <Spritesheet Id="3" Path="../effects/bloodgibs.png"/>
+            <Spritesheet Id="4" Path="../effects/poof_blood2.png"/>
+            <Spritesheet Id="5" Path="../effects/bloodcloud.png"/>
         </Spritesheets>
         <Layers>
             <Layer Id="0" Name="body" SpritesheetId="0"/>

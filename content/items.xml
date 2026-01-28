@@ -2,14 +2,14 @@
     <!-- Passive items -->
     <passive id="1"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2"    flatdamage='0.2'    flattears='0.2'    speed='0.2'    luck='0.2'    range='8'    shotspeed='0.2'/>
     <passive id="2"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
-    <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="2" tags="nolostbr"          achievement="The Bad Touch" />
+    <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="0" tags="nolostbr"          achievement="The Bad Touch" />
     <passive id="4"  name="Universal"                  gfx="universal.png"                 description="Woo hoo!!"                                   quality="3"                          achievement="Universal" />
     <passive id="5"  name="Ring of Fire"               gfx="ring_of_fire.png"              description="Burn it down"                                quality="3" tags="nolostbr"          achievement="Ring of Fire" />
     <passive id="6"  name="Still Standing"             gfx="item_placeholder.png"          description="Feelin' like a true survivor"                quality="1" tags="nolostbr" />    
     <passive id="7"  name="Mom's Dress"                gfx="momsdress.png"                 description="It's like her hug!"                          quality="2" tags="nolostbr mom" />
     <passive id="8"  name="Enjoyment of the Unlucky"   gfx="item_placeholder.png"          description="Bad luck is a good luck!"                    quality="2" />
     <passive id="9"  name="Everybody's Changing"       gfx="everybodychanging.png"         description="I don't feel the same"                       quality="0"                          achievement="Everybody's Changing" />
-    <passive id="10" name="Echo"                       gfx="echo.png"                      description="I see a sky full of stars"                   quality="2" tags="nogreed" />
+    <passive id="10" name="Echo"                       gfx="echo.png"                      description="I see a sky full of stars"                   quality="2" tags="nogreed"           achievement="Echo" />
     <passive id="11" name="Engel"                      gfx="item_placeholder.png"          description="It sounds like angel"                        quality="3" tags="nolostbr" />
     <passive id="12" name="Scared Shoes"               gfx="item_placeholder.png"          description="Why are you running?"                        quality="0" />
     <passive id="13" name="Devil's Luck"               gfx="item_placeholder.png"          description="I don't feel the luck"                       quality="2" />
@@ -52,16 +52,6 @@
     <passive id="50" name="The Harp"                   gfx="theharp.png"                   description="The harp gently weeps"                       quality="4" tags="noeden quest"/>
     <passive id="51" name="Red Bulb"                   gfx="red_bulb.png"                  description="Inversion"                                   quality="3" achievment="Red Bulb Unlock"/>
     <passive id="52" name="Michelin Star Reward"       gfx="michelin_star.png"             description="Yum!!"                                       quality="2" tags="nolostbr"           achievement="Michelin Star Reward" />
-    <!-- Familiars -->
-    <familiar id="53" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="54" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="55" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="56" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="57" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="58" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-	<familiar id="59" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"/>
-	<familiar id="60" name="Pill Bum" 				   gfx="item_placeholder.png"		   description="He can quit whenever he wants"				 quality="2" cache="familiars" tags="baby summonable monstermanual"/>
-    <familiar id="61" name="Pastor Bum" 			   gfx="pastorbum.png"	      	       description="God I think I've sinned"					 quality="3" cache="familiars" tags="baby summonable monstermanual"/>
 
     <!-- Active items -->
     <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
@@ -90,7 +80,18 @@
     <trinket id="210" name="Papercut"                  gfx="trinket_placeholder.png"       description="It's like a whirlwind inside of my head"  />
     <trinket id="211" name="Tarot Battery"             gfx="tarotbattery.png"              description="Electrify your mind"                      />
    
-    <!-- Testing -->
+    <!-- Familiars -->
+    <familiar id="300" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="301" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="302" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Red Bum" />
+    <familiar id="303" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"          achievement="Scammer Bum" />
+    <familiar id="304" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Rune Bum" />
+    <familiar id="305" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Fair Bum" />
+	<familiar id="306" name="Tarot Bum"                 gfx="item_placeholder.png"          description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Tarot Bum" />
+	<familiar id="307" name="Pill Bum" 				    gfx="item_placeholder.png"		    description="He can quit whenever he wants"				  quality="2" cache="familiars" tags="baby summonable monstermanual"          achievement="Pill Bum" />
+    <familiar id="308" name="Pastor Bum" 			    gfx="pastorbum.png"	      	        description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
+
+    <!-- Testing 
     <passive id="300" name="Path Of The Righteous"     gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />
     <passive id="302" name="Skull Crasher"             gfx="item_placeholder.png"          description="You are not safe from me now!!"             quality="2" />
     <passive id="303" name="Dad's Dumbbell"            gfx="item_placeholder.png"          description="I get knocked down, but I get up again"     quality="2" />
@@ -106,7 +107,7 @@
     <passive id="316" name="Triple Gooberberry Sunrise" gfx="TGS.png"                      description="Ooouhhhh Waiterrrrrrr!!!!"                  quality="2"/>
     <passive id="317" name="Corona"                    gfx="item_placeholder.png"          description="No one shall escape my creep"               quality="2"/>
     <passive id="319" name="Challenger Map"            gfx="item_placeholder.png"          description="Gonna need a good challenge"                quality="1"/>
-
+-->
 
     <trinket id="400" name="Money for nothing"         gfx="trinket_placeholder.png"       description="You don't need money no more"        />
     <trinket id="401" name="Catch the Rainbow"         gfx="trinket_placeholder.png"       description="Tasted the rainbow"                  />

@@ -4,6 +4,27 @@ local game = Game()
 local sfx = SFXManager()
 local SacrificeTable = mod.Entities.BEGGAR_SacrificeTable.Var
 
+-----------------------------------------------------
+--                       API
+-----------------------------------------------------
+mod.RegisteredModdedFamiliars = mod.RegisteredModdedFamiliars or {}
+--Register a modded familiar by name
+
+---@param familiarName string            - Name of the familiar entity (from entities2.xml)
+---@param collectibleName string         - Name of the collectible (from items.xml)
+---@param spritePath string              - Path to the familiar's sprite (optional, will auto-detect if nil)
+function mod:RegisterModdedFamiliar(familiarName, collectibleName, spritePath)
+    if not familiarName or not collectibleName then
+        print("ERROR: RegisterModdedFamiliar requires familiarName and collectibleName")
+        return
+    end
+
+    -- Store registerd familiar
+    mod.RegisteredModdedFamiliars[familiarName] = {
+        collectibleName = collectibleName,
+        spritePath = spritePath
+    }
+end
 
 local function IsPermanentFamiliar(familiar)
     if not familiar then return false end
@@ -39,35 +60,84 @@ local function IsPermanentFamiliar(familiar)
     return true
 end
 
-local function GetCollectibleForFamiliar(player, familiar)
-    local itemConfig = Isaac.GetItemConfig()
+local function GetFamiliarName(familiar)
+    local sprite = familiar:GetSprite()
 
-    local familiarName = nil
-    for name, value in pairs(FamiliarVariant) do
-        if value == familiar.Variant then
-            familiarName = name
-            break
+    if sprite then
+        local filename = sprite:GetFilename()
+        local raw = filename:match("([^/]+)%.anm2$")
+
+        if raw and mod.RegisteredModdedFamiliars then
+            for famName, data in pairs(mod.RegisteredModdedFamiliars) do
+                if raw:lower() == famName:gsub(" ", ""):lower() then
+                    return famName
+                end
+            end
         end
     end
+    for name, value in pairs(FamiliarVariant) do
+        if value == familiar.Variant then
+            local clean = name:gsub("_", " ")
+            clean = clean:gsub("(%a)([%w_']*)", function(a, b)
+                return a:upper() .. b:lower()
+            end)
+            return clean
+        end
+    end
+
+    return nil
+end
+
+local function GetCollectibleForFamiliar(player, familiar)
+    local itemConfig = Isaac.GetItemConfig()
+    local familiarName = GetFamiliarName(familiar)
     
     if not familiarName then
-        print("DEBUG: Could not find FamiliarVariant name for variant " .. familiar.Variant)
+        print("DEBUG: Could not determine familiar name for variant " .. familiar.Variant)
         return nil
     end
     
-    print("DEBUG: Looking for familiar named: " .. familiarName)
+    print("DEBUG: Familiar name: " .. familiarName)
     
-    -- Search for a collectible with matching name pattern
-    local searchName = "COLLECTIBLE_" .. familiarName
+    -- Check if this is a registered modded familiar
+    local registered = mod.RegisteredModdedFamiliars[familiarName]
+    if registered then
+        print("DEBUG: Found registered modded familiar: " .. familiarName)
+        local collectibleName = registered.collectibleName
+        
+        -- Search for collectible by name
+        for i = 1, itemConfig:GetCollectibles().Size - 1 do
+            local collectible = itemConfig:GetCollectible(i)
+            if collectible and collectible.Name == collectibleName then
+                if player:HasCollectible(i) then
+                    print("DEBUG: Found collectible '" .. collectibleName .. "' (ID: " .. i .. ")")
+                    return i
+                end
+            end
+        end
+    end
     
+    -- Try vanilla matching: search for collectible with same name as familiar
+    for i = 1, itemConfig:GetCollectibles().Size - 1 do
+        local collectible = itemConfig:GetCollectible(i)
+        if collectible and collectible.Name == familiarName then
+            if player:HasCollectible(i) then
+                print("DEBUG: Found matching collectible by name: " .. familiarName .. " (ID: " .. i .. ")")
+                return i
+            end
+        end
+    end
+    
+    -- Fallback: try pattern matching for vanilla items
+    local searchName = "COLLECTIBLE_" .. familiarName:upper():gsub(" ", "_")
     for name, collectibleID in pairs(CollectibleType) do
         if name == searchName and player:HasCollectible(collectibleID) then
-            print("DEBUG: Found matching collectible: " .. name .. " (ID: " .. collectibleID .. ")")
+            print("DEBUG: Found matching collectible by pattern: " .. name .. " (ID: " .. collectibleID .. ")")
             return collectibleID
         end
     end
 
-    print("DEBUG: No collectible found with name pattern: " .. searchName)
+    print("DEBUG: No collectible found for familiar: " .. familiarName)
     return nil
 end
 
@@ -121,7 +191,7 @@ function mod:SacrificeTableCollision(beggar, collider)
 
     local collectibleID = GetCollectibleForFamiliar(player, chosen)
     if not collectibleID then
-        print("Could not find collectible for chosen familiar variant " .. chosen.Variant)
+        print("Could not find collectible for chosen familiar")
         sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ)
         return
     end
@@ -133,8 +203,19 @@ function mod:SacrificeTableCollision(beggar, collider)
     -- Replace Spritesheet with the familiar's sprite
     local familiarSprite = chosen:GetSprite()
     if familiarSprite then
-        local familiarSpritesheet = familiarSprite:GetLayer(0):GetSpritesheetPath()
-        print("DEBUG: Familiar spritesheet path: " .. familiarSpritesheet)
+        local familiarSpritesheet = nil
+        local familiarName = GetFamiliarName(chosen)
+        
+        -- Check if this is a registered modded familiar with custom sprite path
+        local registered = familiarName and mod.RegisteredModdedFamiliars[familiarName]
+        if registered and registered.spritePath then
+            familiarSpritesheet = registered.spritePath
+            print("DEBUG: Using registered sprite path: " .. familiarSpritesheet)
+        else
+            -- Auto-detect sprite path
+            familiarSpritesheet = familiarSprite:GetLayer(0):GetSpritesheetPath()
+            print("DEBUG: Auto-detected spritesheet path: " .. familiarSpritesheet)
+        end
         
         local success = pcall(function()
             beggarSprite:ReplaceSpritesheet(3, familiarSpritesheet)
@@ -188,11 +269,18 @@ function mod:SacrificeTableUpdate(beggar)
 
         if data.LastPayer and data.ChosenCollectibleID then
             local player = data.LastPayer
+            local collectibleID = data.ChosenCollectibleID
 
             player:AddMaxHearts(-2, true)
 
-            print("DEBUG: Removing collectible ID " .. data.ChosenCollectibleID)
-            player:RemoveCollectible(data.ChosenCollectibleID, false, nil, true)
+            print("DEBUG: Removing collectible ID " .. collectibleID)
+            
+            -- Remove the collectible
+            player:RemoveCollectible(collectibleID)
+            
+            -- Force immediate cache update
+            player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS)
+            player:EvaluateItems()
 
             local broken = HasBrokenHearts(player)
 
@@ -269,3 +357,64 @@ function mod:SacrificeTableExploded(beggar)
     return false
 end
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.SacrificeTableExploded, SacrificeTable)
+
+--------------------------------------------------
+---          Dies Irae's modded familiars
+--------------------------------------------------
+mod:RegisterModdedFamiliar("Killer Queen", "Killer Queen", "gfx/familiar/killerqueen.png")
+mod:RegisterModdedFamiliar("Paranoid Android", "Paranoid Android", "gfx/familiar/paranoidandroid.png")
+mod:RegisterModdedFamiliar("Red Bum", "Red Bum", "gfx/familiar/redbum.png")
+mod:RegisterModdedFamiliar("Scammer Bum", "Scammer Bum", "gfx/familiar/scammerbum.png")
+mod:RegisterModdedFamiliar("Rune Bum", "Rune Bum", "gfx/familiar/runebum.png")
+mod:RegisterModdedFamiliar("Fair Bum", "Fair Bum", "gfx/familiar/fairbum.png")
+mod:RegisterModdedFamiliar("Tarot Bum", "Tarot Bum", "gfx/familiar/tarotbum.png")
+mod:RegisterModdedFamiliar("Pill Bum", "Pill Bum", "gfx/familiar/pillbum.png")
+mod:RegisterModdedFamiliar("Pastor Bum", "Pastor Bum", "gfx/familiar/pastorbum.png")
+
+---------------------------------------------------------------------------
+-- Dies Irae: Modded Familiar Sacrifice API Guide (For Other Mods)
+--
+-- If you are creating a mod and want your custom familiar to work with Dies Irae's Sacrifice Table, follow this guide.
+
+-- The Sacrifice Table will:
+--   - Identify your modded familiar correctly
+--   - Find the correct collectible associated with it
+--   - Display the familiar's icon on the table
+--   - Remove the collectible from the player when sacrificed
+-- -----------------------------
+-- How to access the Dies Irae API
+-- -----------------------------
+-- In your mod's main.lua, you must access the global DiesIraeMod object.
+--
+-- Use this exact pattern:
+--
+--     local diesIrae = _G["DiesIraeMod"]
+--
+--     if diesIrae and diesIrae.RegisterModdedFamiliar then
+--         diesIrae:RegisterModdedFamiliar(
+--             "Familiar Name",        -- entity name from entities2.xml
+--             "Collectible Name",     -- item name from items.xml
+--             "path/to/familiar/path.png" -- Optional. But note that its not the collectible png but the familiar itself.
+--         )
+--     end
+--
+
+-- -----------------------------
+-- Example full registration
+-- -----------------------------
+--
+-- main.lua of a different mod:
+--
+--     local diesIrae = _G["DiesIraeMod"]
+--
+--     function MyMod:OnGameStart()
+--         if diesIrae and diesIrae.RegisterModdedFamiliar then
+--             diesIrae:RegisterModdedFamiliar(
+--                 "Baby Blaster",
+--                 "Baby Blaster",
+--                 "gfx/familiar/babyblaster.png"
+--             )
+--         end
+--     end
+--     MyMod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, MyMod.OnGameStart)
+

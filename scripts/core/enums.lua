@@ -218,6 +218,8 @@ mod.Entities = {
     BEGGAR_Goldsmith         = MakeEntityTable("Goldsmith Beggar"),
     BEGGAR_Familiars         = MakeEntityTable("Familiars Beggar"),
     BEGGAR_SacrificeTable    = MakeEntityTable("Sacrifice Table"),
+    BEGGAR_Chaos             = MakeEntityTable("Chaos Beggar"),
+    BEGGAR_Lost_Adventurer   = MakeEntityTable("Lost Adventurer"),
 
     BEGGAR_TechElijah        = MakeEntityTable("Tech Beggar Elijah"),
     BEGGAR_Elijah            = MakeEntityTable("Beggar Elijah"),
@@ -295,6 +297,22 @@ mod.Achievements = {
     WonderOfYou        = Isaac.GetAchievementIdByName("Wonder of You"),
     Muse               = Isaac.GetAchievementIdByName("Muse"),
 
+    --- Elijah's unlocks
+    RuneBum            = Isaac.GetAchievementIdByName("Rune Bum"),
+    PastorBum          = Isaac.GetAchievementIdByName("Pastor Bum"),
+    TarotBum           = Isaac.GetAchievementIdByName("Tarot Bum"),
+    RedBum             = Isaac.GetAchievementIdByName("Red Bum"),
+    SacrificeTable     = Isaac.GetAchievementIdByName("Sacrifice Table"),
+    PillBum            = Isaac.GetAchievementIdByName("Pill Bum"),
+    LostAdventurer     = Isaac.GetAchievementIdByName("Lost Adventurer"),
+    FamiliarsBeggar    = Isaac.GetAchievementIdByName("Familiars Beggar"),
+    FiendDeal          = Isaac.GetAchievementIdByName("Fiend Deal"),
+    JYS                = Isaac.GetAchievementIdByName("Junk Yard Seller"),
+    FairBum            = Isaac.GetAchievementIdByName("Fair Bum"),
+    Goldsmith          = Isaac.GetAchievementIdByName("Goldsmith Beggar"),
+    ScammerBum         = Isaac.GetAchievementIdByName("Scammer Bum"),
+    ChaosBeggar        = Isaac.GetAchievementIdByName("Chaos Beggar"),
+
     --- Tainted David's unlocks
     Mutter             = Isaac.GetAchievementIdByName("Mutter"),
     HypaHypa           = Isaac.GetAchievementIdByName("Hypa Hypa"),
@@ -317,6 +335,7 @@ mod.Achievements = {
     StabWound          = Isaac.GetAchievementIdByName("Stab Wound"),
     MichelinStar       = Isaac.GetAchievementIdByName("Michelin Star Reward"),
     FloweringSkull     = Isaac.GetAchievementIdByName("Flowering Skull"),
+    Echo               = Isaac.GetAchievementIdByName("Echo"),
 
     --- Trinkets unlocks
     Gaga               = Isaac.GetAchievementIdByName("Gaga"),
@@ -327,4 +346,5 @@ mod.Achievements = {
     GYM                = Isaac.GetAchievementIdByName("GYM"),
     Wimter             = Isaac.GetAchievementIdByName("Wimter"),
     SkillIssue1        = Isaac.GetAchievementIdByName("Skill Issue 1"),
+    Ghosted            = Isaac.GetAchievementIdByName("Ghosted"),
 }

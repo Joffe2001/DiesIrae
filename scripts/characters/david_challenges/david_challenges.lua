@@ -136,7 +136,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_HIT_BOSS, {
 })
 
 -------------------------------------------------
--- CHALLENGE 2: ENTER ALL SPECIAL ROOMS (FIXED)
+-- CHALLENGE 2: ENTER ALL SPECIAL ROOMS 
 -------------------------------------------------
 DavidUtils.Register(mod.CHALLENGES.ENTER_SPECIALS, {
     OnStart = function(floor)
@@ -202,7 +202,7 @@ DavidUtils.Register(mod.CHALLENGES.ENTER_SPECIALS, {
 })
 
 -------------------------------------------------
--- CHALLENGE 3: NO HEARTS --WORKING
+-- CHALLENGE 3: NO HEARTS
 -------------------------------------------------
 DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
     OnPickupCollision = function(pickup, player, floor)
@@ -214,7 +214,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
 })
 
 -------------------------------------------------
--- CHALLENGE 4: NO FIRE DELAY --WORKING
+-- CHALLENGE 4: NO FIRE DELAY
 -------------------------------------------------
 DavidUtils.Register(mod.CHALLENGES.NO_FIRE_DELAY, {
     OnNewRoom = function(player, floor)
@@ -322,7 +322,7 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 end)
 
 -------------------------------------------------
--- CHALLENGE 6: DON'T MISS MORE THAN 200 SHOTS (Need further testing)
+-- CHALLENGE 6: DON'T MISS MORE THAN 200 SHOTS
 -------------------------------------------------
 local function IsValidTarget(entity, player)
     if not entity then return false end
@@ -356,14 +356,16 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
         data.shots = 0
         data.misses = 0
-        data.pending = {}
+        data.pendingCount = 0 -- Use counter instead of table
+        data.pendingShots = {} -- Dense table for tracking
     end,
 
     OnFireTear = function(player, tear, floor)
         if RoomHasValidTargets(player) then
             local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
             data.shots = data.shots + 1
-            table.insert(data.pending, {frames = 0, hit = false})
+            data.pendingCount = data.pendingCount + 1
+            table.insert(data.pendingShots, {frames = 0, hit = false})
         end
     end,
 
@@ -371,7 +373,8 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
         if RoomHasValidTargets(player) then
             local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
             data.shots = data.shots + 1
-            table.insert(data.pending, {frames = 0, hit = false})
+            data.pendingCount = data.pendingCount + 1
+            table.insert(data.pendingShots, {frames = 0, hit = false})
         end
     end,
 
@@ -379,7 +382,8 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
         if RoomHasValidTargets(player) then
             local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
             data.shots = data.shots + 1
-            table.insert(data.pending, {frames = 0, hit = false})
+            data.pendingCount = data.pendingCount + 1
+            table.insert(data.pendingShots, {frames = 0, hit = false})
         end
     end,
 
@@ -395,7 +399,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
         end
 
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
-        for _, shot in ipairs(data.pending) do
+        for _, shot in ipairs(data.pendingShots) do
             if not shot.hit then
                 shot.hit = true
                 break
@@ -406,17 +410,20 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
     OnUpdate = function(player, floor)
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_MISS)
         
-        for i = #data.pending, 1, -1 do
-            local shot = data.pending[i]
+        -- Build new table without gaps
+        local newPending = {}
+        for _, shot in ipairs(data.pendingShots) do
             shot.frames = shot.frames + 1
 
-            if shot.frames > 15 then
-                if not shot.hit then
-                    data.misses = data.misses + 1
-                end
-                table.remove(data.pending, i)
+            if shot.frames <= 15 then
+                table.insert(newPending, shot)
+            elseif not shot.hit then
+                data.misses = data.misses + 1
             end
         end
+        
+        data.pendingShots = newPending
+        data.pendingCount = #newPending
 
         if data.misses > 200 then
             DavidUtils.Fail(player, floor)
@@ -433,7 +440,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_MISS, {
 })
 
 -------------------------------------------------
--- CHALLENGE 7: NO HIT (CHAMPIONS) --WORKING
+-- CHALLENGE 7: NO HIT (CHAMPIONS)
 -------------------------------------------------
 DavidUtils.Register(mod.CHALLENGES.NO_HIT, {
     OnPlayerDamage = function(player, floor, amount, flags, source)
@@ -463,12 +470,16 @@ DavidUtils.Register(mod.CHALLENGES.COLLECT_CHORDS, {
     OnStart = function(floor)
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
         data.collected = 0
+        data.completed = false
         print("DEBUG [COLLECT_CHORDS]: Challenge started on floor " .. floor)
     end,
 
     OnNPCKill = function(npc, player, floor)
-        if npc:IsBoss() then return end -- Bosses don't drop chords
+        if npc:IsBoss() then return end
         if not npc:IsVulnerableEnemy() then return end
+
+        local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+        if data.completed then return end
 
         local rng = npc:GetDropRNG()
         if rng:RandomFloat() < 0.15 then
@@ -488,14 +499,18 @@ DavidUtils.Register(mod.CHALLENGES.COLLECT_CHORDS, {
 
     OnRender = function(player, floor)
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+        local r, g, b = 1, 1, 1
+        if data.completed then
+            r, g, b = 0, 1, 0
+        end
         Isaac.RenderText(
             "David's Chords: " .. data.collected .. " / 10",
-            60, 20, 1, 1, 1, 1
+            60, 20, r, g, b, 1
         )
     end,
 })
 
--- Chord pickup logic
+-- Chord pickup logic (FIXED)
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     local sprite = pickup:GetSprite()
     if sprite and not sprite:IsPlaying("Appear") then
@@ -512,6 +527,9 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
         sprite:Play("Idle", true)
     end
 
+    -- Don't process if already collecting
+    if sprite:IsPlaying("Collect") then return end
+
     local player = Isaac.GetPlayer(0)
     if player:GetPlayerType() ~= mod.Players.David then return end
 
@@ -519,20 +537,21 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
     if not DavidUtils.IsActive(floor) then return end
     if DavidUtils.GetVariant(floor) ~= mod.CHALLENGES.COLLECT_CHORDS then return end
 
-    if pickup.Position:Distance(player.Position) < 20 then
-        if not sprite:IsPlaying("Collect") then
-            sprite:Play("Collect", true)
-            sfx:Play(SoundEffect.SOUND_CHOIR_UNLOCK)
-            
-            local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
-            data.collected = data.collected + 1
-            
-            print("DEBUG [COLLECT_CHORDS]: Collected chord #" .. data.collected)
+    local data = DavidUtils.GetData(floor, mod.CHALLENGES.COLLECT_CHORDS)
+    if data.completed then return end
 
-            if data.collected >= 10 then
-                DavidUtils.Complete(floor)
-                game:GetHUD():ShowItemText("All Chords Collected!")
-            end
+    -- Check proximity for collection
+    if pickup.Position:Distance(player.Position) < 20 then
+        sprite:Play("Collect", true)
+        sfx:Play(SoundEffect.SOUND_CHOIR_UNLOCK)
+        
+        data.collected = data.collected + 1
+        print("DEBUG [COLLECT_CHORDS]: Collected chord #" .. data.collected)
+
+        if data.collected >= 10 then
+            data.completed = true
+            DavidUtils.Complete(floor)
+            game:GetHUD():ShowItemText("All Chords Collected!")
         end
     end
 end, mod.Entities.PICKUP_DavidChord.Var)
@@ -544,11 +563,14 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_RENDER, function(_, pickup)
     end
 end, mod.Entities.PICKUP_DavidChord.Var)
 
+-- FIXED: Return false to allow manual collection, or nil to prevent normal pickup behavior
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
     local player = collider:ToPlayer()
     if not player or player:GetPlayerType() ~= mod.Players.David then
-        return true
+        return true -- Block collection for non-David players
     end
+    -- Return false/nil to allow our custom collection logic
+    return false
 end, mod.Entities.PICKUP_DavidChord.Var)
 
 -- Fail if boss dies without enough chords
@@ -569,7 +591,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
 end)
 
 -------------------------------------------------
--- CHALLENGE 9: FAST BOSS (BEAT UNDER 4 MINUTES) --WORKING
+-- CHALLENGE 9: FAST BOSS (BEAT UNDER 4 MINUTES)
 -------------------------------------------------
 local MIND_STAGES = {
     [LevelStage.STAGE2_1] = true,
@@ -650,7 +672,7 @@ DavidUtils.Register(mod.CHALLENGES.FAST_BOSS, {
 })
 
 -------------------------------------------------
--- CHALLENGE 10: DO NOT USE ACTIVE/CONSUMABLES --WORKING
+-- CHALLENGE 10: DO NOT USE ACTIVE/CONSUMABLES
 -------------------------------------------------
 DavidUtils.Register(mod.CHALLENGES.NO_USE, {
     OnUseItem = function(player, floor, itemID)
@@ -690,10 +712,12 @@ DavidUtils.Register(mod.CHALLENGES.STILL_KILLS, {
 
         local distSq = player.Position:DistanceSquared(data.lastPos)
 
-        if distSq <= 0.5 then
+        -- Reduced threshold from 15 to 8 frames and smaller distance
+        if distSq <= 0.3 then
             data.stillFrames = data.stillFrames + 1
             
-            if data.stillFrames >= 15 then
+            -- Standing still for at least 8 frames (reduced from 15)
+            if data.stillFrames >= 8 then
                 data.isStill = true
             end
         else
@@ -706,12 +730,14 @@ DavidUtils.Register(mod.CHALLENGES.STILL_KILLS, {
 
     OnNPCKill = function(npc, player, floor)
         if not npc:IsVulnerableEnemy() then return end
-        if npc:IsBoss() then return end -- Don't count boss kills
+        if npc:IsBoss() then return end
 
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.STILL_KILLS)
         if data.completed then return end
+        
+        -- Check if player is standing still RIGHT NOW
         if not data.isStill then 
-            print("DEBUG [STILL_KILLS]: Enemy killed but player not standing still")
+            print("DEBUG [STILL_KILLS]: Enemy killed but player not standing still (frames: " .. data.stillFrames .. ")")
             return 
         end
 
@@ -744,7 +770,7 @@ DavidUtils.Register(mod.CHALLENGES.STILL_KILLS, {
         elseif data.isStill then
             Isaac.RenderText("STANDING STILL", 60, 35, 0, 1, 0, 1)
         else
-            local progress = math.floor((data.stillFrames / 15) * 100)
+            local progress = math.floor((data.stillFrames / 8) * 100)
             Isaac.RenderText("Hold still: " .. progress .. "%", 60, 35, 1, 1, 0, 0.6)
         end
     end,

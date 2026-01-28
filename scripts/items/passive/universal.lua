@@ -87,6 +87,12 @@ function Universal:onUpdate()
                     )
                     state.lastBeepSegment = segment
                 end
+                
+                if game:GetFrameCount() % 6 < 3 then
+                    player:SetColor(Color(1, 1, 1, 1, 0.3, 0.3, 0.3), 2, 1, true, false)
+                else
+                    player:SetColor(Color(1, 1, 1, 1, 0, 0, 0), 1, 1, true, false)
+                end
             end
 
             if not state.hasActiveCostume then
@@ -135,6 +141,7 @@ function Universal:onUpdate()
                 player:TryRemoveNullCostume(mod.Costumes.Universal_active)
                 state.hasActiveCostume = false
             end
+            player:SetColor(Color(1, 1, 1, 1, 0, 0, 0), 0, 0, true, false)
         end
 
         local pdata = player:GetData()

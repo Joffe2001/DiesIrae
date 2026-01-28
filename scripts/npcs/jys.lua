@@ -99,7 +99,7 @@ local function JYS_Update(_, beggar)
         if sprite:IsFinished() then
             data.State = State.PRIZE
 
-            if data.Pays == 1 then sprite:Play("Prize", true) end
+            if data.Pays == 1 then sprite:Play("Prize1", true) end
             if data.Pays == 2 then sprite:Play("Prize2", true) end
             if data.Pays == 3 then sprite:Play("Prize3", true) end
             if data.Pays == 4 then sprite:Play("Prize4", true) end

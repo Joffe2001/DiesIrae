@@ -49,6 +49,8 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
         player:AddBrokenHearts(1);
         player:BloodExplode();
         player:PlayExtraAnimation("Hit")
+        local level = Game():GetLevel()
+        level:SetAngelRoomChance(-1.0)
     end
 end
 

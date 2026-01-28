@@ -5,7 +5,7 @@ local game = Game()
 
 function BadTouch:onPlayerCollision(player, collider)
     if not player:HasCollectible(mod.Items.TheBadTouch) then return end
-    if not collider:IsEnemy() then return end
+    if not collider:IsVulnerableEnemy() then return end
 
     local npc = collider:ToNPC()
     if npc then
