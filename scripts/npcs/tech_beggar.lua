@@ -6,8 +6,8 @@ local sfx = SFXManager()
 local TechB = mod.Entities.BEGGAR_Tech.Var
 
 
-local basePrizeChance = 0.15
-local chanceIncrement = 0.05
+local basePrizeChance = 0.05
+local chanceIncrement = 0.02
 local TECHX_DURATION = 1800
 
 function mod:TechBeggarInit(beggar)

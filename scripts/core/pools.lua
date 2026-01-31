@@ -100,7 +100,7 @@ mod.Pools ={
         mod.Items.DevilsMap,
         mod.Items.BossCompass
     },
-    Familiar_Beggar_Trinkets ={
+    Familiar_Beggar_Trinkets = {
         TrinketType.TRINKET_UMBILICAL_CORD,
         TrinketType.TRINKET_ISAACS_HEAD,
         TrinketType.TRINKET_SOUL,
@@ -115,7 +115,7 @@ mod.Pools ={
         TrinketType.TRINKET_FOUND_SOUL,
         TrinketType.TRINKET_THE_TWINS,
     },
-    Familiar_Beggar_Items ={
+    Familiar_Beggar_Items = {
         ---Familiars related items
         CollectibleType.COLLECTIBLE_MONSTER_MANUAL,
         CollectibleType.COLLECTIBLE_BFFS,
@@ -261,8 +261,40 @@ mod.Pools ={
         mod.Pills.HEARTBREAK,
         mod.Pills.POWER_DRAIN,
     },
+    Red_Trinkets= {
+        TrinketType.TRINKET_PERFECTION,
+        TrinketType.TRINKET_APOLLYONS_BEST_FRIEND,
+        TrinketType.TRINKET_NUH_UH,
+        TrinketType.TRINKET_PANIC_BUTTON,
+        TrinketType.TRINKET_RING_CAP,
+        TrinketType.TRINKET_KEEPERS_BARGAIN,
+        TrinketType.TRINKET_SWALLOWED_M80,
+        TrinketType.TRINKET_LIL_CLOT,
+        TrinketType.TRINKET_MOTHERS_KISS,
+        TrinketType.TRINKET_WICKED_CROWN,
+        TrinketType.TRINKET_BROKEN_SYRINGE,
+        TrinketType.TRINKET_NUMBER_MAGNET,
+        TrinketType.TRINKET_FRIENDSHIP_NECKLACE,
+        TrinketType.TRINKET_SHORT_FUSE,
+        TrinketType.TRINKET_TEMPORARY_TATTOO,
+        TrinketType.TRINKET_BROKEN_MAGNET,
+        TrinketType.TRINKET_BLOODY_PENNY,
+        TrinketType.TRINKET_ROSARY_BEAD,
+        TrinketType.TRINKET_CHILDS_HEART,
+        TrinketType.TRINKET_JUDAS_TONGUE,
+        TrinketType.TRINKET_RED_PATCH,
+        TrinketType.TRINKET_POKER_CHIP,
+        TrinketType.TRINKET_SECOND_HAND,
+        TrinketType.TRINKET_BLASTING_CAP,
+        TrinketType.TRINKET_ERROR,
+        TrinketType.TRINKET_MOMS_LOCKET,
+        TrinketType.TRINKET_LOCUST_OF_WRATH,
+        TrinketType.TRINKET_EQUALITY,
+        TrinketType.TRINKET_BLOODY_CROWN,
+        TrinketType.TRINKET_STEM_CELL
+    },
     -------------------------------------
-    ---       ELIJAH BLACKLISTS
+    ---          ELIJAH Pools
     -------------------------------------
     Elijah_blacklist = {
         CollectibleType.COLLECTIBLE_DOLLAR,
@@ -275,7 +307,6 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_MYSTERY_SACK,
         CollectibleType.COLLECTIBLE_BLUE_BOX,
         CollectibleType.COLLECTIBLE_WOODEN_NICKEL,
-        CollectibleType.COLLECTIBLE_RESTOCK,
         CollectibleType.COLLECTIBLE_BUMBO,
         CollectibleType.COLLECTIBLE_SACK_HEAD,
         CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER,
@@ -284,6 +315,10 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_GREEDS_GULLET,
         CollectibleType.COLLECTIBLE_GOLDEN_RAZOR,
         CollectibleType.COLLECTIBLE_KEEPERS_SACK,
+        CollectibleType.COLLECTIBLE_POUND_OF_FLESH,
+        CollectibleType.COLLECTIBLE_COUPON,
+        CollectibleType.COLLECTIBLE_DEEP_POCKETS,
+        CollectibleType.COLLECTIBLE_PAY_TO_PLAY,
         mod.Items.ScammerBum,
         mod.Items.FilthyRich,
     },
@@ -293,5 +328,59 @@ mod.Pools ={
         SlotVariant.CRANE_GAME,
         SlotVariant.CONFESSIONAL,
         SlotVariant.HELL_GAME,
+    },
+    Trinket_blacklist = {
+        TrinketType.TRINKET_SWALLOWED_PENNY,
+        TrinketType.TRINKET_BUTT_PENNY,
+        TrinketType.TRINKET_BLOODY_PENNY,
+        TrinketType.TRINKET_BURNT_PENNY,
+        TrinketType.TRINKET_FLAT_PENNY,
+        TrinketType.TRINKET_COUNTERFEIT_PENNY,
+        TrinketType.TRINKET_ROTTEN_PENNY,
+        TrinketType.TRINKET_BLESSED_PENNY,
+        TrinketType.TRINKET_CHARGED_PENNY,
+        TrinketType.TRINKET_CURSED_PENNY,
+        TrinketType.TRINKET_STORE_CREDIT,
+        TrinketType.TRINKET_KEEPERS_BARGAIN
+    },
+    CHAOS_ELIJAH_BEGGARS = {
+        mod.Entities.BEGGAR_TreasureElijah.Var,
+        mod.Entities.BEGGAR_ShopElijah.Var,
+        mod.Entities.BEGGAR_DemonElijah.Var,
+        mod.Entities.BEGGAR_AngelElijah.Var,
+        mod.Entities.BEGGAR_SecretElijah.Var,
+        mod.Entities.BEGGAR_UltraSecretElijah.Var,
+        mod.Entities.BEGGAR_PlanetariumElijah.Var,
+        mod.Entities.BEGGAR_LibraryElijah.Var,
+        mod.Entities.BEGGAR_ERROR_Elijah.Var,
+        mod.Entities.BEGGAR_Elijah.Var,
+        mod.Entities.BEGGAR_BombElijah.Var,
+        mod.Entities.BEGGAR_KeyElijah.Var,
+        mod.Entities.BEGGAR_RottenElijah.Var,
+        mod.Entities.BEGGAR_BatteryElijah.Var,
+    },
+    ALL_ELIJAH_BEGGARS = {
+        --This is for Coupon synergy
+        --Not including JYS, Mom's box because of their size 
+        --Not including Fiend beggar because he's special
+        mod.Entities.BEGGAR_TreasureElijah.Var,
+        mod.Entities.BEGGAR_ShopElijah.Var,
+        mod.Entities.BEGGAR_DemonElijah.Var,
+        mod.Entities.BEGGAR_AngelElijah.Var,
+        mod.Entities.BEGGAR_SecretElijah.Var,
+        mod.Entities.BEGGAR_UltraSecretElijah.Var,
+        mod.Entities.BEGGAR_PlanetariumElijah.Var,
+        mod.Entities.BEGGAR_LibraryElijah.Var,
+        mod.Entities.BEGGAR_ERROR_Elijah.Var,
+        mod.Entities.BEGGAR_Elijah.Var,
+        mod.Entities.BEGGAR_BombElijah.Var,
+        mod.Entities.BEGGAR_KeyElijah.Var,
+        mod.Entities.BEGGAR_Goldsmith_Elijah.Var,
+        mod.Entities.BEGGAR_Familiars_Elijah.Var,
+        mod.Entities.BEGGAR_Lost_Adventurer_E.Var,
+        mod.Entities.BEGGAR_Chaos_Elijah.Var,
+        mod.Entities.BEGGAR_Guppy.Var,
+        mod.Entities.BEGGAR_SacrificeTable.Var,
+        SlotVariant.DEVIL_BEGGAR,
     },
 }

@@ -613,10 +613,22 @@ mod.BeggarUnlocks = {
     [mod.Entities.BEGGAR_Goldsmith.Var]         = mod.Achievements.Goldsmith,
     [mod.Entities.BEGGAR_JYS.Var]               = mod.Achievements.JYS,
     [mod.Entities.BEGGAR_Familiars.Var]         = mod.Achievements.FamiliarsBeggar,
-    [mod.Entities.BEGGAR_SacrificeTable.Var]    = mod.Achievements.RedBum,
+    [mod.Entities.BEGGAR_SacrificeTable.Var]    = mod.Achievements.SacrificeTable,
     [mod.Entities.BEGGAR_Chaos.Var]             = mod.Achievements.ChaosBeggar,
     [mod.Entities.BEGGAR_Lost_Adventurer.Var]   = mod.Achievements.LostAdventurer,
 }
+mod.BeggarFallbacks = {
+    [mod.Entities.BEGGAR_Goldsmith.Var]       = SlotVariant.BEGGAR,
+    [mod.Entities.BEGGAR_JYS.Var]             = SlotVariant.BEGGAR,
+    [mod.Entities.BEGGAR_Familiars.Var]       = SlotVariant.BEGGAR,
+    [mod.Entities.BEGGAR_SacrificeTable.Var]  = SlotVariant.DEVIL_BEGGAR,
+    [mod.Entities.BEGGAR_Chaos.Var]           = SlotVariant.DEVIL_BEGGAR,
+    [mod.Entities.BEGGAR_Lost_Adventurer.Var] = SlotVariant.BEGGAR,
+}
+
+local function IsUnlocked(ach)
+    return Isaac.GetPersistentGameData():Unlocked(ach)
+end
 
 function mod:PreventLockedBeggarSpawn(entityType, entityVariant, entitySubtype, gridIndex, seed)
     if entityType ~= EntityType.ENTITY_SLOT then
@@ -628,9 +640,16 @@ function mod:PreventLockedBeggarSpawn(entityType, entityVariant, entitySubtype, 
         return
     end
 
-    if not IsUnlocked(req) then
-        return {0, 0, 0}
+    if IsUnlocked(req) then
+        return
     end
+    local fallbackVariant = mod.BeggarFallbacks[entityVariant] or SlotVariant.BEGGAR
+
+    return {
+        EntityType.ENTITY_SLOT,
+        fallbackVariant,
+        0
+    }
 end
 mod:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, mod.PreventLockedBeggarSpawn)
 
@@ -700,10 +719,10 @@ function mod:Cheater_OnNewRun(_, reenter)
 end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.Cheater_OnNewRun)
 
-------------------------------------------------------
----             Win Streak <= -20                --- Secret
-------------------------------------------------------
 
+------------------------------------------------------
+---             Your will is strong                --- Secret
+------------------------------------------------------
 
 ------------------------------------------------------
 ---              Unlock Speedrun1                  --- SECRET

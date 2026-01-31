@@ -8,18 +8,20 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 ---@class Utils
 local utils = include("scripts.core.utils")
 
---- MAGIC NUMBERS
+--- CONFIGURATION
 ---
 
-local BASE_REWARD_CHANCES = 0.80
+---@type BeggarConfig
+local beggarConfig = {
+    baseChance = 0.02,
+    multPerUse = 0.05,
+    hasSecondary = true,
+    secondaryBaseChance = 0.40,
+    secondaryMultPerUse = 0.10,
+    restockAffected = false
+}
+
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_ROTTEN_BEGGAR
-
-local BEGGAR_PICKUP = PickupVariant.PICKUP_HEART
-local BEGGAR_RARE_HEART = HeartSubType.HEART_BONE
-local BEGGAR_HEART = HeartSubType.HEART_ROTTEN
-
-local BEGGAR_FAMILIAR1 = FamiliarVariant.BLUE_FLY
-local BEGGAR_FAMILIAR2 = FamiliarVariant.BLUE_SPIDER
 
 --- Definitions
 ---
@@ -35,54 +37,62 @@ local rotten_trinkets = {
 local beggar = mod.Entities.BEGGAR_RottenElijah.Var
 
 ---@type beggarEventPool
-local beggarEvents = {
+local beggarPrimaryEvents = {
     {
         1,
         function(beggarEntity)
             beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
             return true
         end
-    },
+    }
+}
+
+---@type beggarEventPool
+local beggarSecondaryEvents = {
+    -- Blue Fly - 70%
     {
-        4,
+        70,
         function(beggarEntity)
-            local trinket = utils.GetRandomFromTable(rotten_trinkets);
-            beggarUtils.SpawnTrinket(beggarEntity, trinket)
-            return true
+            beggarUtils.SpawnFamiliar(beggarEntity, FamiliarVariant.BLUE_FLY)
+            return false
         end
     },
+    -- Blue Spider - 70%
+    {
+        70,
+        function(beggarEntity)
+            beggarUtils.SpawnFamiliar(beggarEntity, FamiliarVariant.BLUE_SPIDER)
+            return false
+        end
+    },
+    -- Rotten Heart - 15%
+    {
+        15,
+        function(beggarEntity)
+            beggarUtils.SpawnPickup(beggarEntity, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN)
+            return false
+        end
+    },
+    -- Bone Heart - 10%
+    {
+        10,
+        function(beggarEntity)
+            beggarUtils.SpawnPickup(beggarEntity, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE)
+            return false
+        end
+    },
+    -- Trinket - 5%
     {
         5,
         function(beggarEntity)
-            beggarUtils.SpawnPickup(beggarEntity, BEGGAR_PICKUP, BEGGAR_RARE_HEART)
+            local trinket = utils.GetRandomFromTable(rotten_trinkets)
+            beggarUtils.SpawnTrinket(beggarEntity, trinket)
             return false
         end
-    },
-    {
-        12,
-        function(beggarEntity)
-            beggarUtils.SpawnPickup(beggarEntity, BEGGAR_PICKUP, BEGGAR_HEART)
-            return false
-        end
-    },
-    {
-        30,
-        function(beggarEntity)
-            beggarUtils.SpawnFamiliar(beggarEntity, BEGGAR_FAMILIAR1)
-            return false
-        end
-    },
-    {
-        30,
-        function(beggarEntity)
-            beggarUtils.SpawnFamiliar(beggarEntity, BEGGAR_FAMILIAR2)
-            return false
-        end
-    },
+    }
 }
 
 local beggarFuncs = {}
-
 
 --- Callbacks
 ---
@@ -94,7 +104,7 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
 
-    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, beggarConfig)
     if ok then
         player:PlayExtraAnimation("Sad")
     end
@@ -102,17 +112,16 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
-
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, beggarEvents)
+    beggarUtils.StateMachine(beggarEntity, beggarConfig, beggarPrimaryEvents, beggarSecondaryEvents)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
-
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PreSlotExplosion(beggarEntity)
+    -- Spawn maggots on explosion
     for _ = 1, 2 do
         local offset = RandomVector() * 20
         Isaac.Spawn(EntityType.ENTITY_SMALL_MAGGOT, 0, 0, beggarEntity.Position + offset, Vector.Zero, nil)
@@ -120,5 +129,4 @@ function beggarFuncs:PreSlotExplosion(beggarEntity)
     beggarUtils.DoBeggarExplosion(beggarEntity)
     return false
 end
-
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)

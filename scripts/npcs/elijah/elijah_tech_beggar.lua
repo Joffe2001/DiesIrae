@@ -5,35 +5,63 @@ local sfx = SFXManager()
 ---@class BeggarUtils
 local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 
----@class Utils
-local utils = include("scripts.core.utils")
-
---- MAGIC NUMBERS
+--- CONFIGURATION
 ---
 
-local BASE_REWARD_CHANCES = 0.2
+---@type BeggarConfig
+local beggarConfig = {
+    baseChance = 0.05,
+    multPerUse = 0.02,
+    hasSecondary = true,
+    secondaryBaseChance = 0.20,
+    secondaryMultPerUse = 0.10,
+    restockAffected = false
+}
+
+local BEGGAR_ITEM_POOL = ItemPoolType.POOL_BATTERY_BUM
 
 --- Definitions
 ---
 
----@type CollectibleType[]
-
-local beggar = mod.Entities.BEGGAR_TechElijah.Var
+local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
 
 ---@type beggarEventPool
-local beggarEvents = {
+local beggarPrimaryEvents = {
     {
         1,
         function(beggarEntity)
-            local item = utils.GetRandomFromTable(mod.Pools.Tech)
-            beggarUtils.SpawnItem(beggarEntity, item)
+            beggarUtils.SpawnItemFromPool(beggarEntity, BEGGAR_ITEM_POOL)
             return true
         end
     },
+    {
+        5,
+        function(beggarEntity)
+            beggarUtils.SpawnTrinket(beggarEntity, TrinketType.TRINKET_WATCH_BATTERY)
+            return true
+        end
+    },
+    {
+        5,
+        function(beggarEntity)
+            beggarUtils.SpawnTrinket(beggarEntity, TrinketType.TRINKET_AAA_BATTERY)
+            return true
+        end
+    }
+}
+
+---@type beggarEventPool
+local beggarSecondaryEvents = {
+    {
+        1,
+        function(beggarEntity)
+            beggarUtils.SpawnPickup(beggarEntity, PickupVariant.PICKUP_LIL_BATTERY)
+            return false
+        end
+    }
 }
 
 local beggarFuncs = {}
-
 
 --- Callbacks
 ---
@@ -44,7 +72,8 @@ local beggarFuncs = {}
 function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
-    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, beggarConfig)
     if ok then
         player:PlayExtraAnimation("Sad")
     end
@@ -52,23 +81,16 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
-
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, beggarEvents)
+    beggarUtils.StateMachine(beggarEntity, beggarConfig, beggarPrimaryEvents, beggarSecondaryEvents)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
 
-
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PreSlotExplosion(beggarEntity)
-    for i = 1, 2 do
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, 1,
-            beggarEntity.Position + RandomVector() * 20, RandomVector() * 3, beggarEntity)
-    end
     beggarUtils.DoBeggarExplosion(beggarEntity)
     return false
 end
-
 mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, beggarFuncs.PreSlotExplosion, beggar)

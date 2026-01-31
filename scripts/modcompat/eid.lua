@@ -53,7 +53,7 @@ function mod:AddEIDescription(var, add_func, id, lang, desc_table, lang_table)
 			local function Modifier(descObj)
 				local player = EID:ClosestPlayerTo(descObj.Entity)
 				local old_desc = descObj.Description
-				local add = "#" .. ModFunc(descObj, player)
+				local add = "#{{ColorRainbow}}" .. ModFunc(descObj, player) .. "{{CR}}"
 				local start = 0
 
 				if idx == 1 then

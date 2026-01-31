@@ -15,8 +15,15 @@ function mod:HorflingInit(horf)
 	if horf.Variant ~= mod.Entities.NPC_Horfling.Var then return end
 
     horf.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-
+    horf:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+    horf:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
+    
 	horf:GetSprite():ReplaceSpritesheet(0, gfx[horf.SubType] or gfx[math.random(1, #gfx)], true)
+	
+	if not horf:HasEntityFlags(EntityFlag.FLAG_APPEAR) then
+	    horf:GetSprite():Play("Appear", true)
+	    horf.State = NpcState.STATE_INIT
+	end
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, mod.HorflingInit, mod.Entities.NPC_Horfling.Type)
@@ -32,7 +39,7 @@ function mod:HorflingUpdate(horf)
     if data.shoot_vel then
         horf.Velocity = data.shoot_vel
     else
-        horf.Velocity = horf.Velocity - horf.Velocity:Resized(horf.Velocity:Length() * 0.1)
+        horf.Velocity = horf.Velocity * 0.9
     end 
     
     if horf.State == NpcState.STATE_INIT then
@@ -47,7 +54,6 @@ function mod:HorflingUpdate(horf)
             sprite:Play("Shake", true)
         end
 
-
         if horf.I1 > 0 then
             horf.I1 = horf.I1 - 1
         end
@@ -56,6 +62,7 @@ function mod:HorflingUpdate(horf)
             if dirToPlayer:Length() < ATTACK_RANGE 
                 and Game():GetRoom():CheckLine(target.Position, horf.Position, 3, 900) then
                 horf.State = NpcState.STATE_ATTACK
+                horf.I1 = ATTACK_COOLDOWN
                 sprite:Play("Attack", true)
             end
         end
@@ -73,7 +80,7 @@ function mod:HorflingUpdate(horf)
 
         if sprite:IsFinished("Attack") then
             horf.State = NpcState.STATE_IDLE 
-            sprite:Play("Shake")
+            sprite:Play("Shake", true)
         end
     end
 end

@@ -26,4 +26,6 @@
 	<wisp id="1005" hp="1" damage="1" flameColor="flame_black" coreColor="core_black" canShoot="false"/>
 <!--Army of Lovers-->
 	<wisp id="101"  hp="2" damage="1" flameColor="flame_pink" coreColor="core_pink" coreGfx="minisaac.png" canShoot="false"/>
+<!--Sh boom!!-->
+	<wisp id="102"  hp="2" damage="1" flameColor="flame_black" coreColor="core_black" coreGfx="bomb.png" canShoot="false"/>
 </wisps>

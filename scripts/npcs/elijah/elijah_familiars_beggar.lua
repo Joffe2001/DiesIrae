@@ -6,7 +6,7 @@ local sfx = SFXManager()
 local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 
 local ELIJAH = mod.Players.Elijah
-local WILL_COST = 10
+local WILL_COST = 10  -- Drains 10 Will total
 local myBeggar = mod.Entities.BEGGAR_Familiars_Elijah.Var
 local NEAR_POSITION = 40
 
@@ -25,16 +25,22 @@ end
 
 local function DrainWillNTimes(player, beggar, times)
     local rng = beggar:GetDropRNG()
+    local drained = 0
 
     for i = 1, times do
-        if not beggarUtils.DrainElijahsWill(player, rng) then
-            return false
+        if beggarUtils.DrainElijahsWill(player, rng) then
+            drained = drained + 1
+        else
+            break
         end
     end
 
-    player:AddCacheFlags(CacheFlag.CACHE_ALL)
-    player:EvaluateItems()
-    return true
+    if drained > 0 then
+        player:AddCacheFlags(CacheFlag.CACHE_ALL)
+        player:EvaluateItems()
+    end
+    
+    return drained >= times  -- Only return true if ALL 10 were drained
 end
 
 function mod:FamiliarElijahBeggarCollision(beggar, collider)
@@ -54,6 +60,8 @@ function mod:FamiliarElijahBeggarCollision(beggar, collider)
     end
 
     if not DrainWillNTimes(player, beggar, WILL_COST) then
+        game:GetHUD():ShowItemText("Need " .. WILL_COST .. " Will!")
+        sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ)
         return
     end
 

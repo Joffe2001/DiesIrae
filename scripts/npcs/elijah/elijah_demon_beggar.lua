@@ -8,7 +8,16 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 --- MAGIC NUMBERS
 ---
 
-local BASE_REWARD_CHANCES = 1
+---@type BeggarConfig
+local beggarConfig = {
+    baseChance = 1,
+    multPerUse = 0,
+    hasSecondary = false,
+    secondaryBaseChance = 0,
+    secondaryMultPerUse = 0,
+    restockAffected = false
+}
+
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_DEVIL
 
 local MARK_DECORATION_DURATION = 3
@@ -43,7 +52,7 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
 
-    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, beggarConfig)
     if ok then
         player:AddBrimstoneMark(EntityRef(beggarEntity), MARK_DECORATION_DURATION * 30)
         player:AddBrokenHearts(1);
@@ -57,7 +66,7 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollisi
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, beggarEvents)
+    beggarUtils.StateMachine(beggarEntity, beggarConfig, beggarEvents, nil)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)

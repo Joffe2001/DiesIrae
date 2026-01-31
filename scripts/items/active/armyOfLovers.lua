@@ -133,15 +133,29 @@ end
 function ArmyOfLovers:OnWispDeath(entity)
     if entity.Type ~= EntityType.ENTITY_FAMILIAR then return end
     if entity.Variant ~= FamiliarVariant.ITEM_WISP then return end
-    
+
     local familiar = entity:ToFamiliar()
-    if not familiar or familiar.SubType ~= mod.Items.ArmyOfLovers then return end
-    if not familiar.Player then return end
+    if not familiar then return end
+
+    if familiar.SubType ~= 101 then return end
     if familiar.HitPoints > 0 then return end
 
-    local numMinisaacs = math.random(1, 2)
-    for _ = 1, numMinisaacs do
-        familiar.Player:AddMinisaac(entity.Position)
+    local player = familiar.Player
+    if not player then return end
+
+    local poof = Isaac.Spawn(
+        EntityType.ENTITY_EFFECT,
+        EffectVariant.POOF01,
+        0,
+        entity.Position,
+        Vector.Zero,
+        nil
+    )
+    poof:SetColor(Color(1, 0.75, 0.85, 1, 0, 0, 0), 0, 0, false, false)
+
+    local count = math.random(1, 2)
+    for _ = 1, count do
+        player:AddMinisaac(player.Position)
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, ArmyOfLovers.OnWispDeath)

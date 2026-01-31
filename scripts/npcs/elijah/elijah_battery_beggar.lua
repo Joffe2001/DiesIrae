@@ -5,12 +5,20 @@ local sfx = SFXManager()
 ---@class BeggarUtils
 local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 
---- MAGIC NUMBERS
+--- CONFIGURATION
 ---
 
-local BASE_REWARD_CHANCES = 0.25
+---@type BeggarConfig
+local beggarConfig = {
+    baseChance = 0.10,
+    multPerUse = 0.05,
+    hasSecondary = true,
+    secondaryBaseChance = 0.50,
+    secondaryMultPerUse = 0.10,
+    restockAffected = false
+}
+
 local BEGGAR_ITEM_POOL = ItemPoolType.POOL_BATTERY_BUM
-local BEGGAR_PICKUP = PickupVariant.PICKUP_LIL_BATTERY
 
 --- Definitions
 ---
@@ -18,7 +26,7 @@ local BEGGAR_PICKUP = PickupVariant.PICKUP_LIL_BATTERY
 local beggar = mod.Entities.BEGGAR_BatteryElijah.Var
 
 ---@type beggarEventPool
-local beggarEvents = {
+local beggarPrimaryEvents = {
     {
         1,
         function(beggarEntity)
@@ -33,24 +41,27 @@ local beggarEvents = {
             return true
         end
     },
-        {
+    {
         5,
         function(beggarEntity)
             beggarUtils.SpawnTrinket(beggarEntity, TrinketType.TRINKET_AAA_BATTERY)
             return true
         end
-    },
+    }
+}
+
+---@type beggarEventPool
+local beggarSecondaryEvents = {
     {
-        20,
+        1,
         function(beggarEntity)
-            beggarUtils.SpawnPickup(beggarEntity, BEGGAR_PICKUP)
+            beggarUtils.SpawnPickup(beggarEntity, PickupVariant.PICKUP_LIL_BATTERY)
             return false
         end
     }
 }
 
 local beggarFuncs = {}
-
 
 --- Callbacks
 ---
@@ -62,7 +73,7 @@ function beggarFuncs:PostSlotCollision(beggarEntity, collider, _)
     local player = collider:ToPlayer()
     if not player then return end
 
-    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, BASE_REWARD_CHANCES)
+    local ok = beggarUtils.OnBeggarCollision(beggarEntity, player, beggarConfig)
     if ok then
         player:PlayExtraAnimation("Sad")
     end
@@ -70,14 +81,12 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, beggarFuncs.PostSlotCollision, beggar)
 
-
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PostSlotUpdate(beggarEntity)
-    beggarUtils.StateMachine(beggarEntity, beggarEvents)
+    beggarUtils.StateMachine(beggarEntity, beggarConfig, beggarPrimaryEvents, beggarSecondaryEvents)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, beggarFuncs.PostSlotUpdate, beggar)
-
 
 ---@param beggarEntity EntityNPC
 function beggarFuncs:PreSlotExplosion(beggarEntity)

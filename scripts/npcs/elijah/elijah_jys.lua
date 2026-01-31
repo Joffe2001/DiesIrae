@@ -9,7 +9,7 @@ local beggarUtils = include("scripts.npcs.elijah.elijah_utils_beggar")
 local JYS = mod.Entities.BEGGAR_JYS_Elijah.Var
 
 local MAX_PAYS = 4
-local WILL_DRAIN_AMOUNT = 5
+local WILL_DRAIN_AMOUNT = 5  -- Drains 5 Will per payment
 
 local PAY_SFX   = SoundEffect.SOUND_SCAMPER
 local PRIZE_SFX = SoundEffect.SOUND_SLOTSPAWN
@@ -61,6 +61,7 @@ local function JYS_Collision(_, beggar, collider)
     local paid = false
     if player:GetPlayerType() == mod.Players.Elijah then
         local drainCount = 0
+        -- Try to drain WILL_DRAIN_AMOUNT (5) times
         for i = 1, WILL_DRAIN_AMOUNT do
             if beggarUtils.DrainElijahsWill(player, beggar:GetDropRNG()) then
                 drainCount = drainCount + 1
@@ -69,9 +70,18 @@ local function JYS_Collision(_, beggar, collider)
             end
         end
         
-        paid = drainCount > 0
-        if paid then
-            player:AddCacheFlags(CacheFlag.CACHE_ALL, true)
+        -- Only count as paid if ALL 5 Will were drained
+        paid = (drainCount >= WILL_DRAIN_AMOUNT)
+        
+        if drainCount > 0 then
+            player:AddCacheFlags(CacheFlag.CACHE_ALL)
+            player:EvaluateItems()
+        end
+        
+        if not paid and drainCount > 0 then
+            -- Drained some but not enough
+            game:GetHUD():ShowItemText("Need " .. WILL_DRAIN_AMOUNT .. " Will!")
+            sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ)
         end
     else
         return
