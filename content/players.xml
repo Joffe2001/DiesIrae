@@ -43,4 +43,7 @@
         achievement="Elijah"
         modcostume="1002"
     />
+        <player bSkinParent="Elijah" name="Elijah"
+            achievement="Tainted Elijah"
+    />
 </players>

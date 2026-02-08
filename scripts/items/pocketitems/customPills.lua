@@ -18,7 +18,6 @@ function CustomPills:OnUsePill(pillEffect, player, flags)
 
         local curseList = {
             LevelCurse.CURSE_OF_DARKNESS,
-            LevelCurse.CURSE_OF_LABYRINTH,
             LevelCurse.CURSE_OF_THE_LOST,
             LevelCurse.CURSE_OF_THE_UNKNOWN,
             LevelCurse.CURSE_OF_BLIND,
@@ -36,7 +35,6 @@ function CustomPills:OnUsePill(pillEffect, player, flags)
 
         level:RemoveCurses(
             LevelCurse.CURSE_OF_DARKNESS |
-            LevelCurse.CURSE_OF_LABYRINTH |
             LevelCurse.CURSE_OF_THE_LOST |
             LevelCurse.CURSE_OF_THE_UNKNOWN |
             LevelCurse.CURSE_OF_BLIND |

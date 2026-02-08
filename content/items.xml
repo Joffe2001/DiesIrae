@@ -1,7 +1,7 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/anm2/death_items.anm2" version="1">
     <!-- Passive items -->
-    <passive id="1"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2"    flatdamage='0.2'    flattears='0.2'    speed='0.2'    luck='0.2'    range='8'    shotspeed='0.2'/>
-    <passive id="2"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
+    <passive id="1"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
+    <passive id="2"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2"    flatdamage='0.2'    flattears='0.2'    speed='0.2'    luck='0.2'    range='8'    shotspeed='0.2'/>
     <passive id="3"  name="The Bad Touch"              gfx="the_bad_touch.png"             description="Sweat baby sweat"                            quality="0" tags="nolostbr"          achievement="The Bad Touch" />
     <passive id="4"  name="Universal"                  gfx="universal.png"                 description="Woo hoo!!"                                   quality="3"                          achievement="Universal" />
     <passive id="5"  name="Ring of Fire"               gfx="ring_of_fire.png"              description="Burn it down"                                quality="3" tags="nolostbr"          achievement="Ring of Fire" />
@@ -87,8 +87,8 @@
     <familiar id="3004" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Rune Bum" />
     <familiar id="3005" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Fair Bum" />
 	<familiar id="3006" name="Tarot Bum"                 gfx="tarotbum.png"                  description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Tarot Bum" />
-	<familiar id="3007" name="Pill Bum" 				    gfx="pillbum.png"	         	    description="He can quit whenever he wants"				  quality="2" cache="familiars" tags="baby summonable monstermanual"          achievement="Pill Bum" />
-    <familiar id="3008" name="Pastor Bum" 			    gfx="pastorbum.png"	      	        description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
+	<familiar id="3007" name="Pill Bum" 				 gfx="pillbum.png"	         	     description="He can quit whenever he wants"				  quality="2" cache="familiars" tags="baby summonable monstermanual"          achievement="Pill Bum" />
+    <familiar id="3008" name="Pastor Bum" 			     gfx="pastorbum.png"	      	     description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
 
     <!-- Testing 
     <passive id="300" name="Path Of The Righteous"     gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />

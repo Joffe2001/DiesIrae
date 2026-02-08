@@ -1,6 +1,6 @@
 <costumes anm2root="gfx/characters/">
     <!--Items-->
-    <costume id="1"   name="U2"                   anm2path="u2.anm2"                 type="passive" priority="20" />
+    <costume id="2"   name="U2"                   anm2path="u2.anm2"                 type="passive" priority="20" />
     <costume id="3"   name="The Bad Touch"        anm2path="thebadtouch.anm2"        type="passive" priority="20" />
     <costume id="4"   name="Universal"            anm2path="universal_body.anm2"     type="passive" priority="100" />
     <custume id="5"   name="Ring of Fire"         anm2path="ringoffire.anm2"         type="passive" priority="20" />

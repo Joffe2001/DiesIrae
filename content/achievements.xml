@@ -7,6 +7,7 @@
 	<achievement name="David" text=''                     gfx="achievement_david.png"              gfxback="paper_music.png"/>
 	<achievement name="Tainted David" text=''             gfx="tdavid.png"                         gfxback="paper_music.png"/>
 	<achievement name="Elijah" text=''                    gfx="elijah.png"                         gfxback="paper_beggar.png"/>
+	<achievement name="Tainted Elijah" text=''            gfx="elijah.png"                         gfxback="paper_beggar.png"/>
 <!--David's Unlocks-->
 	<achievement name="Army of Lovers" text=''            gfx="achievement_armyoflovers.png"       gfxback="paper_music.png"/>
 	<achievement name="The Bad Touch" text=''             gfx="achievement_thebadtouch.png"        gfxback="paper_music.png"/>

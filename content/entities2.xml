@@ -165,6 +165,9 @@
     <entity id="5" variant="300" name="Dad's Lotto Ticket" anm2path="items/pocketitems/dadslotto.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" subtype="904">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
     </entity>
+    <entity id="5" variant="300" name="David's Chord" anm2path="items/pocketitems/david_chord.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="0" stageHP="0" subtype="905">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
 <!--PICKUPS-->
 
 <!--Elijah's will-->
@@ -178,10 +181,7 @@
 	<entity id="5" variant="303" subtype="0" name="Burning Heart" anm2path="items/pickups/burningheart.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
 		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
 	</entity>
-<!--David's chord-->
-	<entity id="5" variant="305" subtype="0" name="David's Chord" anm2path="items/pickups/david_chord.anm2" baseHP="0" boss="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" numGridCollisionPoints="24" shadowSize="17" stageHP="0">
-		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
-	</entity>
+
 <!--ENEMIES-->
     <entity id="400" variant="1" name="Blinded Horf" anm2path="enemies/blinded_horf.anm2" reroll="true" baseHP="70" boss="0" champion="1" collisionDamage="1" collisionMass="3" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="19" stageHP="0" portrait="0">
         <bestiary transform="0,0,1" anim="Shake" overlay="Head" />
@@ -195,17 +195,4 @@
         <preload-snd id="146" /> 
     </entity>
 
-<!--GRID-->
-    <entity type="4500" name="DavidPlate" sprite="gfx/grid/David_challenges/challengebutton.anm2">
-        <variant type="20" name="Loser" />
-        <variant type="21" name="Event1" />
-        <variant type="22" name="Event2" />
-        <variant type="23" name="Event3" />
-        <variant type="24" name="Event4" />
-        <variant type="25" name="Event5" />
-        <variant type="26" name="Event6" />
-        <variant type="27" name="Event7" />
-        <variant type="28" name="Event8" />
-        <variant type="29" name="Event9" />
-    </entity>
 </entities>

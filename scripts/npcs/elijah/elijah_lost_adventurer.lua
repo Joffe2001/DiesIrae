@@ -24,7 +24,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, mod.LAElijahInit, LA)
 
 
-local function RevealRandomRoom()
+local function RevealRandomRoomElijah()
     local level = game:GetLevel()
     local rooms = level:GetRooms()
     local unseen = {}
@@ -45,6 +45,8 @@ local function RevealRandomRoom()
 end
 
 function mod:LAElijahCollision(beggar, collider)
+    if beggar.Variant ~= LA then return end
+    
     local player = collider:ToPlayer()
     if not player or player:GetPlayerType() ~= elijah then return end
 
@@ -68,6 +70,8 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_COLLISION, mod.LAElijahCollision, LA)
 
 function mod:LAElijahUpdate(beggar)
+    if beggar.Variant ~= LA then return end
+    
     local sprite = beggar:GetSprite()
     local data = beggar:GetData()
     local rng = beggar:GetDropRNG()
@@ -99,7 +103,8 @@ function mod:LAElijahUpdate(beggar)
 
     if sprite:IsFinished("Prize") then
         sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
-        RevealRandomRoom()
+        RevealRandomRoomElijah()
+        
         data.Payments = 0
         data.CanPay = true
         sprite:Play("Idle", true)
@@ -133,6 +138,8 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, mod.LAElijahUpdate, LA)
 
 function mod:LAElijahExploded(beggar)
+    if beggar.Variant ~= LA then return end
+    
     beggarUtils.DoBeggarExplosion(beggar)
     return false
 end
@@ -141,6 +148,8 @@ mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.LAElijahExp
 local CORPSE_LA = mod.Entities.EFFECT_LACorpse.Var
 
 function mod:SpawnLostAdventurerCorpseElijah()
+    if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
+    
     local runSave = mod.SaveManager.GetRunSave()
     local room = game:GetRoom()
     

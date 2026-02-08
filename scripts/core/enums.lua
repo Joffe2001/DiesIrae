@@ -208,6 +208,7 @@ mod.Cards = {
     StarShard       = Isaac.GetCardIdByName("Star Shard"),
     EnergyDrink     = Isaac.GetCardIdByName("Energy Drink"),
     DadsLottoTicket = Isaac.GetCardIdByName("Dad's Lotto Ticket"),
+    DavidChord      = Isaac.GetCardIdByName("David's Chord"),
 }
 
 mod.Entities = {
@@ -227,7 +228,6 @@ mod.Entities = {
     BEGGAR_KeyElijah         = MakeEntityTable("Key Beggar Elijah"),
     BEGGAR_BatteryElijah     = MakeEntityTable("Battery Beggar Elijah"),
     BEGGAR_RottenElijah      = MakeEntityTable("Rotten Beggar Elijah"),
-    BEGGAR_MomBoxElijah      = MakeEntityTable("Mom's Chest Elijah"),
     BEGGAR_TreasureElijah    = MakeEntityTable("Treasure Beggar Elijah"),
     BEGGAR_ShopElijah        = MakeEntityTable("Shop Beggar Elijah"),
     BEGGAR_LibraryElijah     = MakeEntityTable("Library Beggar Elijah"),
@@ -251,7 +251,6 @@ mod.Entities = {
     PICKUP_ElijahsWill       = MakeEntityTable("Elijah's Will"),
     PICKUP_ElijahsWillB      = MakeEntityTable("Elijah's Will Birthright"),
     PICKUP_BurningHeart      = MakeEntityTable("Burning Heart"),
-    PICKUP_DavidChord        = MakeEntityTable("David's Chord"),
     NPC_BlindedHorf          = MakeEntityTable("Blinded Horf"),
     NPC_Horfling             = MakeEntityTable("Horfling"),
     EFFECT_AndroidLazerRing  = MakeEntityTable("Android Lazer Ring"),

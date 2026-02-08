@@ -14,8 +14,6 @@ include("scripts.core.chargebar_utils")
 include("scripts.core.unlocks")
 include("scripts/characters/david_challenges/david_challenges_utils")
 include("scripts/characters/david_challenges/david_challenges")
-include("scripts/characters/david_challenges/davidPlate")
-include("scripts/characters/david_challenges/davidPlategreed")
 
 if EID then
 	include("scripts.modcompat.eidescs")
@@ -124,6 +122,7 @@ include("scripts.items.pocketitems.alpoh")
 include("scripts.items.pocketitems.starShard")
 include("scripts.items.pocketitems.energyDrink")
 include("scripts.items.pocketitems.dadsLottoTicket")
+include("scripts.items.pocketitems.DavidChord")
 ---------------------------------------------------
 --  Trinkets
 ----------------------------------------------------
@@ -217,4 +216,3 @@ include("scripts.items.familiars.gellocostumes")
 --include("scripts.items.trinkets.fixedmetabolism")
 --include("scripts.items.pickup.burningheart")
 --include("scripts.Challenges.sound_of_silence")
---include("scripts.npcs.elijah.elijah_mom_beggar")

@@ -14,7 +14,8 @@ function mod:LAInit(beggar)
 end
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, mod.LAInit, LA)
 
-function RevealRandomRoom()
+-- FIXED: Made this a local function specific to this file
+local function RevealRandomRoom()
     local level = game:GetLevel()
     local rooms = level:GetRooms()
     local unseen = {}

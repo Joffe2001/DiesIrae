@@ -2,17 +2,29 @@ local mod = DiesIraeMod
 local David = {}
 
 include("scripts/characters/david_challenges/david_challenges_utils")
-include("scripts/characters/david_challenges/davidPlate")
 include("scripts/characters/david_challenges/david_challenges")
-include("scripts/characters/david_challenges/davidPlategreed")
+include("scripts/characters/david_challenges/david_challenges_utils_greed")
+include("scripts/characters/david_challenges/david_challenges_greed")
 
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
         and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.Players.David) then 
         return 
     end
-
-    tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
+    
+    local variant = tear.Variant
+    
+    local safeVariants = {
+        [TearVariant.BLUE] = true,
+        [TearVariant.BLOOD] = true,
+        [TearVariant.CUPID_BLUE] = true,
+        [TearVariant.CUPID_BLOOD] = true,
+        [TearVariant.DARK_MATTER] = true,
+    }
+    
+    if safeVariants[variant] then
+        tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
+    end
 end
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, David.TearGFXApply)
 
@@ -63,11 +75,50 @@ function David:OnEntityTakeDamage(entity, amount, flags, source)
 end
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, David.OnEntityTakeDamage)
 
+-- David is immune to the Labyrinth curse
+function David:OnCurseEval(curses)
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    
+    if curses & LevelCurse.CURSE_OF_LABYRINTH > 0 then
+        return curses ~ LevelCurse.CURSE_OF_LABYRINTH
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, David.OnCurseEval)
 
+-- Birthright chords boost
+function David:OnCardSpawn(pickup)
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if pickup.Variant ~= PickupVariant.PICKUP_TAROTCARD then return end
+    
+    local player = Isaac.GetPlayer(0)
+    local hasBirthright = player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+    
+    local replaceChance = hasBirthright and 0.35 or 0.12
+    
+    if math.random() < replaceChance then
+        pickup:Morph(
+            EntityType.ENTITY_PICKUP, 
+            PickupVariant.PICKUP_TAROTCARD, 
+            mod.Cards.DavidChord, 
+            true, 
+            true
+        )
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, David.OnCardSpawn)
+
+------------------------------------------------------------
+-- EID 
+------------------------------------------------------------
 if EID then
     local icons = Sprite("gfx/ui/eid/icon_eid.anm2", true)
     EID:addIcon("Player"..mod.Players.David, "David", 0, 16, 16, 0, 0, icons)
-    EID:addBirthright(mod.Players.David, "David deals double damage to bosses.", "David")
+    
+    EID:addBirthright(
+        mod.Players.David, 
+        "David deals double damage to bosses.#David's Chord spawn rate greatly increased.", 
+        "David"
+    )
 end
 
 return David

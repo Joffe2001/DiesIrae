@@ -57,10 +57,22 @@ local MusicTears = {}
 
 function MusicTears:Apply(tear)
     if not tear or tear.Type ~= EntityType.ENTITY_TEAR then return end
-    local sprite = tear:GetSprite()
-    sprite:ReplaceSpritesheet(0, "gfx/proj/music_tears.png")
-    sprite:LoadGraphics()
-    tear:GetData().isMusicTear = true
+    local variant = tear.Variant
+    
+    local safeVariants = {
+        [TearVariant.BLUE] = true,
+        [TearVariant.BLOOD] = true,
+        [TearVariant.CUPID_BLUE] = true,
+        [TearVariant.CUPID_BLOOD] = true,
+        [TearVariant.DARK_MATTER] = true,
+    }
+    
+    if safeVariants[variant] then
+        local sprite = tear:GetSprite()
+        sprite:ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
+        sprite:LoadGraphics()
+        tear:GetData().isMusicTear = true
+    end 
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_, tear)

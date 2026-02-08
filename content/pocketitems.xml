@@ -13,4 +13,5 @@
     <card type="rune" name="Star Shard"               pickup="902" description="I will be chasing a starlight"                hud="Star Shard"               mimiccharge="12"/>
     <card type="rune" name="Energy Drink"             pickup="903" description="FEEL THE RUSH!!!!!"                           hud="Energy Drink"             mimiccharge="8"/>
     <card type="card" name="Dad's Lotto Ticket"       pickup="904" description="Maybe is this the one?"                       hud="Dad's Lotto Ticket"       mimiccharge="8"/>
+    <card type="rune" name="David's Chord"            pickup="905" description="The sound is soothing"                        hud="David's Chord"            mimiccharge="8"/>
 </pocketitems>

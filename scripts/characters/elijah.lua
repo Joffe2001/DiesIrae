@@ -43,7 +43,6 @@ local customBeggar = {
     [SlotVariant.KEY_MASTER]                  = mod.Entities.BEGGAR_KeyElijah.Var,
     [SlotVariant.ROTTEN_BEGGAR]               = mod.Entities.BEGGAR_RottenElijah.Var,
     [SlotVariant.BATTERY_BUM]                 = mod.Entities.BEGGAR_BatteryElijah.Var,
-    [PickupVariant.PICKUP_MOMSCHEST]          = mod.Entities.BEGGAR_MomBoxElijah.Var,
     [SlotVariant.DONATION_MACHINE]            = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.GREED_DONATION_MACHINE]      = mod.Entities.BEGGAR_Elijah.Var,
     [SlotVariant.SHELL_GAME]                  = mod.Entities.BEGGAR_Elijah.Var,
@@ -153,6 +152,21 @@ local function IsSlotBlacklisted(variant)
         end
     end
     return false
+end
+
+---@return integer|nil
+function GetChaosBeggarVariant(room, rng)
+    if not mod.Pools.CHAOS_ELIJAH_BEGGARS then 
+        return nil 
+    end
+    
+    local pool = mod.Pools.CHAOS_ELIJAH_BEGGARS
+    if #pool == 0 then 
+        return nil 
+    end
+
+    local randomIndex = rng:RandomInt(#pool) + 1
+    return pool[randomIndex]
 end
 
 --- math
