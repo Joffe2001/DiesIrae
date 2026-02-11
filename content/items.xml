@@ -1,4 +1,4 @@
-<items gfxroot="gfx/items/" deathanm2="gfx/anm2/death_items.anm2" version="1">
+<items gfxroot="gfx/items/" deathanm2="gfx/death_items.anm2" version="1">
     <!-- Passive items -->
     <passive id="1"  name="Muse"                       gfx="muse.png"                      description="Let's sing for absolution"                   quality="4" tags="nolostbr"          achievement="Muse" />
     <passive id="2"  name="U2"                         gfx="u2.png"                        description="Maybe I should've called it Song 2"          quality="2" tags="offensive"         achievement="U2"    flatdamage='0.2'    flattears='0.2'    speed='0.2'    luck='0.2'    range='8'    shotspeed='0.2'/>
@@ -31,7 +31,7 @@
     <passive id="29" name="Last Resort"                gfx="item_placeholder.png"          description="Wish somebody will tell me I'm fine"         quality="2" tags="nolostbr" />
     <passive id="30" name="Rainbow KoRn"               gfx="rainbow_korn.png"              description="Life's gotta always be messing with me"      quality="4" tags="food"/>
     <passive id="31" name="Creatine Overdose"          gfx="creatine_overdose.png"         description="UNLIMITED POWER!!!"                          quality="3" tags="offensive"         achievement="Creatine Overdose"    damage='0.2'    damagemult='1.2'/>
-    <passive id="32" name="Fragile Ego"                gfx="item_placeholder.png"          description="I find bliss in ignorance"                   quality="2" />
+    <passive id="32" name="Fragile Ego"                gfx="fragile_ego.png"               description="I find bliss in ignorance"                   quality="1" tags="offensive"/>
     <passive id="33" name="Symphony Of Destruction"    gfx="item_placeholder.png"          description="The head explodes"                           quality="1"/>      
     <passive id="34" name="Beggar's Tear"              gfx="item_placeholder.png"          description="I want it all, and I want it now"            quality="1" />
     <passive id="35" name="Sweet Caffeine"             gfx="item_placeholder.png"          description="I NEED IT"                                   quality="1"/>
@@ -54,41 +54,40 @@
     <passive id="52" name="Michelin Star Reward"       gfx="michelin_star.png"             description="Yum!!"                                       quality="2" tags="nolostbr"           achievement="Michelin Star Reward" />
 
     <!-- Active items -->
-    <active id="1000" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
-    <active id="1001" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
-    <active id="1002" name="Sh-boom!!"                  gfx="shboom.png"                    description="Life could be a dream!"                      quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
-    <active id="1003" name="Hypa Hypa"                  gfx="active_placeholder.png"        description="Maybe it will be good"                       quality="2" maxcharges="1" chargetype="special" tags="nogreed"  />
-    <active id="1004" name="Helter skelter"             gfx="helterskelter.png"             description="Friends from the dead"                       quality="3" maxcharges="6" chargetype="normal"                              achievement="Helter Skelter" />
-    <active id="1005" name="Holy Wood"                  gfx="holywood.png"                  description="Safe, maybe, for now"                        quality="3" maxcharges="6" chargetype="normal" tags="nolostbr nogreed" />
-    <active id="1006" name="Diary of a Madman"          gfx="diaryofamadman.png"            description="Anything can happen!"                        quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
-    <active id="1007" name="Coma White"                 gfx="active_placeholder.png"        description="A special heart, but with a price"           quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
-    <active id="1008" name="Good Vibes"                 gfx="active_placeholder.png"        description="It's good man"                               quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
-    <active id="1009" name="Sling Shot"                 gfx="sling_shot.png"                description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240"                             achievement="Sling Shot"/>
-    <active id="1010" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr"              achievement="Devil's Heart"/>
-    <active id="1011" name="Mom's Diary"                gfx="momsdiary2.png"                description="Is that what she thinks of me?"              quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
-    <active id="1012" name="Personal Beggar"            gfx="personal_beggar.png"           description="I just love to give and give!"               quality="1" maxcharges="6" chargetype="normal" achievement="Personal Beggar"/>    
-    <active id="1013" name="Little Lies"                gfx="littlelies.png"                description="Tell me sweet little lies"                   quality="1" maxcharges="4" chargetype="normal" achievement="Little lies" />
-    <active id="1014" name="King's Heart"               gfx="kingsheart.png"                description="Buy his heart with riches"                   quality="3" chargetype="special" tags="nolostbr"                            achievement="King's Heart"/>
-    <active id="1015" name="Break Stuff"                gfx="active_placeholder.png"        description="It was an accident.."                        quality="2" maxcharges="8" chargetype="normal" />
+    <active id="100" name="Guppy's soul"               gfx="guppyssoul.png"                description="Sinful cat soul"                             quality="3" maxcharges="4" chargetype="normal" tags="guppy offensive" />
+    <active id="101" name="Army of Lovers"             gfx="armyoflovers.png"              description="Saint-like behavior"                         quality="2" maxcharges="4" chargetype="normal" tags="offensive"             achievement="Army of Lovers" />
+    <active id="102" name="Sh-boom!!"                  gfx="shboom.png"                    description="Life could be a dream!"                      quality="4" maxcharges="1" chargetype="normal" tags="nolostbr nogreed nochallenge nodaily" />
+    <active id="103" name="Hypa Hypa"                  gfx="active_placeholder.png"        description="Maybe it will be good"                       quality="2" maxcharges="1" chargetype="special" tags="nogreed"  />
+    <active id="104" name="Helter skelter"             gfx="helterskelter.png"             description="Friends from the dead"                       quality="3" maxcharges="6" chargetype="normal"                              achievement="Helter Skelter" />
+    <active id="105" name="Holy Wood"                  gfx="holywood.png"                  description="Safe, maybe, for now"                        quality="3" maxcharges="6" chargetype="normal" tags="nolostbr nogreed" />
+    <active id="006" name="Diary of a Madman"          gfx="diaryofamadman.png"            description="Anything can happen!"                        quality="2" maxcharges="5" chargetype="normal" tags="offensive book" />
+    <active id="107" name="Coma White"                 gfx="active_placeholder.png"        description="A special heart, but with a price"           quality="1" maxcharges="4" chargetype="normal" tags="nolostbr nogreed" />
+    <active id="108" name="Good Vibes"                 gfx="active_placeholder.png"        description="It's good man"                               quality="3" maxcharges="5" chargetype="normal" tags="nolostbr" />
+    <active id="109" name="Sling Shot"                 gfx="sling_shot.png"                description="[BIG SHOT]"                                  quality="2" chargetype="timed" maxcharges="240"                             achievement="Sling Shot"/>
+    <active id="110" name="Devil's Heart"              gfx="devils_heart.png"              description="See the Devil in I!"                         quality="2" maxcharges="6" chargetype="normal" tags="nolostbr"              achievement="Devil's Heart"/>
+    <active id="111" name="Mom's Diary"                gfx="momsdiary2.png"                description="Is that what she thinks of me?"              quality="1" maxcharges="6" chargetype="special" initcharge="0" tags="nolostbr mom book" />
+    <active id="112" name="Personal Beggar"            gfx="personal_beggar.png"           description="I just love to give and give!"               quality="1" maxcharges="5" chargetype="normal" achievement="Personal Beggar"/>    
+    <active id="113" name="Little Lies"                gfx="littlelies.png"                description="Tell me sweet little lies"                   quality="1" maxcharges="4" chargetype="normal" achievement="Little lies" />
+    <active id="114" name="King's Heart"               gfx="kingsheart.png"                description="Buy his heart with riches"                   quality="3" chargetype="special" tags="nolostbr"                            achievement="King's Heart"/>
+    <active id="115" name="Break Stuff"                gfx="active_placeholder.png"        description="It was an accident.."                        quality="2" maxcharges="8" chargetype="normal" />
     <!-- Trinkets -->
-    <trinket id="2002" name="Gaga"                      gfx="gaga.png"                      description="Just dance, it’ll be okay"                achievement="Gaga" />
-    <trinket id="2004" name="Baby Blue"                 gfx="babyblue.png"                  description="Guess I got what I deserved"              achievement="Baby Blue" />
-    <trinket id="2006" name="Wonder of You"             gfx="wonder_of_you.png"             description="It is the power of calamity"              achievement="Wonder of You" />
-    <trinket id="2007" name="Rotten Food"               gfx="trinket_placeholder.png"       description="Something is wrong..."                    />
-    <trinket id="2009" name="Second Breakfast"          gfx="trinket_placeholder.png"       description="What about elevenses?"                    />
-    <trinket id="2010" name="Papercut"                  gfx="trinket_placeholder.png"       description="It's like a whirlwind inside of my head"  />
-    <trinket id="2011" name="Tarot Battery"             gfx="tarotbattery.png"              description="Electrify your mind"                      />
-   
+    <trinket id="202" name="Gaga"                      gfx="gaga.png"                      description="Just dance, it’ll be okay"                achievement="Gaga" />
+    <trinket id="204" name="Baby Blue"                 gfx="babyblue.png"                  description="Guess I got what I deserved"              achievement="Baby Blue" />
+    <trinket id="206" name="Wonder of You"             gfx="wonder_of_you.png"             description="It is the power of calamity"              achievement="Wonder of You" />
+    <trinket id="207" name="Rotten Food"               gfx="trinket_placeholder.png"       description="Something is wrong..."                    />
+    <trinket id="209" name="Second Breakfast"          gfx="trinket_placeholder.png"       description="What about elevenses?"                    />
+    <trinket id="210" name="Papercut"                  gfx="trinket_placeholder.png"       description="It's like a whirlwind inside of my head"  />
+    <trinket id="211" name="Tarot Battery"             gfx="tarotbattery.png"              description="Electrify your mind"                      />
     <!-- Familiars -->
-    <familiar id="3000" name="Paranoid Android"          gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="3001" name="Killer Queen"              gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
-    <familiar id="3002" name="Red Bum"                   gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Red Bum" />
-    <familiar id="3003" name="Scammer Bum"               gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"          achievement="Scammer Bum" />
-    <familiar id="3004" name="Rune Bum"                  gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Rune Bum" />
-    <familiar id="3005" name="Fair Bum"                  gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Fair Bum" />
-	<familiar id="3006" name="Tarot Bum"                 gfx="tarotbum.png"                  description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Tarot Bum" />
-	<familiar id="3007" name="Pill Bum" 				 gfx="pillbum.png"	         	     description="He can quit whenever he wants"				  quality="2" cache="familiars" tags="baby summonable monstermanual"          achievement="Pill Bum" />
-    <familiar id="3008" name="Pastor Bum" 			     gfx="pastorbum.png"	      	     description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
+    <familiar id="300" name="Paranoid Android"         gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
+    <familiar id="301" name="Killer Queen"             gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="302" name="Red Bum"                  gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Red Bum" />
+    <familiar id="303" name="Scammer Bum"              gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"          achievement="Scammer Bum" />
+    <familiar id="304" name="Rune Bum"                 gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Rune Bum" />
+    <familiar id="305" name="Fair Bum"                 gfx="fairbum.png"                   description="How did you know I needed it?"               quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Fair Bum" />
+	<familiar id="306" name="Tarot Bum"                gfx="tarotbum.png"                  description="What is my fortune?"                         quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Tarot Bum" />
+	<familiar id="307" name="Pill Bum" 				   gfx="pillbum.png"	         	   description="He can quit whenever he wants"				  quality="2" cache="familiars" tags="baby summonable monstermanual"          achievement="Pill Bum" />
+    <familiar id="308" name="Pastor Bum" 			   gfx="pastorbum.png"	      	       description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
 
     <!-- Testing 
     <passive id="300" name="Path Of The Righteous"     gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />
@@ -115,7 +114,6 @@
     <trinket id="404" name="Trinket Collector"         gfx="trinket_placeholder.png"       description="I will catch them all"               />
     <trinket id="405" name="Clear Vase"                gfx="trinket_placeholder.png"       description="I don't see anything here"           />
 
-    <!-- Wisps  
     <passive id="1001" name="Wisp Ring of Fire 1"       gfx="item_placeholder.png"/>
     <passive id="1002" name="Wisp Ring of Fire 2"       gfx="item_placeholder.png"/>
     <passive id="1003" name="Wisp Ring of Fire 3"       gfx="item_placeholder.png"/>

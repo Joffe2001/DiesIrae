@@ -9600,7 +9600,7 @@
 			<entity type="4500" variant="10" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="1002" name="BB2" type="1" subtype="0" shape="12" width="26" height="14" difficulty="2" weight="1.0" lastTestTime="2025-11-22T20:30+00:00">
+	<room variant="1002" name="BB2" type="1" subtype="0" shape="12" width="26" height="14" difficulty="5" weight="1.0" lastTestTime="2025-11-22T20:30+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="-1" y="10"/>
 		<door exists="True" x="6" y="-1"/>

@@ -605,9 +605,6 @@ end)
 ------------------------------------------------------
 ---                      Beggars Unlocks          ---  
 ------------------------------------------------------
-local function IsUnlocked(ach)
-    return Isaac.GetPersistentGameData():Unlocked(ach)
-end
 
 mod.BeggarUnlocks = {
     [mod.Entities.BEGGAR_Goldsmith.Var]         = mod.Achievements.Goldsmith,

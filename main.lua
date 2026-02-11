@@ -167,6 +167,7 @@ include("scripts.npcs.goldsmith")
 include("scripts.npcs.familiars_beggar")
 include("scripts.npcs.sacrifice_table")
 include("scripts.npcs.lost_adventurer")
+include("scripts.npcs.chaos_beggar")
 --------Elijah's NPCs------------------------------
 include("scripts.npcs.elijah.elijah_tech_beggar")
 include("scripts.npcs.elijah.elijah_beggar")
@@ -188,6 +189,7 @@ include("scripts.npcs.elijah.elijah_jys")
 include("scripts.npcs.elijah.elijah_familiars_beggar")
 include("scripts.npcs.elijah.elijah_restock")
 include("scripts.npcs.elijah.elijah_lost_adventurer")
+include("scripts.npcs.elijah.elijah_chaos_beggar")
 ---------------------------------------------------
 --  ENEMIES
 ---------------------------------------------------

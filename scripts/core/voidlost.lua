@@ -1,16 +1,15 @@
----@diagnostic disable: undefined-field
 local mod = DiesIraeMod
 
 local RemoveCurseOnVoid = {}
 
--- this needs fixing
-function RemoveCurseOnVoid:OnNewFloor()
-    local player = Isaac.GetPlayer(0)
+function RemoveCurseOnVoid:OnCurseEval(curses)
     local level = Game():GetLevel()
-
-    if level:GetStage() == StageType.STAGETYPE_VOID then
-        level:RemoveCurse(LevelCurse.CURSE_OF_THE_LOST)
+    
+    if level:GetStage() == LevelStage.STAGE7 then
+        if (curses & LevelCurse.CURSE_OF_THE_LOST) > 0 then
+            return curses ~ LevelCurse.CURSE_OF_THE_LOST
+        end
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, RemoveCurseOnVoid.OnNewFloor)
+mod:AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, RemoveCurseOnVoid.OnCurseEval)

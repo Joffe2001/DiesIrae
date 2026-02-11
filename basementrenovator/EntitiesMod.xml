@@ -7,6 +7,7 @@
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/fambeggar.png" Name="Familiars Beggar" Subtype="1" Variant="125" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/sac_table.png" Name="Sacrifice Table" Subtype="1" Variant="126" />
     <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/lost_adventurer.png" Name="Lost Adventurer" Subtype="1" Variant="127" />
+    <entity Group="Beggars" Kind="Dies Irae" ID="6" Image="icons/Beggars/chaosbeggar.png" Name="Chaos Beggar" Subtype="1" Variant="128" />
 
 <!--Elijah's Beggars-->
     <entity Group="Elijah's Beggars" Kind="Dies Irae" ID="6" Image="icons/Elijah's Beggars/tech.png" Name="Tech Beggar Elijah" Subtype="0" Variant="221" />

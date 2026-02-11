@@ -52,6 +52,7 @@ local customBeggar = {
     [mod.Entities.BEGGAR_Familiars.Var]       = mod.Entities.BEGGAR_Familiars_Elijah.Var,
     [mod.Entities.BEGGAR_ShopElijah.Var]      = mod.Entities.BEGGAR_ShopElijah.Var,
     [mod.Entities.BEGGAR_Lost_Adventurer.Var] = mod.Entities.BEGGAR_Lost_Adventurer_E.Var,
+    [mod.Entities.BEGGAR_Chaos.Var]           = mod.Entities.BEGGAR_Chaos_Elijah.Var,
 }
 
 local spawnElijahWill = {
