@@ -21,9 +21,10 @@ function ArmyOfLovers:UseItem(_, _, player)
     local hasBookOfVirtues = player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
 
     if hasBookOfVirtues then
+
         local numWisps = math.random(1, 2)
         for _ = 1, numWisps do
-            player:AddWisp(mod.Items.ArmyOfLovers, player.Position, true, false)
+            player:AddWisp(101, player.Position, true, false)
         end
     else
         for _ = 1, 2 do
@@ -127,38 +128,6 @@ function ArmyOfLovers:SpawnHeart(player, rng)
     )
 end
 
---------------------------------------------------
--- Book of Virtues Synergy
---------------------------------------------------
-function ArmyOfLovers:OnWispDeath(entity)
-    if entity.Type ~= EntityType.ENTITY_FAMILIAR then return end
-    if entity.Variant ~= FamiliarVariant.ITEM_WISP then return end
-
-    local familiar = entity:ToFamiliar()
-    if not familiar then return end
-
-    if familiar.SubType ~= 101 then return end
-    if familiar.HitPoints > 0 then return end
-
-    local player = familiar.Player
-    if not player then return end
-
-    local poof = Isaac.Spawn(
-        EntityType.ENTITY_EFFECT,
-        EffectVariant.POOF01,
-        0,
-        entity.Position,
-        Vector.Zero,
-        nil
-    )
-    poof:SetColor(Color(1, 0.75, 0.85, 1, 0, 0, 0), 0, 0, false, false)
-
-    local count = math.random(1, 2)
-    for _ = 1, count do
-        player:AddMinisaac(player.Position)
-    end
-end
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, ArmyOfLovers.OnWispDeath)
 
 if EID then
     EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")

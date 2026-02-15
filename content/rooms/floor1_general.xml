@@ -7572,7 +7572,7 @@
 			<entity type="1930" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="50" name="general50" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="50" name="general50" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="0.03">
 		<door exists="False" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="False" x="6" y="7"/>

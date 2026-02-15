@@ -215,7 +215,7 @@ function mod:AutoStartRandomChallenge(floor)
     rng:SetSeed(seed + floor * 1000, 35)
     
     local availableChallenges = {}
-    for i = 0, 6 do
+    for i = 0, 8 do
         if not IsChallengeUsed(i) then
             table.insert(availableChallenges, i)
         end
@@ -431,6 +431,7 @@ end
 
 -- AUTO-START CHALLENGE ON NEW LEVEL
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    if game:IsGreedMode() then return end
     if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
     RemoveBackdropsWhenLeavingFloor()
     
@@ -440,6 +441,8 @@ end)
 
 -- LEVEL SELECT
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
+    if game:IsGreedMode() then return end
+    
     local state, floor, variant, player = mod:GetActiveChallengeState()
     if not state then return end
 
@@ -454,6 +457,8 @@ end)
 
 -- NEW ROOM
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    if game:IsGreedMode() then return end
+    
     TrySpawnChallengeReward(Isaac.GetPlayer(0))
 
     local player, floor = mod:GetActiveDavid()
@@ -467,6 +472,8 @@ end)
 
 -- UPDATE
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+    if game:IsGreedMode() then return end
+    
     local state, floor, variant, player = mod:GetActiveChallengeState()
     if not state then return end
 
@@ -475,6 +482,8 @@ end)
 
 -- RENDER
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+    if game:IsGreedMode() then return end
+    
     local state, floor, variant, player = mod:GetActiveChallengeState()
     if not state then return end
 
@@ -487,6 +496,8 @@ end)
 
 -- PLAYER DAMAGE
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source)
+    if game:IsGreedMode() then return end
+    
     local player, floor = mod:GetActiveDavid()
     if not player then return end
 

@@ -60,6 +60,7 @@ function SlingShot:onTearUpdate(tear)
     
     local room = game:GetRoom()
     
+    -- Open doors
     for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
         local door = room:GetDoor(i)
         if door and not door:IsOpen() then
@@ -73,7 +74,29 @@ function SlingShot:onTearUpdate(tear)
             end
         end
     end
+
+    local gridIndex = room:GetGridIndex(tear.Position)
+    local gridEntity = room:GetGridEntity(gridIndex)
     
+    if gridEntity then
+        local gridType = gridEntity:GetType()
+        
+        if gridType == GridEntityType.GRID_ROCK 
+           or gridType == GridEntityType.GRID_ROCK_BOMB
+           or gridType == GridEntityType.GRID_ROCK_ALT
+           or gridType == GridEntityType.GRID_ROCK_SS
+           or gridType == GridEntityType.GRID_ROCK_SPIKED
+           or gridType == GridEntityType.GRID_ROCK_ALT2
+           or gridType == GridEntityType.GRID_ROCK_GOLD
+           or gridType == GridEntityType.GRID_POT
+           or gridType == GridEntityType.GRID_MUSHROOM
+           or gridType == GridEntityType.GRID_SKULL
+           or gridType == GridEntityType.GRID_POLYP then
+
+            room:DestroyGrid(gridIndex, true)
+            
+        end
+    end
     local gridCollision = room:GetGridCollisionAtPos(tear.Position)
     if gridCollision == GridCollisionClass.COLLISION_WALL or gridCollision == GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER then
         Isaac.Explode(tear.Position, tear.SpawnerEntity, tear.CollisionDamage)
