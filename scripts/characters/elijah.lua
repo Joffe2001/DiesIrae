@@ -312,7 +312,7 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, elijahFuncs.EvaluateCache)
 
 ----------------------------------------------
----Replace base pickup with the Elijah's Will.
+---Replace base pickup with the Elijah's Will
 ----------------------------------------------
 ---@param type EntityType
 ---@param variant integer
@@ -348,7 +348,7 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawnWill)
 
 ----------------------------------------------
----Replace beggars with the custom beggars.
+---Replace beggars with the custom beggars
 ----------------------------------------------
 ---@param type EntityType
 ---@param variant integer
@@ -371,6 +371,7 @@ mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, elijahFuncs.PreEntitySpawn)
 function elijahFuncs:PostPickupInitConvert(pickup)
     if not PlayerManager.AnyoneIsPlayerType(elijah) then return end
     
+    -- Check if this pickup variant should be converted to a will
     local will = spawnElijahWill[pickup.Variant]
     if not will then return end
     
@@ -382,6 +383,7 @@ function elijahFuncs:PostPickupInitConvert(pickup)
     
     local pos = pickup.Position
     local vel = pickup.Velocity
+    local subType = pickup.SubType
     pickup:Remove()
     
     local newPickup = Isaac.Spawn(
@@ -393,9 +395,7 @@ function elijahFuncs:PostPickupInitConvert(pickup)
         nil
     )
 end
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert, PickupVariant.PICKUP_COIN)
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert, PickupVariant.PICKUP_KEY)
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert, PickupVariant.PICKUP_BOMB)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, elijahFuncs.PostPickupInitConvert)
 
 
 ----------------------------------------------

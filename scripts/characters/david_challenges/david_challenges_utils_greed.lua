@@ -380,7 +380,7 @@ function SpawnGreedChallengeBackdrop(variant)
         EntityType.ENTITY_EFFECT,
         EffectVariant.POOF01,
         0,
-        room:GetCenterPos() + Vector(-15, -40),
+        room:GetCenterPos() + Vector(-15, -80),
         Vector.Zero,
         nil
     )
@@ -627,6 +627,13 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         bossWavesCompletedFloors = {}
         waveTimers = {}
         lastTrackedWave = -1
+    end
+
+    if PlayerManager.AnyoneIsPlayerType(mod.Players.David) then
+        local floor = game:GetLevel():GetStage()
+        if floor == 1 then
+            mod:AutoStartGreedChallenge(floor)
+        end
     end
 end)
 

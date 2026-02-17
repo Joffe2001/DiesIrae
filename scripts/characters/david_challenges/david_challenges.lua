@@ -245,8 +245,32 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
             or variant == PickupVariant.PICKUP_BONE_HEART
             or variant == PickupVariant.PICKUP_ROTTEN_HEART then
             
-            DavidUtils.Fail(player, floor)
-            return false
+            if pickup:IsShopItem() and pickup.Price > 0 then
+                return
+            end
+            
+            local canCollect = false
+            
+            if variant == PickupVariant.PICKUP_HEART then
+
+                if player:GetHearts() < player:GetMaxHearts() or player:GetMaxHearts() < player:GetHeartLimit() then
+                    canCollect = true
+                end
+            elseif variant == PickupVariant.PICKUP_SOUL or variant == PickupVariant.PICKUP_BLACK_HEART then
+                if player:GetSoulHearts() < player:GetEffectiveMaxHearts() - player:GetHearts() then
+                    canCollect = true
+                end
+            elseif variant == PickupVariant.PICKUP_ETERNAL_HEART then
+                -- Eternal hearts can always be collected
+                canCollect = true
+            elseif variant == PickupVariant.PICKUP_GOLDEN_HEART or variant == PickupVariant.PICKUP_BONE_HEART or variant == PickupVariant.PICKUP_ROTTEN_HEART then
+                canCollect = true
+            end
+            
+            if canCollect then
+                DavidUtils.Fail(player, floor)
+                return false
+            end
         end
     end,
 
@@ -254,6 +278,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
         Isaac.RenderText("Don't Pick Up Hearts!", 80, 20, 1, 0.3, 0.3, 1)
     end,
 })
+
 
 ------------------------------------------------------------
 -- CHALLENGE 4: NO SHOOT DELAY 
@@ -509,7 +534,7 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
                 
                 -- Skip devil rooms and ultra secret rooms
                 if roomType ~= RoomType.ROOM_DEVIL and roomType ~= RoomType.ROOM_ULTRA_SECRET then
-                    -- We'll track pedestals as we encounter them
+\
                 end
             end
         end

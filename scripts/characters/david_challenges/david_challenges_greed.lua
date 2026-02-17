@@ -304,6 +304,8 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
         
         if coins > 3 then
             DavidGreedUtils.Fail(player, floor)
+        else
+            DavidGreedUtils.Complete(floor)
         end
     end,
 
