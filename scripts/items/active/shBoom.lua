@@ -49,12 +49,5 @@ function ShBoom:PreventAutoRecharge(player)
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, ShBoom.UseItem, mod.Items.ShBoom)
-
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ShBoom.OnNewLevel)
-
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, ShBoom.PreventAutoRecharge)
-
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.ShBoom, "Dad's Playlist")
-end

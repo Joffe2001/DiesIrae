@@ -46,6 +46,3 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.Items.BackInAnger)
 
-if EID then
-    EID:assignTransformation("collectible", mod.Items.BackInAnger, "Dad's Playlist")
-end

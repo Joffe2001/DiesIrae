@@ -87,6 +87,7 @@ mod:AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, David.OnCurseEval)
 
 -- Birthright chords boost
 function David:OnCardSpawn(pickup)
+    if pickup.FrameCount ~= 0 then return end
     if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
     if pickup.Variant ~= PickupVariant.PICKUP_TAROTCARD then return end
     

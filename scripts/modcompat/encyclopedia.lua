@@ -6,13 +6,13 @@ if Encyclopedia then
         David = {
 			{ -- Start Data
                 {str = "Start Data", fsize = 2, clr = 3, halign = 0},
-                {str = "Passive Item: Muse"},
+                {str = "Active Item: Slingshot"},
                 {str = "Smelted Trinket: Gaga"},
                 {str = "Stats", clr = 3, halign = 0},
 				{str = "HP: 1 red hear, 1 gold heart"},
 				{str = "Speed: 1.20"},
 				{str = "Tears: 2.50"},
-				{str = "Damage: 4.00"},
+				{str = "Damage: 6.00"},
 				{str = "Range: 6.50"},
 				{str = "Shotspeed: 1.00"},
 				{str = "Luck: 1"},

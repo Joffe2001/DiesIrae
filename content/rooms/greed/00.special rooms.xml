@@ -1995,4 +1995,69 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
+	<room variant="2" name="Treasure 2" type="4" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="False" x="13" y="3"/>
+		<spawn x="10" y="0">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="0">
+			<entity type="6" variant="127" subtype="1" weight="1.0"/>
+			<entity type="6" variant="124" subtype="1" weight="1.0"/>
+			<entity type="6" variant="128" subtype="1" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="1">
+			<entity type="4000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="2">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="2">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="3" y="3">
+			<entity type="5" variant="10" subtype="2" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="5" variant="100" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="9" y="3">
+			<entity type="5" variant="10" subtype="2" weight="1.0"/>
+			<entity type="5" variant="10" subtype="8" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="3">
+			<entity type="1490" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="3">
+			<entity type="1490" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="4">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="4000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="6">
+			<entity type="1900" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="6">
+			<entity type="6" variant="124" subtype="1" weight="1.0"/>
+			<entity type="6" variant="121" subtype="0" weight="1.0"/>
+			<entity type="6" variant="128" subtype="1" weight="1.0"/>
+		</spawn>
+	</room>
 </rooms>

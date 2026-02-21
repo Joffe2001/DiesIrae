@@ -7,6 +7,15 @@ local HelterSkelter = {}
 function HelterSkelter:UseItem(_, rng, player)
     local roomEntities = Isaac.GetRoomEntities()
 
+    local hasBookOfVirtues = player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
+    
+    if hasBookOfVirtues then
+        local numWisps = math.random(1, 2)
+        for _ = 1, numWisps do
+            player:AddWisp(103, player.Position, true, false)
+        end
+    end
+
     for _, entity in ipairs(roomEntities) do
         if entity:IsActiveEnemy(false) and not entity:IsBoss() then
             if rng:RandomFloat() < 0.25 then
@@ -23,9 +32,4 @@ function HelterSkelter:UseItem(_, rng, player)
 
     return true
 end
-
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, HelterSkelter.UseItem, mod.Items.HelterSkelter)
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.HelterSkelter, "Dad's Playlist")
-end

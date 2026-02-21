@@ -232,6 +232,3 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, Universal.onUpdate)
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, Universal.onRender)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Universal.onPlayerDamage, EntityType.ENTITY_PLAYER)
 
-if EID then
-    EID:assignTransformation("collectible", mod.Items.Universal, "Dad's Playlist")
-end

@@ -2,28 +2,18 @@ local mod = DiesIraeMod
 local DadPlaylist = {}
 local sfx = SFXManager()
 
-local DadPlaylistItemList = {
-    mod.Items.TheBadTouch,
-    mod.Items.ArmyOfLovers,
-    mod.Items.LittleLies,
-    mod.Items.ShBoom,
-    mod.Items.Universal,
-    mod.Items.EverybodysChanging,
-    mod.Items.U2,
-    mod.Items.KillerQueen,
-    mod.Items.RingOfFire,
-    mod.Items.HelterSkelter,
-    mod.Items.Muse
-}
-
-local function HasDadPlaylist(p)
+local function GetDadPlaylistItemCount(p)
     local count = 0
-    for i = 1, #DadPlaylistItemList do
-        if p:HasCollectible(DadPlaylistItemList[i], true) then
-            count = count + p:GetCollectibleNum(DadPlaylistItemList[i], true)
+    for i = 1, #mod.Pools.DadPlaylistItem do
+        if p:HasCollectible(mod.Pools.DadPlaylistItem[i], true) then
+            count = count + p:GetCollectibleNum(mod.Pools.DadPlaylistItem[i], true)
         end
     end
-    return count >= 3
+    return count
+end
+
+local function HasDadPlaylist(p)
+    return GetDadPlaylistItemCount(p) >= 3
 end
 
 function DadPlaylist:dadPlaylistUpdate(p)
@@ -82,16 +72,6 @@ mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_, tear)
     end
 end)
 
-local function GetDadPlaylistItemCount(p)
-    local count = 0
-    for i = 1, #DadPlaylistItemList do
-        if p:HasCollectible(DadPlaylistItemList[i], true) then
-            count = count + p:GetCollectibleNum(DadPlaylistItemList[i], true)
-        end
-    end
-    return count
-end
-
 mod:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider)
     if not tear:GetData().isMusicTear then return end
     if not collider or not collider.Position then return end
@@ -133,4 +113,14 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
     end
 end)
 
-return DadPlaylist
+if EID then
+    local transIcon = Sprite()
+    transIcon:Load("gfx/ui/eid/dadsplaylist.anm2", true)
+    EID:addIcon("Dad's Playlist", "Idle", 2, 9, 9, -1, 0, transIcon)
+    
+    EID:createTransformation("Dad's Playlist", "Dad's Old Playlist")
+    EID.TransformationData["Dad's Playlist"] = { NumNeeded = 3 }
+    for i = 1, #mod.Pools.DadPlaylistItem do
+        EID:assignTransformation("collectible", mod.Pools.DadPlaylistItem[i], "Dad's Playlist")
+    end
+end

@@ -66,7 +66,3 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     wasCombatRoom = false
     triggeredThisRoom = false
 end)
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.EverybodysChanging, "Dad's Playlist")
-end

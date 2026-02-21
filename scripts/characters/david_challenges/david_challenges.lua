@@ -534,7 +534,6 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
                 
                 -- Skip devil rooms and ultra secret rooms
                 if roomType ~= RoomType.ROOM_DEVIL and roomType ~= RoomType.ROOM_ULTRA_SECRET then
-\
                 end
             end
         end

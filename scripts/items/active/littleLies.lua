@@ -53,10 +53,4 @@ end
 
 LittleLies.Mod = mod
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, LittleLies.UseItem, mod.Items.LittleLies)
-
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LittleLies.OnEvaluateCache)
-
--- EID description
-if EID then
-    EID:assignTransformation("collectible", mod.Items.LittleLies, "Dad's Playlist")
-end

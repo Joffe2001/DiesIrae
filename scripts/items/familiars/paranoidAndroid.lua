@@ -116,10 +116,6 @@ mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, ParanoidAndroid.onFamiliarUpdat
 mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, ParanoidAndroid.onRingUpdate, mod.Entities.EFFECT_AndroidLazerRing.Var)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.ParanoidAndroid, "Dad's Playlist")
-end
-
-if EID then
     EID:addDescriptionModifier(
         "ParanoidAndroid_BFF",
 

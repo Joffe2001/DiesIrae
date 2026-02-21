@@ -127,8 +127,3 @@ function ArmyOfLovers:SpawnHeart(player, rng)
         rng:GetSeed()
     )
 end
-
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.ArmyOfLovers, "Dad's Playlist")
-end

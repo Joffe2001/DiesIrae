@@ -18,7 +18,3 @@ function BadTouch:onPlayerCollision(player, collider)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_COLLISION, BadTouch.onPlayerCollision)
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.TheBadTouch, "Dad's Playlist")
-end

@@ -1,7 +1,6 @@
 <achievements gfxroot="gfx/ui/achievements/">
 <!--gfx is without "achievement_" if it is a placeholder!-->
 
-<!--gfx is without "achievement_" if it is a placeholder!-->
 
 <!--Characters-->
 	<achievement name="David" text=''                     gfx="achievement_david.png"              gfxback="paper_music.png"/>
@@ -37,14 +36,14 @@
 	<achievement name="Junk Yard Seller" text=''          gfx="junkyardseller.png"                 gfxback="paper_beggar.png"/>
 	<achievement name="Goldsmith Beggar" text=''          gfx="goldsmith.png"                      gfxback="paper_beggar.png"/>
 	<achievement name="Familiars Beggar" text=''          gfx="familiarsbeggar.png"                gfxback="paper_beggar.png"/>
-	<achievement name="Sacrifice Table" text=''           gfx="sacrificetable.png"                 gfxback="paper_beggar.png"/>
+	<achievement name="Sacrifice Table" text=''           gfx="achievement_sacrificetable.png"     gfxback="paper_beggar.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
 	<achievement name="Sling Shot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>
 	<achievement name="Devil's Heart" text=''             gfx="devilsheart.png"                    gfxback="paper.png"/>
-	<achievement name="Personal Beggar" text=''           gfx="personalbeggar.png"                 gfxback="paper.png"/>
+	<achievement name="Personal Beggar" text=''           gfx="achievement_personalbeggar.png"     gfxback="paper_beggar.png"/>
 <!--Passive items Unlocks-->
-	<achievement name="Golden Day" text=''                gfx="goldenday.png"                      gfxback="paper_music.png"/>
+	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
 	<achievement name="Michelin Star Reward" text=''      gfx="michelinstar.png"                   gfxback="paper_music.png"/>
 	<achievement name="Ultra Secret Map" text=''          gfx="ultrasecretmap.png"                 gfxback="paper.png"/>
 	<achievement name="Creatine Overdose" text=''         gfx="creatingoverdose.png"               gfxback="paper.png"/>

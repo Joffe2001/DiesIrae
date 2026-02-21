@@ -109,7 +109,3 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KillerQueen.onCache)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, KillerQueen.onFamiliarInit, mod.Entities.FAMILIAR_KillerQueen.Var)
 mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, KillerQueen.onFamiliarUpdate, mod.Entities.FAMILIAR_KillerQueen.Var)
-
-if EID then
-    EID:assignTransformation("collectible", mod.Items.KillerQueen, "Dad's Playlist")
-end
