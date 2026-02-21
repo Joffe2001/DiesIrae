@@ -24,7 +24,7 @@ function ArmyOfLovers:UseItem(_, _, player)
 
         local numWisps = math.random(1, 2)
         for _ = 1, numWisps do
-            player:AddWisp(101, player.Position, true, false)
+            player:AddWisp(mod.Items.ArmyOfLovers, player.Position, true, false)
         end
     else
         for _ = 1, 2 do
@@ -127,3 +127,18 @@ function ArmyOfLovers:SpawnHeart(player, rng)
         rng:GetSeed()
     )
 end
+
+function ArmyOfLovers:WispDeath(wisp)
+    if not(wisp.Variant == FamiliarVariant.WISP and wisp.SubType == mod.Items.ArmyOfLovers 
+        and wisp:ToFamiliar() and wisp:ToFamiliar().Player) then
+        return
+    end
+
+    local player = wisp:ToFamiliar().Player
+    local numIsaacs = math.random(1, 2)
+    for _ = 1, numIsaacs do
+        player:AddMinisaac(player.Position)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, ArmyOfLovers.WispDeath, EntityType.ENTITY_FAMILIAR)

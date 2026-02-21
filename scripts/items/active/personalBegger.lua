@@ -64,3 +64,18 @@ function PersonalBeggar:UseItem(_, rng, player)
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, PersonalBeggar.UseItem, mod.Items.PersonalBeggar)
+
+function PersonalBeggar:WispDeath(wisp)
+    if not(wisp.Variant == FamiliarVariant.WISP and wisp.SubType == mod.Items.PersonalBeggar
+        and wisp:ToFamiliar() and wisp:ToFamiliar().Player) then
+        return
+    end
+
+    local player = wisp:ToFamiliar().Player
+    local chance = player:GetCollectibleRNG(mod.Items.PersonalBeggar):RandomFloat()
+    if chance <= 0.5 then
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, 0, wisp.Position, Vector.Zero, wisp)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, PersonalBeggar.WispDeath, EntityType.ENTITY_FAMILIAR)

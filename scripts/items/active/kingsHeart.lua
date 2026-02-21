@@ -42,3 +42,13 @@ function KingsHeart:OnUseItem(_, rng, player)
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, KingsHeart.OnUseItem, mod.Items.KingsHeart)
+
+function KingsHeart:WispDeath(wisp)
+    if not(wisp.Variant == FamiliarVariant.WISP and wisp.SubType == mod.Items.KingsHeart) then
+        return
+    end
+
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, 0, wisp.Position, Vector.Zero, wisp)
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, KingsHeart.WispDeath, EntityType.ENTITY_FAMILIAR)

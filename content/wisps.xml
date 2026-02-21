@@ -30,14 +30,20 @@
 	<wisp id="1005" hp="1" damage="1" flameColor="flame_black" coreColor="core_black" canShoot="false"/>
 
 <!--Army of Lovers-->
-	<wisp id="101"  hp="2" damage="1" flameColor="flame_pink" coreColor="core_pink" coreGfx="minisaac.png" canShoot="false"/>
+	<wisp id="101"  hp="2" damage="3" flameColor="flame_pink" coreColor="core_pink" coreGfx="minisaac.png" canShoot="false" count="0"/>
 
 <!--Sh boom!!-->
-	<wisp id="102"  hp="2" damage="1" flameColor="flame_black" coreColor="core_black" coreGfx="bomb.png" canShoot="false"/>
+	<wisp id="102"  hp="2" damage="3" flameColor="flame_black" coreColor="core_black" coreGfx="bomb.png" canShoot="true"/>
 
 <!--Helter Skelter-->
-	<wisp id="103"  hp="2" damage="1" flameColor="flame_white" coreColor="core_white" coreGfx="skull.png" canShoot="true"/>
+	<wisp id="104"  hp="2" damage="3" flameColor="flame_white" coreColor="core_white" coreGfx="skull.png" canShoot="true" count="0"/>
 
 <!--King's Heart-->
-	<wisp id="104"  hp="2" damage="1" flameColor="flame_yellow" coreColor="core_yellow" coreGfx="heart.png" canShoot="true"/>
+	<wisp id="114"  hp="2" damage="3" flameColor="flame_yellow" coreColor="core_yellow" coreGfx="heart.png" canShoot="true"/>
+
+<!--Sling Shot-->
+	<wisp id="109"  hp="0" damage="0" count="0"/>
+
+<!--Personal Beggar-->
+	<wisp id="112"  hp="2" damage="3" flameColor="flame_yellow" coreColor="core_yellow" coreGfx="coin.png" canShoot="false"/>
 </wisps>
