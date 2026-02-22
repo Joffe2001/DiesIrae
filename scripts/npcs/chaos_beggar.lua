@@ -299,7 +299,7 @@ local function DoNeutralOutcome(beggar, player)
         sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
     else
         -- Spawn troll bomb
-        Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, 0, Isaac.GetFreeNearPosition(pos, 50), Vector.Zero, nil)
+        Isaac.Spawn(EntityType.ENTITY_BOMB, BombVariant.BOMB_TROLL, 0, Isaac.GetFreeNearPosition(pos, 50), Vector.Zero, nil)
         sfx:Play(SoundEffect.SOUND_BEEP)
     end
 end
