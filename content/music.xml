@@ -1,4 +1,7 @@
 <music root="sfx/music/">
+ <!--OST-->
+ 	<track name="Drowning in Sorrow" path="drowning_in_sorrow.ogg" loop="true" />
+ <!--Some stuff-->
 	<track name="Tech Beggar Waiting" path="bradbreeckUnicorn.ogg" loop="true" />
 	<track name="Oiiai" path="Oiiai.ogg" loop="false" />
 	<track name="GigaChad" path="GIGACHAD.ogg" loop="false" />

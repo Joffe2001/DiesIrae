@@ -80,7 +80,7 @@
     <trinket id="211" name="Tarot Battery"             gfx="tarotbattery.png"              description="Electrify your mind"                      />
     <!-- Familiars -->
     <familiar id="300" name="Paranoid Android"         gfx="paranoidandroid.png"           description="He's trying to help himself"                 quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Paranoid Android" />
-    <familiar id="301" name="Killer Queen"             gfx="killerqueen.png"               description="Killer Queen already touched the doornob"    quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
+    <familiar id="301" name="Killer Queen"             gfx="killerqueen.png"               description="Killer Queen already touched the doorknob"   quality="3" cache="familiars" tags="offensive fly summonable monstermanual" achievement="Killer Queen" />
     <familiar id="302" name="Red Bum"                  gfx="redbum.png"                    description="He wants you to know the way"                quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Red Bum" />
     <familiar id="303" name="Scammer Bum"              gfx="scammerbum.png"                description="He's gonna scam you"                         quality="0" cache="familiars" tags="baby summonable monstermanual"          achievement="Scammer Bum" />
     <familiar id="304" name="Rune Bum"                 gfx="runebum.png"                   description="He wants those rocks"                        quality="1" cache="familiars" tags="baby summonable monstermanual"          achievement="Rune Bum" />

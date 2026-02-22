@@ -22,7 +22,7 @@ function DadPlaylist:dadPlaylistUpdate(p)
 
     if hasTrans and not d.hasDadPlaylist then
         d.hasDadPlaylist = true
-        Game():GetHUD():ShowItemText("Dad's Old Playlist", "Mom sometimes listened to it...")
+        Game():GetHUD():ShowItemText("Dad's Old Playlist", "Mom sometimes listens to it...")
         p:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/dads_playlist.anm2"))
         sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
         Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, p.Position, Vector.Zero, p)
@@ -114,13 +114,14 @@ mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
 end)
 
 if EID then
+    EID:createTransformation("Dad's Old Playlist", "Dad's Old Playlist")
+    EID.TransformationData["Dad's Old Playlist"] = { NumNeeded = 3 }
+
     local transIcon = Sprite()
     transIcon:Load("gfx/ui/eid/dadsplaylist.anm2", true)
-    EID:addIcon("Dad's Playlist", "Idle", 2, 9, 9, -1, 0, transIcon)
-    
-    EID:createTransformation("Dad's Playlist", "Dad's Old Playlist")
-    EID.TransformationData["Dad's Playlist"] = { NumNeeded = 3 }
+    EID:addIcon("Dad's Old Playlist", "Idle", 0, 9, 9, -1, 0, transIcon)
+
     for i = 1, #mod.Pools.DadPlaylistItem do
-        EID:assignTransformation("collectible", mod.Pools.DadPlaylistItem[i], "Dad's Playlist")
+        EID:assignTransformation("collectible", mod.Pools.DadPlaylistItem[i], "Dad's Old Playlist")
     end
 end

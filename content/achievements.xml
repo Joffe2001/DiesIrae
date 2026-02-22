@@ -37,6 +37,7 @@
 	<achievement name="Goldsmith Beggar" text=''          gfx="goldsmith.png"                      gfxback="paper_beggar.png"/>
 	<achievement name="Familiars Beggar" text=''          gfx="familiarsbeggar.png"                gfxback="paper_beggar.png"/>
 	<achievement name="Sacrifice Table" text=''           gfx="achievement_sacrificetable.png"     gfxback="paper_beggar.png"/>
+	<achievement name="Chaos Beggar" text=''              gfx="chaosbeggar.png"                    gfxback="paper_beggar.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
 	<achievement name="Sling Shot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>

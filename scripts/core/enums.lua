@@ -177,6 +177,10 @@ mod.Sounds = {
 }
 
 mod.Music = {
+    --Actually OST
+    DrowningInSorrow  = Isaac.GetMusicIdByName("Drowning in Sorrow"),
+    
+    --Random stuff
     TechBeggarWaiting = Isaac.GetMusicIdByName("Tech Beggar Waiting"),
     Oiiai             = Isaac.GetMusicIdByName("Oiiai"),
     GigaChad          = Isaac.GetMusicIdByName("GigaChad"),

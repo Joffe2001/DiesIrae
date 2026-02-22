@@ -200,7 +200,7 @@ include("scripts.enemies.horfling")
 ---------------------------------------------------
 include("scripts.core.voidlost")
 include("scripts.items.familiars.gellocostumes")
-
+include("scripts.modcompat.deadseascrolls")
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------
