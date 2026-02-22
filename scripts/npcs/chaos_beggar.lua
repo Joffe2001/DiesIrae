@@ -105,7 +105,7 @@ local function SpawnPickupBurst(position, count)
         {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF},
         {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, KeySubType.KEY_NORMAL},
         {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_NORMAL},
-        {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BATTERY, 0}
+        {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, 0}
     }
     for i = 1, count do
         local pickup = pickupTypes[math.random(#pickupTypes)]
