@@ -162,8 +162,22 @@ local function DoGoodOutcome(beggar, player)
         -- Boost random stat
         local stat = GetRandomStat()
         ApplyStatBoost(player, stat)
-        game:GetHUD():ShowItemText("+" .. stat .. "!", "", false)
+        game:GetHUD():ShowItemText(stat .. " Up!", "", false)
         sfx:Play(SoundEffect.SOUND_THUMBSUP)
+        
+        
+        if stat == "Damage" then
+            -- Needs damage up voiceline 
+        elseif stat == "Luck"  then
+            sfx:Play(SoundEffect.SOUND_LUCK_UP)
+        elseif stat == "Range" then
+            sfx:Play(SoundEffect.SOUND_RANGE_UP)
+        elseif stat == "ShotSpeed" then
+            sfx:Play(SoundEffect.SOUND_SHOT_SPEED_UP)
+        elseif stat == "Speed" then
+            sfx:Play(SoundEffect.SOUND_SPEED_UP)
+            -- Possible TODO: make a tear height up voiceline???
+        end
     elseif roll <= 64 then
         -- Spawn blue spider or fly
         if math.random() < 0.5 then player:AddBlueSpider(pos) else player:AddBlueFlies(1, pos, nil) end
@@ -197,8 +211,22 @@ local function DoBadOutcome(beggar, player)
         -- Lose random stat
         local stat = GetRandomStat()
         ApplyStatNerf(player, stat)
-        game:GetHUD():ShowItemText("-" .. stat .. "!", "", false)
+        game:GetHUD():ShowItemText(stat .. " Down!", "", false)
         sfx:Play(SoundEffect.SOUND_THUMBS_DOWN)
+
+        if stat == "Damage" then
+            -- Needs damage down voiceline 
+        elseif stat == "Luck"  then
+            sfx:Play(SoundEffect.SOUND_LUCK_DOWN)
+        elseif stat == "Range" then
+            sfx:Play(SoundEffect.SOUND_RANGE_DOWN)
+        elseif stat == "ShotSpeed" then
+            sfx:Play(SoundEffect.SOUND_SHOT_SPEED_DOWN)
+        elseif stat == "Speed" then
+            sfx:Play(SoundEffect.SOUND_SPEED_DOWN)
+            -- Possible TODO: make a tear height down voiceline???
+        end
+
     elseif roll <= 40 then
         -- Take 1 heart of damage
         player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(nil), 0)
