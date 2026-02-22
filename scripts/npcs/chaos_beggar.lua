@@ -22,7 +22,7 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, mod.ChaoticBeggarInit, CHAOTIC_B
 mod.ChaosBeggarStats = mod.ChaosBeggarStats or {}
 
 local function GetRandomStat()
-    local stats = {"Damage", "Speed", "Range", "ShotSpeed", "TearHeight", "Luck"}
+    local stats = {"Damage", "Speed", "Range", "ShotSpeed", "TearHeight", "Luck", "Tears"}
     return stats[math.random(#stats)]
 end
 
@@ -42,6 +42,8 @@ local function ApplyStatBoost(player, stat)
         player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG)
     elseif stat == "Luck" then
         player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+    elseif stat == "Tears" then
+        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
     end
     player:EvaluateItems()
 end
@@ -62,6 +64,8 @@ local function ApplyStatNerf(player, stat)
         player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG)
     elseif stat == "Luck" then
         player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+    elseif stat == "Tears" then
+        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
     end
     player:EvaluateItems()
 end
@@ -80,6 +84,8 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheFlag)
         player.TearHeight = player.TearHeight - mod.ChaosBeggarStats.TearHeight
     elseif cacheFlag == CacheFlag.CACHE_LUCK and mod.ChaosBeggarStats.Luck then
         player.Luck = player.Luck + mod.ChaosBeggarStats.Luck
+    elseif cacheFlag == CacheFlag.CACHE_FIREDELAY and mod.ChaosBeggarStats.Tears then
+        player.MaxFireDelay = player.MaxFireDelay - mod.ChaosBeggarStats.Tears
     end
 end)
 
@@ -176,6 +182,8 @@ local function DoGoodOutcome(beggar, player)
             sfx:Play(SoundEffect.SOUND_SHOT_SPEED_UP)
         elseif stat == "Speed" then
             sfx:Play(SoundEffect.SOUND_SPEED_UP)
+        elseif stat == "Tears" then
+            sfx:Play(SoundEffect.SOUND_TEARS_UP)
             -- Possible TODO: make a tear height up voiceline???
         end
     elseif roll <= 64 then
@@ -224,6 +232,8 @@ local function DoBadOutcome(beggar, player)
             sfx:Play(SoundEffect.SOUND_SHOT_SPEED_DOWN)
         elseif stat == "Speed" then
             sfx:Play(SoundEffect.SOUND_SPEED_DOWN)
+        elseif stat == "Tears" then
+            sfx:Play(SoundEffect.SOUND_TEARS_DOWN)
             -- Possible TODO: make a tear height down voiceline???
         end
 
