@@ -216,7 +216,7 @@ end
 function DavidChord:NormalEffect_Challenge6(player, floor)
     local chordData = GetNormalChordData(floor)
     chordData.mantleActive = true
-    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, true)
+    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, false)
     game:GetHUD():ShowItemText("Holy Mantle Active!", "", false)
     sfx:Play(SoundEffect.SOUND_HOLY)
 end
@@ -303,7 +303,7 @@ function DavidChord:GreedEffect_Challenge0(player, floor)
     local challengeData = mod:GetGreedChallengeData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
     if not challengeData then return end
     
-    challengeData.bonusTime = (challengeData.bonusTime or 0)
+    challengeData.bonusTime = (challengeData.bonusTime or 0) + 450  -- +15 seconds at 30fps
     
     game:GetHUD():ShowItemText("+15 Seconds", "", false)
 end
@@ -312,7 +312,7 @@ end
 function DavidChord:GreedEffect_Challenge1(player, floor)
     local chordData = GetGreedChordData(floor)
     chordData.mantleActive = true
-    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, true)
+    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, false)
     game:GetHUD():ShowItemText("Holy Mantle This Room!", "", false)
 end
 
@@ -616,7 +616,7 @@ if EID then
             descObj.Description = "Already used this floor!#" .. 
                                   effectDesc .. " {{ColorGray}}(already applied){{CR}}"
         else
-            descObj.Description = effectDesc .. "#!!! Completing without using heals a broken heart"
+            descObj.Description = effectDesc .. "#Completing a challenge without using David's chord heals a broken heart"
         end
         
         return descObj

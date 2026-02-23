@@ -54,7 +54,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
         
         -- Fail if time exceeded
         if adjustedElapsed >= data.timeLimit then
-            Isaac.DebugString("[Challenge 0] Time limit exceeded!")
+            Isaac.DebugString("Time limit exceeded!")
             data.failed = true
             DavidGreedUtils.Fail(player, floor)
         end
@@ -155,6 +155,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
         if data.damageTaken then return end
         DavidGreedUtils.SetBossWavesCompleted(floor)
+        DavidGreedUtils.Complete(floor)
     end,
 })
 
@@ -259,6 +260,9 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
         if data.shopVisits <= data.maxVisits then
             DavidGreedUtils.SetBossWavesCompleted(floor)
+            DavidGreedUtils.Complete(floor)
+        else
+            DavidGreedUtils.Fail(player, floor)
         end
     end,
 })
@@ -310,6 +314,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_ACTIVES, {
 
     OnBossWavesComplete = function(player, floor)
         DavidGreedUtils.SetBossWavesCompleted(floor)
+        DavidGreedUtils.Complete(floor)
     end,
 })
 
@@ -326,12 +331,17 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
         
         -- Only applies to first floor
-        if not data.isFirstFloor then return end
+        if not data.isFirstFloor then
+            DavidGreedUtils.SetBossWavesCompleted(floor)
+            return
+        end
         
         local coins = player:GetNumCoins()
         
         if coins > 3 then
             DavidGreedUtils.Fail(player, floor)
+        else
+            DavidGreedUtils.SetBossWavesCompleted(floor)
         end
     end,
 
@@ -381,16 +391,30 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
         if not DavidGreedUtils.IsDevilWave() then return end
         
         local elapsed = DavidGreedUtils.GetDevilWaveElapsedFrames(floor)
-        if elapsed == 0 then return end 
+        if elapsed == 0 then return end
         
         if elapsed % 30 == 0 then
-            Isaac.DebugString(string.format("[Challenge 6] Devil wave timer: %.1fs", elapsed / 30))
+            Isaac.DebugString(string.format("Devil wave timer: %.1fs", elapsed / 30))
         end
-        -- Apply bonus time from David's Chord
+
         local adjustedElapsed = elapsed - data.bonusTime
-        
+
+        -- Devil wave time check
+        if game:GetRoom():IsClear() then
+            if adjustedElapsed < data.timeLimit then
+                Isaac.DebugString(string.format("COMPLETE - %.1fs", adjustedElapsed / 30))
+                data.completed = true
+                DavidGreedUtils.Complete(floor)
+            else
+                Isaac.DebugString("Cleared but too slow!")
+                data.failed = true
+                DavidGreedUtils.Fail(player, floor)
+            end
+            return
+        end
+
         if adjustedElapsed >= data.timeLimit then
-            Isaac.DebugString("[Challenge 6] Time limit exceeded!")
+            Isaac.DebugString("Time limit exceeded!")
             data.failed = true
             DavidGreedUtils.Fail(player, floor)
         end
@@ -398,23 +422,8 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
 
     OnBossWavesComplete = function(player, floor)
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_DEVIL_WAVE)
-        
         if data.failed or data.completed then return end
-        
         DavidGreedUtils.SetBossWavesCompleted(floor)
-        
-        local elapsed = DavidGreedUtils.GetDevilWaveElapsedFrames(floor)
-        local adjustedElapsed = elapsed - data.bonusTime
-        
-        if adjustedElapsed < data.timeLimit then
-            Isaac.DebugString(string.format("[Challenge 6] COMPLETE - %.1fs", adjustedElapsed / 30))
-            data.completed = true
-            DavidGreedUtils.Complete(floor)
-        else
-            Isaac.DebugString("[Challenge 6] Too slow!")
-            data.failed = true
-            DavidGreedUtils.Fail(player, floor)
-        end
     end,
 
     OnRender = function(player, floor)
@@ -445,8 +454,5 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
-        if not data then return end
-        data.previousCoins = player:GetNumCoins()
     end,
 })

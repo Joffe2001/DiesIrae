@@ -156,11 +156,11 @@ local function GetUsedGreedChallenges()
 end
 
 local function IsChallengeUsed(variant)
-    return GetUsedGreedChallenges()[variant] == true
+    return GetUsedGreedChallenges()["v" .. tostring(variant)] == true
 end
 
 local function MarkChallengeAsUsed(variant)
-    GetUsedGreedChallenges()[variant] = true
+    GetUsedGreedChallenges()["v" .. tostring(variant)] = true
 end
 
 local bossWavesCompletedFloors = {}
@@ -501,8 +501,11 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     SafeCallHandler("OnLevelSelect", variant, player, floor)
 
     local freshState = GetGreedFloorState(floor)
-    if freshState and not freshState.failed and not freshState.completed then
+    if not freshState or freshState.failed or freshState.completed then return end
+    if WereBossWavesCompleted(floor) then
         mod:CompleteGreedChallenge(floor)
+    else
+        mod:CancelGreedChallenge(player, floor)
     end
 end)
 
