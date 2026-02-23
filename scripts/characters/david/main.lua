@@ -1,14 +1,14 @@
 local mod = DiesIraeMod
 local David = {}
 
-include("scripts/characters/david_challenges/david_challenges_utils")
-include("scripts/characters/david_challenges/david_challenges")
-include("scripts/characters/david_challenges/david_challenges_utils_greed")
-include("scripts/characters/david_challenges/david_challenges_greed")
+require("scripts/characters/david/david_challenges/david_challenges_utils")
+require("scripts/characters/david/david_challenges/david_challenges")
+require("scripts/characters/david/david_challenges/david_challenges_utils_greed")
+require("scripts/characters/david/david_challenges/david_challenges_greed")
 
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-        and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.Players.David) then 
+        and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID) then 
         return 
     end
     
@@ -30,7 +30,7 @@ mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, David.TearGFXApply)
 
 
 function David:OnPlayerInit(player)
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     player:AddCollectible(mod.Items.SlingShot)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
@@ -42,7 +42,7 @@ local TEAR_DELAY_MODIFIER = 1.3
 local LUCK_MODIFIER = 3
 
 function David:OnEvaluateCache(player, flag)
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     if flag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + DAMAGE_MODIFIER
@@ -64,7 +64,7 @@ function David:OnEntityTakeDamage(entity, amount, flags, source)
     local player = source.Entity and source.Entity:ToPlayer()
     if not player then return end
 
-    if player:GetPlayerType() == mod.Players.David
+    if player:GetPlayerType() == mod.PlayerType.PLAYER_DAVID
        and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
         
         local npc = entity:ToNPC()
@@ -77,7 +77,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, David.OnEntityTakeDamage)
 
 -- David is immune to the Labyrinth curse
 function David:OnCurseEval(curses)
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     
     if curses & LevelCurse.CURSE_OF_LABYRINTH > 0 then
         return curses ~ LevelCurse.CURSE_OF_LABYRINTH
@@ -88,7 +88,7 @@ mod:AddCallback(ModCallbacks.MC_POST_CURSE_EVAL, David.OnCurseEval)
 -- Birthright chords boost
 function David:OnCardSpawn(pickup)
     if pickup.FrameCount ~= 0 then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     if pickup.Variant ~= PickupVariant.PICKUP_TAROTCARD then return end
     
     local player = Isaac.GetPlayer(0)
@@ -113,10 +113,10 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, David.OnCardSpawn)
 ------------------------------------------------------------
 if EID then
     local icons = Sprite("gfx/ui/eid/icon_eid.anm2", true)
-    EID:addIcon("Player"..mod.Players.David, "David", 0, 16, 16, 0, 0, icons)
+    EID:addIcon("Player"..mod.PlayerType.PLAYER_DAVID, "David", 0, 16, 16, 0, 0, icons)
     
     EID:addBirthright(
-        mod.Players.David, 
+        mod.PlayerType.PLAYER_DAVID, 
         "David deals double damage to bosses.#David's Chord spawn rate greatly increased.", 
         "David"
     )
