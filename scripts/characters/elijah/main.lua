@@ -3,6 +3,8 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
+mod.PlayerType.PLAYER_ELIJAH = Isaac.GetPlayerTypeByName("Elijah", false)
+
 ---@class Utils
 local utils = include("scripts.core.utils")
 
@@ -27,7 +29,7 @@ WILL_LUCK_UP = 0.1
 ---
 
 ---@type PlayerType
-local elijah = mod.Players.Elijah
+local elijah = mod.PlayerType.PLAYER_ELIJAH
 
 ---@type PickupVariant
 local elijahWill = mod.Entities.PICKUP_ElijahsWill.Var
@@ -530,8 +532,8 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, elijahFuncs.PostSlotInitBlacklis
 --Birthright
 if EID then
     local icons = Sprite("gfx/ui/eid/icon_eid.anm2", true)
-    EID:addIcon("Player"..mod.Players.Elijah, "Elijah", 0, 16, 16, 0, 0, icons)
-    EID:addBirthright(mod.Players.Elijah, "Wills can become stronger and give permanent stat boosts.", "Elijah")
+    EID:addIcon("Player"..mod.PlayerType.PLAYER_ELIJAH, "Elijah", 0, 16, 16, 0, 0, icons)
+    EID:addBirthright(mod.PlayerType.PLAYER_ELIJAH, "Wills can become stronger and give permanent stat boosts.", "Elijah")
 end
 
 --Chaos
@@ -545,13 +547,13 @@ if EID then
             if descObj.ObjSubType ~= CollectibleType.COLLECTIBLE_CHAOS then return false end
 
             local player = EID:ClosestPlayerTo(descObj.Entity)
-            return player and player:GetPlayerType() == mod.Players.Elijah
+            return player and player:GetPlayerType() == mod.PlayerType.PLAYER_ELIJAH
         end,
 
         function(descObj)
             descObj.Description =
                 descObj.Description ..
-                "#{{Player" .. mod.Players.Elijah .. "}}{{ColorRainbow}} Shuffle all beggars as well{{CR}}"
+                "#{{Player" .. mod.PlayerType.PLAYER_ELIJAH .. "}}{{ColorRainbow}} Shuffle all beggars as well{{CR}}"
             return descObj
         end
     )
@@ -568,13 +570,13 @@ if EID then
             if descObj.ObjSubType ~= CollectibleType.COLLECTIBLE_RESTOCK then return false end
 
             local player = EID:ClosestPlayerTo(descObj.Entity)
-            return player and player:GetPlayerType() == mod.Players.Elijah
+            return player and player:GetPlayerType() == mod.PlayerType.PLAYER_ELIJAH
         end,
 
         function(descObj)
             descObj.Description =
                 descObj.Description ..
-                "#{{Player" .. mod.Players.Elijah .. "}}{{ColorRainbow}} Shops beggars won't teleport.{{CR}}"
+                "#{{Player" .. mod.PlayerType.PLAYER_ELIJAH .. "}}{{ColorRainbow}} Shops beggars won't teleport.{{CR}}"
             return descObj
         end
     )
@@ -592,13 +594,13 @@ if EID then
             if descObj.ObjSubType ~= CollectibleType.COLLECTIBLE_LUCKY_FOOT then return false end
 
             local player = EID:ClosestPlayerTo(descObj.Entity)
-            return player and player:GetPlayerType() == mod.Players.Elijah
+            return player and player:GetPlayerType() == mod.PlayerType.PLAYER_ELIJAH
         end,
 
         function(descObj)
             descObj.Description =
                 descObj.Description ..
-                "#{{Player" .. mod.Players.Elijah .. "}}{{ColorRainbow}} Beggars have a higher chnce to give rewards{{CR}}"
+                "#{{Player" .. mod.PlayerType.PLAYER_ELIJAH .. "}}{{ColorRainbow}} Beggars have a higher chnce to give rewards{{CR}}"
             return descObj
         end
     )
