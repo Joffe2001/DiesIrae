@@ -449,6 +449,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     if pickup.Variant == PickupVariant.PICKUP_SHOPITEM then
         pickup.Price = 0
         pickup.AutoUpdatePrice = false
+        pickup:GetData().DavidChordFreeItem = true
         chordData.nextShopItemFree = false  
         Isaac.DebugString("[DavidChord] Made shop item free")
     end

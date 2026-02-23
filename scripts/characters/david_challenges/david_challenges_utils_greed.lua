@@ -32,7 +32,8 @@ local function IsBossWave()
 end
 
 local function IsDevilWave()
-    return GetCurrentWave() == GetDevilWave()
+    local wave = GetCurrentWave()
+    return wave == GetDevilWave() and not IsBossWave()
 end
 
 ------------------------------------------------------------
@@ -380,7 +381,7 @@ function SpawnGreedChallengeBackdrop(variant)
         EntityType.ENTITY_EFFECT,
         EffectVariant.POOF01,
         0,
-        room:GetCenterPos() + Vector(-15, -80),
+        room:GetCenterPos() + Vector(-15, -40),
         Vector.Zero,
         nil
     )
@@ -627,12 +628,12 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         bossWavesCompletedFloors = {}
         waveTimers = {}
         lastTrackedWave = -1
-    end
 
-    if PlayerManager.AnyoneIsPlayerType(mod.Players.David) then
-        local floor = game:GetLevel():GetStage()
-        if floor == 1 then
-            mod:AutoStartGreedChallenge(floor)
+        if PlayerManager.AnyoneIsPlayerType(mod.Players.David) then
+            local floor = game:GetLevel():GetStage()
+            if floor == 1 and not GetGreedFloorState(floor) then
+                mod:AutoStartGreedChallenge(floor)
+            end
         end
     end
 end)

@@ -245,32 +245,8 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
             or variant == PickupVariant.PICKUP_BONE_HEART
             or variant == PickupVariant.PICKUP_ROTTEN_HEART then
             
-            if pickup:IsShopItem() and pickup.Price > 0 then
-                return
-            end
-            
-            local canCollect = false
-            
-            if variant == PickupVariant.PICKUP_HEART then
-
-                if player:GetHearts() < player:GetMaxHearts() or player:GetMaxHearts() < player:GetHeartLimit() then
-                    canCollect = true
-                end
-            elseif variant == PickupVariant.PICKUP_SOUL or variant == PickupVariant.PICKUP_BLACK_HEART then
-                if player:GetSoulHearts() < player:GetEffectiveMaxHearts() - player:GetHearts() then
-                    canCollect = true
-                end
-            elseif variant == PickupVariant.PICKUP_ETERNAL_HEART then
-                -- Eternal hearts can always be collected
-                canCollect = true
-            elseif variant == PickupVariant.PICKUP_GOLDEN_HEART or variant == PickupVariant.PICKUP_BONE_HEART or variant == PickupVariant.PICKUP_ROTTEN_HEART then
-                canCollect = true
-            end
-            
-            if canCollect then
-                DavidUtils.Fail(player, floor)
-                return false
-            end
+            DavidUtils.Fail(player, floor)
+            return false
         end
     end,
 
@@ -278,7 +254,6 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
         Isaac.RenderText("Don't Pick Up Hearts!", 80, 20, 1, 0.3, 0.3, 1)
     end,
 })
-
 
 ------------------------------------------------------------
 -- CHALLENGE 4: NO SHOOT DELAY 
@@ -534,6 +509,7 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
                 
                 -- Skip devil rooms and ultra secret rooms
                 if roomType ~= RoomType.ROOM_DEVIL and roomType ~= RoomType.ROOM_ULTRA_SECRET then
+                    -- We'll track pedestals as we encounter them
                 end
             end
         end
@@ -601,6 +577,9 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
     
     if variant == mod.CHALLENGES.TAKE_ALL_PEDESTALS then
         local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+        data.pedestalsOnFloor = {}
+        data.pedestalsTaken = {}
+        data.rerolled = false
         local key = tostring(pickup.InitSeed)
         local room = game:GetRoom()
         local roomType = room:GetType()
@@ -613,18 +592,17 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
         -- Track if pedestal was taken
         if data.pedestalsOnFloor[key] then
             if pickup:IsShopItem() then
-                -- Only count as taken if actually purchased (price = 0)
                 if pickup.Price == 0 and not pickup:CanReroll() then
                     data.pedestalsOnFloor[key].taken = true
                 end
             else
-                -- Free pedestal - check if it's gone
+                -- Free pedestal 
                 if not pickup:CanReroll() then
                     data.pedestalsOnFloor[key].taken = true
                 end
             end
             
-            -- Detect reroll (subType changed)
+            -- Detect reroll 
             if data.pedestalsOnFloor[key].subType ~= pickup.SubType then
                 data.rerolled = true
                 local player = Isaac.GetPlayer(0)

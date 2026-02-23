@@ -45,16 +45,16 @@
 	<achievement name="Personal Beggar" text=''           gfx="achievement_personalbeggar.png"     gfxback="paper_beggar.png"/>
 <!--Passive items Unlocks-->
 	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
-	<achievement name="Michelin Star Reward" text=''      gfx="michelinstar.png"                   gfxback="paper_music.png"/>
+	<achievement name="Michelin Star Reward" text=''      gfx="achievement_michelinstar.png"       gfxback="paper_music.png"/>
 	<achievement name="Ultra Secret Map" text=''          gfx="ultrasecretmap.png"                 gfxback="paper.png"/>
-	<achievement name="Creatine Overdose" text=''         gfx="creatingoverdose.png"               gfxback="paper.png"/>
-	<achievement name="PTSD" text=''                      gfx="PTSD.png"                           gfxback="paper.png"/>
+	<achievement name="Creatine Overdose" text=''         gfx="achievement_creatingoverdose.png"   gfxback="paper.png"/>
+	<achievement name="PTSD" text=''                      gfx="achievement_ptsd.png"               gfxback="paper.png"/>
 	<achievement name="Stab Wound" text=''                gfx="StabWound.png"                      gfxback="paper.png"/>
 	<achievement name="Red Bulb" text=''                  gfx=""                                   gfxback="paper.png"/>
-	<achievement name="Flowering Skull" text=''           gfx="floweringskull.png"                 gfxback="paper.png"/>
+	<achievement name="Flowering Skull" text=''           gfx="achievement_floweringskull.png"     gfxback="paper.png"/>
 	<achievement name="Echo" text=''                      gfx="echo.png"                           gfxback="paper.png"/>
 <!--Trinkets Unlocks-->
-	<achievement name="Gaga" text=''                      gfx="gaga.png"                           gfxback="paper_music.png"/>
+	<achievement name="Gaga" text=''                      gfx="achievement_gaga.png"               gfxback="paper_music.png"/>
 <!--Secret Unlocks-->
 	<achievement name="Cheater" text=''                   gfx="cheater.png"                        gfxback="paper.png" />
 	<achievement name="Speedrunner1" text=''              gfx="speedrun1.png"                      gfxback="paper.png" />

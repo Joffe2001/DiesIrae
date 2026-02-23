@@ -145,6 +145,12 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
             80, 20, color[1], color[2], color[3], color[4]
         )
     end,
+
+    OnBossWavesComplete = function(player, floor)
+        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        if data.damageTaken then return end
+        DavidGreedUtils.SetBossWavesCompleted(floor)
+    end,
 })
 
 ------------------------------------------------------------
@@ -192,6 +198,12 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LIMITED_SPENDING, {
             80, 20, color[1], color[2], color[3], color[4]
         )
     end,
+
+    OnNewRoom = function(player, floor)
+        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        if not data then return end
+        data.previousCoins = player:GetNumCoins()
+    end,
 })
 
 ------------------------------------------------------------
@@ -236,6 +248,13 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
             string.format("%s", statusText),
             80, 20, color[1], color[2], color[3], color[4]
         )
+    end,
+
+    OnBossWavesComplete = function(player, floor)
+        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
+        if data.shopVisits <= data.maxVisits then
+            DavidGreedUtils.SetBossWavesCompleted(floor)
+        end
     end,
 })
 
@@ -283,6 +302,10 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_ACTIVES, {
             80, 20, 1, 1, 0.3, 1
         )
     end,
+
+    OnBossWavesComplete = function(player, floor)
+        DavidGreedUtils.SetBossWavesCompleted(floor)
+    end,
 })
 
 ------------------------------------------------------------
@@ -304,8 +327,6 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
         
         if coins > 3 then
             DavidGreedUtils.Fail(player, floor)
-        else
-            DavidGreedUtils.Complete(floor)
         end
     end,
 
@@ -412,5 +433,11 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
                 80, 20, color[1], color[2], color[3], color[4]
             )
         end
+    end,
+
+    OnNewRoom = function(player, floor)
+        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        if not data then return end
+        data.previousCoins = player:GetNumCoins()
     end,
 })
