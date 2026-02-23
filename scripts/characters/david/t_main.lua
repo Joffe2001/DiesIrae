@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local TDavid = {}
 
+mod.PlayerType.PLAYER_DAVID_B = Isaac.GetPlayerTypeByName("David", true)
+
 local DAMAGE_MODIFIER = -1.5
 local RIGHT_EYE_DAMAGE_BOOST = 1
 local SPEED_MODIFIER = 0.2
@@ -9,13 +11,13 @@ local LUCK_MODIFIER = -1
 
 function TDavid:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer() 
-        and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.Players.TDavid) then return end
+        and tear.SpawnerEntity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID_B) then return end
     tear:GetSprite():ReplaceSpritesheet(0, "gfx/proj/music_tears.png", true)
 end
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, TDavid.TearGFXApply)
 
 function TDavid:OnEvaluateCache(player, flag)
-    if player:GetPlayerType() ~= mod.Players.TDavid then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID_B then return end
 
     if flag == CacheFlag.CACHE_DAMAGE then
         player.Damage = player.Damage + DAMAGE_MODIFIER
@@ -32,7 +34,7 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, TDavid.OnEvaluateCache)
 function TDavid:OnFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
-    if player:GetPlayerType() == mod.Players.TDavid then
+    if player:GetPlayerType() == mod.PlayerType.PLAYER_DAVID_B then
         local displacement = player:GetTearDisplacement()
         if displacement == 1 then
             tear.CollisionDamage = tear.CollisionDamage + RIGHT_EYE_DAMAGE_BOOST
