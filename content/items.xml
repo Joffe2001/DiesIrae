@@ -90,14 +90,14 @@
     <familiar id="308" name="Pastor Bum" 			   gfx="pastorbum.png"	      	       description="God I think I've sinned"					  quality="3" cache="familiars" tags="baby summonable monstermanual"          achievement="Pastor Bum" />
 
     <!-- Testing 
-    <passive id="300" name="Path Of The Righteous"     gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />
+    <passive id="300" name="Path of the Righteous"     gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />
     <passive id="302" name="Skull Crasher"             gfx="item_placeholder.png"          description="You are not safe from me now!!"             quality="2" />
     <passive id="303" name="Dad's Dumbbell"            gfx="item_placeholder.png"          description="I get knocked down, but I get up again"     quality="2" />
     <passive id="304" name="Traveler Logbook"          gfx="item_placeholder.png"          description="I still haven't found what I'm looking for" quality="2" />
     <passive id="305" name="Tourist Map"               gfx="item_placeholder.png"          description="I wanna buy it!"                            quality="3" />
     <passive id="306" name="Eye Sacrifice"             gfx="item_placeholder.png"          description="Suddenly I see"                             quality="3" tags="offensive" />
     <passive id="307" name="Conscience"                gfx="item_placeholder.png"          description="I feel... guilty? What is this?"            quality="2" />
-    <passive id="308" name="Back In Anger"             gfx="item_placeholder.png"          description="Somebody's behind"                          quality="1" />
+    <passive id="308" name="Back in Anger"             gfx="item_placeholder.png"          description="Somebody's behind"                          quality="1" />
     <passive id="312" name="Silent Echo"               gfx="item_placeholder.png"          description="Sometimes I full powerful"                  quality="2"/>
     <passive id="313" name="Photon Link"               gfx="item_placeholder.png"          description="Zap!!"                                      quality="2"/>
     <passive id="314" name="Close Call!"               gfx="item_placeholder.png"          description="Oh man, that was close!"                    quality="2"/>
