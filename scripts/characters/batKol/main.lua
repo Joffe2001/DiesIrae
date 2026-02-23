@@ -1,27 +1,29 @@
 local mod = DiesIraeMod
 local game = Game()
+local batKol = {}
 
+mod.PlayerType.PLAYER_BAT_KOL = Isaac.GetPlayerTypeByName("Bat Kol", false)
 
-mod.BatKolBaseTearRate = 2.73
-mod.BatKolMaxGhosts = 6
-mod.BatKolStartGhosts = 2
-mod.BatKolGhosts = {} 
+batKol.BaseTearRate = 2.73
+batKol.MaxGhosts = 6
+batKol.StartGhosts = 2
+batKol.Ghosts = {} 
 
 local function GetDesiredGhostCount(player)
     local tears = player.MaxFireDelay
     local tearRate = 30 / (tears + 1)
-    local tearUps = math.floor(tearRate - mod.BatKolBaseTearRate)
-    local count = mod.BatKolStartGhosts + math.max(0, tearUps)
-    return math.min(mod.BatKolMaxGhosts, math.max(mod.BatKolStartGhosts, count))
+    local tearUps = math.floor(tearRate - batKol.BaseTearRate)
+    local count = batKol.StartGhosts + math.max(0, tearUps)
+    return math.min(batKol.MaxGhosts, math.max(batKol.StartGhosts, count))
 end
 
-function mod:BatKolPlayerUpdate(player)
-    if player:GetPlayerType() ~= mod.Players.BatKol then return end
+function batKol:BatKolPlayerUpdate(player)
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_BAT_KOL then return end
     if player:IsCoopGhost() then return end
 
     local id = player.InitSeed
     local desiredCount = GetDesiredGhostCount(player)
-    local ghosts = mod.BatKolGhosts[id] or {}
+    local ghosts = batKol.Ghosts[id] or {}
 
     while #ghosts < desiredCount do
         local ghost = Isaac.Spawn(EntityType.ENTITY_EFFECT, mod.EntityVariant.BatKolGhost, 0, player.Position, Vector.Zero, player)
@@ -37,17 +39,17 @@ function mod:BatKolPlayerUpdate(player)
         if g and g:Exists() then g:Remove() end
     end
 
-    mod.BatKolGhosts[id] = ghosts
+    batKol.Ghosts[id] = ghosts
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.BatKolPlayerUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, batKol.PlayerUpdate)
 
 
-function mod:BatKolGhostUpdate(ghost)
+function batKol:BatKolGhostUpdate(ghost)
     local data = ghost:GetData()
     local player = data.Owner
     if not player or not player:Exists() then ghost:Remove(); return end
 
-    local ghosts = mod.BatKolGhosts[player.InitSeed] or {}
+    local ghosts = batKol.Ghosts[player.InitSeed] or {}
     local idx = 1
     for i, g in ipairs(ghosts) do
         if g.InitSeed == ghost.InitSeed then idx = i break end
@@ -88,15 +90,15 @@ function mod:BatKolGhostUpdate(ghost)
         data.Loose = false
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, mod.BatKolGhostUpdate, mod.EntityVariant.BatKolGhost)
+mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, batKol.GhostUpdate, mod.EntityVariant.BatKolGhost)
 
-function mod:BatKolCleanup()
-    for _, ghosts in pairs(mod.BatKolGhosts) do
+function batKol:BatKolCleanup()
+    for _, ghosts in pairs(batKol.Ghosts) do
         for _, g in ipairs(ghosts) do
             if g and g:Exists() then g:Remove() end
         end
     end
-    mod.BatKolGhosts = {}
+    batKol.Ghosts = {}
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.BatKolCleanup)
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.BatKolCleanup)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, batKol.Cleanup)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, batKol.Cleanup)
