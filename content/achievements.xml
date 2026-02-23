@@ -27,15 +27,14 @@
 	<achievement name="Scammer Bum" text=''               gfx="achievement_scammerbum.png"         gfxback="paper_beggar.png"/>
 	<achievement name="Fiend Deal" text=''                gfx="achievement_fienddeal.png"          gfxback="paper_beggar.png"/>
 	<achievement name="Red Bum" text=''                   gfx="redbum.png"                         gfxback="paper_beggar.png"/>
-	<achievement name="Scammer Bum" text=''               gfx="scammerbum.png"                     gfxback="paper_beggar.png"/>
 	<achievement name="Rune Bum" text=''                  gfx="runebum.png"                        gfxback="paper_beggar.png"/>
 	<achievement name="Fair Bum" text=''                  gfx="fairbum.png"                        gfxback="paper_beggar.png"/>
-	<achievement name="Tarot Bum" text=''                 gfx="tarotbum.png"                       gfxback="paper_beggar.png"/>
-	<achievement name="Pill Bum" text=''                  gfx="pillbum.png"                        gfxback="paper_beggar.png"/>
+	<achievement name="Tarot Bum" text=''                 gfx="achievement_tarotbum.png"           gfxback="paper_beggar.png"/>
+	<achievement name="Pill Bum" text=''                  gfx="achievement_pillbum.png"            gfxback="paper_beggar.png"/>
 	<achievement name="Pastor Bum" text=''                gfx="pastorbum.png"                      gfxback="paper_beggar.png"/>
-	<achievement name="Junk Yard Seller" text=''          gfx="junkyardseller.png"                 gfxback="paper_beggar.png"/>
+	<achievement name="Junk Yard Seller" text=''          gfx="achievement_jys.png"                gfxback="paper_beggar.png"/>
 	<achievement name="Goldsmith Beggar" text=''          gfx="goldsmith.png"                      gfxback="paper_beggar.png"/>
-	<achievement name="Familiars Beggar" text=''          gfx="familiarsbeggar.png"                gfxback="paper_beggar.png"/>
+	<achievement name="Familiars Beggar" text=''          gfx="achievement_familiarsbeggar.png"    gfxback="paper_beggar.png"/>
 	<achievement name="Sacrifice Table" text=''           gfx="achievement_sacrificetable.png"     gfxback="paper_beggar.png"/>
 	<achievement name="Chaos Beggar" text=''              gfx="chaosbeggar.png"                    gfxback="paper_beggar.png"/>
 <!--Active items Unlocks-->
@@ -47,12 +46,12 @@
 	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
 	<achievement name="Michelin Star Reward" text=''      gfx="achievement_michelinstar.png"       gfxback="paper_music.png"/>
 	<achievement name="Ultra Secret Map" text=''          gfx="ultrasecretmap.png"                 gfxback="paper.png"/>
-	<achievement name="Creatine Overdose" text=''         gfx="achievement_creatingoverdose.png"   gfxback="paper.png"/>
+	<achievement name="Creatine Overdose" text=''         gfx="achievement_creatineoverdose.png"   gfxback="paper.png"/>
 	<achievement name="PTSD" text=''                      gfx="achievement_ptsd.png"               gfxback="paper.png"/>
 	<achievement name="Stab Wound" text=''                gfx="StabWound.png"                      gfxback="paper.png"/>
 	<achievement name="Red Bulb" text=''                  gfx=""                                   gfxback="paper.png"/>
 	<achievement name="Flowering Skull" text=''           gfx="achievement_floweringskull.png"     gfxback="paper.png"/>
-	<achievement name="Echo" text=''                      gfx="echo.png"                           gfxback="paper.png"/>
+	<achievement name="Echo" text=''                      gfx="achievement_echo.png"               gfxback="paper.png"/>
 <!--Trinkets Unlocks-->
 	<achievement name="Gaga" text=''                      gfx="achievement_gaga.png"               gfxback="paper_music.png"/>
 <!--Secret Unlocks-->

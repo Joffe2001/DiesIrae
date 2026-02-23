@@ -108,7 +108,7 @@ end
 -- NORMAL MODE: CHALLENGE EFFECTS
 ------------------------------------------------------------
 
--- Challenge 0: Allow active use in this room
+-- Allow active use in this room
 function DavidChord:NormalEffect_Challenge0(player, floor)
     local chordData = GetNormalChordData(floor)
     chordData.effect0Data = {
@@ -278,7 +278,15 @@ function DavidChord:UseCardGreed(player, floor)
     elseif variant == mod.GREED_CHALLENGES.NO_ACTIVES then
         DavidChord:GreedEffect_Challenge4(player, floor)
     elseif variant == mod.GREED_CHALLENGES.LOW_COINS then
-        game:GetHUD():ShowItemText("No Effect (Floor 1 Only)", "", false)
+        Isaac.Spawn(
+            EntityType.ENTITY_PICKUP,
+            PickupVariant.PICKUP_COIN,
+            CoinSubType.COIN_NICKEL,
+            player.Position + Vector(0, 30),
+            Vector.Zero,
+            player
+        )
+        game:GetHUD():ShowItemText("Nickel!", "", false)
     elseif variant == mod.GREED_CHALLENGES.FAST_DEVIL_WAVE then
         DavidChord:GreedEffect_Challenge6(player, floor)
     end
@@ -434,7 +442,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 ------------------------------------------------------------
--- GREED MODE: Free Shop Item (Challenge 2)
+-- GREED MODE: Free Shop Item 
 ------------------------------------------------------------
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     if not IsGreedMode() then return end
@@ -468,7 +476,8 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     if IsGreedMode() then
         local floorState = save.GreedFloorChallengeState and save.GreedFloorChallengeState["floor_" .. tostring(floor)]
         
-        if floorState and floorState.completed then
+        if floorState and floorState.completed and not floorState.healUsed then
+            floorState.healUsed = true 
             if player:GetBrokenHearts() > 0 then
                 player:AddBrokenHearts(-1)
                 sfx:Play(SoundEffect.SOUND_VAMP_GULP)
@@ -503,7 +512,7 @@ function DavidChord:GetReducedDelay(floor)
     return 60
 end
 
--- Get timer adjustment for frozen time (Challenge 1)
+-- Get timer adjustment for frozen time 
 function DavidChord:GetTimerAdjustment(floor)
     if IsGreedMode() then return 0 end
     
@@ -544,7 +553,7 @@ if EID then
         [2] = "{{Coin}} Makes the next shop item free",
         [3] = "Spawns a quality 1-2 item pedestal",
         [4] = "Allows you to use your active item once",
-        [5] = "No effect (Floor 1 only challenge)",
+        [5] = "Spawn a nickel",
         [6] = "Adds 15 seconds to the devil wave timer",
         [7] = "No special effect",
     }

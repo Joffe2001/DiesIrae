@@ -14,7 +14,7 @@ mod.GREED_CHALLENGES = {
     LIMITED_SPENDING = 2,  -- Don't spend more than 15 pennies
     NO_SHOP          = 3,  -- Can visit shop only once
     NO_ACTIVES       = 4,  -- Don't use actives/consumables
-    LOW_COINS        = 5,  -- First floor: end with 3 coins or less
+    LOW_COINS        = 5,  -- End with 3 coins or less
     FAST_DEVIL_WAVE  = 6,  -- Beat devil wave in under 45 seconds
 }
 
@@ -121,6 +121,11 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
 
     OnPlayerDamage = function(player, floor, amount, flags, source)
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        
+        -- Ignore spikes
+        if flags & DamageFlag.DAMAGE_SPIKES > 0 then return end
+        -- Ignore curse room damage
+        if flags & DamageFlag.DAMAGE_CURSED > 0 then return end
         
         local chordData = GetChordData(floor)
         if chordData and chordData.mantleActive then
@@ -350,6 +355,10 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
             string.format("F1: Coins %d (≤3) [%s]", coins, statusText),
             80, 20, color[1], color[2], color[3], color[4]
         )
+    end,
+
+    OnBossWavesComplete = function(player, floor)
+        DavidGreedUtils.SetBossWavesCompleted(floor)
     end,
 })
 
