@@ -244,7 +244,7 @@ end
 
 function mod:GetActiveGreedChallengeState()
     local player = Isaac.GetPlayer(0)
-    if not player or player:GetPlayerType() ~= mod.Players.David then
+    if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then
         return nil, nil, nil
     end
 
@@ -431,7 +431,7 @@ end
 -- REWARD SPAWNING
 ------------------------------------------------------------
 local function TrySpawnGreedChallengeReward(player)
-    if not player or player:GetPlayerType() ~= mod.Players.David then return end
+    if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     local level        = game:GetLevel()
     local currentFloor = level:GetStage()
@@ -450,7 +450,7 @@ local function TrySpawnGreedChallengeReward(player)
                 Isaac.Spawn(
                     EntityType.ENTITY_PICKUP,
                     PickupVariant.PICKUP_COLLECTIBLE,
-                    mod.Items.HarpString,
+                    mod.CollectibleType.COLLECTIBLE_HARP_STRING,
                     game:GetRoom():GetCenterPos() + Vector(0, 40),
                     Vector.Zero,
                     player
@@ -473,7 +473,7 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     if not game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
 
     local floor = game:GetLevel():GetStage()
 
@@ -515,7 +515,7 @@ end)
 
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if not game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
 
     local floor = game:GetLevel():GetStage()
     UpdateRoomClearTimers(floor)
@@ -534,7 +534,7 @@ end)
 if ModCallbacks.MC_POST_GREED_MODE_WAVE then
     mod:AddCallback(ModCallbacks.MC_POST_GREED_MODE_WAVE, function(_, newWave)
         if not game:IsGreedMode() then return end
-        if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+        if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
 
         local floor      = game:GetLevel():GetStage()
         local timer      = GetWaveTimer(floor)
@@ -557,7 +557,7 @@ else
     local lastWaveByFloor = {}
     mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
         if not game:IsGreedMode() then return end
-        if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+        if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
 
         local floor       = game:GetLevel():GetStage()
         local currentWave = GetCurrentWave()
@@ -597,25 +597,25 @@ end)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source)
     if not game:IsGreedMode() then return end
     local state, floor, variant = mod:GetActiveGreedChallengeState()
-    if state and entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.Players.David then
+    if state and entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID then
         SafeCallHandler("OnPlayerDamage", variant, entity:ToPlayer(), floor, amount, flags, source)
     end
 end)
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, _, player)
-    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.Players.David then return end
+    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     local state, floor, variant = mod:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUseItem", variant, player, floor, itemID) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player)
-    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.Players.David then return end
+    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     local state, floor, variant = mod:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUseCard", variant, player, floor, cardID) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player)
-    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.Players.David then return end
+    if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     local state, floor, variant = mod:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUsePill", variant, player, floor, pillEffect) end
 end)
@@ -649,7 +649,7 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         bossWavesCompletedFloors      = {}
         waveTimers                    = {}
 
-        if PlayerManager.AnyoneIsPlayerType(mod.Players.David) then
+        if PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then
             local floor = game:GetLevel():GetStage()
             if floor == 1 and not GetGreedFloorState(floor) then
                 mod:AutoStartGreedChallenge(floor)
