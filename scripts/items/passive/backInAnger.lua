@@ -49,5 +49,14 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER)
 
 if EID then
-    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER, "Dad's Playlist")
+   EID:addCollectible(mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER, {
+        en_us = { 
+            "Tears are fired from your bag (based on moving)",
+            "↑ +4 Damage"
+        },
+        ru = { 
+            "Стрельба сзади (зависит от направления движения)",
+            "↑ +4 Урона"
+        },
+    })
 end
