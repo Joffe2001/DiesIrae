@@ -6,7 +6,7 @@ local mimicMemory = {}
 mod.CollectibleType.COLLECTIBLE_MIMIC_MEMORY = Isaac.GetItemIdByName("Mimic Memory")
 
 function mimicMemory:PostPlayerUpdate_MimicMemory(player)
-    if not player:HasCollectible(mod.Items.MimicMemory) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MIMIC_MEMORY) then return end
 
     local data = player:GetData()
     data.LastCollectibles = data.LastCollectibles or {}

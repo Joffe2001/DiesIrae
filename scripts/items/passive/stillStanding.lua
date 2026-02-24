@@ -1,6 +1,7 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local stillStanding = {}
 
 mod.CollectibleType.COLLECTIBLE_STILL_STANDING = Isaac.GetItemIdByName("Still Standing")
 
@@ -8,7 +9,7 @@ local DAMAGE_STEP = 0.2
 local STAND_INTERVAL = 30
 local DECAY_RATE = 0.5
 
-function mod:StillStanding_Update(player)
+function stillStanding:StillStanding_Update(player)
     if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_STILL_STANDING) then return end
 
     local data = player:GetData()
@@ -40,9 +41,9 @@ function mod:StillStanding_Update(player)
 
     data.lastPos = player.Position
 end
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.StillStanding_Update)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, stillStanding.StillStanding_Update)
 
-function mod:StillStanding_EvaluateCache(player, cacheFlag)
+function stillStanding:StillStanding_EvaluateCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_DAMAGE and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_STILL_STANDING) then
         local data = player:GetData()
         if data.damageBonus then
@@ -50,4 +51,4 @@ function mod:StillStanding_EvaluateCache(player, cacheFlag)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.StillStanding_EvaluateCache)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, stillStanding.StillStanding_EvaluateCache)

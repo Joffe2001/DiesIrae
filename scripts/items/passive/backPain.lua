@@ -29,7 +29,7 @@ function BackPain:OnEvaluateCache(player, cacheFlag)
     if passiveCount <= 0 then return end
 
     if cacheFlag == CacheFlag.CACHE_SPEED then
-        if not player:HasCollectible(mod.Items.ProteinPowder) then
+        if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PROTEIN_POWDER) then
             player.MoveSpeed = player.MoveSpeed - (0.03 * passiveCount)
         end
     end
@@ -58,7 +58,7 @@ function BackPain:PostPEffectUpdate(player)
         player:EvaluateItems()
     end
 
-    local hasProtein = player:HasCollectible(mod.Items.ProteinPowder)
+    local hasProtein = player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PROTEIN_POWDER)
     if hasProtein ~= data.BackPain_HadProtein then
         data.BackPain_HadProtein = hasProtein
         player:AddCacheFlags(CacheFlag.CACHE_SPEED)

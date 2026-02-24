@@ -16,7 +16,7 @@ mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_, entity)
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.SlaughterToPrevail) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_SLAUGHTER_TO_PREVAIL) then
             local data = mod.SlaughterData[player.Index] or {Kills = 0}
             data.Kills = data.Kills + 1
 

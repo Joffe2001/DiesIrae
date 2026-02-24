@@ -34,7 +34,7 @@ function HarpString:TrackHarpString(player)
 
     local pdata = player:GetData()
 
-    if player:GetPlayerType() ~= mod.Players.David then
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then
         pdata.harpStringCount = nil
         pdata.harpCostumeLevel = nil
         for _, data in pairs(HARP_COSTUMES) do
@@ -71,7 +71,7 @@ function HarpString:TrackHarpString(player)
         Isaac.Spawn(
             EntityType.ENTITY_PICKUP,
             PickupVariant.PICKUP_COLLECTIBLE,
-            mod.Items.Harp,
+            mod.CollectibleType.COLLECTIBLE_THE_HARP,
             spawnPos,
             Vector.Zero,
             player
@@ -84,7 +84,7 @@ function HarpString:SpawnTreasurePedestals()
     local room = game:GetRoom()
     local player = Isaac.GetPlayer(0)
 
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     if room:GetType() ~= RoomType.ROOM_TREASURE then return end
 
     local pdata = player:GetData()

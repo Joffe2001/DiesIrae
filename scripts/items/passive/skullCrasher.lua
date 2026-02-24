@@ -18,7 +18,7 @@ function skullCrasher:OnEntityTakeDamage(entity, amount, flags, source, countdow
 
     local hasSkullCrasher = false
     for i = 0, game:GetNumPlayers() - 1 do
-        if Isaac.GetPlayer(i):HasCollectible(mod.Items.SkullCrasher) then
+        if Isaac.GetPlayer(i):HasCollectible(mod.CollectibleType.COLLECTIBLE_SKULL_CRASHER) then
             hasSkullCrasher = true
             break
         end

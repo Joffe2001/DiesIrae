@@ -1,5 +1,7 @@
 local mod = DiesIraeMod
 local DeliriousMind = {}
+testtesttesttest
+mod.Items
 
 mod.CollectibleType.COLLECTIBLE_DELIRIOUS_MIND = Isaac.GetItemIdByName("Delirious Mind")
 

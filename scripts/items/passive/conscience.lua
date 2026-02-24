@@ -12,7 +12,7 @@ function conscience:OnEnemyKilled(entity)
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.Conscience) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_CONSCIENCE) then
             if math.random() < 0.5 then
                 devilBoost = math.min(devilBoost + 0.01, 1.0)
             end

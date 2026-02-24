@@ -14,7 +14,7 @@ local function GetStageKey()
     return tostring(level:GetStage()) .. "-" .. tostring(level:GetStageType())
 end
 function rewrappingPaper:onUse(_, _, player)
-    if player:HasCollectible(mod.Items.RewrappingPaper) then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_REWRAPPING_PAPER) then
         openingGift = true
     end
 end
@@ -33,7 +33,7 @@ function rewrappingPaper:preGetCollectible(pool, decrease, seed)
     end
     for p = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(p)
-        if player:HasCollectible(mod.Items.RewrappingPaper) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_REWRAPPING_PAPER) then
 
             if pool == ItemPoolType.POOL_TREASURE and not hasGiftThisFloor then
                 hasGiftThisFloor = true

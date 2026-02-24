@@ -10,7 +10,7 @@ local BossTearBonuses = {}
 function pTSD:PTSD_NewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.PTSD) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PTSD) then
             local room = game:GetRoom()
             if room:GetType() == RoomType.ROOM_BOSS then
                 for _, entity in ipairs(Isaac.GetRoomEntities()) do
@@ -31,7 +31,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, pTSD.PTSD_NewRoom)
 
 function pTSD:PTSD_EvaluateCache(player, cacheFlag)
-    if player:HasCollectible(mod.Items.PTSD) and cacheFlag == CacheFlag.CACHE_FIREDELAY then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PTSD) and cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local bonus = BossTearBonuses[player.Index] or 0
         if bonus > 0 then
             local baseTears = 30 / (player.MaxFireDelay + 1)
