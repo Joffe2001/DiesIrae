@@ -71,7 +71,7 @@ end
 ------------------------------------------------------------
 function mod:GetActiveDavid()
     local player = Isaac.GetPlayer(0)
-    if not player or player:GetPlayerType() ~= mod.Players.David then
+    if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then
         return nil
     end
 
@@ -332,7 +332,7 @@ end
 -- REWARD SPAWNING
 ------------------------------------------------------------
 local function TrySpawnChallengeReward(player)
-    if not player or player:GetPlayerType() ~= mod.Players.David then return end
+    if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
     
     local level = game:GetLevel()
     local currentFloor = level:GetStage()
@@ -355,7 +355,7 @@ local function TrySpawnChallengeReward(player)
                 Isaac.Spawn(
                     EntityType.ENTITY_PICKUP,
                     PickupVariant.PICKUP_COLLECTIBLE,
-                    mod.Items.HarpString,
+                    mod.CollectipleType.COLLECTIBLE_HARP_STRING,
                     game:GetRoom():GetCenterPos() + Vector(0, 40),
                     Vector.Zero,
                     player
@@ -432,7 +432,7 @@ end
 -- AUTO-START CHALLENGE ON NEW LEVEL
 mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     if game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     RemoveBackdropsWhenLeavingFloor()
     
     local floor = game:GetLevel():GetStage()
@@ -501,7 +501,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, fla
     local player, floor = mod:GetActiveDavid()
     if not player then return end
 
-    if entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.Players.David then
+    if entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID then
         local variant = mod:GetDavidChallengeVariant(floor)
         SafeCallHandler("OnPlayerDamage", variant, entity:ToPlayer(), floor, amount, flags, source)
     end
@@ -523,7 +523,7 @@ end)
 mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, coll)
     local player = coll:ToPlayer()
     if not player then return end
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     local player2, floor = mod:GetActiveDavid()
     if not player2 then return end
@@ -569,7 +569,7 @@ end)
 
 -- USE ITEM
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, _, player)
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     local p2, floor = mod:GetActiveDavid()
     if not p2 then return end
@@ -580,7 +580,7 @@ end)
 
 -- USE CARD
 mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player)
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     local p2, floor = mod:GetActiveDavid()
     if not p2 then return end
@@ -591,7 +591,7 @@ end)
 
 -- USE PILL
 mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player)
-    if player:GetPlayerType() ~= mod.Players.David then return end
+    if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
     local p2, floor = mod:GetActiveDavid()
     if not p2 then return end
