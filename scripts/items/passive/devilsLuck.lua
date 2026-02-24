@@ -2,11 +2,13 @@ local mod = DiesIraeMod
 
 local DevilLuck = {}
 
+mod.CollectibleType.COLLECTIBLE_DEVILS_LUCK = Isaac.GetItemIdByName("Devil's Luck")
+
 local LUCK_PENALTY = -6
 local DAMAGE_PER_DISAPPEAR = 0.05
 
 function DevilLuck:OnCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.DevilsLuck) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DEVILS_LUCK) then return end
 
     if cacheFlag == CacheFlag.CACHE_LUCK then
         player.Luck = player.Luck + LUCK_PENALTY
@@ -17,7 +19,7 @@ function DevilLuck:OnCache(player, cacheFlag)
 end
 
 function DevilLuck:OnPlayerUpdate(player)
-    if player:HasCollectible(mod.Items.DevilsLuck) and not player:GetData().DevilLuck_Initialized then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DEVILS_LUCK) and not player:GetData().DevilLuck_Initialized then
         player:AddCacheFlags(CacheFlag.CACHE_LUCK | CacheFlag.CACHE_DAMAGE)
         player:EvaluateItems()
         player:GetData().DevilLuck_Initialized = true
@@ -26,7 +28,7 @@ end
 
 function DevilLuck:OnPickupCollision(pickup, collider, _)
     local player = collider:ToPlayer()
-    if not player or not player:HasCollectible(mod.Items.DevilsLuck) then return end
+    if not player or not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DEVILS_LUCK) then return end
 
     if pickup:IsShopItem() or pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then return end
 
@@ -39,7 +41,7 @@ function DevilLuck:OnPickupCollision(pickup, collider, _)
 
     if not allowed[pickup.Variant] then return end
 
-    local rng = player:GetCollectibleRNG(mod.Items.DevilsLuck)
+    local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_DEVILS_LUCK)
 
     if rng:RandomFloat() < 0.5 then
 

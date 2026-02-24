@@ -1,9 +1,10 @@
 local mod = DiesIraeMod
 local BigKahunaBurger = {}
-BigKahunaBurger.COLLECTIBLE_ID = mod.Items.BigKahunaBurger
+
+mod.CollectibleType.COLLECTIBLE_BIG_KAHUNA_BURGER = Isaac.GetItemIdByName("Big Kahuna Burger")
 
 function BigKahunaBurger:onCollectibleAdded(_, Type, Charge, FirstTime, Slot, VarData, player)
-    if Type ~= BigKahunaBurger.COLLECTIBLE_ID then return end
+    if Type ~= mod.CollectibleType.COLLECTIBLE_BIG_KAHUNA_BURGER then return end
 
     local containers = math.random(1, 3)
     player:AddMaxHearts(containers * 2)

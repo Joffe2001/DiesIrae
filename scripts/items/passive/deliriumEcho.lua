@@ -2,6 +2,8 @@ local mod = DiesIraeMod
 local DeliriumEcho = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_DELIRIUM_ECHO = Isaac.GetItemIdByName("Delirium Echo")
+
 -- Per-player stored original active items
 local storedActives = {}
 
@@ -32,7 +34,7 @@ function DeliriumEcho:OnNewRoom()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.DeliriumEcho) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DELIRIUM_ECHO) then
 
             local id = player.Index
             storedActives[id] = storedActives[id] or {}
@@ -43,7 +45,7 @@ function DeliriumEcho:OnNewRoom()
             storedActives[id].Original = currentActive
 
             -- Pick random new active
-            local rng = player:GetCollectibleRNG(mod.Items.DeliriumEcho)
+            local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_DELIRIUM_ECHO)
             local newActive = GetRandomActive(rng)
 
             -- Replace current active
@@ -65,7 +67,7 @@ function DeliriumEcho:OnRoomClear()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
 
-        if player:HasCollectible(mod.Items.DeliriumEcho) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DELIRIUM_ECHO) then
             local id = player.Index
             local stored = storedActives[id]
 

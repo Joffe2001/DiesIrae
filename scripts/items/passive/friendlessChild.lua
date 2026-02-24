@@ -1,6 +1,10 @@
-local FriendlessChild = {}
-FriendlessChild.COLLECTIBLE_ID = DiesIraeMod.Items.FriendlessChild
+local mod = DiesIraeMod
 local game = Game()
+
+mod.CollectibleType.COLLECTIBLE_FRIENDLESS_CHILD = Isaac.GetItemIdByName("Friendless Child")
+
+local FriendlessChild = {}
+FriendlessChild.COLLECTIBLE_ID = mod.CollectibleType.COLLECTIBLE_FRIENDLESS_CHILD
 
 local FamiliarStatBoosts = {
     [0] = {Speed = 0.25},

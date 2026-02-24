@@ -1,10 +1,13 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local fiendDeal = {}
 
-function mod:FiendDeal()
+mod.CollectibleType.COLLECTIBLE_FIEND_DEAL = Isaac.GetItemIdByName("Fiend Deal")
+
+function fiendDeal:FiendDeal()
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.FiendDeal) then
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FIEND_DEAL) then
         return
     end
 
@@ -14,4 +17,4 @@ function mod:FiendDeal()
     Isaac.Spawn(6, mod.Entities.BEGGAR_Fiend.Var, 0, spawnPos, Vector(0, 0), player):ToNPC()
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.FiendDeal)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, fiendDeal.FiendDeal)

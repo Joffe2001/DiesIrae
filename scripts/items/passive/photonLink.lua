@@ -1,7 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
-
 local PhotonLink = {}
+
+mod.CollectibleType.COLLECTIBLE_PHOTON_LINK = Isaac.GetItemIdByName("Photon Link")
 
 local LASER_OFFSET = LaserOffset.LASER_TECH1_OFFSET
 local DAMAGE_PER_TICK = 1 
@@ -10,7 +11,7 @@ local LASER_COLOR = Color(0.5, 0.8, 1, 1, 0, 0, 0)
 function PhotonLink:OnTearUpdate(_, tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
-    if not player:HasCollectible(mod.Items.PhotonLink) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PHOTON_LINK) then return end
 
     local data = tear:GetData()
 

@@ -2,9 +2,12 @@
 local mod = DiesIraeMod
 local game = Game()
 local SFX = SFXManager()
+local floweringSkull = {}
+
+mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL = Isaac.GetItemIdByName("Flowering Skull")
+
 local itemConfig = Isaac.GetItemConfig()
 local MAX_ITEM_ID = itemConfig:GetCollectibles().Size - 1 -- huh ?
-
 local SkullLives = {}
 
 local function GetLives(player)
@@ -19,26 +22,26 @@ local function UseLife(player)
     return false
 end
 
-function mod:FloweringSkull_OnUpdate(player)
-    local count = player:GetCollectibleNum(mod.Items.FloweringSkull)
+function floweringSkull:OnUpdate(player)
+    local count = player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL)
     if count > GetLives(player) then
         SkullLives[player.Index] = count
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.FloweringSkull_OnUpdate)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, floweringSkull.OnUpdate)
 
-function mod:FloweringSkull_PreDeath(player)
-    if player:HasCollectible(mod.Items.FloweringSkull) and player:WillPlayerRevive() then
+function floweringSkull:PreDeath(player)
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL) and player:WillPlayerRevive() then
         return false
     end
 end
-mod:AddCallback(ModCallbacks.MC_PRE_TRIGGER_PLAYER_DEATH, mod.FloweringSkull_PreDeath)
+mod:AddCallback(ModCallbacks.MC_PRE_TRIGGER_PLAYER_DEATH, floweringSkull.PreDeath)
 
-function mod:FloweringSkull_PostRevive(player, playerType)
+function floweringSkull:PostRevive(player, playerType)
     if not player then return end
-    if player:HasCollectible(mod.Items.FloweringSkull) and UseLife(player) then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL) and UseLife(player) then
         player:Revive()
-        player:RemoveCollectible(mod.Items.FloweringSkull)
+        player:RemoveCollectible(mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL)
 
         if player:GetMaxHearts() > 0 then
             player:AddMaxHearts(-(player:GetMaxHearts() - 4))
@@ -63,7 +66,7 @@ function mod:FloweringSkull_PostRevive(player, playerType)
                and player:HasCollectible(id)
                and cfg:IsAvailable()
                and cfg.Type == ItemType.ITEM_PASSIVE
-               and id ~= mod.Items.FloweringSkull then
+               and id ~= mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL then
                 table.insert(passiveItems, id)
             end
         end
@@ -82,7 +85,7 @@ function mod:FloweringSkull_PostRevive(player, playerType)
             until cfg 
                   and cfg:IsAvailable()
                   and cfg.Type == ItemType.ITEM_PASSIVE
-                  and newID ~= mod.Items.FloweringSkull
+                  and newID ~= mod.CollectibleType.COLLECTIBLE_FLOWERING_SKULL
                   or tries > 100
         
             if newID then
@@ -92,4 +95,4 @@ function mod:FloweringSkull_PostRevive(player, playerType)
         player:EvaluateItems()
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_REVIVE, mod.FloweringSkull_PostRevive)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_REVIVE, floweringSkull.PostRevive)

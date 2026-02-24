@@ -1,10 +1,13 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local pTSD = {}
+
+mod.CollectibleType.COLLECTIBLE_PTSD = Isaac.GetItemIdByName("PTSD")
 
 local BossTearBonuses = {}
 
-function mod:PTSD_NewRoom()
+function pTSD:PTSD_NewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         if player:HasCollectible(mod.Items.PTSD) then
@@ -25,9 +28,9 @@ function mod:PTSD_NewRoom()
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.PTSD_NewRoom)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, pTSD.PTSD_NewRoom)
 
-function mod:PTSD_EvaluateCache(player, cacheFlag)
+function pTSD:PTSD_EvaluateCache(player, cacheFlag)
     if player:HasCollectible(mod.Items.PTSD) and cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local bonus = BossTearBonuses[player.Index] or 0
         if bonus > 0 then
@@ -38,4 +41,4 @@ function mod:PTSD_EvaluateCache(player, cacheFlag)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.PTSD_EvaluateCache)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, pTSD.PTSD_EvaluateCache)

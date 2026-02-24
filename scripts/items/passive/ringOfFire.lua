@@ -1,7 +1,9 @@
 local mod = DiesIraeMod
 local game = Game()
-
 local saveManager = mod.SaveManager
+
+mod.CollectibleType.COLLECTIBLE_RING_OF_FIRE = Isaac.GetItemIdByName("Ring of Fire")
+
 ---@class Utils
 local utils = mod.Utils
 
@@ -20,7 +22,7 @@ local ringOfFire = {
 }
 
 function ringOfFire:OnPostAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
-    if collectibleType == mod.Items.RingOfFire then
+    if collectibleType == mod.CollectibleType.COLLECTIBLE_RING_OF_FIRE then
         ringOfFire:SpawnWisp(player, ringOfFire.INITIAL_WISPS)
     end
 end
@@ -29,7 +31,7 @@ mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, ringOfFire.OnPostAddCollec
 function ringOfFire:OnPreRoomTriggerClear()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.RingOfFire) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_RING_OF_FIRE) then
             ringOfFire:AttemptReward(player)
         end
     end
@@ -208,7 +210,7 @@ end
 mod:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, ringOfFire.OnFamiliarCollision, FamiliarVariant.WISP)
 
 function ringOfFire:GetRNG(player)
-    return player:GetCollectibleRNG(mod.Items.RingOfFire)
+    return player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_RING_OF_FIRE)
 end
 
 function ringOfFire:GetBurnEffectDuration(numBurn)

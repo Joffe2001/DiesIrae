@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
-local UnknownLuck = {}
 local game = Game()
+local UnknownLuck = {}
+
+mod.CollectibleType.COLLECTIBLE_UNKNOWN_LUCK = Isaac.GetItemIdByName("Unknown Luck")
 
 function UnknownLuck:OnNewRoom()
     local room = game:GetRoom()
@@ -24,8 +26,8 @@ function UnknownLuck:OnNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
 
-        if player:HasCollectible(mod.Items.UnknownLuck) then
-            local rng = player:GetCollectibleRNG(mod.Items.UnknownLuck)
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNKNOWN_LUCK) then
+            local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_UNKNOWN_LUCK)
 
             local newLuck = rng:RandomInt(41) - 20
             player.Luck = newLuck

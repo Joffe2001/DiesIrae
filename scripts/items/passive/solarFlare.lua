@@ -1,10 +1,11 @@
 local mod = DiesIraeMod
-
 local SolarFlare = {}
+
+mod.CollectibleType.COLLECTIBLE_SOLAR_FLARE = Isaac.GetItemIdByName("Solar Flare")
 
 function SolarFlare:onTearInit(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:HasCollectible(mod.Items.SolarFlare) then
+    if player and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_SOLAR_FLARE) then
         local data = tear:GetData()
         data.SolarFlare = {
             timer = 15,    

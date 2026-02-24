@@ -2,12 +2,14 @@
 local mod = DiesIraeMod
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_STILL_STANDING = Isaac.GetItemIdByName("Still Standing")
+
 local DAMAGE_STEP = 0.2
 local STAND_INTERVAL = 30
 local DECAY_RATE = 0.5
 
 function mod:StillStanding_Update(player)
-    if not player:HasCollectible(mod.Items.StillStanding) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_STILL_STANDING) then return end
 
     local data = player:GetData()
     data.standTimer = data.standTimer or 0
@@ -41,7 +43,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.StillStanding_Update)
 
 function mod:StillStanding_EvaluateCache(player, cacheFlag)
-    if cacheFlag == CacheFlag.CACHE_DAMAGE and player:HasCollectible(mod.Items.StillStanding) then
+    if cacheFlag == CacheFlag.CACHE_DAMAGE and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_STILL_STANDING) then
         local data = player:GetData()
         if data.damageBonus then
             player.Damage = player.Damage + data.damageBonus

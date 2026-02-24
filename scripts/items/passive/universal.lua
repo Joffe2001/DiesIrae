@@ -3,6 +3,8 @@ local mod = DiesIraeMod
 local Universal = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_UNIVERSAL = Isaac.GetItemIdByName("Universal")
+
 local CHARGE_TIME = 40
 local ACTIVE_DURATION = 60
 
@@ -39,7 +41,7 @@ end
 function Universal:onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(mod.Items.Universal) then
+        if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNVERSAL) then
             goto continue
         end
 
@@ -156,7 +158,7 @@ end
 
 function Universal:onPlayerDamage(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
-    if player and player:HasCollectible(mod.Items.Universal) then
+    if player and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNVERSAL) then
         local state = getState(player)
         if state.activeTimer > 0 and source.Type == EntityType.ENTITY_PROJECTILE then
             return false
@@ -167,7 +169,7 @@ end
 function Universal:onRender()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(mod.Items.Universal) then
+        if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNVERSAL) then
             goto continue
         end
 
@@ -232,3 +234,6 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, Universal.onUpdate)
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, Universal.onRender)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Universal.onPlayerDamage, EntityType.ENTITY_PLAYER)
 
+if EID then
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_UNVERSAL, "Dad's Playlist")
+end

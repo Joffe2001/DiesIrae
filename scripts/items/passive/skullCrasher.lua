@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local skullCrasher = {}
+
+mod.CollectibleType.COLLECTIBLE_SKULL_CRASHER = Isaac.GetItemIdByName("Skull Crasher")
 
 local SKULL_ENEMIES = {
     [EntityType.ENTITY_HOST] = true,
@@ -9,7 +12,7 @@ local SKULL_ENEMIES = {
     [EntityType.ENTITY_FLOATING_HOST] = true
 }
 
-function mod:OnEntityTakeDamage(entity, amount, flags, source, countdown)
+function skullCrasher:OnEntityTakeDamage(entity, amount, flags, source, countdown)
     local npc = entity:ToNPC()
     if not npc or not SKULL_ENEMIES[npc.Type] then return end
 
@@ -39,5 +42,4 @@ function mod:OnEntityTakeDamage(entity, amount, flags, source, countdown)
         return false
     end
 end
-
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.OnEntityTakeDamage)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, skullCrasher.OnEntityTakeDamage)

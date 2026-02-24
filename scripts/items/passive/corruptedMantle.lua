@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE = Isaac.GetItemIdByName("Corrupted Mantle")
+
 local corruptedMantle = {
     NUM_BROKEN_HEART_PER_LEVEL = 1,
     DMG_MULTIPLIER_ACTIVE = 1.5,
@@ -27,7 +29,7 @@ local CorruptedMantleState = {
 function corruptedMantle:onPostNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local p = Isaac.GetPlayer(i)
-        if p:HasCollectible(mod.Items.CorruptedMantle) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
             local ptrHash = GetPtrHash(p)
             corruptedMantle.shieldCount[ptrHash] = 1
             corruptedMantle.state[ptrHash] = CorruptedMantleState.SHIELD_ON
@@ -38,7 +40,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, corruptedMantle.onPostNewRoom)
 
 function corruptedMantle:onEvaluateCache(player, cacheFlag)
-    if player:HasCollectible(mod.Items.CorruptedMantle) then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
         local ptrHash = GetPtrHash(player)
         if cacheFlag == CacheFlag.CACHE_DAMAGE then
             local state = corruptedMantle.state[ptrHash]
@@ -59,7 +61,7 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, corruptedMantle.onEvaluateCache)
 
 function corruptedMantle:onPostAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
-    if collectibleType == mod.Items.CorruptedMantle then
+    if collectibleType == mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE then
         local ptrHash = GetPtrHash(player)
         corruptedMantle.shieldCount[ptrHash] = 1
         corruptedMantle.state[ptrHash] = CorruptedMantleState.SHIELD_ON
@@ -87,7 +89,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, corruptedMantle.onPostAddCollectible)
 
 function corruptedMantle:onPrePlayerTakeDamage(player, damage, damageFlags)
-    if player:HasCollectible(mod.Items.CorruptedMantle) then
+    if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
         local ptrHash = GetPtrHash(player)
         if ((damageFlags & DamageFlag.DAMAGE_RED_HEARTS) ~= 0) then
             return true
@@ -118,7 +120,7 @@ mod:AddCallback(ModCallbacks.MC_PRE_PLAYER_TAKE_DMG, corruptedMantle.onPrePlayer
 function corruptedMantle:onEntityTakeDamage(entity, amount, damageFlags)
     if entity.Type == EntityType.ENTITY_PLAYER then
         local p = entity:ToPlayer()
-        if p:HasCollectible(mod.Items.CorruptedMantle) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
             local ptrHash = GetPtrHash(p)
             if ((damageFlags & DamageFlag.DAMAGE_NO_PENALTIES) == 0) and ((damageFlags & DamageFlag.DAMAGE_RED_HEARTS) == 0) then
                 corruptedMantle.state[ptrHash] = CorruptedMantleState.HURT
@@ -136,7 +138,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, corruptedMantle.onEntityTakeDam
 function corruptedMantle:onPreRenderPlayerBody()
     for i = 0, game:GetNumPlayers() - 1 do
         local p = Isaac.GetPlayer(i)
-        if p:HasCollectible(mod.Items.CorruptedMantle) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
             local ptrHash = GetPtrHash(p)
             if corruptedMantle.state[ptrHash] == CorruptedMantleState.SHIELD_ON then
                 local spriteShimmer = corruptedMantle.spriteShimmer[ptrHash]
@@ -163,7 +165,7 @@ function corruptedMantle.onPostPlayerHUDRenderHearts()
     end
     for i = 0, game:GetNumPlayers() - 1 do
         local p = Isaac.GetPlayer(i)
-        if p:HasCollectible(mod.Items.CorruptedMantle) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
             local ptrHash = GetPtrHash(p)
             if corruptedMantle.state[ptrHash] == CorruptedMantleState.SHIELD_ON then
                 local spriteHolyMantle = corruptedMantle.spriteHolyMantle[ptrHash]
@@ -193,7 +195,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYERHUD_RENDER_HEARTS, corruptedMantle.on
 function corruptedMantle.onUpdate()
     for i = 0, game:GetNumPlayers() - 1 do
         local p = Isaac.GetPlayer(i)
-        if p:HasCollectible(mod.Items.CorruptedMantle) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_CORRUPTED_MANTLE) then
             local ptrHash = GetPtrHash(p)
             if corruptedMantle.state[ptrHash] == CorruptedMantleState.SHIELD_ON then
                 local spriteShimmer = corruptedMantle.spriteShimmer[ptrHash]

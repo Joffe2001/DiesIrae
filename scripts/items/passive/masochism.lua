@@ -1,15 +1,16 @@
 local mod = DiesIraeMod
-
 local Masochism = {}
+
+mod.CollectibleType.COLLECTIBLE_MASOCHISM = Isaac.GetItemIdByName("Masochism")
 
 -- Table to track how many times player has taken damage
 local playerStatTracker = {}
 
 function Masochism:OnTakeDamage(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
-    if not player or not player:HasCollectible(mod.Items.Masochism) then return end
+    if not player or not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MASOCHISM) then return end
 
-    local id = player:GetCollectibleRNG(mod.Items.Masochism):GetSeed()
+    local id = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_MASOCHISM):GetSeed()
     if not playerStatTracker[id] then
         playerStatTracker[id] = {
             damage = 0,
@@ -30,7 +31,7 @@ function Masochism:OnTakeDamage(entity, amount, flags, source, countdown)
 end
 
 function Masochism:onCache(player, cacheFlag)
-    local id = player:GetCollectibleRNG(mod.Items.Masochism):GetSeed()
+    local id = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_MASOCHISM):GetSeed()
     local data = playerStatTracker[id]
     if not data then return end
 

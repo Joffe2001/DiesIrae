@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local DeliriousMind = {}
 
+mod.CollectibleType.COLLECTIBLE_DELIRIOUS_MIND = Isaac.GetItemIdByName("Delirious Mind")
+
 local VANILLA_MAX_ID = CollectibleType.NUM_COLLECTIBLES - 1
 local playerItemCache = {}
 local bonusStats = {}
@@ -21,7 +23,7 @@ function DeliriousMind:OnPlayerUpdate(player)
         local hadItem = playerItemCache[id][itemID]
 
         if hasItem and not hadItem then
-            if player:HasCollectible(mod.Items.DeliriousMind)
+            if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DELIRIOUS_MIND)
             and not IsVanillaItem(itemID) then
 
                 bonusStats[id].tears = bonusStats[id].tears + 0.15

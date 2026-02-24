@@ -1,10 +1,13 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local conscience = {}
+
+mod.CollectibleType.COLLECTIBLE_CONSCIENCE = Isaac.GetItemIdByName("Conscience")
 
 local devilBoost = 0
 
-function mod:OnEnemyKilled(entity)
+function conscience:OnEnemyKilled(entity)
     if not entity:IsVulnerableEnemy() or entity:IsBoss() then return end
 
     for i = 0, game:GetNumPlayers() - 1 do
@@ -16,14 +19,14 @@ function mod:OnEnemyKilled(entity)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, mod.OnEnemyKilled)
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, conscience.OnEnemyKilled)
 
-function mod:OnPreDevilApplyItems(baseChance)
+function conscience:OnPreDevilApplyItems(baseChance)
     return baseChance + devilBoost
 end
-mod:AddCallback(ModCallbacks.MC_PRE_DEVIL_APPLY_ITEMS, mod.OnPreDevilApplyItems)
+mod:AddCallback(ModCallbacks.MC_PRE_DEVIL_APPLY_ITEMS, conscience.OnPreDevilApplyItems)
 
-function mod:OnNewLevel()
+function conscience:OnNewLevel()
     devilBoost = 0
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.OnNewLevel)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, conscience.OnNewLevel)

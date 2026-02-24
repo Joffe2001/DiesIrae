@@ -1,8 +1,8 @@
 local mod = DiesIraeMod
-
 local ScaredShoes = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_SCARED_SHOES = Isaac.GetItemIdByName("Scared Shoes")
 
 local PEECREEP_CHANCE = 0.10    
 local PEECREEP_INTERVAL = 15     
@@ -13,9 +13,9 @@ ScaredShoes.peeTimers = {}
 local shouldBoostSpeed = {}  
 
 function ScaredShoes:OnPlayerUpdate(player)
-    if not player:HasCollectible(mod.Items.ScaredShoes) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_SCARED_SHOES) then return end
 
-    local rng = player:GetCollectibleRNG(mod.Items.ScaredShoes)
+    local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_SCARED_SHOES)
     local id = rng:GetSeed()
     local room = game:GetRoom()
 
@@ -53,9 +53,9 @@ end
 
 function ScaredShoes:OnEvaluateCache(player, cacheFlag)
     if cacheFlag ~= CacheFlag.CACHE_SPEED then return end
-    if not player:HasCollectible(mod.Items.ScaredShoes) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_SCARED_SHOES) then return end
 
-    local rng = player:GetCollectibleRNG(mod.Items.ScaredShoes)
+    local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_SCARED_SHOES)
     local id = rng:GetSeed()
 
     if shouldBoostSpeed[id] then

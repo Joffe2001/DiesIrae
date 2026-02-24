@@ -1,5 +1,7 @@
 local mod = DiesIraeMod
 
+mod.CollectibleType.COLLECTIBLE_FILTHY_RICH = Isaac.GetItemIdByName("Filthy Rich")
+
 local poisonEffects = {
     {color = Color(0.2, 1, 0.2, 1, 0, 0, 0), status = "poison"},
 }
@@ -17,7 +19,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
-    if not player:HasCollectible(mod.Items.FilthyRich) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FILTHY_RICH) then return end
 
     local chance = GetPoisonChance(player)
     

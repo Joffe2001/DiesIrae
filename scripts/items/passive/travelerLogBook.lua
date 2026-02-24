@@ -1,8 +1,9 @@
 local mod = DiesIraeMod
-
 local TravelerLogbook = {}
-
 local game = Game()
+
+mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK = Isaac.GetItemIdByName("Traveler Logbook")
+
 local visitedRooms = {}
 local tempStatBonuses = {}
 local permStatBonuses = {}
@@ -19,7 +20,7 @@ local function ResetTempStats(index)
 end
 
 local function InitPlayerStats(player)
-    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
+    local index = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK):GetSeed()
     if not permStatBonuses[index] then
         permStatBonuses[index] = {
             damage = 0,
@@ -34,7 +35,7 @@ local function InitPlayerStats(player)
 end
 
 function TravelerLogbook:ApplyStatBoost(player, isPermanent)
-    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
+    local index = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK):GetSeed()
     InitPlayerStats(player)
 
     local stat = StatList[math.random(#StatList)]
@@ -69,8 +70,8 @@ function TravelerLogbook:OnNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
 
-        if player:HasCollectible(mod.Items.TravelerLogbook) then
-            local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK) then
+            local index = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK):GetSeed()
             InitPlayerStats(player)
 
             if isErrorRoom then
@@ -87,7 +88,7 @@ function TravelerLogbook:OnNewLevel()
     visitedRooms = {}
     for _, _ in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
         local player = Isaac.GetPlayer(0)
-        local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
+        local index = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK):GetSeed()
         ResetTempStats(index)
         player:AddCacheFlags(
             ---@diagnostic disable-next-line: param-type-mismatch
@@ -101,9 +102,9 @@ function TravelerLogbook:OnNewLevel()
 end
 
 function TravelerLogbook:OnEvaluateCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.TravelerLogbook) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK) then return end
 
-    local index = player:GetCollectibleRNG(mod.Items.TravelerLogbook):GetSeed()
+    local index = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_TRAVELER_LOGBOOK):GetSeed()
     InitPlayerStats(player)
 
     local total = {

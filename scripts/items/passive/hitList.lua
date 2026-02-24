@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_HIT_LIST = Isaac.GetItemIdByName("Hit List")
+
 local HitList = {}
 local EnemyKillBonus = {}
 
@@ -11,7 +13,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, HitList.OnGameStart)
 
 function HitList:OnCollectibleAdded(player, collectibleType, rng, something1, something2, something3)
-    if collectibleType ~= mod.Items.HitList then return end
+    if collectibleType ~= mod.CollectibleType.COLLECTIBLE_HIT_LIST then return end
 
     EnemyKillBonus = {}
 
@@ -33,7 +35,7 @@ mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, HitList.OnCollectibleAdded
 
 function HitList:OnEnemyDeath(entity)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.HitList) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_HIT_LIST) then return end
     if not entity:IsActiveEnemy(false) or entity:IsBoss() then return end
 
     local id = entity.Type .. "_" .. entity.Variant
@@ -45,7 +47,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, HitList.OnEnemyDeath)
 
 function HitList:OnCache(player, flag)
-    if not player:HasCollectible(mod.Items.HitList) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_HIT_LIST) then return end
     if flag == CacheFlag.CACHE_DAMAGE then
         local totalBonus = 0
         for _, bonus in pairs(EnemyKillBonus) do

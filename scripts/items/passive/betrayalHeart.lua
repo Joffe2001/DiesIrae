@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local betrayalHeart = {}
+
+mod.CollectibleType.COLLECTIBLE_BETRAYAL_HEART = Isaac.GetItemIdByName("Betrayal Heart")
 
 local function GetPData(player)
     local d = player:GetData()
@@ -10,7 +13,7 @@ end
 
 local function SyncBrokenHearts(player)
     local pdata = GetPData(player)
-    local itemCount = player:GetCollectibleNum(mod.Items.BetrayalHeart)
+    local itemCount = player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_BETRAYAL_HEART)
     local prevGiven = pdata.givenBroken or 0
 
     if itemCount > 0 then
@@ -26,36 +29,36 @@ local function SyncBrokenHearts(player)
     end
 end
 
-function mod:PostPlayerUpdate_BetrayalHeart(player)
-    if player:GetCollectibleNum(mod.Items.BetrayalHeart) > 0 then
+function betrayalHeart:PostPlayerUpdate_BetrayalHeart(player)
+    if player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_BETRAYAL_HEART) > 0 then
         SyncBrokenHearts(player)
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.PostPlayerUpdate_BetrayalHeart)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, betrayalHeart.PostPlayerUpdate_BetrayalHeart)
 
-function mod:EvaluateCache_BetrayalHeart(player, cacheFlag)
+function betrayalHeart:EvaluateCache_BetrayalHeart(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_DAMAGE then
-        local itemCount = player:GetCollectibleNum(mod.Items.BetrayalHeart)
+        local itemCount = player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_BETRAYAL_HEART)
         if itemCount > 0 then
             local brokenHearts = player:GetBrokenHearts()
             player.Damage = player.Damage + brokenHearts * 1
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache_BetrayalHeart)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, betrayalHeart.EvaluateCache_BetrayalHeart)
 
-function mod:PostPlayerInit_BetrayalHeart(player)
+function betrayalHeart:PostPlayerInit_BetrayalHeart(player)
     local pdata = GetPData(player)
     pdata.givenBroken = 0
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.PostPlayerInit_BetrayalHeart)
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, betrayalHeart.PostPlayerInit_BetrayalHeart)
 
-function mod:PostNewLevel_BetrayalHeart()
+function betrayalHeart:PostNewLevel_BetrayalHeart()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:GetCollectibleNum(mod.Items.BetrayalHeart) > 0 then
+        if player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_BETRAYAL_HEART) > 0 then
             SyncBrokenHearts(player)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, mod.PostNewLevel_BetrayalHeart)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, betrayalHeart.PostNewLevel_BetrayalHeart)

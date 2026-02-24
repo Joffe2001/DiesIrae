@@ -4,10 +4,12 @@ local Hysteria = {}
 local game = Game()
 local SFX = SFXManager()
 
+mod.CollectibleType.COLLECTIBLE_HYSTERIA = Isaac.GetItemIdByName("Hysteria")
+
 function Hysteria:OnTakeDamage(entity, amount, flags, source, countdown)
     if entity.Type ~= EntityType.ENTITY_PLAYER then return end
     local player = entity:ToPlayer()
-    if not player or not player:HasCollectible(mod.Items.Hysteria) then return end
+    if not player or not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_HYSTERIA) then return end
 
     local data = player:GetData()
     data.HHits = (data.HHits or 0) + 1
@@ -46,7 +48,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Hysteria.OnTakeDamage)
 
 
 function Hysteria:OnPlayerUpdate(_, player)
-    if not player or not player:HasCollectible(mod.Items.Hysteria) then return end
+    if not player or not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_HYSTERIA) then return end
 
     local data = player:GetData()
     local room = game:GetRoom()
@@ -114,5 +116,5 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)
 end)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.Hysteria, "Isaac's sinful Playlist")
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_HYSTERIA, "Isaac's sinful Playlist")
 end

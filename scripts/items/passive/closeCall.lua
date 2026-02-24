@@ -2,6 +2,10 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local closeCall = {}
+
+mod.CollectibleType.COLLECTIBLE_CLOSE_CALL = Isaac.GetItemIdByName("Close Call!")
+-- it looks so chatGPT lol. someone schould rewrite it!
 
 -- Random stat boosts (these can be expanded based on your preferences)
 local statBoosts = {
@@ -11,7 +15,7 @@ local statBoosts = {
     {type = "range", value = 0.3}
 }
 
-function mod:CloseCall_OnProjectileNear(player)
+function closeCall:CloseCall_OnProjectileNear(player)
     local radius = 100 -- Distance to check for nearby projectiles
     local projectiles = Isaac.FindInRadius(player.Position, radius, EntityPartition.PROJECTILE)
 
@@ -43,4 +47,4 @@ function mod:CloseCall_OnProjectileNear(player)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.CloseCall_OnProjectileNear)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, closeCall.CloseCall_OnProjectileNear)

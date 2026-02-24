@@ -1,8 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 
-local FragileEgo = {}
+mod.CollectibleType.COLLECTIBLE_FRAGILE_EGO = Isaac.GetItemIdByName("Fragile Ego")
 
+local FragileEgo = {}
 local players = {}
 
 local function getState(player)
@@ -21,7 +22,7 @@ local BOOSTS = {
 }
 
 function FragileEgo:onCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.FragileEgo) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FRAGILE_EGO) then return end
     local state = getState(player)
     local boosts = state.boosts
 
@@ -41,7 +42,7 @@ end
 function FragileEgo:onRoomClear()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.FragileEgo) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FRAGILE_EGO) then
             local state = getState(player)
             local keys = {"damage", "speed", "tears", "luck"}
             local choice = keys[math.random(#keys)]
@@ -57,7 +58,7 @@ end
 function FragileEgo:onPlayerDamage(entity, amount, flags, source, countdown)
     if entity.Type ~= EntityType.ENTITY_PLAYER then return end
     local player = entity:ToPlayer()
-    if player and player:HasCollectible(mod.Items.FragileEgo) then
+    if player and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_FRAGILE_EGO) then
         local state = getState(player)
 
         state.boosts = {damage = 0, speed = 0, tears = 0, luck = 0}

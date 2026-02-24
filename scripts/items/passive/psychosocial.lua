@@ -1,12 +1,13 @@
 local mod = DiesIraeMod
-
 local Psychosocial = {}
 local game = Game()
+
+mod.CollectibleType.COLLECTIBLE_PSYCHOSOCIAL = Isaac.GetItemIdByName("Psychosocial")
 
 local lastEnemyCount = 0
 
 function Psychosocial:onCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.Psychosocial) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PSYCHOSOCIAL) then return end
     
     if cacheFlag == CacheFlag.CACHE_FIREDELAY then
         local enemyCount = Isaac.CountEnemies()
@@ -18,7 +19,7 @@ end
 
 function Psychosocial:onUpdate()
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.Psychosocial) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_PSYCHOSOCIAL) then return end
 
     local enemyCount = Isaac.CountEnemies()
     if enemyCount ~= lastEnemyCount then

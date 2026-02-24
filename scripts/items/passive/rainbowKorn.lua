@@ -1,7 +1,7 @@
 local mod = DiesIraeMod
 local game = Game()
 
-local KoRn = mod.Items.KoRn
+mod.CollectibleType.COLLECTIBLE_RAINBOW_KORN = Isaac.GetItemIdByName("Rainbow Korn")
 
 local tearEffects = {
     {color = Color(1, 0.4, 1, 1, 0, 0, 0), status = "charm"},      -- Pink
@@ -16,7 +16,7 @@ local tearEffects = {
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
-    if not player:HasCollectible(KoRn) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_RAINBOW_KORN) then return end
 
     if math.random() < 0.10 then
         local data = tear:GetData()

@@ -3,11 +3,13 @@ local mod = DiesIraeMod
 local DadsDumbbell = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_DADS_DUMBBELL = Isaac.GetItemIdByName("Dad's Dumbbell")
+
 local TEAR_EFFECT_TAG = "DadsDumbbellEffect"
 
 function DadsDumbbell:OnTearInit(tear)
     local player = tear.Parent
-    if not player or not player:HasCollectible(mod.Items.DadsDumbbell) then
+    if not player or not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_DADS_DUMBBELL) then
         return
     end
 

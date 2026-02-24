@@ -1,5 +1,8 @@
 local mod = DiesIraeMod
 
+mod.CollectibleType.COLLECTIBLE_RED_BULB = Isaac.GetItemIdByName("Red Bulb")
+
+
 --[[ DATA ]]--
 local data = require("scripts.items.passive.redbulb.data")
 mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, data.functions.checkForRedBulb)

@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local redCompass = {}
+
+mod.CollectibleType.COLLECTIBLE_RED_COMPASS = Isaac.GetItemIdByName("Red Compass")
 
 local RED_ROOM_CHANCE = 0.40
 
@@ -11,11 +14,11 @@ local VALID_DOOR_SLOTS = {
     DoorSlot.DOWN0
 }
 
-function mod:OnRoomClear()
+function redCompass:OnRoomClear()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
 
-        if player:HasCollectible(mod.Items.RedCompass) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_RED_COMPASS) then
             if math.random() < RED_ROOM_CHANCE then
                 local level = game:GetLevel()
                 local roomDesc = level:GetCurrentRoomDesc()
@@ -30,4 +33,4 @@ function mod:OnRoomClear()
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, mod.OnRoomClear)
+mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, redCompass.OnRoomClear)

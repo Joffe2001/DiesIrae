@@ -2,8 +2,11 @@ local mod = DiesIraeMod
 
 local Mutter = {}
 local game = Game()
-local MomsDressID = mod.Items.MomsDress
-local MomsDiaryID = mod.Items.MomsDiary
+local MomsDressID = mod.CollectibleType.COLLECTIBLE_MOMS_DRESS
+local MomsDiaryID = mod.CollectibleType.COLLECTIBLE_MOMS_DIARY
+
+mod.CollectibleType.COLLECTIBLE_MUTTER = Isaac.GetItemIdByName("Mutter")
+
 
 local MomsItems = {
     CollectibleType.COLLECTIBLE_MOMS_EYESHADOW,
@@ -33,7 +36,7 @@ local function CountMomsItems(player)
 end
 
 function Mutter:onCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.Mutter) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MUTTER) then return end
 
     local momsCount = CountMomsItems(player)
 
@@ -50,7 +53,7 @@ end
 
 function Mutter:IncreaseMomsItemChance(poolType, decrease, seed)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.Mutter) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MUTTER) then return end
 
     local rng = RNG()
     rng:SetSeed(seed, 35)
@@ -103,5 +106,5 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Mutter.onCache)
 mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Mutter.IncreaseMomsItemChance)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.Mutter, "Isaac's sinful Playlist")
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_MUTTER, "Isaac's sinful Playlist")
 end

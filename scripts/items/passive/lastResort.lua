@@ -4,6 +4,8 @@ local LastResort = {}
 local game = Game()
 local sfx = SFXManager()
 
+mod.CollectibleType.COLLECTIBLE_LAST_RESORT = Isaac.GetItemIdByName("Last Resort")
+
 local statGains = {}
 local bonusGivenThisRoom = {}
 local wasHostileRoom = {}
@@ -18,7 +20,7 @@ function LastResort:GiveStatBoost(player)
     local index = player:GetPlayerIndex()
     statGains[index] = statGains[index] or { damage = 0, speed = 0, tears = 0 }
 
-    local rng = player:GetCollectibleRNG(mod.Items.LastResort)
+    local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_LAST_RESORT)
     local chosen = STAT_OPTIONS[rng:RandomInt(#STAT_OPTIONS) + 1]
 
     statGains[index][chosen.key] = statGains[index][chosen.key] + chosen.value
@@ -46,7 +48,7 @@ end
 function LastResort:OnUpdate()
     for i = 0, Game():GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(mod.Items.LastResort) then return end
+        if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_LAST_RESORT) then return end
         if player:GetPlayerType() == PlayerType.PLAYER_THELOST or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B then return end
 
         local index = player:GetPlayerIndex()
@@ -78,5 +80,5 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LastResort.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LastResort.OnNewRoom)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.LastResort, "Isaac's sinful Playlist")
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_LAST_RESORT, "Isaac's sinful Playlist")
 end

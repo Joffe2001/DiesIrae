@@ -1,13 +1,16 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local challengeMap = {}
 
-function mod:ChallengerMapRender()
+mod.CollectibleType.COLLECTIBLE_CHALLENGER_MAP = Isaac.GetItemIdByName("Challenger Map")
+
+function challengeMap:ChallengerMapRender()
     local level = game:GetLevel()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.ChallengerMap) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_CHALLENGER_MAP) then
             local rooms = level:GetRooms()
             for j = 0, rooms.Size - 1 do
                 local roomDesc = rooms:Get(j)
@@ -20,11 +23,11 @@ function mod:ChallengerMapRender()
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.ChallengerMapRender)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, challengeMap.ChallengerMapRender)
 
-function mod:ChallengerMapRoomUnlock()
+function challengeMap:ChallengerMapRoomUnlock()
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.ChallengerMap) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_CHALLENGER_MAP) then return end
     local room = game:GetRoom()
     local level = game:GetLevel()
 
@@ -49,4 +52,4 @@ function mod:ChallengerMapRoomUnlock()
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.ChallengerMapRoomUnlock)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, challengeMap.ChallengerMapRoomUnlock)

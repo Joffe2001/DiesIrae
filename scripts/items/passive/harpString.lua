@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_HAPR_STRING = Isaac.GetItemIdByName("Harp String")
+
 local HarpString = {}
 
 local HARP_COSTUMES = {
@@ -43,7 +45,7 @@ function HarpString:TrackHarpString(player)
         return
     end
 
-    local count = player:GetCollectibleNum(mod.Items.HarpString) or 0
+    local count = player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_HARP_STRING) or 0
     local level = math.min(count, 4)
 
     if pdata.harpStringCount == count then return end

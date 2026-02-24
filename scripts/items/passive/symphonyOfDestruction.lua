@@ -1,7 +1,11 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
-local Symphony = mod.Items.SymphonyOfDestr
+local symphonyOfDestruction = {}
+
+mod.CollectibleType.COLLECTIBLE_SYMPHONY_OF_DESTRUCTION = Isaac.GetItemIdByName("Symphony of Destruction")
+
+local Symphony = mod.CollectibleType.COLLECTIBLE_SYMPHONY_OF_DESTRUCTION
 local TOWER_CARD = Card.CARD_TOWER
 
 local function ConvertAllCardsOnFloor()
@@ -23,15 +27,15 @@ local function ConvertPlayerCards(player)
     end
 end
 
-function mod:OnPickup_SymphonyOfDestruction(player, item)
+function symphonyOfDestruction:OnPickup_SymphonyOfDestruction(player, item)
     if item == Symphony then
         ConvertAllCardsOnFloor()
         ConvertPlayerCards(player)
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, mod.OnPickup_SymphonyOfDestruction)
+mod:AddCallback(ModCallbacks.MC_POST_ADD_COLLECTIBLE, symphonyOfDestruction.OnPickup_SymphonyOfDestruction)
 
-function mod:OnCardSpawn_SymphonyOfDestruction(pickup)
+function symphonyOfDestruction:OnCardSpawn_SymphonyOfDestruction(pickup)
     if game:GetFrameCount() < 10 then return end
     if pickup.Variant == PickupVariant.PICKUP_TAROTCARD and pickup.SubType ~= TOWER_CARD then
         for i = 0, game:GetNumPlayers() - 1 do
@@ -42,9 +46,9 @@ function mod:OnCardSpawn_SymphonyOfDestruction(pickup)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, mod.OnCardSpawn_SymphonyOfDestruction, PickupVariant.PICKUP_TAROTCARD)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, symphonyOfDestruction.OnCardSpawn_SymphonyOfDestruction, PickupVariant.PICKUP_TAROTCARD)
 
-function mod:OnNewRoom_SymphonyOfDestruction()
+function symphonyOfDestruction:OnNewRoom_SymphonyOfDestruction()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         if player:HasCollectible(Symphony) then
@@ -53,14 +57,14 @@ function mod:OnNewRoom_SymphonyOfDestruction()
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.OnNewRoom_SymphonyOfDestruction)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, symphonyOfDestruction.OnNewRoom_SymphonyOfDestruction)
 
-function mod:OnPlayerUpdate_SymphonyOfDestruction(player)
+function symphonyOfDestruction:OnPlayerUpdate_SymphonyOfDestruction(player)
     if not player:HasCollectible(Symphony) then return end
     ConvertPlayerCards(player)
 end
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.OnPlayerUpdate_SymphonyOfDestruction)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, symphonyOfDestruction.OnPlayerUpdate_SymphonyOfDestruction)
 
 if EID then 
-    EID:assignTransformation("collectible", mod.Items.SymphonyOfDestr, "Isaac's sinful Playlist") 
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_SYMPHONY_OF_DESTRUCTION, "Isaac's sinful Playlist") 
 end

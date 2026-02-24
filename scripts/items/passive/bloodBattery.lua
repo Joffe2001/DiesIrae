@@ -1,7 +1,10 @@
 local mod = DiesIraeMod
+local bloodBattery = {}
+
+mod.CollectibleType.COLLECTIBLE_BLOOD_BATTERY = Isaac.GetItemIdByName("Blood Battery")
 
 local function DropWeightedBattery(player)
-    local rng = player:GetCollectibleRNG(mod.Items.BloodBattery)
+    local rng = player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_BLOOD_BATTERY)
 
     if rng:RandomFloat() > 0.5 then
         return
@@ -31,11 +34,11 @@ local function DropWeightedBattery(player)
 end
 
 
-function mod:OnPlayerDamaged_BloodBattery(entity, amount, flags, source, countdown)
+function bloodBattery:OnPlayerDamaged_BloodBattery(entity, amount, flags, source, countdown)
     local player = entity:ToPlayer()
     if not player then return end
-    if not player:HasCollectible(mod.Items.BloodBattery) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BLOOD_BATTERY) then return end
     DropWeightedBattery(player)
 end
 
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.OnPlayerDamaged_BloodBattery, EntityType.ENTITY_PLAYER)
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, bloodBattery.OnPlayerDamaged_BloodBattery, EntityType.ENTITY_PLAYER)

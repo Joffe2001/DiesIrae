@@ -1,9 +1,9 @@
 local mod = DiesIraeMod
-
 local UltraSecretMap = {}
-
 local game = Game()
 local rng = RNG()
+
+mod.CollectibleType.COLLECTIBLE_ULTRA_SECRET_MAP = Isaac.GetItemIdByName("Ultra Secret Map")
 
 local crackedKeySpawned = false
 
@@ -24,7 +24,7 @@ function UltraSecretMap:OnRender()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.UltraSecretMap) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_ULTRA_SECRET_MAP) then
             for j = 0, level:GetRooms().Size - 1 do
                 local roomDesc = level:GetRooms():Get(j)
                 if roomDesc.Data.Type == RoomType.ROOM_ULTRASECRET then
@@ -46,7 +46,7 @@ function UltraSecretMap:OnNewRoom()
     if room:GetType() == RoomType.ROOM_SECRET and secretRoomDesc ~= nil then
         for i = 0, game:GetNumPlayers() - 1 do
             local player = Isaac.GetPlayer(i)
-            if player:HasCollectible(mod.Items.UltraSecretMap) then
+            if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_ULTRA_SECRET_MAP) then
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, room:FindFreePickupSpawnPosition(player.Position), Vector.Zero, nil)
                 crackedKeySpawned = true
                 break

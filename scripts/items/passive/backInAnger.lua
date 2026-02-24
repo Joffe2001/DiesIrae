@@ -3,10 +3,12 @@ local mod = DiesIraeMod
 local BackInAnger = {} 
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER = Isaac.GetItemIdByName("Back In Anger")
+
 local fireCooldown = {}
 
 function BackInAnger:onUpdate(player)
-    if not player:HasCollectible(mod.Items.BackInAnger) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER) then return end
 
     local id = player.InitSeed
     if fireCooldown[id] == nil then fireCooldown[id] = 0 end
@@ -44,17 +46,8 @@ function BackInAnger:onUpdate(player)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.Items.BackInAnger)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER)
 
 if EID then
-    EID:addCollectible(mod.Items.BackInAnger, {
-        en_us = { 
-            "Tears are fired from your bag (based on moving)",
-            "↑ +4 Damage"
-        },
-        ru = { 
-            "Стрельба сзади (зависит от направления движения)",
-            "↑ +4 Урона"
-        },
-    })
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_BACK_IN_ANGER, "Dad's Playlist")
 end

@@ -1,14 +1,15 @@
 local mod = DiesIraeMod
 local game = Game()
-
 local SilentEcho = {}
+
+mod.CollectibleType.COLLECTIBLE_SILENT_ECHO = Isaac.GetItemIdByName("Silent Echo")
 
 function SilentEcho:OnNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
         local data = player:GetData()
 
-        if player:HasCollectible(mod.Items.SilentEcho) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_SILENT_ECHO) then
             if not data.SilentEchoUsedThisRoom then
                 data.SilentEchoUsedThisRoom = true
 

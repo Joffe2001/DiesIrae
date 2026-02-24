@@ -1,6 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_GRUDGE = Isaac.GetItemIdByName("Grudge")
+
 local Grudge = {}
 local GrudgeEnemies = {}
 
@@ -10,7 +12,7 @@ function Grudge:OnPlayerDamage(playerEntity, amount, flags, source, countdown)
         return nil
     end
 
-    if not player:HasCollectible(mod.Items.Grudge) then
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_GRUDGE) then
         return nil
     end
 
@@ -46,7 +48,7 @@ function Grudge:OnEnemyDamage(npcEntity, amount, flags, source, countdown)
     local playerCount = game:GetNumPlayers()
     for i = 0, playerCount - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.Grudge) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_GRUDGE) then
             return {
                 Damage = amount * 2,
                 DamageFlags = flags,

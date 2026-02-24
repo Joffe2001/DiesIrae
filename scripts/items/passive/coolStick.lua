@@ -1,10 +1,12 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local coolStick = {}
 
-local coolStickId = mod.Items.CoolStick
+mod.CollectibleType.COLLECTIBLE_COOL_STICK = Isaac.GetItemIdByName("Cool Stick")
+local coolStickId = mod.CollectibleType.COLLECTIBLE_COOL_STICK
 
-function mod:OnCache(player, flag)
+function coolStick:OnCache(player, flag)
     local stacks = player:GetCollectibleNum(coolStickId)
     if stacks <= 0 then
         return
@@ -16,16 +18,16 @@ function mod:OnCache(player, flag)
         player.Luck = player.Luck + 1 * stacks
     end
 end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnCache)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, coolStick.OnCache)
 
-function mod:OnPlayerEffect(player)
+function coolStick:OnPlayerEffect(player)
     if player:HasCollectible(coolStickId) then
         player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_LUCK)
         player:EvaluateItems()
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.OnPlayerEffect)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, coolStick.OnPlayerEffect)
 
 local chestWhitelist = {
     [PickupVariant.PICKUP_CHEST]        = 1,
@@ -51,7 +53,7 @@ local function AnyPlayerHasStick()
     return false
 end
 
-function mod:OnPickupInit(pickup)
+function coolStick:OnPickupInit(pickup)
     if pickup.Type ~= EntityType.ENTITY_PICKUP then
         return
     end
@@ -82,5 +84,5 @@ function mod:OnPickupInit(pickup)
         )
     end
 end
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, mod.OnPickupInit)
+mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, coolStick.OnPickupInit)
 

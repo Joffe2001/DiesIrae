@@ -1,7 +1,8 @@
 local mod = DiesIraeMod
-
 local ThoughtContagion = {}
 local game = Game()
+
+mod.CollectibleType.COLLECTIBLE_THOUGHT_CONTAGION = Isaac.GetItemIdByName("Thought Contagion")
 
 local DAMAGE_SHARE_RADIUS  = 80 
 local DAMAGE_SHARE_PERCENT = 0.75    
@@ -10,7 +11,7 @@ local function AnyPlayerHasItem()
     local num = game:GetNumPlayers()
     for i = 0, num - 1 do
         local p = Isaac.GetPlayer(i)
-        if p:HasCollectible(mod.Items.ThoughtContagion) then
+        if p:HasCollectible(mod.CollectibleType.COLLECTIBLE_THOUGHT_CONTAGION) then
             return true, p
         end
     end

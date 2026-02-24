@@ -3,6 +3,8 @@ local mod = DiesIraeMod
 local HereToStay = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_HERE_TO_STAY = Isaac.GetItemIdByName("Here to Stay")
+
 local MAX_TICKS = 6
 local CREEP_INTERVAL = 20
 
@@ -18,7 +20,7 @@ local SHRINK_SPEED = 0.02
 
 
 function HereToStay:PostPlayerUpdate(player)
-    if not player:HasCollectible(mod.Items.HereToStay) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_HERE_TO_STAY) then return end
 
     local data = player:GetData()
     data.TickCount = data.TickCount or 0

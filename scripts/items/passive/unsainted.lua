@@ -1,11 +1,12 @@
 local mod = DiesIraeMod
-
-local Unsainted = {}
 local game = Game()
+local Unsainted = {}
+
+mod.CollectibleType.COLLECTIBLE_UNSAINTED = Isaac.GetItemIdByName("Unsainted")
 
 function Unsainted:onGetCollectible(pool, decrease, seed)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.Unsainted) then
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNSAINTED) then
         return nil
     end
 
@@ -25,7 +26,7 @@ end
 
 function Unsainted:onPickupInit(pickup)
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.Unsainted) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNSAINTED) then return end
 
     if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local item = pickup:ToPickup()
@@ -37,7 +38,7 @@ function Unsainted:onPickupInit(pickup)
 end
 
 function Unsainted:onPickup(player, pickup)
-    if not player:HasCollectible(mod.Items.Unsainted) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_UNSAINTED) then return end
 
     if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local data = pickup:GetData()
@@ -52,5 +53,5 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Unsainted.onPickupInit, Pickup
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_COLLISION, Unsainted.onPickup)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.Unsainted, "Isaac's sinful Playlist")
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_UNSAINTED, "Isaac's sinful Playlist")
 end

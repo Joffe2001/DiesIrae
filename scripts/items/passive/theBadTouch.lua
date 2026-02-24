@@ -1,10 +1,11 @@
 local mod = DiesIraeMod
-
 local BadTouch = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_THE_BAD_TOUCH = Isaac.GetItemIdByName("The Bad Touch")
+
 function BadTouch:onPlayerCollision(player, collider)
-    if not player:HasCollectible(mod.Items.TheBadTouch) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_THE_BAD_TOUCH) then return end
     if not collider:IsVulnerableEnemy() then return end
 
     local npc = collider:ToNPC()
@@ -18,3 +19,7 @@ function BadTouch:onPlayerCollision(player, collider)
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_COLLISION, BadTouch.onPlayerCollision)
+
+if EID then
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_THE_BAD_TOUCH, "Dad's Playlist")
+end

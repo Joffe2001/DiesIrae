@@ -1,10 +1,9 @@
 local mod = DiesIraeMod
-
 local momsDress = {}
-
 local mantle = CollectibleType.COLLECTIBLE_HOLY_MANTLE
-
 local game = Game()
+
+mod.CollectibleType.COLLECTIBLE_MOMS_DRESS = Isaac.GetItemIdByName("Mom's Dress")
 
 function momsDress:SpawnRottenHearts(player)
     for _ = 1, 2 do
@@ -20,7 +19,7 @@ function momsDress:SpawnRottenHearts(player)
 end
 
 function momsDress:OnPostAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
-    if collectibleType == mod.Items.MomsDress then
+    if collectibleType == mod.CollectibleType.COLLECTIBLE_MOMS_DRESS then
         momsDress:SpawnRottenHearts(player)
     end
 end
@@ -28,7 +27,7 @@ end
 function momsDress:OnPostNewRoom()
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if not player:HasCollectible(mod.Items.MomsDress) then return end
+        if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MOMS_DRESS) then return end
 
         local room = game:GetRoom()
         if room:IsClear() then
@@ -38,7 +37,7 @@ function momsDress:OnPostNewRoom()
         local rng = RNG()
         rng:SetSeed(game:GetSeeds():GetStartSeed() + room:GetDecorationSeed(), 35)
 
-        local chance = 0.2 + player:GetCollectibleNum(mod.Items.MomsDress, false) * 0.1
+        local chance = 0.2 + player:GetCollectibleNum(mod.CollectibleType.COLLECTIBLE_MOMS_DRESS, false) * 0.1
 
         if rng:RandomFloat() < chance then
             player:AddCollectibleEffect(mantle, true)

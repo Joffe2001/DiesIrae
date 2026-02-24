@@ -3,6 +3,8 @@ local mod = DiesIraeMod
 local Engel = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_ENGEL = Isaac.GetItemIdByName("Engel")
+
 local function IsAlwaysFlying(player)
     local playerType = player:GetPlayerType()
     return playerType == PlayerType.PLAYER_AZAZEL
@@ -16,7 +18,7 @@ local function IsInBeastFight()
 end
 
 function Engel:onCache(player, cacheFlag)
-    if not player:HasCollectible(mod.Items.Engel) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_ENGEL) then return end
 
     if cacheFlag == CacheFlag.CACHE_LUCK then
         player.Luck = player.Luck + 5
@@ -35,5 +37,5 @@ end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Engel.onCache)
 
 if EID then
-    EID:assignTransformation("collectible", mod.Items.Engel, "Isaac's sinful Playlist")
+    EID:assignTransformation("collectible", mod.CollectibleType.COLLECTIBLE_ENGEL, "Isaac's sinful Playlist")
 end

@@ -3,6 +3,8 @@ local game = Game()
 local rng = RNG()
 local sfx = SFXManager()
 
+mod.CollectibleType.COLLECTIBLE_MUSE = Isaac.GetItemIdByName("Muse")
+
 local muse = {}
 
 muse.DOUBLE_CHANCE = 0.50
@@ -64,7 +66,7 @@ function muse:onPickupUpdate(pickup)
     if pickup:GetData().FromMuse then return end
 
     local player = Isaac.GetPlayer(0)
-    if not player:HasCollectible(mod.Items.Muse) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MUSE) then return end
 
     rng:SetSeed(pickup.InitSeed, 35)
     local roll = rng:RandomFloat()
@@ -84,14 +86,14 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, muse.onPickupUpdate)
 
 ---@param player EntityPlayer
 function muse:onAddCollectible(collectibleType, charge, firstTime, slot, varData, player)
-    if not player:HasCollectible(mod.Items.Muse) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_MUSE) then return end
     if not firstTime then return end
 
-    if collectibleType == mod.Items.Muse then return end
+    if collectibleType == mod.CollectibleType.COLLECTIBLE_MUSE then return end
 
     if muse.SpawnedCollectibles[collectibleType] then return end
 
-    rng:SetSeed(player:GetCollectibleRNG(mod.Items.Muse):Next(), 35)
+    rng:SetSeed(player:GetCollectibleRNG(mod.CollectibleType.COLLECTIBLE_MUSE):Next(), 35)
 
     if rng:RandomFloat() <= muse.COLLECTIBLE_DUPLICATE_CHANCE then
         muse.SpawnedCollectibles[collectibleType] = true

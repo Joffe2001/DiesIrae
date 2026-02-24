@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local rewrappingPaper = {}
+
+mod.CollectibleType.COLLECTIBLE_REWRAPPING_PAPER = Isaac.GetItemIdByName("Rewrapping Paper")
 
 local openingGift = false
 local hasGiftThisFloor = false
@@ -10,14 +13,14 @@ local function GetStageKey()
     local level = game:GetLevel()
     return tostring(level:GetStage()) .. "-" .. tostring(level:GetStageType())
 end
-function mod:RewrappingPaper_OnUse(_, _, player)
+function rewrappingPaper:onUse(_, _, player)
     if player:HasCollectible(mod.Items.RewrappingPaper) then
         openingGift = true
     end
 end
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.RewrappingPaper_OnUse, CollectibleType.COLLECTIBLE_MYSTERY_GIFT)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, rewrappingPaper.onUse, CollectibleType.COLLECTIBLE_MYSTERY_GIFT)
 
-function mod:RewrappingPaper_PreGetCollectible(pool, decrease, seed)
+function rewrappingPaper:preGetCollectible(pool, decrease, seed)
     local stageKey = GetStageKey()
 
     if stageKey ~= lastStageKey then
@@ -39,4 +42,4 @@ function mod:RewrappingPaper_PreGetCollectible(pool, decrease, seed)
         end
     end
 end
-mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, mod.RewrappingPaper_PreGetCollectible)
+mod:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, rewrappingPaper.preGetCollectible)

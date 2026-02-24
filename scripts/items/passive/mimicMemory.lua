@@ -1,8 +1,11 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local mimicMemory = {}
 
-function mod:PostPlayerUpdate_MimicMemory(player)
+mod.CollectibleType.COLLECTIBLE_MIMIC_MEMORY = Isaac.GetItemIdByName("Mimic Memory")
+
+function mimicMemory:PostPlayerUpdate_MimicMemory(player)
     if not player:HasCollectible(mod.Items.MimicMemory) then return end
 
     local data = player:GetData()
@@ -32,4 +35,4 @@ function mod:PostPlayerUpdate_MimicMemory(player)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.PostPlayerUpdate_MimicMemory)
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mimicMemory.PostPlayerUpdate_MimicMemory)

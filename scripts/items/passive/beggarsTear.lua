@@ -3,9 +3,11 @@ local mod = DiesIraeMod
 local BeggarsTear = {}
 local game = Game()
 
+mod.CollectibleType.COLLECTIBLE_BEGGARS_TEAR = Isaac.GetItemIdByName("Beggar's Tear")
+
 function BeggarsTear:onFireTear(tear)
     local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-    if player and player:HasCollectible(mod.Items.BeggarsTear) then
+    if player and player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BEGGARS_TEAR) then
         tear:GetData().BeggarsTear = true
     end
 end

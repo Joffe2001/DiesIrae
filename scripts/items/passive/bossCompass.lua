@@ -1,6 +1,9 @@
 ---@class ModReference
 local mod = DiesIraeMod
 local game = Game()
+local bossCompass = {}
+
+mod.CollectibleType.COLLECTIBLE_BOSS_COMPASS = Isaac.GetItemIdByName("Boss Compass")
 
 local damageBoosts = {}
 
@@ -16,21 +19,21 @@ local function ApplyDamageBoost(player, amount)
     player:EvaluateItems()
 end
 
-function mod:OnEvaluateCache(player, cacheFlag)
+function bossCompass:OnEvaluateCache(player, cacheFlag)
     if cacheFlag ~= CacheFlag.CACHE_DAMAGE then return end
-    if not player:HasCollectible(mod.Items.BossCompass) then return end
+    if not player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BOSS_COMPASS) then return end
 
     local idx = GetPlayerIndex(player)
     local bonus = damageBoosts[idx] or 0
     player.Damage = player.Damage + bonus
 end
 
-function mod:OnBossDeath(npc)
+function bossCompass:OnBossDeath(npc)
     if not npc:IsBoss() then return end
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.BossCompass) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BOSS_COMPASS) then
             local roomType = game:GetLevel():GetCurrentRoomDesc().Data.Type
 
             if roomType == RoomType.ROOM_BOSS then
@@ -42,12 +45,12 @@ function mod:OnBossDeath(npc)
     end
 end
 
-function mod:BossCompassRender()
+function bossCompass:BossCompassRender()
     local level = game:GetLevel()
 
     for i = 0, game:GetNumPlayers() - 1 do
         local player = Isaac.GetPlayer(i)
-        if player:HasCollectible(mod.Items.BossCompass) then
+        if player:HasCollectible(mod.CollectibleType.COLLECTIBLE_BOSS_COMPASS) then
             for j = 0, level:GetRooms().Size - 1 do
                 local roomDesc = level:GetRooms():Get(j)
                 local rType = roomDesc.Data.Type
@@ -59,6 +62,6 @@ function mod:BossCompassRender()
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.BossCompassRender)
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
-mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.OnBossDeath)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, bossCompass.BossCompassRender)
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, bossCompass.OnEvaluateCache)
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, bossCompass.OnBossDeath)
