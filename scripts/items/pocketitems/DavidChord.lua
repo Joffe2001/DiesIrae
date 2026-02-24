@@ -273,7 +273,7 @@ function DavidChord:UseCardGreed(player, floor)
         DavidChord:GreedEffect_Challenge1(player, floor)
     elseif variant == mod.GREED_CHALLENGES.LIMITED_SPENDING then
         DavidChord:GreedEffect_Challenge2(player, floor)
-    elseif variant == mod.GREED_CHALLENGES.NO_TREASURE then
+    elseif variant == mod.GREED_CHALLENGES.NO_SHOP then
         DavidChord:GreedEffect_Challenge3(player, floor)
     elseif variant == mod.GREED_CHALLENGES.NO_ACTIVES then
         DavidChord:GreedEffect_Challenge4(player, floor)
@@ -311,9 +311,14 @@ end
 -- Challenge 1: Give Holy Mantle for this room
 function DavidChord:GreedEffect_Challenge1(player, floor)
     local chordData = GetGreedChordData(floor)
-    chordData.mantleActive = true
-    player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, false)
-    game:GetHUD():ShowItemText("Holy Mantle This Room!", "", false)
+    
+    if not chordData.mantleActive then
+        chordData.mantleActive = true
+        player:AddCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE, false)
+        game:GetHUD():ShowItemText("Holy Mantle This Room!", "", false)
+    else
+        game:GetHUD():ShowItemText("Holy Mantle Already Active!", "", false)
+    end
 end
 
 -- Challenge 2: Make next shop item free (Coupon effect)
@@ -325,7 +330,7 @@ function DavidChord:GreedEffect_Challenge2(player, floor)
     game:GetHUD():ShowItemText("Next Shop Item Free!", "", false)
 end
 
--- Challenge 3: Spawn quality 1-2 pedestal
+-- Challenge 3: Spawn quality 0-2 pedestal
 function DavidChord:GreedEffect_Challenge3(player, floor)
     local room = game:GetRoom()
     local pos = room:GetCenterPos()
@@ -336,7 +341,7 @@ function DavidChord:GreedEffect_Challenge3(player, floor)
     local attempts = 0
     while attempts < 20 do
         local config = itemConfig:GetCollectible(item)
-        if config and (config.Quality == 1 or config.Quality == 2) then
+        if config and (config.Quality == 0 or config.Quality == 1 or config.Quality == 2) then
             break
         end
         item = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, game:GetSeeds():GetStartSeed())
@@ -442,26 +447,31 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 ------------------------------------------------------------
--- GREED MODE: Free Shop Item 
+-- GREED MODE: Free Shop Item (applied when entering the shop room)
 ------------------------------------------------------------
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     if not IsGreedMode() then return end
     if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
-    
+
+    local room = game:GetRoom()
+    if room:GetType() ~= RoomType.ROOM_SHOP then return end
+
     local floor = game:GetLevel():GetStage()
     local chordData = GetGreedChordData(floor)
-    
     if not chordData or not chordData.nextShopItemFree then return end
-    
-    -- Make shop items free (Coupon effect)
-    if pickup.Variant == PickupVariant.PICKUP_SHOPITEM then
-        pickup.Price = 0
-        pickup.AutoUpdatePrice = false
-        pickup:GetData().DavidChordFreeItem = true
-        chordData.nextShopItemFree = false  
-        Isaac.DebugString("[DavidChord] Made shop item free")
+
+    -- Find one purchasable shop item and make it free
+    for _, pickup in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_SHOPITEM)) do
+        if pickup.Price > 0 then
+            pickup.Price = 0
+            pickup.AutoUpdatePrice = false
+            pickup:GetData().DavidChordFreeItem = true
+            chordData.nextShopItemFree = false
+            Isaac.DebugString("[DavidChord] Made shop item free (room enter)")
+            break  -- Only one free item
+        end
     end
-end, EntityType.ENTITY_PICKUP)
+end)
 
 ------------------------------------------------------------
 -- Heal Broken Heart
@@ -551,7 +561,7 @@ if EID then
         [0] = "Adds 15 seconds to the boss timer",
         [1] = "{{SoulHeart}} Gives you Holy Mantle for this room",
         [2] = "{{Coin}} Makes the next shop item free",
-        [3] = "Spawns a quality 1-2 item pedestal",
+        [3] = "Spawns a quality 0-2 item pedestal",
         [4] = "Allows you to use your active item once",
         [5] = "Spawn a nickel",
         [6] = "Adds 15 seconds to the devil wave timer",

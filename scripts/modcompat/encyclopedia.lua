@@ -27,8 +27,8 @@ local EIDStr = {
     FiendDeal             = "Spawns a fiend beggar in the first room on every floor#Interacting with the beggar spawns two devil items on the next floor#{{Warning}} Interacting results in Isaac dying in one hit for the floor",
     PTSD                  = "{{BossRoom}} Entering a boss room grants +0.2 tears for each time the boss has killed the player before",
     FloweringSkull        = "Revives Isaac with 2 heart containers in the same room dealing 40 damage to all enemies and rerolling all passive items",
-    HarpString            = "↑ +1 Item pedestal in the Treasure room",
-    Harp                  = "↑ +0.15 damage multiplier for every passive item#Not including the Harp or Harp strings",
+    HarpString            = "David exclusive item. # ↑ +1 Item pedestal in the Treasure room",
+    Harp                  = "David exclusive item. #↑ +0.15 damage multiplier for every passive item#Not including the Harp or Harp strings",
     MichelinStar          = "Spawn two golden hearts on pickup#Spawn two golden hearts when picking up a food item",
     -- Familiars
     ParanoidAndroid       = "Shoots a static laser around itself",
@@ -68,7 +68,7 @@ local ItemsWiki = {
     -- Passives
     ProteinPowder    = W("ProteinPowder"),
     HarpString       = W("HarpString"),
-    Harp             = W("TheHarp"),
+    Harp             = W("Harp"),
     -- Unlockable passives
     Echo             = W("Echo"),
     TheBadTouch      = W("TheBadTouch"),
@@ -582,7 +582,7 @@ function mod:AddEncyclopediaDescs()
     ----------------------------------------------------------
     Item(mod.Items.ProteinPowder,         "ProteinPowder")
     Item(mod.Items.HarpString,            "HarpString")
-    Item(mod.Items.Harp,                  "TheHarp")
+    Item(mod.Items.Harp,                  "Harp")
 
     ----------------------------------------------------------
     -- Collectibles with achievements
@@ -607,6 +607,7 @@ function mod:AddEncyclopediaDescs()
     -- Elijah unlocks
     Item(mod.Items.RuneBum,               "RuneBum",            "RuneBum")
     Item(mod.Items.PastorBum,             "PastorBum",          "PastorBum")
+    Item(mod.Items.TarotBum,              "TarotBum",          "TarotBum")
     Item(mod.Items.FairBum,               "FairBum",            "FairBum")
     Item(mod.Items.RedBum,                "RedBum",             "RedBum")
     Item(mod.Items.PillBum,               "PillBum",            "PillBum")

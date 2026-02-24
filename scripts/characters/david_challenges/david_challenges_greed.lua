@@ -121,17 +121,20 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
 
     OnPlayerDamage = function(player, floor, amount, flags, source)
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
-        
-        -- Ignore spikes
-        if flags & DamageFlag.DAMAGE_SPIKES > 0 then return end
-        -- Ignore curse room damage
-        if flags & DamageFlag.DAMAGE_CURSED > 0 then return end
-        
+        if data.damageTaken then return end  -- already failed, ignore
+
+        -- Ignore spikes and curse room damage
+        if flags and type(flags) == "number" then
+            if flags & DamageFlag.DAMAGE_SPIKES > 0 then return end
+            if flags & DamageFlag.DAMAGE_CURSED > 0 then return end
+        end
+
+        -- Check if mantle is absorbing this hit
         local chordData = GetChordData(floor)
         if chordData and chordData.mantleActive then
             return
         end
-        
+
         data.damageTaken = true
         DavidGreedUtils.Fail(player, floor)
     end,
@@ -327,17 +330,14 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
         data.isFirstFloor = (floor == 1)
     end,
 
-    OnLevelSelect = function(player, floor)
+    OnBossWavesComplete = function(player, floor)
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
-        
-        -- Only applies to first floor
         if not data.isFirstFloor then
             DavidGreedUtils.SetBossWavesCompleted(floor)
             return
         end
-        
+
         local coins = player:GetNumCoins()
-        
         if coins > 3 then
             DavidGreedUtils.Fail(player, floor)
         else
@@ -348,7 +348,6 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
     OnRender = function(player, floor)
         local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
 
-        
         if not data.isFirstFloor then
             Isaac.RenderText(
                 string.format("Low Coins"),
@@ -356,19 +355,15 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
             )
             return
         end
-        
+
         local coins = player:GetNumCoins()
         local statusText = coins <= 3 and "PASS" or "FAIL"
         local color = coins <= 3 and {0.3, 1, 0.3, 1} or {1, 0.3, 0.3, 1}
-        
+
         Isaac.RenderText(
             string.format("F1: Coins %d (≤3) [%s]", coins, statusText),
             80, 20, color[1], color[2], color[3], color[4]
         )
-    end,
-
-    OnBossWavesComplete = function(player, floor)
-        DavidGreedUtils.SetBossWavesCompleted(floor)
     end,
 })
 
