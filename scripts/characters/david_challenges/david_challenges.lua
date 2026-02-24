@@ -422,7 +422,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_HIT_CHAMPIONS, {
 -- Double champion chance
 mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
     if game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
@@ -475,7 +475,7 @@ DavidUtils.Register(mod.CHALLENGES.CLEAR_ALL_ROOMS, {
 -- Update room cleared status
 mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, function()
     if game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
@@ -569,7 +569,7 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
 -- Track pedestal collection and rerolls
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
     if game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then return end
     
     local floor = game:GetLevel():GetStage()
@@ -615,7 +615,7 @@ end)
 -- Complete challenge when leaving floor if all pedestals taken
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     if game:IsGreedMode() then return end
-    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then return end
     
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
