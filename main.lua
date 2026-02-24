@@ -88,6 +88,7 @@ include("scripts.enemies.horfling")
 include("scripts.core.voidlost")
 include("scripts.items.familiars.gellocostumes")
 include("scripts.modcompat.deadseascrolls")
+include("scripts.modcompat.encyclopedia")
 ---------------------------------------------------
 --  TESTING ITEMS
 ---------------------------------------------------

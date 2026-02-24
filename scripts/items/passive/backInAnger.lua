@@ -46,3 +46,15 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.Items.BackInAnger)
 
+if EID then
+    EID:addCollectible(mod.Items.BackInAnger, {
+        en_us = { 
+            "Tears are fired from your bag (based on moving)",
+            "↑ +4 Damage"
+        },
+        ru = { 
+            "Стрельба сзади (зависит от направления движения)",
+            "↑ +4 Урона"
+        },
+    })
+end

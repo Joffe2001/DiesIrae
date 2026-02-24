@@ -37,15 +37,13 @@ end
 -- CONTINUOUS TIMER SYSTEM FOR WAVES
 ------------------------------------------------------------
 local waveTimers = {}
-local lastTrackedWave = -1
 
 local function GetWaveTimer(floor)
     if not waveTimers[floor] then
         waveTimers[floor] = {
-            bossWaveStartFrame = nil,
-            bossWaveEndFrame   = nil,
-            bossWavesComplete  = false,
-
+            bossWaveStartFrame  = nil,
+            bossWaveEndFrame    = nil,
+            bossWavesComplete   = false,
             devilWaveStartFrame = nil,
             devilWaveEndFrame   = nil,
             devilWaveComplete   = false,
@@ -54,66 +52,13 @@ local function GetWaveTimer(floor)
     return waveTimers[floor]
 end
 
-local function UpdateWaveTimers(floor)
-    local timer       = GetWaveTimer(floor)
-    local currentWave = GetCurrentWave()
-    local firstBoss   = GetFirstBossWave()
-    local secondBoss  = GetSecondBossWave()
-    local devilWave   = GetDevilWave()
-    local room        = game:GetRoom()
-
-    -- Detect wave changes
-    if currentWave ~= lastTrackedWave then
-        Isaac.DebugString(string.format(
-            "[Timer] Wave changed: %d → %d (FirstBoss=%d, SecondBoss=%d, Devil=%d)",
-            lastTrackedWave, currentWave, firstBoss, secondBoss, devilWave
-        ))
-
-        if currentWave == firstBoss and not timer.bossWaveStartFrame then
-            timer.bossWaveStartFrame = game:GetFrameCount()
-            Isaac.DebugString("[Timer] ✓ Boss waves STARTED at frame " .. timer.bossWaveStartFrame)
-        end
-
-        if currentWave == devilWave and not timer.devilWaveStartFrame then
-            timer.devilWaveStartFrame = game:GetFrameCount()
-            Isaac.DebugString("[Timer] ✓ Devil wave STARTED at frame " .. timer.devilWaveStartFrame)
-        end
-
-        lastTrackedWave = currentWave
-        return true
-    end
-
-    -- Boss waves complete
-    if currentWave == secondBoss and room:IsClear() then
-        if timer.bossWaveStartFrame and not timer.bossWavesComplete then
-            timer.bossWaveEndFrame  = game:GetFrameCount()
-            timer.bossWavesComplete = true
-            local totalFrames = timer.bossWaveEndFrame - timer.bossWaveStartFrame
-            Isaac.DebugString(string.format("[Timer] ✓ Boss waves COMPLETE - %.1fs", totalFrames / 30))
-        end
-    end
-
-    -- Devil wave complete
-    if currentWave == devilWave and room:IsClear() then
-        if timer.devilWaveStartFrame and not timer.devilWaveComplete then
-            timer.devilWaveEndFrame  = game:GetFrameCount()
-            timer.devilWaveComplete  = true
-            local totalFrames = timer.devilWaveEndFrame - timer.devilWaveStartFrame
-            Isaac.DebugString(string.format("[Timer] ✓ Devil wave COMPLETE - %.1fs", totalFrames / 30))
-        end
-    end
-
-    return false
-end
-
 local function GetBossWaveElapsedFrames(floor)
     local timer = GetWaveTimer(floor)
     if not timer.bossWaveStartFrame then return 0 end
     if timer.bossWavesComplete then
         return timer.bossWaveEndFrame - timer.bossWaveStartFrame
-    else
-        return game:GetFrameCount() - timer.bossWaveStartFrame
     end
+    return game:GetFrameCount() - timer.bossWaveStartFrame
 end
 
 local function GetDevilWaveElapsedFrames(floor)
@@ -121,8 +66,56 @@ local function GetDevilWaveElapsedFrames(floor)
     if not timer.devilWaveStartFrame then return 0 end
     if timer.devilWaveComplete then
         return timer.devilWaveEndFrame - timer.devilWaveStartFrame
-    else
-        return game:GetFrameCount() - timer.devilWaveStartFrame
+    end
+    return game:GetFrameCount() - timer.devilWaveStartFrame
+end
+
+local function OnWaveChanged(floor, newWave, prevWave)
+    local timer      = GetWaveTimer(floor)
+    local firstBoss  = GetFirstBossWave()
+    local secondBoss = GetSecondBossWave()
+    local devilWave  = GetDevilWave()
+
+    Isaac.DebugString(string.format(
+        "[Timer] Wave %d → %d  (FirstBoss=%d, SecondBoss=%d, DevilWave=%d)",
+        prevWave or -1, newWave, firstBoss, secondBoss, devilWave
+    ))
+
+    -- Boss waves start
+    if newWave == firstBoss and not timer.bossWaveStartFrame then
+        timer.bossWaveStartFrame = game:GetFrameCount()
+        Isaac.DebugString("[Timer] Boss waves STARTED at frame " .. timer.bossWaveStartFrame)
+    end
+
+    -- Boss waves complete
+    if prevWave == secondBoss and timer.bossWaveStartFrame and not timer.bossWavesComplete then
+        timer.bossWaveEndFrame  = game:GetFrameCount()
+        timer.bossWavesComplete = true
+        local t = timer.bossWaveEndFrame - timer.bossWaveStartFrame
+        Isaac.DebugString(string.format("[Timer] Boss waves COMPLETE (left secondBoss) - %.1fs", t / 30))
+    end
+
+    -- Devil wave start
+    if newWave == devilWave and not timer.devilWaveStartFrame then
+        timer.devilWaveStartFrame = game:GetFrameCount()
+        Isaac.DebugString("[Timer] Devil wave STARTED at frame " .. timer.devilWaveStartFrame)
+    end
+end
+
+-- Checks whether the devil wave just cleared.
+local function UpdateRoomClearTimers(floor)
+    local timer     = GetWaveTimer(floor)
+    local room      = game:GetRoom()
+    local devilWave = GetDevilWave()
+    local wave      = GetCurrentWave()
+
+    if wave == devilWave and room:IsClear() then
+        if timer.devilWaveStartFrame and not timer.devilWaveComplete then
+            timer.devilWaveEndFrame = game:GetFrameCount()
+            timer.devilWaveComplete = true
+            local t = timer.devilWaveEndFrame - timer.devilWaveStartFrame
+            Isaac.DebugString(string.format("[Timer] Devil wave COMPLETE - %.1fs", t / 30))
+        end
     end
 end
 
@@ -156,11 +149,11 @@ local function GetUsedGreedChallenges()
 end
 
 local function IsChallengeUsed(variant)
-    return GetUsedGreedChallenges()[variant] == true
+    return GetUsedGreedChallenges()["v" .. tostring(variant)] == true
 end
 
 local function MarkChallengeAsUsed(variant)
-    GetUsedGreedChallenges()[variant] = true
+    GetUsedGreedChallenges()["v" .. tostring(variant)] = true
 end
 
 local bossWavesCompletedFloors = {}
@@ -176,8 +169,7 @@ end
 
 local function ResetBossWavesTracking(floor)
     bossWavesCompletedFloors[floor] = false
-    waveTimers[floor]               = nil
-    lastTrackedWave                 = -1
+    waveTimers[floor] = nil
 end
 
 ------------------------------------------------------------
@@ -501,8 +493,11 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     SafeCallHandler("OnLevelSelect", variant, player, floor)
 
     local freshState = GetGreedFloorState(floor)
-    if freshState and not freshState.failed and not freshState.completed then
+    if not freshState or freshState.failed or freshState.completed then return end
+    if WereBossWavesCompleted(floor) then
         mod:CompleteGreedChallenge(floor)
+    else
+        mod:CancelGreedChallenge(floor)
     end
 end)
 
@@ -518,29 +513,73 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     SafeCallHandler("OnNewRoom", variant, player, floor)
 end)
 
--- Wave tracking and timers
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+    if not game:IsGreedMode() then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+    local floor = game:GetLevel():GetStage()
+    UpdateRoomClearTimers(floor)
+end)
+
+-- Wave tracking and challenge update/complete logic
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if not game:IsGreedMode() then return end
 
     local state, floor, variant, player = mod:GetActiveGreedChallengeState()
     if not state then return end
 
-    local waveChanged = UpdateWaveTimers(floor)
-
-    if waveChanged then
-        SafeCallHandler("OnGreedWave", variant, player, floor)
-    end
-
     SafeCallHandler("OnUpdate", variant, player, floor)
+end)
 
-    if IsBossWave() and game:GetRoom():IsClear() then
-        local currentWave = GetCurrentWave()
-        local secondBoss  = GetSecondBossWave()
-        if currentWave == secondBoss and not WereBossWavesCompleted(floor) then
+if ModCallbacks.MC_POST_GREED_MODE_WAVE then
+    mod:AddCallback(ModCallbacks.MC_POST_GREED_MODE_WAVE, function(_, newWave)
+        if not game:IsGreedMode() then return end
+        if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+        local floor      = game:GetLevel():GetStage()
+        local timer      = GetWaveTimer(floor)
+        local prevWave   = timer.lastKnownWave or -1
+        timer.lastKnownWave = newWave
+
+        OnWaveChanged(floor, newWave, prevWave)
+
+        local state, _, variant, player = mod:GetActiveGreedChallengeState()
+        if not state then return end
+
+        SafeCallHandler("OnGreedWave", variant, player, floor)
+
+        if prevWave == GetSecondBossWave() and not WereBossWavesCompleted(floor) then
+            Isaac.DebugString("[Greed] Firing OnBossWavesComplete (left secondBoss)")
             SafeCallHandler("OnBossWavesComplete", variant, player, floor)
         end
-    end
-end)
+    end)
+else
+    local lastWaveByFloor = {}
+    mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+        if not game:IsGreedMode() then return end
+        if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+        local floor       = game:GetLevel():GetStage()
+        local currentWave = GetCurrentWave()
+        local prevWave    = lastWaveByFloor[floor] or -1
+
+        if currentWave ~= prevWave then
+            lastWaveByFloor[floor] = currentWave
+            OnWaveChanged(floor, currentWave, prevWave)
+
+            local state, _, variant, player = mod:GetActiveGreedChallengeState()
+            if state then
+                SafeCallHandler("OnGreedWave", variant, player, floor)
+
+                -- Boss waves complete
+                if prevWave == GetSecondBossWave() and not WereBossWavesCompleted(floor) then
+                    Isaac.DebugString("[Greed] Firing OnBossWavesComplete (fallback, left secondBoss)")
+                    SafeCallHandler("OnBossWavesComplete", variant, player, floor)
+                end
+            end
+        end
+    end)
+end
 
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     if not game:IsGreedMode() then return end
@@ -609,7 +648,6 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         save.GreedChallengesCompleted = 0
         bossWavesCompletedFloors      = {}
         waveTimers                    = {}
-        lastTrackedWave               = -1
 
         if PlayerManager.AnyoneIsPlayerType(mod.Players.David) then
             local floor = game:GetLevel():GetStage()

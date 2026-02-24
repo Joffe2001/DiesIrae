@@ -5,7 +5,7 @@
 <!--Characters-->
 	<achievement name="David" text=''                     gfx="achievement_david.png"              gfxback="paper_music.png"/>
 	<achievement name="Tainted David" text=''             gfx="tdavid.png"                         gfxback="paper_music.png"/>
-	<achievement name="Elijah" text=''                    gfx="elijah.png"                         gfxback="paper_beggar.png"/>
+	<achievement name="Elijah" text=''                    gfx="achievement_elijah.png"             gfxback="paper_beggar.png"/>
 	<achievement name="Tainted Elijah" text=''            gfx="elijah.png"                         gfxback="paper_beggar.png"/>
 <!--David's Unlocks-->
 	<achievement name="Army of Lovers" text=''            gfx="achievement_armyoflovers.png"       gfxback="paper_music.png"/>
@@ -26,21 +26,21 @@
 <!--Elijah's Unlocks-->
 	<achievement name="Scammer Bum" text=''               gfx="achievement_scammerbum.png"         gfxback="paper_beggar.png"/>
 	<achievement name="Fiend Deal" text=''                gfx="achievement_fienddeal.png"          gfxback="paper_beggar.png"/>
-	<achievement name="Red Bum" text=''                   gfx="redbum.png"                         gfxback="paper_beggar.png"/>
-	<achievement name="Rune Bum" text=''                  gfx="runebum.png"                        gfxback="paper_beggar.png"/>
-	<achievement name="Fair Bum" text=''                  gfx="fairbum.png"                        gfxback="paper_beggar.png"/>
+	<achievement name="Red Bum" text=''                   gfx="achievement_redbum.png"             gfxback="paper_beggar.png"/>
+	<achievement name="Rune Bum" text=''                  gfx="achievement_runebum.png"            gfxback="paper_beggar.png"/>
+	<achievement name="Fair Bum" text=''                  gfx="achievement_fairbum.png"            gfxback="paper_beggar.png"/>
 	<achievement name="Tarot Bum" text=''                 gfx="achievement_tarotbum.png"           gfxback="paper_beggar.png"/>
 	<achievement name="Pill Bum" text=''                  gfx="achievement_pillbum.png"            gfxback="paper_beggar.png"/>
 	<achievement name="Pastor Bum" text=''                gfx="pastorbum.png"                      gfxback="paper_beggar.png"/>
 	<achievement name="Junk Yard Seller" text=''          gfx="achievement_jys.png"                gfxback="paper_beggar.png"/>
-	<achievement name="Goldsmith Beggar" text=''          gfx="goldsmith.png"                      gfxback="paper_beggar.png"/>
+	<achievement name="Goldsmith Beggar" text=''          gfx="achievement_goldsmith.png"          gfxback="paper_beggar.png"/>
 	<achievement name="Familiars Beggar" text=''          gfx="achievement_familiarsbeggar.png"    gfxback="paper_beggar.png"/>
 	<achievement name="Sacrifice Table" text=''           gfx="achievement_sacrificetable.png"     gfxback="paper_beggar.png"/>
 	<achievement name="Chaos Beggar" text=''              gfx="chaosbeggar.png"                    gfxback="paper_beggar.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
 	<achievement name="Sling Shot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>
-	<achievement name="Devil's Heart" text=''             gfx="devilsheart.png"                    gfxback="paper.png"/>
+	<achievement name="Devil's Heart" text=''             gfx="achievement_devilsheart.png"        gfxback="paper.png"/>
 	<achievement name="Personal Beggar" text=''           gfx="achievement_personalbeggar.png"     gfxback="paper_beggar.png"/>
 <!--Passive items Unlocks-->
 	<achievement name="Golden Day" text=''                gfx="achievement_goldenday.png"          gfxback="paper_music.png"/>
