@@ -4,6 +4,8 @@ local batKol = {}
 
 mod.PlayerType.PLAYER_BAT_KOL = Isaac.GetPlayerTypeByName("Bat Kol", false)
 
+-- 2 times `mod.EntityVariant.BatKolGhost`. `mod.EntityVariant` not even initialised…
+
 batKol.BaseTearRate = 2.73
 batKol.MaxGhosts = 6
 batKol.StartGhosts = 2

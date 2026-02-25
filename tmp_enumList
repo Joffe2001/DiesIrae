@@ -1,0 +1,15 @@
+mod.PlayerType = {
+	PLAYER_BAT_KOL
+	PLAYER_
+	PLAYER_
+	PLAYER_
+}
+
+mod.Entity = {}
+
+
+
+
+
+open, unknown:
+characters/batKol/main.lua: mod.EntityVariant.BatKolGhost x2
