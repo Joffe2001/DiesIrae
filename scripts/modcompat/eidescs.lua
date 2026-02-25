@@ -720,7 +720,7 @@ mod.EIDescs = {
         "!!! outdated description"
     }
 },
-[mod.Items.SlingShot] = {
+[mod.Items.Slingshot] = {
     en_us = {
         "Shoots a large piercing tear which destroys rocks",
         "Tear explodes on wall impact",

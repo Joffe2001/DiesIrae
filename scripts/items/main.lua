@@ -1,5 +1,5 @@
 -- actives
-include("scripts.items.active.SlingShot")
+include("scripts.items.active.slingshot")
 include("scripts.items.active.armyOfLovers")
 include("scripts.items.active.guppysSoul")
 include("scripts.items.active.shBoom")

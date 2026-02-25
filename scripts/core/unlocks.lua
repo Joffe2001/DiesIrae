@@ -278,21 +278,21 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, OnNewRun_KingsHeart)
 
 ------------------------------------------------------
----            Unlock SlingShot                   ---
+---            Unlock Slingshot                   ---
 ------------------------------------------------------
 local slingshotUnlocked = false
 
-local function CheckSlingShotUnlock(player)
+local function CheckSlingshotUnlock(player)
     if slingshotUnlocked then return end
     if mod:GetCompletedDavidChallengeCount() >= 1 then
-        TryUnlock(mod.Achievements.SlingShot)
+        TryUnlock(mod.Achievements.Slingshot)
         slingshotUnlocked = true
     end
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
     if player:GetPlayerType() ~= mod.Players.David then return end
-    CheckSlingShotUnlock(player)
+    CheckSlingshotUnlock(player)
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, reenter)

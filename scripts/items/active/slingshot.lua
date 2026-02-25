@@ -1,6 +1,6 @@
 local mod = DiesIraeMod
 
-local SlingShot = {}
+local slingshot = {}
 
 local SPEED = 5.5
 local DAMAGE_MULT = 2.0
@@ -18,7 +18,7 @@ local function dirToVector(dir)
     else return Vector(1, 0) end
 end
 
-function SlingShot:onUse(_, _, player, _, _)
+function slingshot:onUse(_, _, player, _, _)
     local dir = dirToVector(player:GetHeadDirection())
 
     local tear = Isaac.Spawn(
@@ -31,7 +31,7 @@ function SlingShot:onUse(_, _, player, _, _)
     ):ToTear()
 
     if tear then
-        tear:GetData().IsSlingShot = true
+        tear:GetData().IsSlingshot = true
         tear:GetData().InitialVelocity = dir * SPEED
         tear.CollisionDamage = (player.Damage * DAMAGE_MULT) + BASE_BONUS
         tear.Scale = SCALE_MULT
@@ -47,8 +47,8 @@ function SlingShot:onUse(_, _, player, _, _)
     return true 
 end
 
-function SlingShot:onTearUpdate(tear)
-    if not tear:GetData().IsSlingShot then return end
+function slingshot:onTearUpdate(tear)
+    if not tear:GetData().IsSlingshot then return end
     
     if tear:GetData().InitialVelocity then
         tear.Velocity = tear:GetData().InitialVelocity
@@ -104,5 +104,5 @@ function SlingShot:onTearUpdate(tear)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, SlingShot.onUse, mod.Items.SlingShot)
-mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, SlingShot.onTearUpdate)
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, slingshot.onUse, mod.CollectibleType.COLLECTIBLE_SLINGSHOT)
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, slingshot.onTearUpdate)

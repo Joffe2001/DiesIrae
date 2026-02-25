@@ -99,7 +99,7 @@ mod.Items = {
     MomsDiary             = Isaac.GetItemIdByName("Mom's Diary"),
     AnotherMedium         = Isaac.GetItemIdByName("Another Medium"),
     LittleLies            = Isaac.GetItemIdByName("Little Lies"),
-    SlingShot             = Isaac.GetItemIdByName("Sling Shot"),
+    Slingshot             = Isaac.GetItemIdByName("Slingshot"),
     KingsHeart            = Isaac.GetItemIdByName("King's Heart"),
     BreakStuff            = Isaac.GetItemIdByName("Break Stuff"),
     PersonalBeggar        = Isaac.GetItemIdByName("Personal Beggar"),
@@ -331,7 +331,7 @@ mod.Achievements = {
     --- Active items unlocks
     DevilsHeart        = Isaac.GetAchievementIdByName("Devil's Heart"),
     KingsHeart         = Isaac.GetAchievementIdByName("King's Heart"),
-    SlingShot          = Isaac.GetAchievementIdByName("Sling Shot"),
+    Slingshot          = Isaac.GetAchievementIdByName("Slingshot"),
     PersonalBeggar     = Isaac.GetAchievementIdByName("Personal Beggar"),
 
     --- Passive items unlocks

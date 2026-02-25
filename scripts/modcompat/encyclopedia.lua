@@ -42,7 +42,7 @@ local EIDStr = {
     TarotBum              = "Gets tarot cards, drop soul hearts. #Picking up reverse tarot cards spawn rotten hearts/ black hearts",
     -- Actives
     ArmyOfLovers          = "Spawns 2 Minisaacs#{{Heart}} 12% chance to spawn 5 rewards",
-    SlingShot             = "Shoots a large piercing tear which destroys rocks#Tear explodes on wall impact",
+    Slingshot             = "Shoots a large piercing tear which destroys rocks#Tear explodes on wall impact",
     ShBoom                = "{{Collectible483}} Activates Mama Mega!#{{BrokenHeart}} +1 Broken Heart#Can only be used once per floor",
     HelterSkelter         = "25% chance for each enemy to turn into a friendly Bony",
     LittleLies            = "Size down for the room#↑ +2 Tears for the room",
@@ -95,7 +95,7 @@ local ItemsWiki = {
     TarotBum         = W("TarotBum"),
     -- Unlockable Actives
     ArmyOfLovers     = W("ArmyOfLovers"),
-    SlingShot        = W("SlingShot"),
+    Slingshot        = W("Slingshot"),
     ShBoom           = W("ShBoom"),
     HelterSkelter    = W("HelterSkelter"),
     LittleLies       = W("LittleLies"),
@@ -113,7 +113,7 @@ local CharactersWiki = {
     David = {
         { -- Start Data
             {str = "Start Data",        fsize = 2, clr = 3, halign = 0},
-            {str = "Active Item: Sling Shot"},
+            {str = "Active Item: Slingshot"},
             {str = "Coins: 10 | HP: 1 Golden Heart"},
             {str = "Speed: 1.2 | Damage: 6 | Tears: 2.73"},
             {str = "Range: 6.5 | Shot Speed: 1.0 | Luck: 0"},
@@ -186,7 +186,7 @@ local UnlockDescs = {
     ScammerBum         = "Beat Greed Mode as Elijah.",
     ChaosBeggar        = "Get all hard completion marks as Elijah.",
     -- Misc unlocks
-    SlingShot          = "Complete 1 challenge as David.",
+    Slingshot          = "Complete 1 challenge as David.",
     GoldenDay          = "Pick up a golden key, bomb, and coin in one run as David.",
     CreatineOverdose   = "Have 2 copies of Protein Powder at the same time.",
     PTSD               = "Die to a boss on Basement 1.",
@@ -386,9 +386,9 @@ local UnlocksTable = {
         end
     end,
     -- Misc unlocks
-    SlingShot = function(self)
-        if not Unlocked(mod.Achievements.SlingShot) then
-            self.Desc = UnlockDescs.SlingShot
+    Slingshot = function(self)
+        if not Unlocked(mod.Achievements.Slingshot) then
+            self.Desc = UnlockDescs.Slingshot
             return self
         end
     end,
@@ -615,7 +615,7 @@ function mod:AddEncyclopediaDescs()
     Item(mod.Items.FiendDeal,             "FiendDeal",          "FiendDeal")
 
     -- Misc unlocks
-    Item(mod.Items.SlingShot,             "SlingShot",          "SlingShot")
+    Item(mod.Items.Slingshot,             "Slingshot",          "Slingshot")
     Item(mod.Items.GoldenDay,             "GoldenDay",          "GoldenDay")
     Item(mod.Items.Echo,                  "Echo",               "Echo")
     Item(mod.Items.CreatineOverdose,      "CreatineOverdose",   "CreatineOverdose")

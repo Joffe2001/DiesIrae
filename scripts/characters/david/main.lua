@@ -1,10 +1,10 @@
 local mod = DiesIraeMod
 local David = {}
 
-require("scripts/characters/david/david_challenges/david_challenges_utils")
-require("scripts/characters/david/david_challenges/david_challenges")
-require("scripts/characters/david/david_challenges/david_challenges_utils_greed")
-require("scripts/characters/david/david_challenges/david_challenges_greed")
+require("scripts/characters/david/challenges_utils")
+require("scripts/characters/david/challenges")
+require("scripts/characters/david/challenges_utils_greed")
+require("scripts/characters/david/challenges_greed")
 
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
@@ -31,11 +31,12 @@ mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, David.TearGFXApply)
 
 function David:OnPlayerInit(player)
     if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
-    player:AddCollectible(mod.Items.SlingShot)
+    player:AddCollectible(mod.CollectibleType.COLLECTIBLE_SLINGSHOT)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, David.OnPlayerInit)
 
 --STRONG boiiii
+-- -- cute
 local DAMAGE_MODIFIER = 3
 local SPEED_MODIFIER = 0.2
 local TEAR_DELAY_MODIFIER = 1.3

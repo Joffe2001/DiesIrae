@@ -132,7 +132,7 @@ local achievementData = {
     { group="elijah", name="chaos beggar",          id=mod.Achievements.ChaosBeggar,        gfx=GFX_ROOT.."chaosbeggar.png",                    unlock="placeholder", desc="placeholder" },
     -- Items
     { group="items", name="kings heart",            id=mod.Achievements.KingsHeart,         gfx=GFX_ROOT.."achievement_kingsheart.png",         unlock="placeholder", desc="placeholder" },
-    { group="items", name="sling shot",             id=mod.Achievements.SlingShot,          gfx=GFX_ROOT.."slingshot.png",                      unlock="placeholder", desc="placeholder" },
+    { group="items", name="slingshot",             id=mod.Achievements.Slingshot,          gfx=GFX_ROOT.."slingshot.png",                      unlock="placeholder", desc="placeholder" },
     { group="items", name="devils heart",           id=mod.Achievements.DevilsHeart,        gfx=GFX_ROOT.."devilsheart.png",                    unlock="placeholder", desc="placeholder" },
     { group="items", name="personal beggar",        id=mod.Achievements.PersonalBeggar,     gfx=GFX_ROOT.."achievement_personalbeggar.png",     unlock="placeholder", desc="placeholder" },
     { group="items", name="golden day",             id=mod.Achievements.GoldenDay,          gfx=GFX_ROOT.."achievement_goldenday.png",          unlock="placeholder", desc="placeholder" },

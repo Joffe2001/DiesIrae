@@ -10,6 +10,5 @@ mod.Entity = {}
 
 
 
-
 open, unknown:
 characters/batKol/main.lua: mod.EntityVariant.BatKolGhost x2

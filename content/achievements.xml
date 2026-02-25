@@ -39,7 +39,7 @@
 	<achievement name="Chaos Beggar" text=''              gfx="chaosbeggar.png"                    gfxback="paper_beggar.png"/>
 <!--Active items Unlocks-->
 	<achievement name="King's Heart" text=''              gfx="achievement_kingsheart.png"         gfxback="paper_music.png"/>
-	<achievement name="Sling Shot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>
+	<achievement name="Slingshot" text=''                gfx="slingshot.png"                      gfxback="paper_music.png"/>
 	<achievement name="Devil's Heart" text=''             gfx="achievement_devilsheart.png"        gfxback="paper.png"/>
 	<achievement name="Personal Beggar" text=''           gfx="achievement_personalbeggar.png"     gfxback="paper_beggar.png"/>
 <!--Passive items Unlocks-->
