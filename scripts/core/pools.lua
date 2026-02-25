@@ -18,21 +18,6 @@ mod.Pools ={
         mod.Items.HelterSkelter,
         mod.Items.Muse
     },
-    SinfulMusicItem = {
-        mod.Items.HereToStay,
-        mod.Items.Hysteria,
-        mod.Items.Mutter,
-        mod.Items.LastResort,
-        mod.Items.HypaHypa,
-        mod.Items.HolyWood,
-        mod.Items.DiaryOfAMadman,
-        mod.Items.ComaWhite,
-        mod.Items.KoRn,
-        mod.Items.Psychosocial,
-        mod.Items.SymphonyOfDestr,
-        CollectibleType.COLLECTIBLE_DUALITY,
-        CollectibleType.COLLECTIBLE_SULFUR
-    },
     Relics ={
         CollectibleType.COLLECTIBLE_BLOOD_OF_THE_MARTYR,
         CollectibleType.COLLECTIBLE_DEAD_SEA_SCROLLS,
@@ -63,15 +48,6 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_120_VOLT,
         CollectibleType.COLLECTIBLE_BOT_FLY
     },
-    Guppy = {
-        CollectibleType.COLLECTIBLE_GUPPYS_EYE,
-        CollectibleType.COLLECTIBLE_GUPPYS_PAW,
-        CollectibleType.COLLECTIBLE_GUPPYS_TAIL,
-        CollectibleType.COLLECTIBLE_GUPPYS_HEAD,
-        CollectibleType.COLLECTIBLE_GUPPYS_HAIRBALL,
-        CollectibleType.COLLECTIBLE_GUPPYS_COLLAR,
-        mod.Items.GuppysSoul,
-    },
     Doctor = {
         CollectibleType.COLLECTIBLE_VIRUS,
         CollectibleType.COLLECTIBLE_ROID_RAGE,
@@ -97,8 +73,6 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_BLUE_MAP,
         CollectibleType.COLLECTIBLE_TREASURE_MAP,
         mod.Items.UltraSecretMap,
-        mod.Items.DevilsMap,
-        mod.Items.BossCompass
     },
     Familiar_Beggar_Trinkets = {
         TrinketType.TRINKET_UMBILICAL_CORD,
@@ -320,7 +294,6 @@ mod.Pools ={
         CollectibleType.COLLECTIBLE_DEEP_POCKETS,
         CollectibleType.COLLECTIBLE_PAY_TO_PLAY,
         mod.Items.ScammerBum,
-        mod.Items.FilthyRich,
     },
     Slot_blacklist = {
         SlotVariant.SLOT_MACHINE,

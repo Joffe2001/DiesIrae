@@ -24,81 +24,35 @@ end
 --  Characters
 ---------------------------------------------------
 include("scripts.characters.david")
-include("scripts.characters.tdavid")
 include("scripts.characters.elijah")
---include("scripts.characters.bat_kol")
 ---------------------------------------------------
 --  Active items
 ----------------------------------------------------
 include("scripts.items.active.SlingShot")
 include("scripts.items.active.armyOfLovers")
-include("scripts.items.active.guppysSoul")
 include("scripts.items.active.shBoom")
 include("scripts.items.active.helterSkelter")
-include("scripts.items.active.hypaHypa")
-include("scripts.items.active.holyWood")
-include("scripts.items.active.diaryOfAMadman")
-include("scripts.items.active.comaWhite")
-include("scripts.items.active.goodVibes")
-include("scripts.items.active.momsDiary")
-include("scripts.items.active.devilsHeart")
 include("scripts.items.active.littleLies")
 include("scripts.items.active.kingsHeart")
 include("scripts.items.active.personalBegger")
-include("scripts.items.active.breakStuff")
 ---------------------------------------------------
 --  Passive items
 ----------------------------------------------------
 include("scripts.items.passive.u2")
 include("scripts.items.passive.echo")
 include("scripts.items.passive.theBadTouch")
-include("scripts.items.passive.engel")
 include("scripts.items.passive.muse")
-include("scripts.items.passive.scaredShoes")
-include("scripts.items.passive.devilsLuck")
-include("scripts.items.passive.hereToStay")
 include("scripts.items.passive.ringOfFire")
 include("scripts.items.passive.proteinPowder")
-include("scripts.items.passive.stabWound")
-include("scripts.items.passive.hysteria")
-include("scripts.items.passive.thoughtContagion")
-include("scripts.items.passive.enjoymentUnlucky")
-include("scripts.items.passive.mutter")
-include("scripts.items.passive.momsDress")
 include("scripts.items.passive.goldenDay")
-include("scripts.items.passive.psychosocial")
-include("scripts.items.passive.ultraSecretMap")
-include("scripts.items.passive.lastResort")
 include("scripts.items.passive.universal")
 include("scripts.items.passive.creatineOverdose")
-include("scripts.items.passive.solarFlare")
-include("scripts.items.passive.fragileEgo")
 include("scripts.items.passive.everybodyChanging")
-include("scripts.items.passive.beggarsTear")
-include("scripts.items.passive.rainbowKorn")
-include("scripts.items.passive.bigKahunaBurger")
-include("scripts.items.passive.dadsEmptyWallet")
 include("scripts.items.passive.fiendDeal")
-include("scripts.items.passive.redCompass")
-include("scripts.items.passive.betrayalHeart")
-include("scripts.items.passive.stillStanding")
-include("scripts.items.passive.bloodLine")
-include("scripts.items.passive.bossCompass")
-include("scripts.items.passive.devilMap")
-include("scripts.items.passive.borrowedStrength")
-include("scripts.items.passive.symphonyOfDestruction")
-include("scripts.items.passive.sweetCaffeine")
 include("scripts.items.passive.PTSD")
 include("scripts.items.passive.floweringSkull")
-include("scripts.items.passive.rewrappingPaper")
-include("scripts.items.passive.filthyRich")
-include("scripts.items.passive.grudge")
-include("scripts.items.passive.coolStick")
-include("scripts.items.passive.bloodBattery")
-include("scripts.items.passive.corruptedMantle")
 include("scripts.items.passive.harpString")
 include("scripts.items.passive.Harp")
-include("scripts.items.passive.deliriousmind")
 include("scripts.items.passive.michelinstar")
 ---------------------------------------------------
 --  Familiars
@@ -112,16 +66,10 @@ include("scripts.items.familiars.fairBum")
 include("scripts.items.familiars.tarotBum")
 include("scripts.items.familiars.pastorBum")
 include("scripts.items.familiars.pillBum")
-include("scripts.items.familiars.wisps")
 ---------------------------------------------------
 --  Pocket items
 ----------------------------------------------------
 include("scripts.items.pocketitems.customPills")
-include("scripts.items.pocketitems.locacaca")
-include("scripts.items.pocketitems.alpoh")
-include("scripts.items.pocketitems.starShard")
-include("scripts.items.pocketitems.energyDrink")
-include("scripts.items.pocketitems.dadsLottoTicket")
 include("scripts.items.pocketitems.DavidChord")
 ---------------------------------------------------
 --  Trinkets
@@ -129,10 +77,6 @@ include("scripts.items.pocketitems.DavidChord")
 include("scripts.items.trinkets.wonderOfYou")
 include("scripts.items.trinkets.gaga")
 include("scripts.items.trinkets.babyBlue")
-include("scripts.items.trinkets.secondBreakfast")
-include("scripts.items.trinkets.rottenFood")
-include("scripts.items.trinkets.paperCut")
-include("scripts.items.trinkets.tarotBattery")
 ---------------------------------------------------
 --  PIck-ups
 ----------------------------------------------------
@@ -140,22 +84,17 @@ include("scripts.items.trinkets.tarotBattery")
 ---------------------------------------------------
 --  Curses
 ----------------------------------------------------
-include("scripts.curses.curse_eval")
---include("scripts.curses.unloved")
 ---------------------------------------------------
 --  Effects
 ----------------------------------------------------
-include("scripts.effects.resonance")
-include("scripts.effects.fragile")
+
 ----------------------------------------------------
 --  Challenges
 ----------------------------------------------------
-include("scripts.challenges.worsttouch")
 ---------------------------------------------------
 --  Transformations
 ----------------------------------------------------
 include("scripts.transformations.isaacsinfulmusic")
-include("scripts.transformations.dadsoldplaylist")
 ---------------------------------------------------
 --  NPCs
 ---------------------------------------------------
@@ -198,24 +137,6 @@ include("scripts.enemies.horfling")
 ---------------------------------------------------
 --  Extras
 ---------------------------------------------------
-include("scripts.core.voidlost")
 include("scripts.items.familiars.gellocostumes")
 include("scripts.modcompat.deadseascrolls")
 include("scripts.modcompat.encyclopedia")
----------------------------------------------------
---  TESTING ITEMS
----------------------------------------------------
---[[NEEDS REQUIRE!]] --require("scripts.items.passive.redbulb.main")
---include("scripts.items.passive.hitlist")
---include("scripts.items.passive.photonlink")
---include("scripts.items.passive.silentEcho")
---include("scripts.items.passive.conscience")
---include("scripts.items.passive.eyesacrifice")
---include("scripts.items.passive.the_path_of_the_righteous")
---include("scripts.items.passive.challengemap")
---include("scripts.items.passive.closecall")
---include("scripts.items.passive.TGS")
---include("scripts.items.passive.corona")
---include("scripts.items.trinkets.fixedmetabolism")
---include("scripts.items.pickup.burningheart")
---include("scripts.Challenges.sound_of_silence")
