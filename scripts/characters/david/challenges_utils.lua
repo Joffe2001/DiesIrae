@@ -1,5 +1,6 @@
 local mod = DiesIraeMod
 local game = Game()
+local challengeUtils = {}
 
 ------------------------------------------------------------
 -- SAVE DATA HELPERS
@@ -56,7 +57,7 @@ local ChallengeHandlers = {
 ------------------------------------------------------------
 -- REGISTRATION
 ------------------------------------------------------------
-function mod:RegisterDavidChallenge(variant, handlers)
+function challengeUtils:RegisterDavidChallenge(variant, handlers)
     for k, f in pairs(handlers) do
         if ChallengeHandlers[k] then
             ChallengeHandlers[k][variant] = f
@@ -69,7 +70,7 @@ end
 ------------------------------------------------------------
 -- STATE HELPERS
 ------------------------------------------------------------
-function mod:GetActiveDavid()
+function challengeUtils:GetActiveDavid()
     local player = Isaac.GetPlayer(0)
     if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then
         return nil
@@ -84,7 +85,7 @@ function mod:GetActiveDavid()
     return player, floor
 end
 
-function mod:GetChallengeData(floor, variant)
+function challengeUtils:GetChallengeData(floor, variant)
     local state = GetFloorState(floor)
     if not state then return nil end
     
@@ -96,21 +97,21 @@ function mod:GetChallengeData(floor, variant)
     return state.data[variantKey]
 end
 
-function mod:IsDavidChallengeActive(floor)
-    local s = GetFloorState(floor)
-    return s and s.active
+function challengeUtils:IsDavidChallengeActive(floor)
+    local state = GetFloorState(floor)
+    return state and state.active
 end
 
-function mod:GetDavidChallengeVariant(floor)
-    local s = GetFloorState(floor)
-    return s and s.variant
+function challengeUtils:GetDavidChallengeVariant(floor)
+    local state = GetFloorState(floor)
+    return state and state.variant
 end
 
-function mod:GetActiveChallengeState()
-    local player, floor = mod:GetActiveDavid()
+function challengeUtils:GetActiveChallengeState()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return nil, nil, nil end
     
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     local state = GetFloorState(floor)
     
     return state, floor, variant, player
@@ -200,7 +201,7 @@ end
 ------------------------------------------------------------
 -- START RANDOM CHALLENGE ON NEW FLOOR
 ------------------------------------------------------------
-function mod:AutoStartRandomChallenge(floor)
+function challengeUtils:AutoStartRandomChallenge(floor)
     local level = game:GetLevel()
     local stage = level:GetStage()
     local stageType = level:GetStageType()
@@ -224,15 +225,15 @@ function mod:AutoStartRandomChallenge(floor)
     if #availableChallenges == 0 then return end
     local variant = availableChallenges[rng:RandomInt(#availableChallenges) + 1]
     
-    mod:StartDavidChallenge(floor, variant)
+    challengeUtils:StartDavidChallenge(floor, variant)
 end
 
 ------------------------------------------------------------
 -- START A NEW CHALLENGE
 ------------------------------------------------------------
-function mod:StartDavidChallenge(floor, variant)
+function challengeUtils:StartDavidChallenge(floor, variant)
     if not variant then return end
-    if mod:GetCompletedDavidChallengeCount() >= 10 then return end
+    if challengeUtils:GetCompletedDavidChallengeCount() >= 10 then return end
 
     if GetFloorState(floor) then return end
 
@@ -263,7 +264,7 @@ end
 ------------------------------------------------------------
 -- FAIL CHALLENGE
 ------------------------------------------------------------
-function mod:FailDavidChallenge(player, floor)
+function challengeUtils:FailDavidChallenge(player, floor)
     local state = GetFloorState(floor)
     if not state or state.failed or state.completed then return end
 
@@ -287,7 +288,7 @@ end
 ------------------------------------------------------------
 -- COMPLETE CHALLENGE
 ------------------------------------------------------------
-function mod:CompleteDavidChallenge(floor)
+function challengeUtils:CompleteDavidChallenge(floor)
     local state = GetFloorState(floor)
     if not state or state.completed or state.failed then return end
 
@@ -304,7 +305,7 @@ function mod:CompleteDavidChallenge(floor)
     state.completed = true
     state.pendingReward = true
     
-    mod:IncrementDavidChallengeCount()
+    challengeUtils:IncrementDavidChallengeCount()
     
     game:GetHUD():ShowItemText("Challenge Complete!", "", false)
     SFXManager():Play(SoundEffect.SOUND_THUMBSUP)
@@ -313,7 +314,7 @@ end
 ------------------------------------------------------------
 -- COMPLETION TRACKING
 ------------------------------------------------------------
-function mod:GetCompletedDavidChallengeCount()
+function challengeUtils:GetCompletedDavidChallengeCount()
     local save = mod.SaveManager.GetRunSave()
     if not save then return 0 end
     
@@ -321,7 +322,7 @@ function mod:GetCompletedDavidChallengeCount()
     return save.DavidChallengesCompleted
 end
 
-function mod:IncrementDavidChallengeCount()
+function challengeUtils:IncrementDavidChallengeCount()
     local save = mod.SaveManager.GetRunSave()
     if not save then return end
     
@@ -394,7 +395,7 @@ end
 ------------------------------------------------------------
 -- CANCEL CHALLENGE
 ------------------------------------------------------------
-function mod:CancelDavidChallenge(floor)
+function challengeUtils:CancelDavidChallenge(floor)
     local state = GetFloorState(floor)
     if not state or state.failed or state.completed then return end
 
@@ -436,22 +437,22 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     RemoveBackdropsWhenLeavingFloor()
     
     local floor = game:GetLevel():GetStage()
-    mod:AutoStartRandomChallenge(floor)
+    challengeUtils:AutoStartRandomChallenge(floor)
 end)
 
 -- LEVEL SELECT
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     if game:IsGreedMode() then return end
     
-    local state, floor, variant, player = mod:GetActiveChallengeState()
+    local state, floor, variant, player = challengeUtils:GetActiveChallengeState()
     if not state then return end
 
     SafeCallHandler("OnLevelSelect", variant, player, floor)
 
     if WasBossDefeatedThisFloor() then
-        mod:CompleteDavidChallenge(floor)
+        challengeUtils:CompleteDavidChallenge(floor)
     else
-        mod:CancelDavidChallenge(floor)
+        challengeUtils:CancelDavidChallenge(floor)
     end
 end)
 
@@ -461,12 +462,12 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
     
     TrySpawnChallengeReward(Isaac.GetPlayer(0))
 
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
     
     RestoreBackdropOnRoomEnter()
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnNewRoom", variant, player, floor)
 end)
 
@@ -474,7 +475,7 @@ end)
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if game:IsGreedMode() then return end
     
-    local state, floor, variant, player = mod:GetActiveChallengeState()
+    local state, floor, variant, player = challengeUtils:GetActiveChallengeState()
     if not state then return end
 
     SafeCallHandler("OnUpdate", variant, player, floor)
@@ -484,7 +485,7 @@ end)
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     if game:IsGreedMode() then return end
     
-    local state, floor, variant, player = mod:GetActiveChallengeState()
+    local state, floor, variant, player = challengeUtils:GetActiveChallengeState()
     if not state then return end
 
     SafeCallHandler("OnRender", variant, player, floor)
@@ -498,24 +499,24 @@ end)
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source)
     if game:IsGreedMode() then return end
     
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
 
     if entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID then
-        local variant = mod:GetDavidChallengeVariant(floor)
+        local variant = challengeUtils:GetDavidChallengeVariant(floor)
         SafeCallHandler("OnPlayerDamage", variant, entity:ToPlayer(), floor, amount, flags, source)
     end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnEntityDamage", variant, entity, amount, flags, source, player, floor)
 end)
 
 -- NPC KILL
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnNPCKill", variant, npc, player, floor)
 end)
 
@@ -525,10 +526,10 @@ mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, coll)
     if not player then return end
     if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
-    local player2, floor = mod:GetActiveDavid()
+    local player2, floor = challengeUtils:GetActiveDavid()
     if not player2 then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     local f = ChallengeHandlers.OnPickupCollision[variant]
     if f then 
         local success, result = pcall(f, pickup, player, floor)
@@ -542,28 +543,28 @@ end)
 
 -- FIRE TEAR
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnFireTear", variant, player, tear, floor)
 end)
 
 -- LASER INIT
 mod:AddCallback(ModCallbacks.MC_POST_LASER_INIT, function(_, laser)
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnInitLaser", variant, player, laser, floor)
 end)
 
 -- KNIFE INIT
 mod:AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, function(_, knife)
-    local player, floor = mod:GetActiveDavid()
+    local player, floor = challengeUtils:GetActiveDavid()
     if not player then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnInitKnife", variant, player, knife, floor)
 end)
 
@@ -571,10 +572,10 @@ end)
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, _, player)
     if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
-    local p2, floor = mod:GetActiveDavid()
+    local p2, floor = challengeUtils:GetActiveDavid()
     if not p2 then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnUseItem", variant, player, floor, itemID)
 end)
 
@@ -582,10 +583,10 @@ end)
 mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player)
     if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
-    local p2, floor = mod:GetActiveDavid()
+    local p2, floor = challengeUtils:GetActiveDavid()
     if not p2 then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnUseCard", variant, player, floor, cardID)
 end)
 
@@ -593,10 +594,10 @@ end)
 mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player)
     if player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
 
-    local p2, floor = mod:GetActiveDavid()
+    local p2, floor = challengeUtils:GetActiveDavid()
     if not p2 then return end
 
-    local variant = mod:GetDavidChallengeVariant(floor)
+    local variant = challengeUtils:GetDavidChallengeVariant(floor)
     SafeCallHandler("OnUsePill", variant, player, floor, pillEffect)
 end)
 
@@ -615,11 +616,11 @@ end)
 -- API
 ------------------------------------------------------------
 return {
-    Register  = function(v, h) mod:RegisterDavidChallenge(v, h) end,
-    Start     = function(f, v) mod:StartDavidChallenge(f, v) end,
-    Fail      = function(p, f) mod:FailDavidChallenge(p, f) end,
-    Complete  = function(f) mod:CompleteDavidChallenge(f) end,
-    GetData   = function(f, v) return mod:GetChallengeData(f, v) end,
-    IsActive  = function(f) return mod:IsDavidChallengeActive(f) end,
-    GetVariant= function(f) return mod:GetDavidChallengeVariant(f) end,
+    Register  = function(variant, handler) challengeUtils:RegisterDavidChallenge(variant, handler) end,
+    Start     = function(floor, variant) challengeUtils:StartDavidChallenge(floor, variant) end,
+    Fail      = function(player, floor) challengeUtils:FailDavidChallenge(player, floor) end,
+    Complete  = function(floor) challengeUtils:CompleteDavidChallenge(floor) end,
+    GetData   = function(floor, variant) return challengeUtils:GetChallengeData(floor, variant) end,
+    IsActive  = function(floor) return challengeUtils:IsDavidChallengeActive(floor) end,
+    GetVariant= function(floor) return challengeUtils:GetDavidChallengeVariant(floor) end,
 }

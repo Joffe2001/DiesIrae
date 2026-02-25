@@ -101,7 +101,7 @@ function David:OnCardSpawn(pickup)
         pickup:Morph(
             EntityType.ENTITY_PICKUP, 
             PickupVariant.PICKUP_TAROTCARD, 
-            mod.Cards.DavidChord, 
+            mod.CardSubType.CARD_DAVIDS_CHORD, 
             true, 
             true
         )
