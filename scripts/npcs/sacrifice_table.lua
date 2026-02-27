@@ -6,6 +6,7 @@ local SacrificeTable = mod.Entities.BEGGAR_SacrificeTable.Var
 
 -----------------------------------------------------
 --                       API
+-- See DIES_IRAE_MODDING_API.txt for full documentation.
 -----------------------------------------------------
 mod.RegisteredModdedFamiliars = mod.RegisteredModdedFamiliars or {}
 --Register a modded familiar by name
@@ -339,60 +340,3 @@ mod:RegisterModdedFamiliar("Fair Bum", "Fair Bum", "gfx/collectibles/fairbum.png
 mod:RegisterModdedFamiliar("Tarot Bum", "Tarot Bum", "gfx/collectibles/tarotbum.png")
 mod:RegisterModdedFamiliar("Pill Bum", "Pill Bum", "gfx/collectibles/pillbum.png")
 mod:RegisterModdedFamiliar("Pastor Bum", "Pastor Bum", "gfx/collectibles/pastorbum.png")
-
----------------------------------------------------------------------------
--- Dies Irae – Sacrifice Table Familiar Compatibility Guide
---
--- If you are a modder and want your custom familiar to work with Dies Irae’s Sacrifice Table, follow ONE of the methods below.
----------------------------------------------------------------------------
-
--- =========================================================
--- METHOD 1 (RECOMMENDED – Repentogon)
--- =========================================================
--- If you are using Repentogon, make sure your familiar is spawned from a collectible and that the familiar has a valid ItemConfig.
---
--- Example:
---   familiar:GetItemConfig() returns a valid ItemConfig_Item
---
--- If this is set correctly, it will:
---   Automatically detect the collectible
---   Remove the correct item
---   Display the item icon
---
--- No registration needed!
-
-
--- =========================================================
--- METHOD 2 (LEGACY / FALLBACK – API REGISTRATION)
--- =========================================================
--- If your familiar does NOT have an ItemConfig (older mods, manually spawned familiars, etc.), you must register it manually.
---
--- In your mod’s main.lua:
---
---     local diesIrae = _G["DiesIraeMod"]
---
---     if diesIrae and diesIrae.RegisterModdedFamiliar then
---         diesIrae:RegisterModdedFamiliar(
---             "Familiar Name",        -- EXACT name from entities2.xml
---             "Collectible Name"      -- EXACT name from items.xml
---         )
---     end
---
--- Notes:
--- Names are case-sensitive
--- Familiar Name must match entities2.xml
--- Collectible Name must match items.xml
--- Sprite paths are NOT required (item icon is used automatically)
---
--- If your familiar is not registered and has no ItemConfig, it will NOT be accepted by the Sacrifice Table.
---
--- =========================================================
--- COMMON MISTAKES
--- =========================================================
--- Familiar name does not match entities2.xml
--- Collectible name does not match items.xml
--- Familiar spawned without a collectible
--- Expecting name-based detection for Repentogon familiars
---
--- If something fails, check the debug console for warnings.
---------------------------------------------------------------------------- 

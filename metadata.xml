@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
     <name>Dies Irae</name>
-    <directory>Dies Irae</directory>
-    <description/>
-    <version>1.0</version>
-    <visibility/>
+    <directory>diesirae</directory>
+    <id>3674570171</id>
+    <description></description>
+    <version>1.1</version>
+    <visibility>Public</visibility>
 </metadata>
-
