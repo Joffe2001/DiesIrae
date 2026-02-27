@@ -45,6 +45,7 @@ local function GetGreedChordData(floor)
         mantleActive = false,
         nextShopItemFree = false,
         activeUseAllowed = false,
+        coinBlockActive = false,
     }
     return save.DavidGreedChordData[key]
 end
@@ -278,15 +279,7 @@ function DavidChord:UseCardGreed(player, floor)
     elseif variant == mod.GREED_CHALLENGES.NO_ACTIVES then
         DavidChord:GreedEffect_Challenge4(player, floor)
     elseif variant == mod.GREED_CHALLENGES.LOW_COINS then
-        Isaac.Spawn(
-            EntityType.ENTITY_PICKUP,
-            PickupVariant.PICKUP_COIN,
-            CoinSubType.COIN_NICKEL,
-            player.Position + Vector(0, 30),
-            Vector.Zero,
-            player
-        )
-        game:GetHUD():ShowItemText("Nickel!", "", false)
+        DavidChord:GreedEffect_LowCoins(player, floor)
     elseif variant == mod.GREED_CHALLENGES.FAST_DEVIL_WAVE then
         DavidChord:GreedEffect_Challenge6(player, floor)
     end
@@ -308,7 +301,7 @@ function DavidChord:GreedEffect_Challenge0(player, floor)
     game:GetHUD():ShowItemText("+15 Seconds", "", false)
 end
 
--- Challenge 1: Give Holy Mantle for this room
+-- Give Holy Mantle for this room
 function DavidChord:GreedEffect_Challenge1(player, floor)
     local chordData = GetGreedChordData(floor)
     
@@ -321,13 +314,14 @@ function DavidChord:GreedEffect_Challenge1(player, floor)
     end
 end
 
--- Challenge 2: Make next shop item free (Coupon effect)
+-- Raise spending cap from 15 to 25
 function DavidChord:GreedEffect_Challenge2(player, floor)
-    local chordData = GetGreedChordData(floor)
-    
-    chordData.nextShopItemFree = true
-    
-    game:GetHUD():ShowItemText("Next Shop Item Free!", "", false)
+    local challengeData = mod:GetGreedChallengeData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+    if not challengeData then return end
+
+    challengeData.maxSpending = 25
+
+    game:GetHUD():ShowItemText("Spending Cap: 25!", "", false)
 end
 
 -- Challenge 3: Spawn quality 0-2 pedestal
@@ -367,6 +361,19 @@ function DavidChord:GreedEffect_Challenge4(player, floor)
     chordData.activeUseAllowed = true
     
     game:GetHUD():ShowItemText("Active Item Allowed!", "", false)
+end
+
+-- LOW_COINS: Block all coin pickups this room
+function DavidChord:GreedEffect_LowCoins(player, floor)
+    local chordData = GetGreedChordData(floor)
+
+    if chordData.coinBlockActive then
+        game:GetHUD():ShowItemText("Already Blocking Coins!", "", false)
+        return
+    end
+
+    chordData.coinBlockActive = true
+    game:GetHUD():ShowItemText("Coins Blocked This Room!", "", false)
 end
 
 -- Challenge 6: Add 15 seconds to devil wave timer
@@ -443,6 +450,33 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
         if chordData.mantleActive then
             chordData.mantleActive = false
         end
+    end
+end)
+
+------------------------------------------------------------
+-- GREED MODE: Block coin pickups LOW_COINS
+------------------------------------------------------------
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, function(_, pickup, collider)
+    if not IsGreedMode() then return end
+    if pickup.Variant ~= PickupVariant.PICKUP_COIN then return end
+    local player = collider:ToPlayer()
+    if not player or player:GetPlayerType() ~= mod.Players.David then return end
+
+    local floor = game:GetLevel():GetStage()
+    local chordData = GetGreedChordData(floor)
+    if chordData and chordData.coinBlockActive then
+        return true 
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    if not IsGreedMode() then return end
+    if not PlayerManager.AnyoneIsPlayerType(mod.Players.David) then return end
+
+    local floor = game:GetLevel():GetStage()
+    local chordData = GetGreedChordData(floor)
+    if chordData and chordData.coinBlockActive then
+        chordData.coinBlockActive = false
     end
 end)
 
@@ -548,24 +582,23 @@ if EID then
     local normalChallengeDesc = {
         [0] = "Allows you to use your active item in this room",
         [1] = "{{Timer}} Freezes the challenge timer while in this room",
-        [2] = "{{Room}} Counts nearby special rooms as visited",
+        [2] = "Counts nearby special rooms as visited",
         [3] = "{{Heart}} Fully heals you",
         [4] = "Disables the shoot delay for the next 3 hostile rooms",
         [5] = "{{Key}} Opens all doors in the current room",
-        [6] = "{{SoulHeart}} Gives you Holy Mantle for this room",
-        [7] = "{{Trinket13}} Gives Treasure Map effect for 30 seconds",
-        [8] = "{{Collectible}} Spawns an extra pedestal (disappears on room change)",
+        [6] = "Gives you Holy Mantle for this room",
+        [7] = "Gives Treasure Map effect for 30 seconds",
+        [8] = "Spawns an extra pedestal (disappears on room change)",
     }
     
     local greedChallengeDesc = {
         [0] = "Adds 15 seconds to the boss timer",
-        [1] = "{{SoulHeart}} Gives you Holy Mantle for this room",
-        [2] = "{{Coin}} Makes the next shop item free",
+        [1] = "Gives you Holy Mantle for this room",
+        [2] = "{{Coin}} Raises spending cap from 15 to 25",
         [3] = "Spawns a quality 0-2 item pedestal",
         [4] = "Allows you to use your active item once",
-        [5] = "Spawn a nickel",
+        [5] = "Blocks coin pickups for this room",
         [6] = "Adds 15 seconds to the devil wave timer",
-        [7] = "No special effect",
     }
 
     EID:addDescriptionModifier("David's Chord Dynamic", function(descObj)

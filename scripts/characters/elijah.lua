@@ -444,6 +444,12 @@ function elijahFuncs:PostNewRoom()
     ) do
         local ped = entity:ToPickup()
         if ped then
+            -- Knife pieces stay as pedestals
+            if ped.SubType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_1
+            or ped.SubType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_2 then
+                goto continue
+            end
+
             local rng = ped:GetDropRNG()
             local beggarVariant
 
@@ -468,6 +474,7 @@ function elijahFuncs:PostNewRoom()
                 )
             end
         end
+        ::continue::
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, elijahFuncs.PostNewRoom)
