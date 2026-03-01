@@ -488,8 +488,10 @@ mod:AddCallback(ModCallbacks.MC_PRE_SLOT_CREATE_EXPLOSION_DROPS, mod.ChaoticBegg
 mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, function(_, slot)
     if slot.Variant == CHAOTIC_BEGGAR then return end
     if math.random(100) <= 5 then
-        local pos = slot.Position
         slot:Remove()
-        Isaac.Spawn(EntityType.ENTITY_SLOT, CHAOTIC_BEGGAR, 0, pos, Vector.Zero, nil)
+        local room = game:GetRoom()
+        local spawnPos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 40, true)
+        Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, spawnPos, Vector.Zero, nil)
+        Isaac.Spawn(EntityType.ENTITY_SLOT, CHAOTIC_BEGGAR, 0, spawnPos, Vector.Zero, nil)
     end
 end)

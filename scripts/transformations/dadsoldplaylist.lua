@@ -118,8 +118,8 @@ if EID then
     EID.TransformationData["Dad's Old Playlist"] = { NumNeeded = 3 }
 
     local transIcon = Sprite()
-    transIcon:Load("gfx/ui/eid/dadsplaylist.anm2", true)
-    EID:addIcon("Dad's Old Playlist", "Idle", 0, 9, 9, -1, 0, transIcon)
+    transIcon:Load("gfx/ui/eid/eid_transform_icons.anm2", true)
+    EID:addIcon("Dad's Old Playlist", "Dad's Old Playlist", 0, 6, 6, -5, -4, transIcon)
 
     for i = 1, #mod.Pools.DadPlaylistItem do
         EID:assignTransformation("collectible", mod.Pools.DadPlaylistItem[i], "Dad's Old Playlist")

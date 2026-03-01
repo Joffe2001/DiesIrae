@@ -29,7 +29,7 @@ mod:AddCallback(ModCallbacks.MC_POST_SLOT_INIT, mod.ChaosElijahInit, CHAOS_ELIJA
 -- HELPER FUNCTIONS
 ------------------------------------------------------------
 local function GetRandomStat()
-    local stats = {"Damage", "Speed", "Range", "ShotSpeed", "TearHeight", "Luck"}
+    local stats = {"Damage", "Speed", "Range", "ShotSpeed", "FireDelay", "Luck"}
     return stats[math.random(#stats)]
 end
 
@@ -180,7 +180,7 @@ local function DoBadOutcome(beggar, player)
         ApplyStatNerf(player)
     elseif roll <= 40 then
         -- Take damage
-        player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(nil), 0)
+        player:TakeDamage(1, DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(beggar), 0)
         sfx:Play(SoundEffect.SOUND_ISAAC_HURT_GRUNT)
     elseif roll <= 60 then
         -- Spawn enemies
@@ -330,6 +330,11 @@ function mod:ChaosElijahUpdate(beggar)
     local rng = beggar:GetDropRNG()
 
     if sprite:IsFinished("PayNothing") then
+        if not data.FinalChance or not data.SecondaryChance then
+            sprite:Play("Idle", true)
+            data.CanPay = true
+            return
+        end
         local roll = rng:RandomFloat()
         
         if roll < data.FinalChance then
@@ -383,7 +388,7 @@ function mod:ChaosElijahExploded(beggar)
     if beggar.Variant ~= CHAOS_ELIJAH then return end
     
     for i = 1, 2 + math.random(3) do
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY, 
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, mod.Entities.PICKUP_ElijahsWill.Var, 0,
             beggar.Position + RandomVector() * 20, RandomVector() * 3, beggar)
     end
     if math.random() < 0.3 then 
