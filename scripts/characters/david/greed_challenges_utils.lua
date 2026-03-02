@@ -1,7 +1,8 @@
 local mod = DiesIraeMod
 local game = Game()
+local greedChallengesUtils = {}
 
-local DavidUtils = include("scripts/characters/david_challenges/david_challenges_utils")
+local DavidUtils = include("scripts/characters/david/challenges_utils")
 
 local function GetCurrentWave()
     return game:GetLevel().GreedModeWave
@@ -32,6 +33,7 @@ local function IsDevilWave()
     local wave = GetCurrentWave()
     return wave == GetDevilWave() and not IsBossWave()
 end
+
 
 ------------------------------------------------------------
 -- CONTINUOUS TIMER SYSTEM FOR WAVES
@@ -211,7 +213,7 @@ end
 ------------------------------------------------------------
 -- CORE FUNCTIONS
 ------------------------------------------------------------
-function mod:RegisterGreedChallenge(variant, handlers)
+function greedChallengesUtils:RegisterGreedChallenge(variant, handlers)
     for k, f in pairs(handlers) do
         if GreedChallengeHandlers[k] then
             GreedChallengeHandlers[k][variant] = f
@@ -221,7 +223,7 @@ function mod:RegisterGreedChallenge(variant, handlers)
     end
 end
 
-function mod:GetGreedChallengeData(floor, variant)
+function greedChallengesUtils:GetGreedChallengeData(floor, variant)
     local state = GetGreedFloorState(floor)
     if not state then return nil end
 
@@ -232,17 +234,17 @@ function mod:GetGreedChallengeData(floor, variant)
     return state.data[variantKey]
 end
 
-function mod:IsGreedChallengeActive(floor)
+function greedChallengesUtils:IsGreedChallengeActive(floor)
     local s = GetGreedFloorState(floor)
     return s and s.active
 end
 
-function mod:GetGreedChallengeVariant(floor)
+function greedChallengesUtils:GetGreedChallengeVariant(floor)
     local s = GetGreedFloorState(floor)
     return s and s.variant
 end
 
-function mod:GetActiveGreedChallengeState()
+function greedChallengesUtils:GetActiveGreedChallengeState()
     local player = Isaac.GetPlayer(0)
     if not player or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then
         return nil, nil, nil
@@ -261,7 +263,7 @@ function mod:GetActiveGreedChallengeState()
     return state, floor, state.variant, player
 end
 
-function mod:StartGreedChallenge(floor, variant)
+function greedChallengesUtils:StartGreedChallenge(floor, variant)
     if not variant then return end
     if GetGreedFloorState(floor) then return end
     if IsChallengeUsed(variant) then return end
@@ -289,7 +291,7 @@ function mod:StartGreedChallenge(floor, variant)
     end
 end
 
-function mod:FailGreedChallenge(player, floor)
+function greedChallengesUtils:FailGreedChallenge(player, floor)
     local state = GetGreedFloorState(floor)
     if not state or state.failed or state.completed then return end
 
@@ -307,7 +309,7 @@ function mod:FailGreedChallenge(player, floor)
     Isaac.DebugString("[Greed] Failed challenge " .. state.variant .. " on floor " .. floor)
 end
 
-function mod:CompleteGreedChallenge(floor)
+function greedChallengesUtils:CompleteGreedChallenge(floor)
     local state = GetGreedFloorState(floor)
     if not state or state.completed or state.failed then return end
 
@@ -327,7 +329,7 @@ function mod:CompleteGreedChallenge(floor)
     Isaac.DebugString("[Greed] Completed challenge " .. state.variant .. " on floor " .. floor)
 end
 
-function mod:CancelGreedChallenge(floor)
+function greedChallengesUtils:CancelGreedChallenge(floor)
     local state = GetGreedFloorState(floor)
     if not state then return end
 
@@ -400,21 +402,21 @@ end
 ------------------------------------------------------------
 -- AUTO-START
 ------------------------------------------------------------
-function mod:AutoStartGreedChallenge(floor)
+function greedChallengesUtils:AutoStartGreedChallenge(floor)
     if floor < 1 or floor > 5 then return end
     if GetGreedFloorState(floor) then return end
 
     local variant
 
     if floor == 1 then
-        variant = mod.GREED_CHALLENGES.LOW_COINS
+        variant = mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS
     else
         local rng = RNG()
         rng:SetSeed(game:GetSeeds():GetStartSeed() + floor * 1000, 35)
 
         local availableChallenges = {}
         for i = 0, 6 do
-            if i ~= mod.GREED_CHALLENGES.LOW_COINS and not IsChallengeUsed(i) then
+            if i ~= mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS and not IsChallengeUsed(i) then
                 table.insert(availableChallenges, i)
             end
         end
@@ -424,7 +426,7 @@ function mod:AutoStartGreedChallenge(floor)
         variant = availableChallenges[rng:RandomInt(#availableChallenges) + 1]
     end
 
-    mod:StartGreedChallenge(floor, variant)
+    greedChallengesUtils:StartGreedChallenge(floor, variant)
 end
 
 ------------------------------------------------------------
@@ -480,14 +482,14 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
     RemoveOldBackdrops()
     ResetBossWavesTracking(floor)
 
-    mod:AutoStartGreedChallenge(floor)
+    greedChallengesUtils:AutoStartGreedChallenge(floor)
 end)
 
 
 mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     if not game:IsGreedMode() then return end
 
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if not state then return end
 
     SafeCallHandler("OnLevelSelect", variant, player, floor)
@@ -495,9 +497,9 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     local freshState = GetGreedFloorState(floor)
     if not freshState or freshState.failed or freshState.completed then return end
     if WereBossWavesCompleted(floor) then
-        mod:CompleteGreedChallenge(floor)
+        greedChallengesUtils:CompleteGreedChallenge(floor)
     else
-        mod:CancelGreedChallenge(floor)
+        greedChallengesUtils:CancelGreedChallenge(floor)
     end
 end)
 
@@ -506,7 +508,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 
     TrySpawnGreedChallengeReward(Isaac.GetPlayer(0))
 
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if not state then return end
 
     RestoreGreedBackdropOnRoomEnter()
@@ -525,7 +527,7 @@ end)
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if not game:IsGreedMode() then return end
 
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if not state then return end
 
     SafeCallHandler("OnUpdate", variant, player, floor)
@@ -543,7 +545,7 @@ if ModCallbacks.MC_POST_GREED_MODE_WAVE then
 
         OnWaveChanged(floor, newWave, prevWave)
 
-        local state, _, variant, player = mod:GetActiveGreedChallengeState()
+        local state, _, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
         if not state then return end
 
         SafeCallHandler("OnGreedWave", variant, player, floor)
@@ -567,7 +569,7 @@ else
             lastWaveByFloor[floor] = currentWave
             OnWaveChanged(floor, currentWave, prevWave)
 
-            local state, _, variant, player = mod:GetActiveGreedChallengeState()
+            local state, _, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
             if state then
                 SafeCallHandler("OnGreedWave", variant, player, floor)
 
@@ -584,7 +586,7 @@ end
 mod:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     if not game:IsGreedMode() then return end
 
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if not state then return end
 
     SafeCallHandler("OnRender", variant, player, floor)
@@ -596,7 +598,7 @@ end)
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, flags, source)
     if not game:IsGreedMode() then return end
-    local state, floor, variant = mod:GetActiveGreedChallengeState()
+    local state, floor, variant = greedChallengesUtils:GetActiveGreedChallengeState()
     if state and entity:ToPlayer() and entity:ToPlayer():GetPlayerType() == mod.PlayerType.PLAYER_DAVID then
         SafeCallHandler("OnPlayerDamage", variant, entity:ToPlayer(), floor, amount, flags, source)
     end
@@ -604,37 +606,37 @@ end)
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, _, player)
     if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
-    local state, floor, variant = mod:GetActiveGreedChallengeState()
+    local state, floor, variant = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUseItem", variant, player, floor, itemID) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player)
     if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
-    local state, floor, variant = mod:GetActiveGreedChallengeState()
+    local state, floor, variant = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUseCard", variant, player, floor, cardID) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player)
     if not game:IsGreedMode() or player:GetPlayerType() ~= mod.PlayerType.PLAYER_DAVID then return end
-    local state, floor, variant = mod:GetActiveGreedChallengeState()
+    local state, floor, variant = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnUsePill", variant, player, floor, pillEffect) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, function(_, tear)
     if not game:IsGreedMode() then return end
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnFireTear", variant, player, tear, floor) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_LASER_INIT, function(_, laser)
     if not game:IsGreedMode() then return end
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnInitLaser", variant, player, laser, floor) end
 end)
 
 mod:AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, function(_, knife)
     if not game:IsGreedMode() then return end
-    local state, floor, variant, player = mod:GetActiveGreedChallengeState()
+    local state, floor, variant, player = greedChallengesUtils:GetActiveGreedChallengeState()
     if state then SafeCallHandler("OnInitKnife", variant, player, knife, floor) end
 end)
 
@@ -652,7 +654,7 @@ mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
         if PlayerManager.AnyoneIsPlayerType(mod.PlayerType.PLAYER_DAVID) then
             local floor = game:GetLevel():GetStage()
             if floor == 1 and not GetGreedFloorState(floor) then
-                mod:AutoStartGreedChallenge(floor)
+                greedChallengesUtils:AutoStartGreedChallenge(floor)
             end
         end
     end
@@ -662,14 +664,14 @@ end)
 -- API
 ------------------------------------------------------------
 return {
-    Register   = function(v, h) mod:RegisterGreedChallenge(v, h) end,
-    Start      = function(f, v) mod:StartGreedChallenge(f, v) end,
-    Fail       = function(p, f) mod:FailGreedChallenge(p, f) end,
-    Complete   = function(f) mod:CompleteGreedChallenge(f) end,
-    GetData    = function(f, v) return mod:GetGreedChallengeData(f, v) end,
-    IsActive   = function(f) return mod:IsGreedChallengeActive(f) end,
-    GetVariant = function(f) return mod:GetGreedChallengeVariant(f) end,
-    Cancel     = function(f) mod:CancelGreedChallenge(f) end,
+    Register   = function(v, h) greedChallengesUtils:RegisterGreedChallenge(v, h) end,
+    Start      = function(f, v) greedChallengesUtils:StartGreedChallenge(f, v) end,
+    Fail       = function(p, f) greedChallengesUtils:FailGreedChallenge(p, f) end,
+    Complete   = function(f) greedChallengesUtils:CompleteGreedChallenge(f) end,
+    GetData    = function(f, v) return greedChallengesUtils:GetGreedChallengeData(f, v) end,
+    IsActive   = function(f) return greedChallengesUtils:IsGreedChallengeActive(f) end,
+    GetVariant = function(f) return greedChallengesUtils:GetGreedChallengeVariant(f) end,
+    Cancel     = function(f) greedChallengesUtils:CancelGreedChallenge(f) end,
 
     -- Wave tracking
     GetCurrentWave    = GetCurrentWave,

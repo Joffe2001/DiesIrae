@@ -2,20 +2,19 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
-local DavidGreedUtils = include("scripts/characters/david_challenges/david_challenges_utils_greed")
-local DavidChord = include("scripts/items/pocketitems/DavidChord")
+local DavidGreedUtils = include("scripts/characters/david/greed_challenges_utils")
 
 ------------------------------------------------------------
 -- GREED CHALLENGE DEFINITIONS
 ------------------------------------------------------------
-mod.GREED_CHALLENGES = {
-    FAST_WAVES       = 0,  -- Beat boss waves under 1 minute
-    NO_HIT_FLOOR     = 1,  -- Complete full floor without damage
-    LIMITED_SPENDING = 2,  -- Don't spend more than 15 pennies
-    NO_SHOP          = 3,  -- Can visit shop only once
-    NO_ACTIVES       = 4,  -- Don't use actives/consumables
-    LOW_COINS        = 5,  -- End with 3 coins or less
-    FAST_DEVIL_WAVE  = 6,  -- Beat devil wave in under 45 seconds
+mod.DavidChallengesGreed = {
+    GREED_CHALLENGE_DEFEAT_BOSS_FAST       = 0,  -- Beat boss waves under 1 minute
+    GREED_CHALLENGE_NO_DAMAGE     = 1,  -- Complete full floor without damage
+    GREED_CHALLENGE_LIMITED_SPENDING = 2,  -- Don't spend more than 15 pennies
+    GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE          = 3,  -- Can visit shop only once
+    GREED_CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES       = 4,  -- Don't use actives/consumables
+    GREED_CHALLENGE_END_WITH_LESS_THREE_COINS        = 5,  -- End with 3 coins or less
+    GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST  = 6,  -- Beat devil wave in under 45 seconds
 }
 
 ------------------------------------------------------------
@@ -32,9 +31,9 @@ end
 ------------------------------------------------------------
 -- BEAT BOSS WAVES UNDER 1 MINUTE
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_DEFEAT_BOSS_FAST, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_DEFEAT_BOSS_FAST)
         data.timeLimit = 60 * 30  
         data.bonusTime = 0  -- David's Chord can add bonus time
         data.failed = false
@@ -42,7 +41,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
     end,
 
     OnUpdate = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_DEFEAT_BOSS_FAST)
         
         if data.failed or data.completed then return end
 
@@ -61,7 +60,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
     end,
 
     OnBossWavesComplete = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_DEFEAT_BOSS_FAST)
         
         if data.failed or data.completed then return end
         
@@ -82,7 +81,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_DEFEAT_BOSS_FAST)
 
         local firstBoss = DavidGreedUtils.GetFirstBossWave()
         
@@ -113,14 +112,14 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_WAVES, {
 ------------------------------------------------------------
 -- COMPLETE FULL FLOOR WITHOUT DAMAGE
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_NO_DAMAGE, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_NO_DAMAGE)
         data.damageTaken = false
     end,
 
     OnPlayerDamage = function(player, floor, amount, flags, source)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_NO_DAMAGE)
         if data.damageTaken then return end  -- already failed, ignore
 
         -- Ignore spikes and curse room damage
@@ -140,7 +139,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_NO_DAMAGE)
         
         local statusText = data.damageTaken and "DAMAGED!" or "No Damage"
         local color = data.damageTaken and {1, 0.3, 0.3, 1} or {0.3, 1, 0.3, 1}
@@ -155,7 +154,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
     end,
 
     OnBossWavesComplete = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_HIT_FLOOR)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_NO_DAMAGE)
         if data.damageTaken then return end
         DavidGreedUtils.SetBossWavesCompleted(floor)
         DavidGreedUtils.Complete(floor)
@@ -165,16 +164,16 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_HIT_FLOOR, {
 ------------------------------------------------------------
 -- DON'T SPEND MORE THAN 15 PENNIES
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.LIMITED_SPENDING, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_LIMITED_SPENDING, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_LIMITED_SPENDING)
         data.maxSpending = 15
         data.previousCoins = Isaac.GetPlayer(0):GetNumCoins()
         data.coinsSpent = 0
     end,
 
     OnUpdate = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_LIMITED_SPENDING)
         if not data then return end
         
         local currentCoins = player:GetNumCoins()
@@ -194,7 +193,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LIMITED_SPENDING, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_LIMITED_SPENDING)
         if not data then return end
         
         local color = data.coinsSpent <= data.maxSpending and {0.3, 1, 0.3, 1} or {1, 0.3, 0.3, 1}
@@ -209,7 +208,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LIMITED_SPENDING, {
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LIMITED_SPENDING)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_LIMITED_SPENDING)
         if not data then return end
         data.previousCoins = player:GetNumCoins()
     end,
@@ -218,15 +217,15 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LIMITED_SPENDING, {
 ------------------------------------------------------------
 -- CAN VISIT SHOP ONLY ONCE
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE)
         data.shopVisits = 0
         data.maxVisits = 1
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE)
         local room = game:GetRoom()
         
         if room:GetType() == RoomType.ROOM_SHOP then
@@ -239,7 +238,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE)
         
         local statusText, color
         if data.shopVisits == 0 then
@@ -260,7 +259,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
     end,
 
     OnBossWavesComplete = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_SHOP)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_VISIT_SHOP_ONLY_ONCE)
         if data.shopVisits <= data.maxVisits then
             DavidGreedUtils.SetBossWavesCompleted(floor)
             DavidGreedUtils.Complete(floor)
@@ -273,9 +272,9 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_SHOP, {
 ------------------------------------------------------------
 -- DON'T USE ACTIVES OR CONSUMABLES
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_ACTIVES, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.NO_ACTIVES)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES)
         data.failed = false
     end,
 
@@ -292,7 +291,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_ACTIVES, {
 
     OnUseCard = function(player, floor, cardID)
         -- Allow David's Chord itself
-        if cardID == mod.Cards.DavidChord then return end
+        if cardID == mod.CardSupType.CARD_DAVIDS_CHORD then return end
         
         DavidGreedUtils.Fail(player, floor)
     end,
@@ -324,14 +323,14 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.NO_ACTIVES, {
 ------------------------------------------------------------
 -- FIRST FLOOR - END WITH 3 COINS OR LESS
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS)
         data.isFirstFloor = (floor == 1)
     end,
 
     OnBossWavesComplete = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS)
         if not data.isFirstFloor then
             DavidGreedUtils.SetBossWavesCompleted(floor)
             return
@@ -346,7 +345,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.LOW_COINS)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_END_WITH_LESS_THREE_COINS)
 
         if not data.isFirstFloor then
             Isaac.RenderText(
@@ -370,9 +369,9 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.LOW_COINS, {
 ------------------------------------------------------------
 -- BEAT DEVIL WAVE IN UNDER 45 SECONDS
 ------------------------------------------------------------
-DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
+DavidGreedUtils.Register(mod.DavidChallengesGreed.GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST, {
     OnStart = function(floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_DEVIL_WAVE)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST)
         data.timeLimit = 45 * 30  -- 45 seconds
         data.bonusTime = 0  -- David's Chord can add bonus time
         data.failed = false
@@ -380,7 +379,7 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
     end,
 
     OnUpdate = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_DEVIL_WAVE)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST)
         
         if data.failed or data.completed then return end
         if not DavidGreedUtils.IsDevilWave() then return end
@@ -416,13 +415,13 @@ DavidGreedUtils.Register(mod.GREED_CHALLENGES.FAST_DEVIL_WAVE, {
     end,
 
     OnBossWavesComplete = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_DEVIL_WAVE)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST)
         if data.failed or data.completed then return end
         DavidGreedUtils.SetBossWavesCompleted(floor)
     end,
 
     OnRender = function(player, floor)
-        local data = DavidGreedUtils.GetData(floor, mod.GREED_CHALLENGES.FAST_DEVIL_WAVE)
+        local data = DavidGreedUtils.GetData(floor, mod.DavidChallengesGreed.GREED_CHALLENGE_BEAT_DEVIL_WAVE_FAST)
 
         local devilWave = DavidGreedUtils.GetDevilWave()
         

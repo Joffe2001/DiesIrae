@@ -2,6 +2,10 @@ local mod = DiesIraeMod
 local game = Game()
 local challengeUtils = {}
 
+-- this is a horror to read (e.g. one char variables), not gonna improve this.
+-- -- like, what are `FloorKeys` and why are it strings?!
+-- -- `challengeVariant` schould be -`type`
+
 ------------------------------------------------------------
 -- SAVE DATA HELPERS
 ------------------------------------------------------------

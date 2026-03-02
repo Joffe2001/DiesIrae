@@ -3,8 +3,8 @@ local David = {}
 
 require("scripts/characters/david/challenges_utils")
 require("scripts/characters/david/challenges")
-require("scripts/characters/david/challenges_utils_greed")
-require("scripts/characters/david/challenges_greed")
+require("scripts/characters/david/greed_challenges_utils")
+require("scripts/characters/david/greed_challenges")
 
 function David:TearGFXApply(tear)
     if not (tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()

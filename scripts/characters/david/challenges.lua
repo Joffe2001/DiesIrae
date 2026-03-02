@@ -2,22 +2,22 @@ local mod = DiesIraeMod
 local game = Game()
 local sfx = SFXManager()
 
-local DavidUtils = include("scripts/characters/david_challenges/david_challenges_utils")
-local DavidChord = include("scripts/items/pocketitems/DavidChord")
+local DavidUtils = include("scripts/characters/david/challenges_utils")
 
 ------------------------------------------------------------
 -- CHALLENGE DEFINITIONS
 ------------------------------------------------------------
-mod.CHALLENGES = {
-    NO_ACTIVES = 0,         -- Don't use active items or consumables
-    FAST_BOSS = 1,          -- Beat the boss in under 4 minutes
-    VISIT_ALL_SPECIAL = 2,  -- Enter every special room
-    NO_HEARTS = 3,          -- Don't pick up any hearts
-    NO_SHOOT_DELAY = 4,     -- Don't shoot for 2 seconds after entering room
-    NO_RESOURCES = 5,       -- Don't use keys, bombs, or coins
-    NO_HIT_CHAMPIONS = 6,   -- Don't get hit, champion chance doubled
-    CLEAR_ALL_ROOMS = 7,    -- Don't leave any room uncleared (doors stay open)
-    TAKE_ALL_PEDESTALS = 8  -- Take all pedestals on floor (no rerolling)
+-- defining enum could be in utils; not gonna improve this (look at utils)
+mod.DavidChallenges = {
+    CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES = 0,         -- Don't use active items nor consumables
+    CHALLENGE_DEFEAT_BOSS_FAST = 1,          -- Beat the boss in under 4 minutes
+    CHALLENGE_VISIT_ALL_SPECIAL_ROOMS = 2,  -- Enter every special room
+    CHALLENGE_DONT_USE_HEART_PICKUPS = 3,          -- Don't pick up any hearts
+    CHALLENGE_DONT_SHOOT_IN_NEW_ROOM = 4,     -- Don't shoot for 2 seconds after entering room
+    CHALLENGE_DONT_USE_BOMBS_KEYS_COINS = 5,       -- Don't use keys, bombs, or coins
+    CHALLENGE_MORE_CHAMPOINS_NO_DAMAGE = 6,   -- Don't get hit, champion chance doubled
+    CHALLENGE_CLEAR_ALL_ROOMS = 7,    -- Don't leave any room uncleared (doors stay open)
+    CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL = 8  -- Take all pedestals on floor (no rerolling)
 }
 
 ------------------------------------------------------------
@@ -34,9 +34,9 @@ end
 ------------------------------------------------------------
 -- CHALLENGE 0: NO ACTIVES OR CONSUMABLES
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.NO_ACTIVES, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_ACTIVES)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_NO_ACTIVES_NOR_CONSUMABLES)
         data.failed = false
     end,
 
@@ -53,7 +53,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_ACTIVES, {
     end,
 
     OnUseCard = function(player, floor, cardID)
-        if cardID == mod.Cards.DavidChord then
+        if cardID == mod.CardSubType.CARD_DAVIDS_CHORD then
             return
         end
     
@@ -72,15 +72,15 @@ DavidUtils.Register(mod.CHALLENGES.NO_ACTIVES, {
 ------------------------------------------------------------
 -- CHALLENGE 1: FAST BOSS (BEAT UNDER 4 MINUTES)
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.FAST_BOSS, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_DEFEAT_BOSS_FAST, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DEFEAT_BOSS_FAST)
         data.startTime = Game():GetFrameCount()
         data.timeLimit = 60 * 30 * 4  -- 4 minutes at 30 FPS
     end,
 
     OnUpdate = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DEFEAT_BOSS_FAST)
         
         local elapsed = Game():GetFrameCount() - data.startTime
         local timerAdjustment = DavidChord:GetTimerAdjustment(floor)
@@ -99,7 +99,7 @@ DavidUtils.Register(mod.CHALLENGES.FAST_BOSS, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.FAST_BOSS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DEFEAT_BOSS_FAST)
         
         local elapsed = Game():GetFrameCount() - data.startTime
         local timerAdjustment = DavidChord:GetTimerAdjustment(floor)
@@ -129,9 +129,9 @@ DavidUtils.Register(mod.CHALLENGES.FAST_BOSS, {
     end,
 })
 
-DavidUtils.Register(mod.CHALLENGES.VISIT_ALL_SPECIAL, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_VISIT_ALL_SPECIAL_ROOMS, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.VISIT_ALL_SPECIAL)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_VISIT_ALL_SPECIAL_ROOMS)
         data.visitedRooms = {}
         data.requiredRooms = {}
         
@@ -176,7 +176,7 @@ DavidUtils.Register(mod.CHALLENGES.VISIT_ALL_SPECIAL, {
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.VISIT_ALL_SPECIAL)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_VISIT_ALL_SPECIAL_ROOMS)
         local level = game:GetLevel()
         local room = game:GetRoom()
         
@@ -211,7 +211,7 @@ DavidUtils.Register(mod.CHALLENGES.VISIT_ALL_SPECIAL, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.VISIT_ALL_SPECIAL)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_VISIT_ALL_SPECIAL_ROOMS)
         
         local visitedCount = 0
         for _ in pairs(data.visitedRooms) do
@@ -228,9 +228,9 @@ DavidUtils.Register(mod.CHALLENGES.VISIT_ALL_SPECIAL, {
 ------------------------------------------------------------
 -- CHALLENGE 3: NO HEARTS (don't pick up any hearts)
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_DONT_USE_HEART_PICKUPS, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_HEARTS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_USE_HEART_PICKUPS)
         data.failed = false
     end,
 
@@ -258,20 +258,20 @@ DavidUtils.Register(mod.CHALLENGES.NO_HEARTS, {
 ------------------------------------------------------------
 -- CHALLENGE 4: NO SHOOT DELAY 
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.NO_SHOOT_DELAY, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         data.roomEnterTime = Game():GetFrameCount()
         data.delayFrames = 60  -- 2 seconds at 30 FPS
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         data.roomEnterTime = Game():GetFrameCount()
     end,
 
     OnFireTear = function(player, tear, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         local elapsed = Game():GetFrameCount() - data.roomEnterTime
         
         local delayFrames = DavidChord:GetReducedDelay(floor)
@@ -282,7 +282,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_SHOOT_DELAY, {
     end,
 
     OnInitLaser = function(player, laser, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         local elapsed = Game():GetFrameCount() - data.roomEnterTime
         
         local delayFrames = DavidChord:GetReducedDelay(floor)
@@ -293,7 +293,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_SHOOT_DELAY, {
     end,
 
     OnInitKnife = function(player, knife, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         local elapsed = Game():GetFrameCount() - data.roomEnterTime
         
         local delayFrames = DavidChord:GetReducedDelay(floor)
@@ -304,7 +304,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_SHOOT_DELAY, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_SHOOT_DELAY)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_SHOOT_IN_NEW_ROOM)
         local elapsed = Game():GetFrameCount() - data.roomEnterTime
         
         local delayFrames = DavidChord:GetReducedDelay(floor)
@@ -331,10 +331,10 @@ DavidUtils.Register(mod.CHALLENGES.NO_SHOOT_DELAY, {
 ------------------------------------------------------------
 -- CHALLENGE 5: NO RESOURCES (keys, bombs, coins)
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.NO_RESOURCES, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_DONT_USE_BOMBS_KEYS_COINS, {
     OnStart = function(floor)
         local player = Isaac.GetPlayer(0)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_USE_BOMBS_KEYS_COINS)
         data.startKeys = player:GetNumKeys()
         data.startBombs = player:GetNumBombs()
         data.startCoins = player:GetNumCoins()
@@ -344,7 +344,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_RESOURCES, {
     end,
 
     OnUpdate = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_USE_BOMBS_KEYS_COINS)
         
         local currentGoldenBomb = player:HasGoldenBomb()
         local currentGoldenKey = player:HasGoldenKey()
@@ -387,7 +387,7 @@ DavidUtils.Register(mod.CHALLENGES.NO_RESOURCES, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_RESOURCES)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_DONT_USE_BOMBS_KEYS_COINS)
         local text = "Don't Use Resources!"
         
         if data.hasGoldenKey or player:HasGoldenKey() then
@@ -404,9 +404,9 @@ DavidUtils.Register(mod.CHALLENGES.NO_RESOURCES, {
 ------------------------------------------------------------
 -- CHALLENGE 6: NO HIT + CHAMPION CHANCE DOUBLED 
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.NO_HIT_CHAMPIONS, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_MORE_CHAMPOINS_NO_DAMAGE, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.NO_HIT_CHAMPIONS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_MORE_CHAMPOINS_NO_DAMAGE)
         data.failed = false
     end,
 
@@ -427,7 +427,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
     
-    if variant == mod.CHALLENGES.NO_HIT_CHAMPIONS then
+    if variant == mod.DavidChallenges.CHALLENGE_MORE_CHAMPOINS_NO_DAMAGE then
         if not npc:IsChampion() and math.random() < 0.15 then
             npc:MakeChampion(npc:GetDropRNG():Next(), -1)
         end
@@ -437,15 +437,15 @@ end)
 ------------------------------------------------------------
 -- CHALLENGE 7: DON'T LEAVE ROOMS UNCLEARED
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.CLEAR_ALL_ROOMS, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_CLEAR_ALL_ROOMS, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.CLEAR_ALL_ROOMS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_CLEAR_ALL_ROOMS)
         data.visitedRooms = {}
         data.failed = false
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.CLEAR_ALL_ROOMS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_CLEAR_ALL_ROOMS)
         local level = game:GetLevel()
         local room = game:GetRoom()
         local roomIndex = level:GetCurrentRoomIndex()
@@ -480,8 +480,8 @@ mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, function()
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
     
-    if variant == mod.CHALLENGES.CLEAR_ALL_ROOMS then
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.CLEAR_ALL_ROOMS)
+    if variant == mod.DavidChallenges.CHALLENGE_CLEAR_ALL_ROOMS then
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_CLEAR_ALL_ROOMS)
         local level = game:GetLevel()
         local roomIndex = level:GetCurrentRoomIndex()
         
@@ -493,9 +493,9 @@ end)
 ------------------------------------------------------------
 -- CHALLENGE 8: TAKE ALL PEDESTALS (NO REROLLING)
 ------------------------------------------------------------
-DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
+DavidUtils.Register(mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL, {
     OnStart = function(floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL)
         data.pedestalsOnFloor = {}
         data.pedestalsTaken = {}
         data.rerolled = false
@@ -516,7 +516,7 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
     end,
 
     OnNewRoom = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL)
         local room = game:GetRoom()
         local roomType = room:GetType()
         
@@ -543,7 +543,7 @@ DavidUtils.Register(mod.CHALLENGES.TAKE_ALL_PEDESTALS, {
     end,
 
     OnRender = function(player, floor)
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL)
         
         if data.rerolled then
             Isaac.RenderText("Take All Pedestals! (REROLLED!)", 80, 20, 1, 0.3, 0.3, 1)
@@ -575,8 +575,8 @@ mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
     
-    if variant == mod.CHALLENGES.TAKE_ALL_PEDESTALS then
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+    if variant == mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL then
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL)
         data.pedestalsOnFloor = {}
         data.pedestalsTaken = {}
         data.rerolled = false
@@ -620,8 +620,8 @@ mod:AddCallback(ModCallbacks.MC_PRE_LEVEL_SELECT, function()
     local floor = game:GetLevel():GetStage()
     local variant = DavidUtils.GetVariant(floor)
     
-    if variant == mod.CHALLENGES.TAKE_ALL_PEDESTALS then
-        local data = DavidUtils.GetData(floor, mod.CHALLENGES.TAKE_ALL_PEDESTALS)
+    if variant == mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL then
+        local data = DavidUtils.GetData(floor, mod.DavidChallenges.CHALLENGE_COLLECT_ALL_COLLECTIBLES_WITHOUT_REROLL)
         
         if data.rerolled then
             return  -- Already failed
