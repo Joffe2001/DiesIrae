@@ -2,8 +2,98 @@
 <metadata>
     <name>Dies Irae</name>
     <directory>diesirae</directory>
-    <id>3674570171</id>
-    <description></description>
-    <version>1.1</version>
-    <visibility>Public</visibility>
+    <id>3676659955</id>
+    <description>
+        [img]https://i.imgur.com/pdGl7Bu.png[/img]
+        [h2][i]First note: Overture[/i][/h2]
+        [hr][/hr]
+
+        [i]A large-scale expansion for The Binding of Isaac: Repentance.[/i]
+
+        Dies Irae is a multi-part expansion mod introducing new characters, mechanics, enemies, music, transformations, and dozens of unlocks.
+
+        [b]This release contains the first part: Overture.[/b]  
+        The first movement of a larger vision.
+    
+        More is already in development.
+
+        [h2]Characters[/h2]
+        [b][img]https://i.imgur.com/WM8UGmU.png[/img]David[/b]  
+        A king chosen to prove his worth.  
+        To earn God’s love, David must complete divine challenges throughout his run.  
+        Failing a challenge results in broken hearts.  
+        Choose wisely — faith is fragile.
+
+        [b][img]https://i.imgur.com/G9VGbYH.png[/img]Elijah[/b]  
+        His strength comes from his will… but will you surrender it?
+
+        Elijah cannot pick up items in the normal way.  
+        Instead, he relies on beggars for survival.
+
+        • Unique gameplay loop centered around sacrifice and reward  
+        • API support included for custom Elijah beggars  
+
+        [i]Note: Elijah is not compatible with modded beggars/slots by default.  
+        A simple API text file is included to help modders integrate their content.[/i]
+
+        [h2]Items & Unlocks[/h2]
+        • 33 unlockable items  
+        • +1 starting unlocked item  
+        • 7 new pills  
+        • 4 character-unique items  
+
+        Every unlock is tied to progression.  
+        Every reward must be earned.
+
+        [h2]Beggars[/h2]
+        • 7 unlockable beggars  
+        • +1 starting beggar  
+        • 17 Elijah-exclusive beggars  
+
+        [i]Note: One beggar is not compatible with modded familiars.  
+        API support is included for modders who wish to integrate their own familiars.[/i]
+
+        [h2]Additional Content[/h2]
+        • New transformation  
+        • New Flooded Caves music  
+        • 2 new enemies in the Scarred Womb  
+        And more.
+        [hr][/hr]
+        [h2]⚠ Requirements[/h2]
+        [b]This mod requires REPENTOGON to function.[/b]  
+        Please install it before enabling Dies Irae.
+        [h3]Coming in Batch II:[/h3]
+        • Tainted David  
+        • Tainted Elijah  
+        • At least one new character (+ tainted variant)  
+        • 42+ additional unlocks  
+        • And way more!
+        This is only the beginning.
+        [h2]Music References[/h2]
+        Official Dies Irae playlist:  
+        [hr][/hr]
+        [h2]Credits[/h2]
+        [b]Coding Team[/b]  
+        • Joffe  
+        [h2]Join the Team [/h2]
+        Want to contribute? To test new releases?
+        • Send a DM to Joffe on Discord: joffe2001  
+        • Or join the mod server:  
+        https://discord.gg/7fCM8DSeXw
+        [h2]Bug Reports[/h2]
+        Please report all bugs in our Discord server.  
+        We actively fix issues and improve the mod.
+    </description>
+    <version></version>
+    <visibility>Friends Only</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Pills"/>
+    <tag id="Cards"/>
+    <tag id="Pickups"/>
+    <tag id="Player Characters"/>
+    <tag id="Familiars"/>
+    <tag id="Babies"/>
 </metadata>
