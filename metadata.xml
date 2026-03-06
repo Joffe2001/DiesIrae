@@ -4,7 +4,7 @@
     <directory>diesirae</directory>
     <id>3676659955</id>
     <description>
-        [img]https://i.imgur.com/pdGl7Bu.png[/img]
+          [img]https://i.imgur.com/pdGl7Bu.png[/img]
         [h2][i]First note: Overture[/i][/h2]
         [hr][/hr]
         
@@ -22,7 +22,6 @@
         A king chosen to prove his worth.  
         To earn God’s love, David must complete divine challenges throughout his run.  
         Failing a challenge results in broken hearts.  
-        Choose wisely — faith is fragile.
         
         [b][img]https://i.imgur.com/G9VGbYH.png[/img]Elijah[/b]  
         His strength comes from his will… but will you surrender it?
@@ -36,16 +35,13 @@
         [i]Note: Elijah is not compatible with modded beggars/slots by default.  
         A simple API text file is included to help modders integrate their content.[/i]
         
-        [h2]Items & Unlocks[/h2]
+        [h2][img]https://i.imgur.com/MzRfFKb.png[/img]Items and Unlocks[/h2]
         • 33 unlockable items  
         • +1 starting unlocked item  
         • 7 new pills  
         • 4 character-unique items  
         
-        Every unlock is tied to progression.  
-        Every reward must be earned.
-        
-        [h2]Beggars[/h2]
+        [h2][img]https://i.imgur.com/Eaxx6Yh.png[/img]Beggars[/h2]
         • 7 unlockable beggars  
         • +1 starting beggar  
         • 17 Elijah-exclusive beggars  
@@ -95,13 +91,12 @@
         [h2]Join the Team [/h2]
         Want to contribute? To test new releases?
         • Send a DM to Joffe on Discord: joffe2001  
-        • Or join the mod server:  
-        https://discord.gg/7fCM8DSeXw
+        • Or join the mod server on [url=https://discord.gg/7fCM8DSeXw]Discord[/url]
         [h2]Bug Reports[/h2]
         Please report all bugs in our Discord server.  
         We actively fix issues and improve the mod.
     </description>
-    <version></version>
+    <version>1.1</version>
     <visibility>Friends Only</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
