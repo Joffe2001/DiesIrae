@@ -2,8 +2,18 @@
 <metadata>
     <name>Dies Irae</name>
     <directory>diesirae</directory>
-    <id>3674570171</id>
+    <id>3676659955</id>
     <description></description>
-    <version>1.1</version>
-    <visibility>Public</visibility>
+    <version>1.102</version>
+    <visibility>Private</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Pills"/>
+    <tag id="Cards"/>
+    <tag id="Pickups"/>
+    <tag id="Player Characters"/>
+    <tag id="Familiars"/>
+    <tag id="Babies"/>
 </metadata>

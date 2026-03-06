@@ -3,6 +3,7 @@ local game = Game()
 local sfx = SFXManager()
 
 local DavidChord = {}
+local lastCardUseFrame = -1
 
 ------------------------------------------------------------
 -- MODE DETECTION
@@ -56,7 +57,11 @@ end
 function DavidChord:UseCard(card, player, flags)
     if card ~= mod.Cards.DavidChord then return end
     if player:GetPlayerType() ~= mod.Players.David then return end
-    
+
+    local currentFrame = game:GetFrameCount()
+    if currentFrame == lastCardUseFrame then return end
+    lastCardUseFrame = currentFrame
+
     local floor = game:GetLevel():GetStage()
     
     if IsGreedMode() then
@@ -98,8 +103,6 @@ function DavidChord:UseCardNormal(player, floor)
         DavidChord:NormalEffect_Challenge6(player, floor)
     elseif variant == mod.CHALLENGES.CLEAR_ALL_ROOMS then
         DavidChord:NormalEffect_Challenge7(player, floor)
-    elseif variant == mod.CHALLENGES.TAKE_ALL_PEDESTALS then
-        DavidChord:NormalEffect_Challenge8(player, floor)
     end
     
     sfx:Play(SoundEffect.SOUND_HOLY, 1.5)
@@ -231,32 +234,6 @@ function DavidChord:NormalEffect_Challenge7(player, floor)
     game:GetHUD():ShowItemText("Treasure Map (30s)!", "", false)
 end
 
--- Challenge 8: Spawn extra pedestal
-function DavidChord:NormalEffect_Challenge8(player, floor)
-    local room = game:GetRoom()
-    local pos = room:GetCenterPos() + Vector(40, 0)
-    
-    for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
-        pos = ent.Position + Vector(60, 0)
-        break
-    end
-    local itemPool = game:GetItemPool()
-    local item = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, game:GetSeeds():GetStartSeed())
-    
-    local pedestal = Isaac.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        item,
-        pos,
-        Vector.Zero,
-        nil
-    )
-    pedestal:GetData().DavidChordTemp = true
-    pedestal:GetData().DavidChordFloor = floor
-    
-    game:GetHUD():ShowItemText("Extra Item Spawned!", "", false)
-end
-
 ------------------------------------------------------------
 -- GREED MODE: ROUTER
 ------------------------------------------------------------
@@ -291,14 +268,28 @@ end
 -- GREED MODE: CHALLENGE EFFECTS
 ------------------------------------------------------------
 
--- Challenge 0: Add 15 seconds to boss timer
+-- Challenge 0: Spawn a free shop item pedestal
 function DavidChord:GreedEffect_Challenge0(player, floor)
-    local challengeData = mod:GetGreedChallengeData(floor, mod.GREED_CHALLENGES.FAST_WAVES)
-    if not challengeData then return end
-    
-    challengeData.bonusTime = (challengeData.bonusTime or 0) + 450  -- +15 seconds at 30fps
-    
-    game:GetHUD():ShowItemText("+15 Seconds", "", false)
+    local room = game:GetRoom()
+    local pos = room:GetCenterPos()
+
+    local item = game:GetItemPool():GetCollectible(ItemPoolType.POOL_SHOP, true, player:GetDropRNG():Next())
+
+    local pickup = Isaac.Spawn(
+        EntityType.ENTITY_PICKUP,
+        PickupVariant.PICKUP_COLLECTIBLE,
+        item,
+        pos,
+        Vector.Zero,
+        nil
+    ):ToPickup()
+
+    if pickup then
+        pickup.Price = 0
+        pickup.AutoUpdatePrice = false
+    end
+
+    game:GetHUD():ShowItemText("Free Shop Item!", "", false)
 end
 
 -- Give Holy Mantle for this room
@@ -588,11 +579,10 @@ if EID then
         [5] = "{{Key}} Opens all doors in the current room",
         [6] = "Gives you Holy Mantle for this room",
         [7] = "Gives Treasure Map effect for 30 seconds",
-        [8] = "Spawns an extra pedestal (disappears on room change)",
     }
     
     local greedChallengeDesc = {
-        [0] = "Adds 15 seconds to the boss timer",
+        [0] = "{{Coin}} Spawns a free shop item",
         [1] = "Gives you Holy Mantle for this room",
         [2] = "{{Coin}} Raises spending cap from 15 to 25",
         [3] = "Spawns a quality 0-2 item pedestal",
